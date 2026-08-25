@@ -3,9 +3,14 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-      maximum-scale=1.0, user-scalable=no">
+
+<meta
+    name="viewport"
+    content="width=device-width,
+    initial-scale=1.0,
+    maximum-scale=1.0,
+    user-scalable=no"
+>
 
 <title>Creaturen Trail</title>
 
@@ -16,6 +21,10 @@
 
 <style>
 
+/* ==================================================
+   BASIS
+================================================== */
+
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
@@ -23,37 +32,52 @@
 
 html,
 body {
+
     margin: 0;
+
     width: 100%;
     height: 100%;
+
     overflow: hidden;
+
     font-family: Arial, sans-serif;
+
     background: #07120f;
+
     color: white;
 }
 
-/* ================================
+
+/* ==================================================
    STARTSCHERM
-================================ */
+================================================== */
 
 #startScreen {
+
     position: fixed;
+
     inset: 0;
+
     z-index: 9999;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     justify-content: center;
 
     text-align: center;
 
     background:
+
         radial-gradient(
             circle at 50% 20%,
             rgba(80,230,140,.25),
             transparent 35%
         ),
+
         linear-gradient(
             160deg,
             #06110d,
@@ -62,11 +86,14 @@ body {
         );
 }
 
+
 .logo {
+
     width: 115px;
     height: 115px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -82,10 +109,13 @@ body {
         );
 
     box-shadow:
-        0 20px 55px rgba(0,0,0,.45);
+        0 20px 55px
+        rgba(0,0,0,.45);
 }
 
+
 #startScreen h1 {
+
     margin: 22px 0 0;
 
     font-size:
@@ -94,12 +124,17 @@ body {
     font-weight: 900;
 }
 
+
 .subtitle {
+
     margin-top: 10px;
+
     color: #b9cec3;
 }
 
+
 .startButton {
+
     margin-top: 40px;
 
     min-width: 245px;
@@ -107,9 +142,11 @@ body {
     padding: 18px 35px;
 
     border: none;
+
     border-radius: 18px;
 
     background:
+
         linear-gradient(
             135deg,
             #72f1a5,
@@ -119,45 +156,62 @@ body {
     color: #07120f;
 
     font-size: 18px;
+
     font-weight: 900;
+
+    cursor: pointer;
 }
 
-/* ================================
+
+/* ==================================================
    GAME
-================================ */
+================================================== */
 
 #game {
+
     display: none;
 
     position: fixed;
+
     inset: 0;
 }
+
 
 #map {
+
     position: absolute;
+
     inset: 0;
 }
 
-/* ================================
+
+/* ==================================================
    HUD
-================================ */
+================================================== */
 
 .hud {
+
     position: fixed;
 
     top: 14px;
+
     left: 14px;
+
     right: 14px;
 
     z-index: 2000;
 
     display: flex;
-    justify-content: space-between;
+
+    justify-content:
+        space-between;
 
     pointer-events: none;
 }
 
+
 .hudBox {
+
     padding: 11px 14px;
 
     border-radius: 18px;
@@ -165,7 +219,8 @@ body {
     background:
         rgba(6,18,13,.93);
 
-    backdrop-filter: blur(14px);
+    backdrop-filter:
+        blur(14px);
 
     border:
         1px solid
@@ -176,22 +231,31 @@ body {
         rgba(0,0,0,.35);
 }
 
+
 .title {
+
     font-size: 14px;
+
     font-weight: 900;
 }
 
+
 .level {
+
     margin-top: 5px;
 
     color: #73eda3;
 
     font-size: 11px;
+
     font-weight: bold;
 }
 
+
 .xpBar {
+
     width: 145px;
+
     height: 7px;
 
     margin-top: 7px;
@@ -204,8 +268,11 @@ body {
         rgba(255,255,255,.12);
 }
 
+
 .xpFill {
+
     width: 0%;
+
     height: 100%;
 
     border-radius: 20px;
@@ -216,40 +283,54 @@ body {
             #5ee594,
             #c8ff83
         );
+
+    transition:
+        width .4s ease;
 }
 
+
 .stats {
+
     text-align: right;
 
     color: #dce7e1;
 
     font-size: 12px;
+
     line-height: 1.5;
 }
 
-/* ================================
-   RECHTS MENU
-================================ */
+
+/* ==================================================
+   MENU
+================================================== */
 
 .menu {
+
     position: fixed;
 
     right: 14px;
+
     top: 105px;
 
     z-index: 2500;
 
     display: flex;
+
     flex-direction: column;
 
     gap: 10px;
 }
 
+
 .menu button {
+
     width: 51px;
+
     height: 51px;
 
     border: none;
+
     border-radius: 17px;
 
     background:
@@ -258,16 +339,21 @@ body {
     color: white;
 
     font-size: 21px;
+
+    cursor: pointer;
 }
 
-/* ================================
+
+/* ==================================================
    MESSAGE
-================================ */
+================================================== */
 
 .messageBox {
+
     position: fixed;
 
     left: 50%;
+
     bottom: 145px;
 
     transform:
@@ -289,7 +375,8 @@ body {
     background:
         rgba(6,18,13,.94);
 
-    backdrop-filter: blur(15px);
+    backdrop-filter:
+        blur(15px);
 
     border:
         1px solid
@@ -300,15 +387,19 @@ body {
         rgba(0,0,0,.45);
 }
 
+
 #message {
+
     font-size: 14px;
 }
 
-/* ================================
+
+/* ==================================================
    CATCH BUTTON
-================================ */
+================================================== */
 
 #catchButton {
+
     display: none;
 
     width: 100%;
@@ -318,6 +409,7 @@ body {
     padding: 13px;
 
     border: none;
+
     border-radius: 14px;
 
     background:
@@ -332,17 +424,21 @@ body {
     font-weight: 900;
 }
 
-/* ================================
+
+/* ==================================================
    JOYSTICK
-================================ */
+================================================== */
 
 #joystick {
+
     position: fixed;
 
     left: 25px;
+
     bottom: 25px;
 
     width: 135px;
+
     height: 135px;
 
     z-index: 4000;
@@ -356,12 +452,15 @@ body {
         2px solid
         rgba(255,255,255,.15);
 
-    backdrop-filter: blur(5px);
+    backdrop-filter:
+        blur(5px);
 
     touch-action: none;
 }
 
+
 #stick {
+
     position: absolute;
 
     left: 50%;
@@ -389,15 +488,15 @@ body {
     box-shadow:
         0 5px 20px
         rgba(0,0,0,.4);
-
-    pointer-events: none;
 }
 
-/* ================================
+
+/* ==================================================
    PLAYER
-================================ */
+================================================== */
 
 .playerMarker {
+
     width: 30px;
     height: 30px;
 
@@ -414,16 +513,15 @@ body {
 
         0 4px 14px
         rgba(0,0,0,.5);
-
-    transition:
-        transform .1s linear;
 }
 
-/* ================================
+
+/* ==================================================
    CREATURE
-================================ */
+================================================== */
 
 .creatureMarker {
+
     width: 60px;
     height: 60px;
 
@@ -456,8 +554,11 @@ body {
         filter .2s;
 }
 
+
 .creatureNearby {
-    transform: scale(1.35);
+
+    transform:
+        scale(1.35);
 
     filter:
         drop-shadow(
@@ -466,11 +567,368 @@ body {
         );
 }
 
-/* ================================
-   MODAL
-================================ */
+
+/* ==================================================
+   ENCOUNTER
+================================================== */
+
+#encounter {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 6000;
+
+    display: none;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        55px 20px 35px;
+
+    text-align: center;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(70,220,130,.25),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            160deg,
+            #071812,
+            #102b1f,
+            #06100c
+        );
+}
+
+
+/* creature boven */
+
+.encounterTop {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+}
+
+
+.backButton {
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.1);
+
+    color: white;
+
+    font-size: 22px;
+}
+
+
+.rarity {
+
+    padding:
+        8px 13px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.1);
+
+    color:
+        #a9ffc7;
+
+    font-size: 12px;
+
+    font-weight: 900;
+}
+
+
+/* creature */
+
+.encounterCreature {
+
+    width: 190px;
+    height: 190px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 110px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.95),
+            rgba(115,240,170,.15)
+        );
+
+    box-shadow:
+
+        0 0 70px
+        rgba(110,240,160,.35),
+
+        0 20px 50px
+        rgba(0,0,0,.35);
+
+    animation:
+        encounterFloat 2.5s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes encounterFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-15px);
+    }
+}
+
+
+.encounterName {
+
+    margin-top: 20px;
+
+    font-size: 34px;
+
+    font-weight: 900;
+}
+
+
+.encounterType {
+
+    margin-top: 5px;
+
+    color: #76eda4;
+
+    font-weight: bold;
+}
+
+
+/* stats */
+
+.encounterStats {
+
+    width: 100%;
+
+    max-width: 390px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 10px;
+}
+
+
+.statCard {
+
+    padding: 12px 7px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,.08);
+}
+
+
+.statNumber {
+
+    font-size: 18px;
+
+    font-weight: 900;
+}
+
+
+.statLabel {
+
+    margin-top: 4px;
+
+    color: #9fb1a7;
+
+    font-size: 9px;
+}
+
+
+/* vangbal */
+
+#ball {
+
+    width: 95px;
+    height: 95px;
+
+    border-radius: 50%;
+
+    border: 7px solid white;
+
+    background:
+        linear-gradient(
+            #f04e4e 0 48%,
+            #171717 48% 54%,
+            #f1f1f1 54%
+        );
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.45);
+
+    cursor: pointer;
+
+    transition:
+        transform .15s;
+}
+
+
+#ball:active {
+
+    transform:
+        scale(.85)
+        rotate(-15deg);
+}
+
+
+#throwText {
+
+    margin-top: 10px;
+
+    color: #b9cec3;
+
+    font-size: 12px;
+}
+
+
+/* ==================================================
+   RESULT
+================================================== */
+
+#result {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9000;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        rgba(0,0,0,.78);
+
+    backdrop-filter:
+        blur(10px);
+}
+
+
+.resultCard {
+
+    width:
+        calc(100% - 40px);
+
+    max-width: 380px;
+
+    padding: 30px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #153124,
+            #07130d
+        );
+}
+
+
+.resultEmoji {
+
+    font-size: 85px;
+}
+
+
+.resultTitle {
+
+    margin-top: 10px;
+
+    font-size: 27px;
+
+    font-weight: 900;
+}
+
+
+.resultText {
+
+    margin-top: 10px;
+
+    color: #b9cec3;
+}
+
+
+.resultButton {
+
+    width: 100%;
+
+    margin-top: 22px;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background:
+        #70efa2;
+
+    color: #07120f;
+
+    font-weight: 900;
+
+    font-size: 16px;
+}
+
+
+/* ==================================================
+   COLLECTION
+================================================== */
 
 .modal {
+
     position: fixed;
 
     inset: 0;
@@ -480,17 +938,28 @@ body {
     display: none;
 
     align-items: center;
+
     justify-content: center;
 
     padding: 20px;
 
     background:
         rgba(0,0,0,.68);
+
+    backdrop-filter:
+        blur(8px);
 }
 
+
 .modalCard {
+
     width: 100%;
+
     max-width: 430px;
+
+    max-height: 80vh;
+
+    overflow-y: auto;
 
     padding: 22px;
 
@@ -504,19 +973,26 @@ body {
         );
 }
 
-.modalTitle {
-    display: flex;
 
-    justify-content: space-between;
+.modalTitle {
+
+    display: flex;
 
     align-items: center;
 
+    justify-content:
+        space-between;
+
     font-size: 22px;
+
     font-weight: 900;
 }
 
+
 .close {
+
     border: none;
+
     background: transparent;
 
     color: white;
@@ -524,7 +1000,9 @@ body {
     font-size: 28px;
 }
 
+
 .grid {
+
     display: grid;
 
     grid-template-columns:
@@ -535,7 +1013,9 @@ body {
     margin-top: 20px;
 }
 
+
 .card {
+
     padding: 16px;
 
     border-radius: 18px;
@@ -546,17 +1026,23 @@ body {
         rgba(255,255,255,.07);
 }
 
+
 .cardEmoji {
+
     font-size: 40px;
 }
 
+
 .cardName {
+
     margin-top: 7px;
 
     font-weight: bold;
 }
 
+
 .cardType {
+
     margin-top: 5px;
 
     color: #75e9a3;
@@ -564,47 +1050,17 @@ body {
     font-size: 10px;
 }
 
-/* ================================
-   CAPTURE ANIMATION
-================================ */
-
-.captureFlash {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 8000;
-
-    pointer-events: none;
-
-    background:
-        rgba(255,255,255,.8);
-
-    animation:
-        flash .45s ease-out forwards;
-}
-
-@keyframes flash {
-
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-    }
-}
-
 </style>
+
 </head>
 
 
 <body>
 
 
-<!-- ==========================================
+<!-- ==================================================
      START
-========================================== -->
+================================================== -->
 
 <section id="startScreen">
 
@@ -630,9 +1086,9 @@ body {
 </section>
 
 
-<!-- ==========================================
+<!-- ==================================================
      GAME
-========================================== -->
+================================================== -->
 
 <section id="game">
 
@@ -695,15 +1151,21 @@ body {
 
     <div class="menu">
 
-        <button onclick="openCollection()">
+        <button
+            onclick="openCollection()"
+        >
             📖
         </button>
 
-        <button onclick="centerPlayer()">
+        <button
+            onclick="centerPlayer()"
+        >
             📍
         </button>
 
-        <button onclick="spawnNearPlayer()">
+        <button
+            onclick="spawnNearPlayer()"
+        >
             👾
         </button>
 
@@ -717,13 +1179,6 @@ body {
         <div id="message">
             Gebruik de joystick om te bewegen.
         </div>
-
-        <button
-            id="catchButton"
-            onclick="catchCreature()"
-        >
-            🎯 VANG CREATURE
-        </button>
 
     </div>
 
@@ -739,42 +1194,174 @@ body {
 </section>
 
 
-<!-- ==========================================
-     CREATURE MODAL
-========================================== -->
+<!-- ==================================================
+     ENCOUNTER
+================================================== -->
 
-<div
-    class="modal"
-    id="creatureModal"
->
+<section id="encounter">
 
-    <div class="modalCard">
+    <div class="encounterTop">
 
-        <div class="modalTitle">
+        <button
+            class="backButton"
+            onclick="closeEncounter()"
+        >
+            ←
+        </button>
 
-            <span>
-                👾 Creature
-            </span>
-
-            <button
-                class="close"
-                onclick="closeCreature()"
-            >
-                ×
-            </button>
-
+        <div
+            class="rarity"
+            id="encounterRarity"
+        >
+            GEWOON
         </div>
-
-        <div id="creatureInfo"></div>
 
     </div>
 
-</div>
+
+    <div>
+
+        <div
+            class="encounterCreature"
+            id="encounterEmoji"
+        >
+            🔥
+        </div>
 
 
-<!-- ==========================================
+        <div
+            class="encounterName"
+            id="encounterName"
+        >
+            Blazik
+        </div>
+
+
+        <div
+            class="encounterType"
+            id="encounterType"
+        >
+            Vuur
+        </div>
+
+    </div>
+
+
+    <div
+        class="encounterStats"
+    >
+
+        <div class="statCard">
+
+            <div
+                class="statNumber"
+                id="statPower"
+            >
+                65
+            </div>
+
+            <div class="statLabel">
+                KRACHT
+            </div>
+
+        </div>
+
+
+        <div class="statCard">
+
+            <div
+                class="statNumber"
+                id="statChance"
+            >
+                70%
+            </div>
+
+            <div class="statLabel">
+                VANGKANS
+            </div>
+
+        </div>
+
+
+        <div class="statCard">
+
+            <div
+                class="statNumber"
+                id="statXP"
+            >
+                +10
+            </div>
+
+            <div class="statLabel">
+                XP
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div>
+
+        <button
+            id="ball"
+            onclick="throwBall()"
+        >
+        </button>
+
+        <div id="throwText">
+            Tik op de vangbal!
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     RESULT
+================================================== -->
+
+<section id="result">
+
+    <div class="resultCard">
+
+        <div
+            class="resultEmoji"
+            id="resultEmoji"
+        >
+            🎉
+        </div>
+
+        <div
+            class="resultTitle"
+            id="resultTitle"
+        >
+            Gevangen!
+        </div>
+
+        <div
+            class="resultText"
+            id="resultText"
+        >
+            Je hebt een Creature gevangen.
+        </div>
+
+        <button
+            class="resultButton"
+            onclick="closeResult()"
+        >
+            DOORGAAN
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
      COLLECTION
-========================================== -->
+================================================== -->
 
 <div
     class="modal"
@@ -808,14 +1395,16 @@ body {
 </div>
 
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+></script>
 
 
 <script>
 
-/* ==========================================
-   GAME VARIABLES
-========================================== */
+/* ==================================================
+   VARIABLES
+================================================== */
 
 let map;
 
@@ -823,22 +1412,17 @@ let playerMarker;
 
 let playerPosition = null;
 
-let xp = 0;
-
-let creatureCount = 0;
-
-let collection = [];
+let spawnedCreatures = [];
 
 let selectedCreature = null;
 
 let selectedCreatureData = null;
 
-let spawnedCreatures = [];
+let collection = [];
 
+let xp = 0;
 
-/* ==========================================
-   MOVEMENT
-========================================== */
+let creatureCount = 0;
 
 let moveX = 0;
 
@@ -852,9 +1436,9 @@ let joystickCenter = {
 };
 
 
-/* ==========================================
-   CREATURES
-========================================== */
+/* ==================================================
+   CREATURE DATABASE
+================================================== */
 
 const creatures = [
 
@@ -863,7 +1447,8 @@ const creatures = [
         emoji: "🔥",
         type: "Vuur",
         rarity: "Gewoon",
-        power: 65
+        power: 65,
+        catchChance: 75
     },
 
     {
@@ -871,7 +1456,8 @@ const creatures = [
         emoji: "💧",
         type: "Water",
         rarity: "Gewoon",
-        power: 55
+        power: 55,
+        catchChance: 80
     },
 
     {
@@ -879,7 +1465,8 @@ const creatures = [
         emoji: "🌿",
         type: "Natuur",
         rarity: "Gewoon",
-        power: 60
+        power: 60,
+        catchChance: 78
     },
 
     {
@@ -887,7 +1474,8 @@ const creatures = [
         emoji: "⚡",
         type: "Elektrisch",
         rarity: "Zeldzaam",
-        power: 85
+        power: 85,
+        catchChance: 55
     },
 
     {
@@ -895,7 +1483,8 @@ const creatures = [
         emoji: "🪨",
         type: "Aarde",
         rarity: "Zeldzaam",
-        power: 90
+        power: 90,
+        catchChance: 48
     },
 
     {
@@ -903,7 +1492,8 @@ const creatures = [
         emoji: "✨",
         type: "Mystiek",
         rarity: "Episch",
-        power: 98
+        power: 98,
+        catchChance: 30
     },
 
     {
@@ -911,25 +1501,30 @@ const creatures = [
         emoji: "❄️",
         type: "IJs",
         rarity: "Zeldzaam",
-        power: 88
+        power: 88,
+        catchChance: 50
     }
 
 ];
 
 
-/* ==========================================
-   START GAME
-========================================== */
+/* ==================================================
+   START
+================================================== */
 
 function startGame() {
 
     document
         .getElementById("startScreen")
-        .style.display = "none";
+        .style.display =
+        "none";
+
 
     document
         .getElementById("game")
-        .style.display = "block";
+        .style.display =
+        "block";
+
 
     createMap();
 
@@ -940,9 +1535,9 @@ function startGame() {
 }
 
 
-/* ==========================================
+/* ==================================================
    MAP
-========================================== */
+================================================== */
 
 function createMap() {
 
@@ -970,13 +1565,15 @@ function createMap() {
 }
 
 
-/* ==========================================
+/* ==================================================
    GPS
-========================================== */
+================================================== */
 
 function locatePlayer() {
 
-    if (!navigator.geolocation) {
+    if (
+        !navigator.geolocation
+    ) {
 
         useDefaultLocation();
 
@@ -985,15 +1582,17 @@ function locatePlayer() {
     }
 
 
-    navigator
-        .geolocation
+    navigator.geolocation
         .getCurrentPosition(
 
             position => {
 
                 setPlayerPosition(
+
                     position.coords.latitude,
+
                     position.coords.longitude
+
                 );
 
                 createCreatures();
@@ -1008,11 +1607,14 @@ function locatePlayer() {
 
             {
 
-                enableHighAccuracy: true,
+                enableHighAccuracy:
+                    true,
 
-                timeout: 10000,
+                timeout:
+                    10000,
 
-                maximumAge: 5000
+                maximumAge:
+                    5000
 
             }
 
@@ -1021,9 +1623,9 @@ function locatePlayer() {
 }
 
 
-/* ==========================================
-   PLAYER POSITION
-========================================== */
+/* ==================================================
+   PLAYER
+================================================== */
 
 function setPlayerPosition(
     lat,
@@ -1061,10 +1663,13 @@ function setPlayerPosition(
 
         playerMarker =
             L.marker(
+
                 [lat,lng],
+
                 {
                     icon: icon
                 }
+
             )
             .addTo(map);
 
@@ -1078,18 +1683,19 @@ function setPlayerPosition(
 
     else {
 
-        playerMarker.setLatLng(
-            [lat,lng]
-        );
+        playerMarker
+            .setLatLng(
+                [lat,lng]
+            );
 
     }
 
 }
 
 
-/* ==========================================
-   DEFAULT LOCATIE
-========================================== */
+/* ==================================================
+   DEFAULT
+================================================== */
 
 function useDefaultLocation() {
 
@@ -1103,15 +1709,11 @@ function useDefaultLocation() {
 }
 
 
-/* ==========================================
-   CREATURES MAKEN
-========================================== */
+/* ==================================================
+   CREATURES
+================================================== */
 
 function createCreatures() {
-
-    if (!playerPosition)
-        return;
-
 
     for (
         let i = 0;
@@ -1125,15 +1727,15 @@ function createCreatures() {
 
 
     showMessage(
-        "🎮 Gebruik de joystick om rond te lopen!"
+        "🎮 Loop rond en zoek Creaturen!"
     );
 
 }
 
 
-/* ==========================================
-   CREATURE SPAWN
-========================================== */
+/* ==================================================
+   SPAWN
+================================================== */
 
 function spawnCreature() {
 
@@ -1180,10 +1782,8 @@ function spawnCreature() {
             className: "",
 
             html:
-                `<div
-                    class="creatureMarker"
-                    id="creature-${Date.now()}-${Math.random()}"
-                >
+
+                `<div class="creatureMarker">
                     ${creature.emoji}
                 </div>`,
 
@@ -1202,10 +1802,13 @@ function spawnCreature() {
 
     const marker =
         L.marker(
+
             [lat,lng],
+
             {
                 icon: icon
             }
+
         )
         .addTo(map);
 
@@ -1218,10 +1821,38 @@ function spawnCreature() {
         "click",
         () => {
 
-            selectCreature(
-                marker,
-                creature
-            );
+            const d =
+                getDistance(
+
+                    playerPosition[0],
+                    playerPosition[1],
+
+                    marker.getLatLng().lat,
+                    marker.getLatLng().lng
+
+                );
+
+
+            if (d <= 60) {
+
+                openEncounter(
+                    marker,
+                    creature
+                );
+
+            }
+
+            else {
+
+                showMessage(
+
+                    "🚶 Loop nog " +
+                    Math.round(d) +
+                    " meter dichterbij!"
+
+                );
+
+            }
 
         }
     );
@@ -1234,60 +1865,9 @@ function spawnCreature() {
 }
 
 
-/* ==========================================
-   CREATURE SELECTEREN
-========================================== */
-
-function selectCreature(
-    marker,
-    creature
-) {
-
-    selectedCreature =
-        marker;
-
-    selectedCreatureData =
-        creature;
-
-
-    const d =
-        getDistance(
-            playerPosition[0],
-            playerPosition[1],
-
-            marker.getLatLng().lat,
-            marker.getLatLng().lng
-        );
-
-
-    showMessage(
-
-        "👾 " +
-        creature.name +
-        " — " +
-        Math.round(d) +
-        " meter afstand"
-
-    );
-
-
-    if (d <= 50) {
-
-        document
-            .getElementById(
-                "catchButton"
-            )
-            .style.display =
-            "block";
-
-    }
-
-}
-
-
-/* ==========================================
-   DISTANCE CHECK
-========================================== */
+/* ==================================================
+   AFSTANDEN
+================================================== */
 
 function updateCreatureDistances() {
 
@@ -1315,24 +1895,28 @@ function updateCreatureDistances() {
 
 
             const element =
-                marker
-                    .getElement();
+                marker.getElement();
 
 
-            if (element) {
+            if (
+                element
+            ) {
 
-                const creature =
-                    element
-                        .querySelector(
-                            ".creatureMarker"
-                        );
+                const visual =
+                    element.querySelector(
+                        ".creatureMarker"
+                    );
 
 
-                if (creature) {
+                if (
+                    visual
+                ) {
 
-                    if (d <= 60) {
+                    if (
+                        d <= 60
+                    ) {
 
-                        creature.classList
+                        visual.classList
                             .add(
                                 "creatureNearby"
                             );
@@ -1341,50 +1925,12 @@ function updateCreatureDistances() {
 
                     else {
 
-                        creature.classList
+                        visual.classList
                             .remove(
                                 "creatureNearby"
                             );
 
                     }
-
-                }
-
-            }
-
-
-            if (
-                selectedCreature ===
-                marker
-            ) {
-
-                if (d <= 50) {
-
-                    document
-                        .getElementById(
-                            "catchButton"
-                        )
-                        .style.display =
-                        "block";
-
-                    showMessage(
-
-                        "🎯 " +
-                        marker.creatureData.name +
-                        " is dichtbij!"
-
-                    );
-
-                }
-
-                else {
-
-                    document
-                        .getElementById(
-                            "catchButton"
-                        )
-                        .style.display =
-                        "none";
 
                 }
 
@@ -1396,63 +1942,200 @@ function updateCreatureDistances() {
 }
 
 
-/* ==========================================
-   VANGEN
-========================================== */
+/* ==================================================
+   ENCOUNTER OPENEN
+================================================== */
 
-function catchCreature() {
+function openEncounter(
+    marker,
+    creature
+) {
+
+    selectedCreature =
+        marker;
+
+    selectedCreatureData =
+        creature;
+
+
+    document
+        .getElementById(
+            "encounterEmoji"
+        )
+        .innerText =
+        creature.emoji;
+
+
+    document
+        .getElementById(
+            "encounterName"
+        )
+        .innerText =
+        creature.name;
+
+
+    document
+        .getElementById(
+            "encounterType"
+        )
+        .innerText =
+        creature.type;
+
+
+    document
+        .getElementById(
+            "encounterRarity"
+        )
+        .innerText =
+        creature.rarity.toUpperCase();
+
+
+    document
+        .getElementById(
+            "statPower"
+        )
+        .innerText =
+        creature.power;
+
+
+    document
+        .getElementById(
+            "statChance"
+        )
+        .innerText =
+        creature.catchChance + "%";
+
+
+    document
+        .getElementById(
+            "statXP"
+        )
+        .innerText =
+        "+10";
+
+
+    document
+        .getElementById(
+            "throwText"
+        )
+        .innerText =
+        "Tik op de vangbal!";
+
+
+    document
+        .getElementById(
+            "encounter"
+        )
+        .style.display =
+        "flex";
+
+
+    document
+        .getElementById(
+            "messageBox"
+        );
+
+}
+
+
+/* ==================================================
+   BAL GOOIEN
+================================================== */
+
+function throwBall() {
 
     if (
-        !selectedCreature
+        !selectedCreatureData
     )
         return;
 
 
-    const pos =
-        selectedCreature.getLatLng();
+    const ball =
+        document
+            .getElementById(
+                "ball"
+            );
 
 
-    const d =
-        getDistance(
-
-            playerPosition[0],
-            playerPosition[1],
-
-            pos.lat,
-            pos.lng
-
-        );
+    ball.style.transform =
+        "translateY(-150px) scale(.65) rotate(360deg)";
 
 
-    if (d > 50) {
+    document
+        .getElementById(
+            "throwText"
+        )
+        .innerText =
+        "🎯 Vangbal gegooid!";
 
-        showMessage(
-            "🚶 Loop dichter naar de Creature!"
-        );
 
-        return;
+    setTimeout(
+        resolveCatch,
+        900
+    );
 
-    }
+}
 
+
+/* ==================================================
+   VANGST BEREKENEN
+================================================== */
+
+function resolveCatch() {
 
     const creature =
         selectedCreatureData;
 
 
-    createCaptureAnimation();
+    const roll =
+        Math.random() * 100;
 
 
-    map.removeLayer(
-        selectedCreature
-    );
+    const success =
+        roll <=
+        creature.catchChance;
 
 
-    spawnedCreatures =
-        spawnedCreatures.filter(
-            marker =>
-                marker !==
-                selectedCreature
+    if (success) {
+
+        catchSuccess();
+
+    }
+
+    else {
+
+        catchFail();
+
+    }
+
+}
+
+
+/* ==================================================
+   SUCCES
+================================================== */
+
+function catchSuccess() {
+
+    const creature =
+        selectedCreatureData;
+
+
+    if (selectedCreature) {
+
+        map.removeLayer(
+            selectedCreature
         );
+
+
+        spawnedCreatures =
+            spawnedCreatures.filter(
+                marker =>
+                    marker !==
+                    selectedCreature
+            );
+
+    }
 
 
     collection.push(
@@ -1465,19 +2148,135 @@ function catchCreature() {
     xp += 10;
 
 
-    document
-        .getElementById("xp")
-        .innerText =
-        xp;
+    updateStats();
 
 
     document
-        .getElementById("count")
+        .getElementById(
+            "resultEmoji"
+        )
         .innerText =
-        creatureCount;
+        creature.emoji;
 
 
-    updateLevel();
+    document
+        .getElementById(
+            "resultTitle"
+        )
+        .innerText =
+        "🎉 Gevangen!";
+
+
+    document
+        .getElementById(
+            "resultText"
+        )
+        .innerText =
+
+        creature.name +
+        " zit nu in je Creaturenboek! +10 XP";
+
+
+    document
+        .getElementById(
+            "result"
+        )
+        .style.display =
+        "flex";
+
+
+    resetBall();
+
+}
+
+
+/* ==================================================
+   MISLUKT
+================================================== */
+
+function catchFail() {
+
+    const creature =
+        selectedCreatureData;
+
+
+    document
+        .getElementById(
+            "resultEmoji"
+        )
+        .innerText =
+        "💨";
+
+
+    document
+        .getElementById(
+            "resultTitle"
+        )
+        .innerText =
+        "Ontsnapt!";
+
+
+    document
+        .getElementById(
+            "resultText"
+        )
+        .innerText =
+
+        creature.name +
+        " wist uit de vangbal te ontsnappen!";
+
+
+    document
+        .getElementById(
+            "result"
+        )
+        .style.display =
+        "flex";
+
+
+    resetBall();
+
+}
+
+
+/* ==================================================
+   BALL RESET
+================================================== */
+
+function resetBall() {
+
+    const ball =
+        document
+            .getElementById(
+                "ball"
+            );
+
+
+    setTimeout(
+        () => {
+
+            ball.style.transform =
+                "";
+
+        },
+        300
+    );
+
+}
+
+
+/* ==================================================
+   ENCOUNTER SLUITEN
+================================================== */
+
+function closeEncounter() {
+
+    document
+        .getElementById(
+            "encounter"
+        )
+        .style.display =
+        "none";
 
 
     selectedCreature =
@@ -1487,67 +2286,57 @@ function catchCreature() {
         null;
 
 
+    resetBall();
+
+}
+
+
+/* ==================================================
+   RESULTAAT SLUITEN
+================================================== */
+
+function closeResult() {
+
     document
         .getElementById(
-            "catchButton"
+            "result"
         )
         .style.display =
         "none";
 
 
-    showMessage(
-        "🎉 " +
-        creature.name +
-        " gevangen! +10 XP"
-    );
+    closeEncounter();
 
 
     setTimeout(
         spawnCreature,
-        2500
+        1500
     );
 
 }
 
 
-/* ==========================================
-   CAPTURE EFFECT
-========================================== */
-
-function createCaptureAnimation() {
-
-    const flash =
-        document.createElement(
-            "div"
-        );
-
-
-    flash.className =
-        "captureFlash";
-
-
-    document.body.appendChild(
-        flash
-    );
-
-
-    setTimeout(
-        () => {
-
-            flash.remove();
-
-        },
-        500
-    );
-
-}
-
-
-/* ==========================================
+/* ==================================================
    XP
-========================================== */
+================================================== */
 
-function updateLevel() {
+function updateStats() {
+
+    document
+        .getElementById(
+            "xp"
+        )
+        .innerText =
+        xp;
+
+
+    document
+        .getElementById(
+            "count"
+        )
+        .innerText =
+        creatureCount;
+
 
     const level =
         Math.floor(
@@ -1560,22 +2349,26 @@ function updateLevel() {
 
 
     document
-        .getElementById("level")
+        .getElementById(
+            "level"
+        )
         .innerText =
         level;
 
 
     document
-        .getElementById("xpFill")
+        .getElementById(
+            "xpFill"
+        )
         .style.width =
         progress + "%";
 
 }
 
 
-/* ==========================================
+/* ==================================================
    JOYSTICK
-========================================== */
+================================================== */
 
 function setupJoystick() {
 
@@ -1626,7 +2419,9 @@ function setupJoystick() {
         event
     ) {
 
-        if (!joystickActive)
+        if (
+            !joystickActive
+        )
             return;
 
 
@@ -1644,6 +2439,7 @@ function setupJoystick() {
 
 
         moveX = 0;
+
         moveY = 0;
 
 
@@ -1661,7 +2457,7 @@ function setupJoystick() {
         "touchstart",
         start,
         {
-            passive: false
+            passive:false
         }
     );
 
@@ -1670,7 +2466,7 @@ function setupJoystick() {
         "touchmove",
         move,
         {
-            passive: false
+            passive:false
         }
     );
 
@@ -1701,9 +2497,9 @@ function setupJoystick() {
 }
 
 
-/* ==========================================
+/* ==================================================
    JOYSTICK BEWEGEN
-========================================== */
+================================================== */
 
 function moveJoystick(
     event
@@ -1712,8 +2508,9 @@ function moveJoystick(
     event.preventDefault();
 
 
-    let clientX;
-    let clientY;
+    let x;
+
+    let y;
 
 
     if (
@@ -1721,32 +2518,32 @@ function moveJoystick(
         event.touches.length
     ) {
 
-        clientX =
+        x =
             event.touches[0].clientX;
 
-        clientY =
+        y =
             event.touches[0].clientY;
 
     }
 
     else {
 
-        clientX =
+        x =
             event.clientX;
 
-        clientY =
+        y =
             event.clientY;
 
     }
 
 
     let dx =
-        clientX -
+        x -
         joystickCenter.x;
 
 
     let dy =
-        clientY -
+        y -
         joystickCenter.y;
 
 
@@ -1761,7 +2558,9 @@ function moveJoystick(
         );
 
 
-    if (length > max) {
+    if (
+        length > max
+    ) {
 
         dx =
             dx /
@@ -1778,6 +2577,7 @@ function moveJoystick(
 
     moveX =
         dx / max;
+
 
     moveY =
         dy / max;
@@ -1800,9 +2600,9 @@ function moveJoystick(
 }
 
 
-/* ==========================================
+/* ==================================================
    GAME LOOP
-========================================== */
+================================================== */
 
 setInterval(
     movePlayer,
@@ -1810,9 +2610,9 @@ setInterval(
 );
 
 
-/* ==========================================
-   SPELER BEWEGEN
-========================================== */
+/* ==================================================
+   PLAYER BEWEGEN
+================================================== */
 
 function movePlayer() {
 
@@ -1822,12 +2622,6 @@ function movePlayer() {
     )
         return;
 
-
-    /*
-       Kleine beweging per tick.
-       Hierdoor voelt de joystick
-       soepel aan.
-    */
 
     const speed =
         0.000045;
@@ -1852,23 +2646,19 @@ function movePlayer() {
     updateCreatureDistances();
 
 
-    /*
-       Kaart volgt speler.
-    */
-
     map.panTo(
         playerPosition,
         {
-            animate: false
+            animate:false
         }
     );
 
 }
 
 
-/* ==========================================
-   GPS KNOP
-========================================== */
+/* ==================================================
+   CENTER
+================================================== */
 
 function centerPlayer() {
 
@@ -1886,9 +2676,9 @@ function centerPlayer() {
 }
 
 
-/* ==========================================
-   NIEUWE CREATURE
-========================================== */
+/* ==================================================
+   CREATURE SPAWN BUTTON
+================================================== */
 
 function spawnNearPlayer() {
 
@@ -1896,15 +2686,15 @@ function spawnNearPlayer() {
 
 
     showMessage(
-        "👀 Er is een nieuwe Creature verschenen!"
+        "👀 Een nieuwe Creature is verschenen!"
     );
 
 }
 
 
-/* ==========================================
-   AFSTAND
-========================================== */
+/* ==================================================
+   DISTANCE
+================================================== */
 
 function getDistance(
     lat1,
@@ -1918,12 +2708,14 @@ function getDistance(
 
 
     const dLat =
-        (lat2-lat1) *
+        (lat2-lat1)
+        *
         Math.PI / 180;
 
 
     const dLon =
-        (lon2-lon1) *
+        (lon2-lon1)
+        *
         Math.PI / 180;
 
 
@@ -1967,9 +2759,9 @@ function getDistance(
 }
 
 
-/* ==========================================
+/* ==================================================
    MESSAGE
-========================================== */
+================================================== */
 
 function showMessage(
     text
@@ -1985,9 +2777,9 @@ function showMessage(
 }
 
 
-/* ==========================================
+/* ==================================================
    COLLECTION
-========================================== */
+================================================== */
 
 function openCollection() {
 
@@ -2045,11 +2837,11 @@ function renderCollection() {
                 "
             >
 
-                📖 Je boek is nog leeg.
+                📖 Je Creaturenboek is nog leeg.
 
                 <br><br>
 
-                Ga Creaturen zoeken!
+                Ga op avontuur!
 
             </div>
 
@@ -2101,23 +2893,7 @@ function renderCollection() {
 
 }
 
-
-/* ==========================================
-   MODAL
-========================================== */
-
-function closeCreature() {
-
-    document
-        .getElementById(
-            "creatureModal"
-        )
-        .style.display =
-        "none";
-
-}
-
 </script>
 
 </body>
-</html>
+      </html>

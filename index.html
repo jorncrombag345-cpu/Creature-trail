@@ -3,93 +3,173 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Creaturen Trail</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+    box-sizing:border-box;
+}
 
 html,body{
     margin:0;
-    min-height:100%;
+    width:100%;
+    height:100%;
+    overflow:hidden;
     font-family:Arial,Helvetica,sans-serif;
     background:#07111f;
-    color:#fff;
+    color:white;
 }
 
-button,input,select{font:inherit}
+button{
+    font:inherit;
+    cursor:pointer;
+}
 
-button{cursor:pointer}
+
+/* =====================================================
+   STARTSCHERM
+===================================================== */
 
 #startScreen{
-    min-height:100vh;
+    position:fixed;
+    inset:0;
+    z-index:9999;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     padding:20px;
-    text-align:center;
+
     background:
-        radial-gradient(circle at 20% 20%,#304bb655,transparent 30%),
-        radial-gradient(circle at 80% 75%,#37a86a33,transparent 30%),
+        radial-gradient(
+            circle at 20% 20%,
+            #5d72ff55,
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            #35c47744,
+            transparent 30%
+        ),
         #07111f;
 }
 
 .start-card{
     width:100%;
     max-width:440px;
-    padding:38px 24px;
+
+    padding:40px 25px;
+
+    text-align:center;
+
     border-radius:30px;
-    background:#132138dd;
-    border:1px solid #ffffff16;
-    box-shadow:0 30px 80px #0008;
+
+    background:#132138ee;
+
+    border:1px solid #ffffff15;
+
+    box-shadow:
+        0 30px 100px #0009;
 }
 
 .start-icon{
     width:120px;
     height:120px;
+
     margin:auto auto 20px;
-    border-radius:35px;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
+    border-radius:35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #637aff,
+            #7c57d9
+        );
+
     font-size:65px;
-    background:linear-gradient(145deg,#5e7cff,#7658d9);
 }
 
 .start-card h1{
     margin:0;
+
     font-size:42px;
 }
 
 .start-card p{
-    color:#91a1b8;
-    margin:12px 0 28px;
+    color:#92a1b5;
+
+    line-height:1.6;
+
+    margin:12px 0 30px;
 }
 
 .start-button{
     width:100%;
-    border:0;
-    border-radius:16px;
+
     padding:17px;
-    background:#fff;
+
+    border:0;
+
+    border-radius:16px;
+
+    background:white;
+
     color:#0b1525;
-    font-weight:800;
+
+    font-weight:900;
 }
+
+
+/* =====================================================
+   GAME
+===================================================== */
 
 #game{
     display:none;
-    min-height:100vh;
-    padding:14px 14px 100px;
+
+    width:100%;
+    height:100%;
 }
+
+
+/* =====================================================
+   TOPBAR
+===================================================== */
 
 .topbar{
-    max-width:1100px;
-    margin:auto auto 10px;
+    position:fixed;
+
+    top:0;
+    left:0;
+    right:0;
+
+    z-index:1000;
+
+    height:74px;
+
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
+
+    padding:12px 15px;
+
+    background:
+        linear-gradient(
+            #07111fee,
+            #07111f99,
+            transparent
+        );
 }
 
-.player-section{
+.player-info{
     display:flex;
     align-items:center;
     gap:10px;
@@ -98,11 +178,20 @@ button{cursor:pointer}
 .avatar{
     width:45px;
     height:45px;
-    border-radius:14px;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    background:linear-gradient(145deg,#526dff,#7b58df);
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #6075ff,
+            #7856d7
+        );
+
     font-size:23px;
 }
 
@@ -111,301 +200,579 @@ button{cursor:pointer}
     font-size:14px;
 }
 
-.level-text{
-    color:#8293aa;
-    font-size:11px;
+.level{
     margin-top:3px;
+
+    color:#8292a8;
+
+    font-size:10px;
 }
 
-.coins{
-    padding:9px 12px;
-    border-radius:13px;
-    background:#ffffff09;
-    border:1px solid #ffffff0c;
+.stats{
+    display:flex;
+    gap:7px;
 }
 
-.xp-panel{
-    max-width:1100px;
-    margin:auto auto 12px;
+.stat{
+    padding:8px 10px;
+
+    border-radius:12px;
+
+    background:#07111fd9;
+
+    border:1px solid #ffffff10;
+
+    font-size:11px;
 }
 
-.xp-top{
+
+/* =====================================================
+   XP
+===================================================== */
+
+.xp-box{
+    position:fixed;
+
+    top:75px;
+    left:15px;
+    right:15px;
+
+    z-index:900;
+}
+
+.xp-info{
     display:flex;
     justify-content:space-between;
-    color:#8798ae;
-    font-size:10px;
-    margin-bottom:5px;
+
+    margin-bottom:4px;
+
+    color:#91a1b6;
+
+    font-size:9px;
 }
 
 .xp-bar{
-    height:7px;
-    background:#17263b;
-    border-radius:10px;
+    height:6px;
+
     overflow:hidden;
+
+    border-radius:20px;
+
+    background:#18283d;
 }
 
-.xp-progress{
+.xp-fill{
+    width:0%;
     height:100%;
-    width:0;
-    background:linear-gradient(90deg,#596fff,#8a63ef);
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #6378ff,
+            #9a67ee
+        );
+
     transition:.4s;
 }
 
-/* MAP */
 
-.map{
-    position:relative;
-    width:100%;
-    max-width:1100px;
-    height:calc(100vh - 220px);
-    min-height:480px;
-    margin:auto;
-    overflow:hidden;
-    border-radius:28px;
-    border:1px solid #ffffff18;
-    background:#31583b;
-    box-shadow:0 25px 70px #0005;
-}
+/* =====================================================
+   WERELD
+===================================================== */
 
-/* wereld */
-
-.world{
+#worldViewport{
     position:absolute;
+
     inset:0;
-    background:
-        radial-gradient(circle at 15% 20%,#4f8a4b 0 13%,transparent 14%),
-        radial-gradient(circle at 82% 25%,#407545 0 17%,transparent 18%),
-        radial-gradient(circle at 30% 82%,#3d7644 0 18%,transparent 19%),
-        radial-gradient(circle at 75% 75%,#477c49 0 15%,transparent 16%),
-        #315c3d;
+
+    overflow:hidden;
+
+    background:#315b3d;
 }
 
-/* bos */
+#world{
+    position:absolute;
+
+    width:3000px;
+    height:3000px;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    transition:
+        transform .15s linear;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            #497e48 0 11%,
+            transparent 11.5%
+        ),
+        radial-gradient(
+            circle at 70% 15%,
+            #477c48 0 15%,
+            transparent 15.5%
+        ),
+        radial-gradient(
+            circle at 30% 70%,
+            #407645 0 17%,
+            transparent 17.5%
+        ),
+        radial-gradient(
+            circle at 80% 75%,
+            #3e7141 0 15%,
+            transparent 15.5%
+        ),
+        #315c3e;
+
+    overflow:hidden;
+}
+
+
+/* =====================================================
+   GEBIEDEN
+===================================================== */
+
+.zone{
+    position:absolute;
+
+    border-radius:50%;
+
+    opacity:.9;
+}
 
 .forest-zone{
-    position:absolute;
-    width:250px;
-    height:180px;
-    border-radius:50%;
-    background:#234e35aa;
+    background:#234d34;
 }
 
-.forest1{left:-60px;top:40px}
-.forest2{right:-70px;bottom:40px}
+.forest-a{
+    width:800px;
+    height:600px;
 
-/* water */
-
-.lake{
-    position:absolute;
-    width:270px;
-    height:150px;
-    right:-80px;
-    top:70px;
-    border-radius:50%;
-    transform:rotate(-15deg);
-    background:#247b95;
-    border:4px solid #8bd0dc44;
+    left:100px;
+    top:150px;
 }
 
-/* zand */
+.forest-b{
+    width:700px;
+    height:650px;
 
-.desert{
-    position:absolute;
-    width:230px;
-    height:150px;
-    left:-80px;
-    bottom:40px;
-    border-radius:50%;
-    background:#a88b4c;
-    opacity:.8;
+    right:50px;
+    bottom:100px;
 }
 
-/* roads */
+.lake-zone{
+    width:650px;
+    height:450px;
+
+    right:100px;
+    top:300px;
+
+    background:#247b98;
+
+    transform:rotate(-13deg);
+
+    border:
+        12px solid
+        #8bd0dc33;
+}
+
+.desert-zone{
+    width:700px;
+    height:450px;
+
+    left:-100px;
+    bottom:100px;
+
+    background:#a9894d;
+}
+
+
+/* =====================================================
+   WEGEN
+===================================================== */
 
 .road{
     position:absolute;
-    height:58px;
-    width:135%;
-    left:-18%;
-    top:46%;
-    transform:rotate(16deg);
-    background:#707b75;
-    box-shadow:inset 0 0 0 3px #ffffff13;
+
+    width:3600px;
+    height:80px;
+
+    left:-300px;
+    top:1450px;
+
+    background:#717c76;
+
+    transform:rotate(15deg);
+
+    box-shadow:
+        inset 0 0 0 4px #ffffff13;
 }
 
 .road2{
-    top:12%;
-    transform:rotate(-43deg);
-    height:45px;
+    top:850px;
+
+    transform:
+        rotate(-42deg);
 }
 
 .road3{
-    top:79%;
-    transform:rotate(-10deg);
-    height:38px;
+    top:2000px;
+
+    transform:
+        rotate(-8deg);
+
+    height:60px;
 }
 
-/* trees */
+.road4{
+    top:1250px;
+
+    transform:
+        rotate(75deg);
+
+    height:55px;
+}
+
+
+/* =====================================================
+   DECORATIE
+===================================================== */
 
 .tree{
     position:absolute;
-    font-size:30px;
+
+    font-size:38px;
+
     opacity:.8;
+
+    user-select:none;
 }
 
-/* signs */
-
-.area-label{
+.rock{
     position:absolute;
-    padding:7px 10px;
-    border-radius:10px;
-    background:#07111fcc;
-    border:1px solid #ffffff15;
-    color:#dbe4ee;
-    font-size:10px;
-    font-weight:bold;
-    z-index:3;
+
+    font-size:27px;
+
+    opacity:.7;
 }
 
-.label-forest{left:12%;top:12%}
-.label-lake{right:17%;top:37%}
-.label-desert{left:14%;bottom:15%}
-
-/* player */
-
-.player{
+.area-name{
     position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    width:62px;
-    height:62px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#fff;
-    border:5px solid #172133;
-    font-size:29px;
-    z-index:20;
-    box-shadow:0 10px 30px #0007;
-}
 
-.player-ring{
-    position:absolute;
-    width:130px;
-    height:130px;
-    border-radius:50%;
-    border:2px solid #ffffff22;
-    animation:pulse 2.5s infinite;
-}
+    padding:9px 13px;
 
-@keyframes pulse{
-    from{transform:scale(.75);opacity:.8}
-    to{transform:scale(1.2);opacity:0}
-}
-
-/* creatures */
-
-.spawned-creature{
-    position:absolute;
-    width:72px;
-    height:72px;
-    border:0;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(145deg,#fff,#dce5ff);
-    box-shadow:0 12px 28px #0007;
-    z-index:15;
-    animation:float 2.2s ease-in-out infinite;
-}
-
-.spawned-creature:hover{
-    transform:scale(1.12);
-}
-
-.creature-emoji{font-size:36px}
-
-.rarity-label{
-    position:absolute;
-    bottom:-8px;
-    padding:3px 7px;
-    border-radius:7px;
-    background:#101827;
-    font-size:8px;
-    font-weight:bold;
-}
-
-@keyframes float{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-8px)}
-}
-
-/* location */
-
-.location-button{
-    position:absolute;
-    right:14px;
-    bottom:14px;
-    z-index:50;
-    width:48px;
-    height:48px;
-    border:0;
-    border-radius:15px;
-    background:#0d1b2dcc;
-    color:#fff;
-    box-shadow:0 8px 25px #0007;
-}
-
-/* map info */
-
-.map-message{
-    position:absolute;
-    top:16px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:40;
-    padding:9px 14px;
     border-radius:12px;
-    background:#07111fcc;
+
+    background:#07111dcc;
+
+    border:1px solid #ffffff14;
+
     color:#dce5ef;
+
     font-size:11px;
+
+    font-weight:900;
+
     white-space:nowrap;
 }
 
-/* NAV */
+
+/* =====================================================
+   CREATURES
+===================================================== */
+
+.creature{
+    position:absolute;
+
+    width:78px;
+    height:78px;
+
+    border:0;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #dce5ff
+        );
+
+    box-shadow:
+        0 14px 30px #0008;
+
+    z-index:50;
+
+    animation:
+        creatureFloat
+        2.2s
+        ease-in-out
+        infinite;
+}
+
+.creature:hover{
+    transform:scale(1.12);
+}
+
+.creature-emoji{
+    font-size:39px;
+}
+
+.creature-distance{
+    position:absolute;
+
+    bottom:-10px;
+
+    padding:4px 7px;
+
+    border-radius:8px;
+
+    background:#07111f;
+
+    color:#dbe5f0;
+
+    font-size:8px;
+
+    font-weight:900;
+
+    white-space:nowrap;
+}
+
+@keyframes creatureFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-9px);
+    }
+
+}
+
+
+/* =====================================================
+   SPELER
+===================================================== */
+
+#player{
+    position:fixed;
+
+    left:50%;
+    top:50%;
+
+    z-index:500;
+
+    width:68px;
+    height:68px;
+
+    transform:
+        translate(-50%,-50%);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:white;
+
+    border:
+        5px solid
+        #162033;
+
+    box-shadow:
+        0 15px 35px #0009;
+
+    font-size:30px;
+
+    pointer-events:none;
+}
+
+.player-range{
+    position:absolute;
+
+    width:170px;
+    height:170px;
+
+    border-radius:50%;
+
+    border:
+        2px solid
+        #ffffff25;
+
+    animation:
+        rangePulse
+        2.5s
+        infinite;
+}
+
+@keyframes rangePulse{
+
+    0%{
+        transform:scale(.75);
+
+        opacity:.8;
+    }
+
+    100%{
+        transform:scale(1.2);
+
+        opacity:0;
+    }
+
+}
+
+
+/* =====================================================
+   JOYSTICK
+===================================================== */
+
+#joystick{
+    position:fixed;
+
+    left:25px;
+    bottom:90px;
+
+    z-index:1500;
+
+    width:130px;
+    height:130px;
+
+    border-radius:50%;
+
+    background:#07111f88;
+
+    border:
+        1px solid
+        #ffffff16;
+
+    backdrop-filter:blur(5px);
+}
+
+#joystickKnob{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:58px;
+    height:58px;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:#ffffffdd;
+
+    box-shadow:
+        0 8px 20px #0008;
+}
+
+
+/* =====================================================
+   GPS BUTTON
+===================================================== */
+
+.gps-button{
+    position:fixed;
+
+    right:18px;
+    bottom:95px;
+
+    z-index:1500;
+
+    width:52px;
+    height:52px;
+
+    border:0;
+
+    border-radius:16px;
+
+    background:#07111fee;
+
+    color:white;
+
+    font-size:21px;
+
+    box-shadow:
+        0 10px 25px #0008;
+}
+
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
 
 .bottom-nav{
     position:fixed;
+
     left:50%;
     bottom:12px;
-    transform:translateX(-50%);
-    width:calc(100% - 24px);
+
+    transform:
+        translateX(-50%);
+
+    z-index:2000;
+
+    width:
+        calc(100% - 24px);
+
     max-width:600px;
-    height:66px;
-    padding:7px;
+
+    height:65px;
+
     display:grid;
-    grid-template-columns:repeat(5,1fr);
+
+    grid-template-columns:
+        repeat(5,1fr);
+
     gap:4px;
+
+    padding:7px;
+
     border-radius:21px;
-    background:#0d192af5;
-    border:1px solid #ffffff12;
-    box-shadow:0 15px 45px #0008;
-    z-index:500;
+
+    background:#0c192af2;
+
+    border:
+        1px solid
+        #ffffff12;
+
+    box-shadow:
+        0 15px 45px #0009;
 }
 
 .nav-button{
     border:0;
+
     border-radius:15px;
+
     background:transparent;
-    color:#73849a;
+
+    color:#718399;
+
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
+
     justify-content:center;
+
     gap:2px;
+
     font-size:18px;
 }
 
@@ -414,41 +781,71 @@ button{cursor:pointer}
 }
 
 .nav-button.active{
+    color:white;
+
     background:#ffffff0d;
-    color:#fff;
 }
 
-/* MODALS */
+
+/* =====================================================
+   MODALS
+===================================================== */
 
 .modal{
     position:fixed;
+
     inset:0;
+
+    z-index:5000;
+
     display:none;
+
     align-items:center;
     justify-content:center;
+
     padding:15px;
-    background:#030812dd;
-    backdrop-filter:blur(12px);
-    z-index:8000;
+
+    background:#020811df;
+
+    backdrop-filter:
+        blur(12px);
 }
 
 .modal-box{
     width:100%;
     max-width:700px;
+
     max-height:90vh;
-    overflow-y:auto;
+
+    overflow:auto;
+
     padding:22px;
+
     border-radius:26px;
-    background:linear-gradient(145deg,#182941,#0d1728);
-    border:1px solid #ffffff12;
-    box-shadow:0 30px 90px #000a;
+
+    background:
+        linear-gradient(
+            145deg,
+            #182941,
+            #0c1728
+        );
+
+    border:
+        1px solid
+        #ffffff12;
+
+    box-shadow:
+        0 30px 90px #000a;
 }
 
 .modal-header{
     display:flex;
+
     justify-content:space-between;
-    align-items:flex-start;
-    margin-bottom:18px;
+
+    align-items:center;
+
+    margin-bottom:15px;
 }
 
 .modal-header h2{
@@ -458,206 +855,281 @@ button{cursor:pointer}
 .close{
     width:40px;
     height:40px;
+
     border:0;
+
     border-radius:12px;
-    background:#ffffff0d;
-    color:#fff;
-    font-size:21px;
+
+    background:#ffffff0c;
+
+    color:white;
+
+    font-size:22px;
 }
+
+
+/* =====================================================
+   ENCOUNTER
+===================================================== */
 
 .encounter{
     text-align:center;
 }
 
 .encounter-image{
-    width:175px;
-    height:175px;
-    margin:10px auto 20px;
+    width:180px;
+    height:180px;
+
+    margin:
+        10px
+        auto
+        20px;
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     border-radius:50%;
-    background:radial-gradient(circle,#617dff33,transparent 70%);
-    font-size:90px;
+
+    background:
+        radial-gradient(
+            circle,
+            #667cff33,
+            transparent 70%
+        );
+
+    font-size:95px;
 }
 
 .encounter h2{
+    margin:0;
+
     font-size:30px;
-    margin:5px;
 }
 
 .encounter p{
-    color:#9eacc0;
+    color:#93a2b6;
+
     line-height:1.6;
 }
 
 .catch-button{
     width:100%;
+
+    margin-top:10px;
+
     padding:16px;
-    margin-top:12px;
+
     border:0;
+
     border-radius:15px;
-    background:#fff;
+
+    background:white;
+
     color:#101827;
-    font-weight:800;
+
+    font-weight:900;
 }
 
-.dex-controls{
-    display:grid;
-    grid-template-columns:1fr 160px;
-    gap:8px;
-    margin-bottom:15px;
-}
 
-.dex-controls input,
-.dex-controls select{
-    width:100%;
-    padding:12px;
-    border-radius:12px;
-    border:1px solid #ffffff12;
-    background:#ffffff08;
-    color:#fff;
-    outline:0;
-}
+/* =====================================================
+   DEX
+===================================================== */
 
 .dex-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(135px,1fr));
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(130px,1fr)
+        );
+
     gap:10px;
 }
 
 .dex-card{
-    min-height:185px;
     padding:12px;
-    border-radius:18px;
-    background:linear-gradient(145deg,#20334f,#15243a);
-    border:1px solid #ffffff0a;
+
+    min-height:175px;
+
     text-align:center;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #20334f,
+            #15243a
+        );
 }
 
-.dex-locked{
+.dex-card.locked{
     opacity:.4;
+
     filter:grayscale(1);
 }
 
 .dex-image{
-    width:90px;
-    height:90px;
-    margin:10px auto;
-    border-radius:50%;
+    width:85px;
+    height:85px;
+
+    margin:
+        10px
+        auto;
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
+    border-radius:50%;
+
     background:#ffffff09;
-    font-size:52px;
+
+    font-size:48px;
 }
 
-.dex-name{
-    font-size:13px;
-    font-weight:800;
-}
 
-.badges{
-    display:flex;
-    justify-content:center;
-    gap:4px;
-    flex-wrap:wrap;
-    margin-top:7px;
-}
-
-.badge{
-    padding:4px 7px;
-    border-radius:7px;
-    background:#30445f;
-    font-size:8px;
-    font-weight:bold;
-}
-
-.common{background:#36543f}
-.rare{background:#285276}
-.epic{background:#633e7c}
-.legendary{background:#8d651d}
+/* =====================================================
+   SIMPLE CARDS
+===================================================== */
 
 .simple-card{
-    padding:15px;
+    padding:16px;
+
     margin-bottom:10px;
-    border-radius:16px;
+
+    border-radius:17px;
+
     background:#ffffff08;
-    border:1px solid #ffffff0a;
+
+    border:
+        1px solid
+        #ffffff0b;
 }
 
 .simple-card h3{
-    margin:0 0 6px;
+    margin:
+        0
+        0
+        7px;
 }
 
 .simple-card p{
     margin:0;
-    color:#8798ae;
+
+    color:#8798ad;
+
     line-height:1.5;
 }
 
-.toast{
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+#toast{
     position:fixed;
+
     left:50%;
     bottom:95px;
-    transform:translate(-50%,30px);
-    opacity:0;
-    padding:13px 18px;
-    border-radius:14px;
-    background:#0c1626f7;
-    border:1px solid #ffffff12;
+
     z-index:10000;
+
+    transform:
+        translate(-50%,30px);
+
+    opacity:0;
+
+    padding:13px 18px;
+
+    border-radius:14px;
+
+    background:#0b1627f7;
+
+    border:
+        1px solid
+        #ffffff12;
+
     transition:.3s;
+
     font-size:13px;
+
+    pointer-events:none;
 }
 
-.toast.show{
+#toast.show{
     opacity:1;
-    transform:translate(-50%,0);
+
+    transform:
+        translate(-50%,0);
 }
+
+
+/* =====================================================
+   MOBIEL
+===================================================== */
 
 @media(max-width:600px){
 
-    .start-card h1{
-        font-size:36px;
+    #joystick{
+        width:115px;
+        height:115px;
     }
 
-    .map{
-        min-height:450px;
+    #joystickKnob{
+        width:52px;
+        height:52px;
     }
 
-    .dex-controls{
-        grid-template-columns:1fr;
+    .stats .stat:nth-child(2){
+        display:none;
     }
 
-    .dex-grid{
-        grid-template-columns:repeat(2,1fr);
+    .creature{
+        width:68px;
+        height:68px;
     }
 
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- START -->
+
+<!-- =====================================================
+     STARTSCHERM
+===================================================== -->
 
 <section id="startScreen">
 
     <div class="start-card">
 
-        <div class="start-icon">🐾</div>
+        <div class="start-icon">
+            🐾
+        </div>
 
-        <h1>Creaturen Trail</h1>
+        <h1>
+            Creaturen Trail
+        </h1>
 
         <p>
-            Ontdek een wereld vol mysterieuze Creaturen.
+            Ga op avontuur, ontdek wilde
+            Creaturen en bouw jouw collectie.
         </p>
 
         <button
             class="start-button"
             onclick="startGame()">
+
             START AVONTUUR
+
         </button>
 
     </div>
@@ -665,15 +1137,22 @@ button{cursor:pointer}
 </section>
 
 
-<!-- GAME -->
+<!-- =====================================================
+     GAME
+===================================================== -->
 
 <section id="game">
 
+
+    <!-- TOPBAR -->
+
     <div class="topbar">
 
-        <div class="player-section">
+        <div class="player-info">
 
-            <div class="avatar">🧑</div>
+            <div class="avatar">
+                🧑
+            </div>
 
             <div>
 
@@ -681,186 +1160,372 @@ button{cursor:pointer}
                     Trail Explorer
                 </div>
 
-                <div class="level-text">
-                    Level <span id="level">1</span>
+                <div class="level">
+                    Level
+                    <span id="level">
+                        1
+                    </span>
                 </div>
 
             </div>
 
         </div>
 
-        <div class="coins">
-            🪙 <span id="coins">100</span>
+
+        <div class="stats">
+
+            <div class="stat">
+                ⭐
+                <span id="xp">
+                    0
+                </span>
+            </div>
+
+            <div class="stat">
+                🪙
+                <span id="coins">
+                    100
+                </span>
+            </div>
+
+            <div class="stat">
+                🐾
+                <span id="caught">
+                    0
+                </span>
+            </div>
+
         </div>
 
     </div>
 
 
-    <div class="xp-panel">
+    <!-- XP -->
 
-        <div class="xp-top">
+    <div class="xp-box">
 
-            <span>XP</span>
+        <div class="xp-info">
 
             <span>
-                <span id="xp">0</span> /
-                <span id="requiredXP">250</span>
+                XP
+            </span>
+
+            <span>
+
+                <span id="currentXP">
+                    0
+                </span>
+
+                /
+
+                <span id="requiredXP">
+                    250
+                </span>
+
             </span>
 
         </div>
 
         <div class="xp-bar">
+
             <div
-                id="xpProgress"
-                class="xp-progress">
+                id="xpFill"
+                class="xp-fill">
             </div>
+
         </div>
 
     </div>
 
 
-    <!-- MAP -->
+    <!-- =================================================
+         WERELD
+    ================================================= -->
 
-    <div id="map" class="map">
+    <div id="worldViewport">
 
-        <div class="world"></div>
-
-        <div class="forest-zone forest1"></div>
-        <div class="forest-zone forest2"></div>
-
-        <div class="lake"></div>
-
-        <div class="desert"></div>
-
-        <div class="road"></div>
-        <div class="road road2"></div>
-        <div class="road road3"></div>
+        <div id="world">
 
 
-        <div
-            class="tree"
-            style="left:8%;top:18%">
-            🌲
+            <!-- GEBIEDEN -->
+
+            <div
+                class="
+                    zone
+                    forest-zone
+                    forest-a
+                ">
+            </div>
+
+            <div
+                class="
+                    zone
+                    forest-zone
+                    forest-b
+                ">
+            </div>
+
+            <div
+                class="
+                    zone
+                    lake-zone
+                ">
+            </div>
+
+            <div
+                class="
+                    zone
+                    desert-zone
+                ">
+            </div>
+
+
+            <!-- WEGEN -->
+
+            <div class="road"></div>
+
+            <div
+                class="
+                    road
+                    road2
+                ">
+            </div>
+
+            <div
+                class="
+                    road
+                    road3
+                ">
+            </div>
+
+            <div
+                class="
+                    road
+                    road4
+                ">
+            </div>
+
+
+            <!-- GEBIEDSNAMEN -->
+
+            <div
+                class="area-name"
+                style="
+                    left:250px;
+                    top:300px;
+                ">
+
+                🌲 GROENE WILDERNIS
+
+            </div>
+
+            <div
+                class="area-name"
+                style="
+                    right:400px;
+                    top:650px;
+                ">
+
+                💧 BLAUW MEER
+
+            </div>
+
+            <div
+                class="area-name"
+                style="
+                    left:250px;
+                    bottom:350px;
+                ">
+
+                🏜️ ZANDVALLEI
+
+            </div>
+
+
+            <!-- BOMEN -->
+
+            <div
+                class="tree"
+                style="left:150px;top:220px">
+                🌲
+            </div>
+
+            <div
+                class="tree"
+                style="left:350px;top:380px">
+                🌳
+            </div>
+
+            <div
+                class="tree"
+                style="left:550px;top:250px">
+                🌲
+            </div>
+
+            <div
+                class="tree"
+                style="left:700px;top:450px">
+                🌳
+            </div>
+
+            <div
+                class="tree"
+                style="right:300px;top:400px">
+                🌲
+            </div>
+
+            <div
+                class="tree"
+                style="right:180px;bottom:350px">
+                🌳
+            </div>
+
+            <div
+                class="tree"
+                style="left:250px;bottom:280px">
+                🌵
+            </div>
+
+            <div
+                class="tree"
+                style="left:480px;bottom:180px">
+                🌵
+            </div>
+
+
+            <!-- ROTSTENEN -->
+
+            <div
+                class="rock"
+                style="left:900px;top:700px">
+                🪨
+            </div>
+
+            <div
+                class="rock"
+                style="left:1100px;top:900px">
+                🪨
+            </div>
+
+            <div
+                class="rock"
+                style="right:700px;bottom:500px">
+                🪨
+            </div>
+
         </div>
-
-        <div
-            class="tree"
-            style="left:23%;top:22%">
-            🌳
-        </div>
-
-        <div
-            class="tree"
-            style="right:24%;top:14%">
-            🌲
-        </div>
-
-        <div
-            class="tree"
-            style="right:9%;bottom:20%">
-            🌳
-        </div>
-
-        <div
-            class="tree"
-            style="left:12%;bottom:23%">
-            🌵
-        </div>
-
-
-        <div class="area-label label-forest">
-            🌲 GROENE WILDERNIS
-        </div>
-
-        <div class="area-label label-lake">
-            💧 BLAUW MEER
-        </div>
-
-        <div class="area-label label-desert">
-            🏜️ ZANDVALLEI
-        </div>
-
-
-        <div class="map-message">
-            🧭 Zoek Creaturen in de omgeving
-        </div>
-
-
-        <div class="player">
-
-            <div class="player-ring"></div>
-
-            🧑
-
-        </div>
-
-
-        <button
-            class="location-button"
-            onclick="findPlayerLocation()">
-
-            📍
-
-        </button>
 
     </div>
 
 
-    <!-- NAV -->
+    <!-- SPELER -->
+
+    <div id="player">
+
+        <div class="player-range"></div>
+
+        🧑
+
+    </div>
+
+
+    <!-- JOYSTICK -->
+
+    <div id="joystick">
+
+        <div id="joystickKnob"></div>
+
+    </div>
+
+
+    <!-- GPS -->
+
+    <button
+        class="gps-button"
+        onclick="useGPS()">
+
+        📍
+
+    </button>
+
+
+    <!-- NAVIGATIE -->
 
     <nav class="bottom-nav">
 
         <button
             class="nav-button active"
-            onclick="showHome()">
+            onclick="showToast('🗺️ Je bent op de kaart')">
 
             🗺️
-            <span>Kaart</span>
+
+            <span>
+                Kaart
+            </span>
 
         </button>
+
 
         <button
             class="nav-button"
             onclick="openDex()">
 
             📖
-            <span>Dex</span>
+
+            <span>
+                Dex
+            </span>
 
         </button>
+
 
         <button
             class="nav-button"
             onclick="openFriends()">
 
             👥
-            <span>Friends</span>
+
+            <span>
+                Friends
+            </span>
 
         </button>
+
 
         <button
             class="nav-button"
             onclick="openEvents()">
 
             🎉
-            <span>Events</span>
+
+            <span>
+                Events
+            </span>
 
         </button>
+
 
         <button
             class="nav-button"
             onclick="openProfile()">
 
             👤
-            <span>Profiel</span>
+
+            <span>
+                Profiel
+            </span>
 
         </button>
 
     </nav>
 
+
 </section>
 
 
-<!-- ENCOUNTER -->
+<!-- =====================================================
+     ENCOUNTER
+===================================================== -->
 
 <div
     id="encounterModal"
@@ -870,18 +1535,22 @@ button{cursor:pointer}
 
         <div class="modal-header">
 
-            <h2>Wilde Creature</h2>
+            <h2>
+                Wilde Creature
+            </h2>
 
             <button
                 class="close"
-                onclick="closeEncounter()">
+                onclick="closeModal('encounterModal')">
+
                 ×
+
             </button>
 
         </div>
 
         <div
-            id="encounterContent"
+            id="encounter"
             class="encounter">
         </div>
 
@@ -890,7 +1559,9 @@ button{cursor:pointer}
 </div>
 
 
-<!-- DEX -->
+<!-- =====================================================
+     DEX
+===================================================== -->
 
 <div
     id="dexModal"
@@ -902,12 +1573,19 @@ button{cursor:pointer}
 
             <div>
 
-                <h2>📖 Creaturen-Dex</h2>
+                <h2>
+                    📖 Creaturen-Dex
+                </h2>
 
                 <p
                     id="dexProgress"
-                    style="color:#8495aa">
-                    0 / 20 ontdekt
+                    style="
+                        color:#8495aa;
+                        font-size:11px;
+                    ">
+
+                    0 ontdekt
+
                 </p>
 
             </div>
@@ -915,39 +1593,13 @@ button{cursor:pointer}
             <button
                 class="close"
                 onclick="closeModal('dexModal')">
+
                 ×
+
             </button>
 
         </div>
 
-        <div class="dex-controls">
-
-            <input
-                id="dexSearch"
-                placeholder="🔎 Zoek Creature..."
-                oninput="renderDex()">
-
-            <select
-                id="dexFilter"
-                onchange="renderDex()">
-
-                <option value="all">
-                    Alle types
-                </option>
-
-                <option>Fire</option>
-                <option>Water</option>
-                <option>Nature</option>
-                <option>Electric</option>
-                <option>Ice</option>
-                <option>Earth</option>
-                <option>Mystic</option>
-                <option>Dark</option>
-                <option>Light</option>
-
-            </select>
-
-        </div>
 
         <div
             id="dexGrid"
@@ -959,7 +1611,9 @@ button{cursor:pointer}
 </div>
 
 
-<!-- FRIENDS -->
+<!-- =====================================================
+     FRIENDS
+===================================================== -->
 
 <div
     id="friendsModal"
@@ -969,24 +1623,31 @@ button{cursor:pointer}
 
         <div class="modal-header">
 
-            <h2>👥 Friends</h2>
+            <h2>
+                👥 Friends
+            </h2>
 
             <button
                 class="close"
                 onclick="closeModal('friendsModal')">
+
                 ×
+
             </button>
 
         </div>
 
         <div class="simple-card">
 
-            <h3>Friends-systeem</h3>
+            <h3>
+                Vrienden
+            </h3>
 
             <p>
-                In een volgende stap maken we hier
-                echte spelers, friend codes en
-                vriendverzoeken van.
+                Het vrienden-systeem komt in een
+                volgende stap. Hier kunnen later
+                friend codes, verzoeken en spelers
+                komen.
             </p>
 
         </div>
@@ -996,7 +1657,9 @@ button{cursor:pointer}
 </div>
 
 
-<!-- EVENTS -->
+<!-- =====================================================
+     EVENTS
+===================================================== -->
 
 <div
     id="eventsModal"
@@ -1006,23 +1669,30 @@ button{cursor:pointer}
 
         <div class="modal-header">
 
-            <h2>🎉 Events</h2>
+            <h2>
+                🎉 Events
+            </h2>
 
             <button
                 class="close"
                 onclick="closeModal('eventsModal')">
+
                 ×
+
             </button>
 
         </div>
 
         <div class="simple-card">
 
-            <h3>🌟 Events</h3>
+            <h3>
+                🌟 Events
+            </h3>
 
             <p>
-                Hier komen tijdelijke events,
-                opdrachten en speciale beloningen.
+                Tijdelijke events en speciale
+                Creaturen kunnen hier later
+                verschijnen.
             </p>
 
         </div>
@@ -1032,7 +1702,9 @@ button{cursor:pointer}
 </div>
 
 
-<!-- PROFILE -->
+<!-- =====================================================
+     PROFILE
+===================================================== -->
 
 <div
     id="profileModal"
@@ -1042,33 +1714,46 @@ button{cursor:pointer}
 
         <div class="modal-header">
 
-            <h2>👤 Profiel</h2>
+            <h2>
+                👤 Profiel
+            </h2>
 
             <button
                 class="close"
                 onclick="closeModal('profileModal')">
+
                 ×
+
             </button>
 
         </div>
 
         <div class="simple-card">
 
-            <h3>Trail Explorer</h3>
+            <h3>
+                Trail Explorer
+            </h3>
 
             <p>
-                Level <strong id="profileLevel">1</strong>
+                Level:
+                <strong id="profileLevel">
+                    1
+                </strong>
             </p>
 
         </div>
 
         <div class="simple-card">
 
-            <h3>🐾 Creaturen</h3>
+            <h3>
+                🐾 Creaturen
+            </h3>
 
             <p>
-                <span id="caughtCount">0</span>
-                ontdekt
+                <span id="profileCaught">
+                    0
+                </span>
+                verschillende Creaturen ontdekt.
             </p>
 
         </div>
@@ -1078,322 +1763,261 @@ button{cursor:pointer}
 </div>
 
 
-<div id="toast" class="toast"></div>
+<!-- TOAST -->
+
+<div id="toast"></div>
 
 
 <script>
 
-/* =========================================================
-   CREATURES
-========================================================= */
 
-const CREATURES = [
+/* =====================================================
+   CREATURE DATABASE
+===================================================== */
 
-    {
-        id:"flamora",
-        name:"Flamora",
-        type:"Fire",
-        rarity:"Common",
-        emoji:"🔥",
-        xp:25,
-        zones:["desert","forest"]
-    },
+const CREATURES=[
 
-    {
-        id:"aquari",
-        name:"Aquari",
-        type:"Water",
-        rarity:"Common",
-        emoji:"💧",
-        xp:25,
-        zones:["lake"]
-    },
+{
+    id:"flamora",
+    name:"Flamora",
+    type:"Fire",
+    rarity:"Common",
+    emoji:"🔥",
+    xp:25,
+    zone:"desert"
+},
 
-    {
-        id:"leafin",
-        name:"Leafin",
-        type:"Nature",
-        rarity:"Common",
-        emoji:"🌿",
-        xp:25,
-        zones:["forest"]
-    },
+{
+    id:"aquari",
+    name:"Aquari",
+    type:"Water",
+    rarity:"Common",
+    emoji:"💧",
+    xp:25,
+    zone:"lake"
+},
 
-    {
-        id:"sparko",
-        name:"Sparko",
-        type:"Electric",
-        rarity:"Rare",
-        emoji:"⚡",
-        xp:50,
-        zones:["forest","lake"]
-    },
+{
+    id:"leafin",
+    name:"Leafin",
+    type:"Nature",
+    rarity:"Common",
+    emoji:"🌿",
+    xp:25,
+    zone:"forest"
+},
 
-    {
-        id:"frostel",
-        name:"Frostel",
-        type:"Ice",
-        rarity:"Rare",
-        emoji:"❄️",
-        xp:50,
-        zones:["lake"]
-    },
+{
+    id:"sparko",
+    name:"Sparko",
+    type:"Electric",
+    rarity:"Rare",
+    emoji:"⚡",
+    xp:50,
+    zone:"forest"
+},
 
-    {
-        id:"rockon",
-        name:"Rockon",
-        type:"Earth",
-        rarity:"Common",
-        emoji:"🪨",
-        xp:25,
-        zones:["desert"]
-    },
+{
+    id:"frostel",
+    name:"Frostel",
+    type:"Ice",
+    rarity:"Rare",
+    emoji:"❄️",
+    xp:50,
+    zone:"lake"
+},
 
-    {
-        id:"mystia",
-        name:"Mystia",
-        type:"Mystic",
-        rarity:"Epic",
-        emoji:"🔮",
-        xp:100,
-        zones:["forest"]
-    },
+{
+    id:"rockon",
+    name:"Rockon",
+    type:"Earth",
+    rarity:"Common",
+    emoji:"🪨",
+    xp:25,
+    zone:"desert"
+},
 
-    {
-        id:"shadowa",
-        name:"Shadowa",
-        type:"Dark",
-        rarity:"Epic",
-        emoji:"🌑",
-        xp:100,
-        zones:["forest"]
-    },
+{
+    id:"mystia",
+    name:"Mystia",
+    type:"Mystic",
+    rarity:"Epic",
+    emoji:"🔮",
+    xp:100,
+    zone:"forest"
+},
 
-    {
-        id:"solari",
-        name:"Solari",
-        type:"Light",
-        rarity:"Rare",
-        emoji:"☀️",
-        xp:50,
-        zones:["desert"]
-    },
+{
+    id:"shadowa",
+    name:"Shadowa",
+    type:"Dark",
+    rarity:"Epic",
+    emoji:"🌑",
+    xp:100,
+    zone:"forest"
+},
 
-    {
-        id:"stormix",
-        name:"Stormix",
-        type:"Electric",
-        rarity:"Epic",
-        emoji:"🌪️",
-        xp:100,
-        zones:["lake"]
-    },
+{
+    id:"solari",
+    name:"Solari",
+    type:"Light",
+    rarity:"Rare",
+    emoji:"☀️",
+    xp:50,
+    zone:"desert"
+},
 
-    {
-        id:"berryn",
-        name:"Berryn",
-        type:"Nature",
-        rarity:"Common",
-        emoji:"🍓",
-        xp:25,
-        zones:["forest"]
-    },
+{
+    id:"stormix",
+    name:"Stormix",
+    type:"Electric",
+    rarity:"Epic",
+    emoji:"🌪️",
+    xp:100,
+    zone:"lake"
+},
 
-    {
-        id:"magmox",
-        name:"Magmox",
-        type:"Fire",
-        rarity:"Rare",
-        emoji:"🌋",
-        xp:50,
-        zones:["desert"]
-    },
+{
+    id:"berryn",
+    name:"Berryn",
+    type:"Nature",
+    rarity:"Common",
+    emoji:"🍓",
+    xp:25,
+    zone:"forest"
+},
 
-    {
-        id:"lunari",
-        name:"Lunari",
-        type:"Mystic",
-        rarity:"Legendary",
-        emoji:"🌙",
-        xp:500,
-        zones:["forest","lake","desert"]
-    },
+{
+    id:"magmox",
+    name:"Magmox",
+    type:"Fire",
+    rarity:"Rare",
+    emoji:"🌋",
+    xp:50,
+    zone:"desert"
+},
 
-    {
-        id:"thundra",
-        name:"Thundra",
-        type:"Electric",
-        rarity:"Legendary",
-        emoji:"⚡",
-        xp:500,
-        zones:["lake"]
-    },
+{
+    id:"lunari",
+    name:"Lunari",
+    type:"Mystic",
+    rarity:"Legendary",
+    emoji:"🌙",
+    xp:500,
+    zone:"forest"
+},
 
-    {
-        id:"florion",
-        name:"Florion",
-        type:"Nature",
-        rarity:"Epic",
-        emoji:"🌸",
-        xp:100,
-        zones:["forest"]
-    },
+{
+    id:"thundra",
+    name:"Thundra",
+    type:"Electric",
+    rarity:"Legendary",
+    emoji:"⚡",
+    xp:500,
+    zone:"lake"
+},
 
-    {
-        id:"aquash",
-        name:"Aquash",
-        type:"Water",
-        rarity:"Epic",
-        emoji:"🐚",
-        xp:100,
-        zones:["lake"]
-    },
+{
+    id:"florion",
+    name:"Florion",
+    type:"Nature",
+    rarity:"Epic",
+    emoji:"🌸",
+    xp:100,
+    zone:"forest"
+},
 
-    {
-        id:"emberoo",
-        name:"Emberoo",
-        type:"Fire",
-        rarity:"Rare",
-        emoji:"🦊",
-        xp:50,
-        zones:["desert"]
-    },
+{
+    id:"aquash",
+    name:"Aquash",
+    type:"Water",
+    rarity:"Epic",
+    emoji:"🐚",
+    xp:100,
+    zone:"lake"
+},
 
-    {
-        id:"crystali",
-        name:"Crystali",
-        type:"Ice",
-        rarity:"Epic",
-        emoji:"💎",
-        xp:100,
-        zones:["lake"]
-    },
+{
+    id:"emberoo",
+    name:"Emberoo",
+    type:"Fire",
+    rarity:"Rare",
+    emoji:"🦊",
+    xp:50,
+    zone:"desert"
+},
 
-    {
-        id:"nocty",
-        name:"Nocty",
-        type:"Dark",
-        rarity:"Rare",
-        emoji:"🦇",
-        xp:50,
-        zones:["forest"]
-    },
+{
+    id:"crystali",
+    name:"Crystali",
+    type:"Ice",
+    rarity:"Epic",
+    emoji:"💎",
+    xp:100,
+    zone:"lake"
+},
 
-    {
-        id:"aurora",
-        name:"Aurora",
-        type:"Light",
-        rarity:"Legendary",
-        emoji:"🌈",
-        xp:500,
-        zones:["lake","forest","desert"]
-    }
+{
+    id:"nocty",
+    name:"Nocty",
+    type:"Dark",
+    rarity:"Rare",
+    emoji:"🦇",
+    xp:50,
+    zone:"forest"
+},
+
+{
+    id:"aurora",
+    name:"Aurora",
+    type:"Light",
+    rarity:"Legendary",
+    emoji:"🌈",
+    xp:500,
+    zone:"lake"
+}
 
 ];
 
 
-/* =========================================================
-   PLAYER
-========================================================= */
+/* =====================================================
+   PLAYER DATA
+===================================================== */
 
-let player =
+let playerData=
 JSON.parse(
-    localStorage.getItem("creaturenPlayer")
-) ||
+    localStorage.getItem(
+        "creaturenTrailSave"
+    )
+)||
 {
-    xp:0,
     level:1,
+    xp:0,
     coins:100,
     caught:[]
 };
 
-let currentEncounter=null;
+
+/* =====================================================
+   WERELD POSITIE
+===================================================== */
+
+let playerX=1500;
+let playerY=1500;
+
+let speed=5;
+
+let movement={
+    x:0,
+    y:0
+};
+
+let gpsActive=false;
 
 
-/* =========================================================
-   SAVE
-========================================================= */
-
-function save(){
-
-    localStorage.setItem(
-        "creaturenPlayer",
-        JSON.stringify(player)
-    );
-
-}
-
-
-/* =========================================================
-   XP
-========================================================= */
-
-function requiredXP(){
-
-    return player.level*250;
-
-}
-
-
-function addXP(amount){
-
-    player.xp+=amount;
-
-    while(player.xp>=requiredXP()){
-
-        player.xp-=requiredXP();
-
-        player.level++;
-
-        toast(
-            "🎉 Level Up! Level "+
-            player.level
-        );
-
-    }
-
-    save();
-    updateUI();
-
-}
-
-
-/* =========================================================
-   UI
-========================================================= */
-
-function updateUI(){
-
-    document.getElementById("level").innerText=
-        player.level;
-
-    document.getElementById("coins").innerText=
-        player.coins;
-
-    document.getElementById("xp").innerText=
-        player.xp;
-
-    document.getElementById("requiredXP").innerText=
-        requiredXP();
-
-    document.getElementById("profileLevel").innerText=
-        player.level;
-
-    document.getElementById("caughtCount").innerText=
-        player.caught.length;
-
-    document.getElementById("xpProgress").style.width=
-        Math.min(
-            100,
-            player.xp/requiredXP()*100
-        )+"%";
-
-}
-
-
-/* =========================================================
-   START
-========================================================= */
+/* =====================================================
+   GAME START
+===================================================== */
 
 function startGame(){
 
@@ -1407,160 +2031,442 @@ function startGame(){
 
     updateUI();
 
-    spawnMultiple(5);
+    centerWorld();
+
+    spawnInitialCreatures();
+
+    showToast(
+        "🗺️ Welkom in Creaturen Trail!"
+    );
 
 }
 
 
-/* =========================================================
-   ZONE
-========================================================= */
+/* =====================================================
+   XP
+===================================================== */
 
-function randomZone(){
+function neededXP(){
 
-    const zones=[
-        "forest",
-        "lake",
-        "desert"
-    ];
-
-    return zones[
-        Math.floor(
-            Math.random()*zones.length
-        )
-    ];
+    return playerData.level*250;
 
 }
 
 
-/* =========================================================
-   CREATURE PICK
-========================================================= */
+function addXP(amount){
 
-function pickCreature(zone){
+    playerData.xp+=amount;
 
-    let available=
-        CREATURES.filter(
-            c=>c.zones.includes(zone)
+    while(
+        playerData.xp>=neededXP()
+    ){
+
+        playerData.xp-=neededXP();
+
+        playerData.level++;
+
+        showToast(
+            "🎉 LEVEL UP! Level "+
+            playerData.level
         );
 
-    const r=Math.random();
+    }
 
-    let rarity;
+    saveGame();
 
-    if(r<.65)
-        rarity="Common";
-    else if(r<.9)
-        rarity="Rare";
-    else if(r<.985)
-        rarity="Epic";
-    else
-        rarity="Legendary";
-
-    let rareList=
-        available.filter(
-            c=>c.rarity===rarity
-        );
-
-    if(!rareList.length)
-        rareList=available;
-
-    return rareList[
-        Math.floor(
-            Math.random()*rareList.length
-        )
-    ];
+    updateUI();
 
 }
 
 
-/* =========================================================
-   SPAWN
-========================================================= */
+/* =====================================================
+   SAVE
+===================================================== */
 
-function spawnCreature(){
+function saveGame(){
 
-    const map=
-        document.getElementById("map");
+    localStorage.setItem(
+        "creaturenTrailSave",
+        JSON.stringify(
+            playerData
+        )
+    );
 
-    const zone=
-        randomZone();
+}
 
-    const creature=
-        pickCreature(zone);
 
-    const element=
-        document.createElement("button");
+/* =====================================================
+   UI
+===================================================== */
 
-    element.className=
-        "spawned-creature";
+function updateUI(){
 
-    element.innerHTML=`
+    document.getElementById(
+        "level"
+    ).innerText=
+        playerData.level;
 
-        <span class="creature-emoji">
-            ${creature.emoji}
-        </span>
+    document.getElementById(
+        "xp"
+    ).innerText=
+        playerData.xp;
 
-        <span class="rarity-label">
-            ${creature.rarity}
-        </span>
+    document.getElementById(
+        "currentXP"
+    ).innerText=
+        playerData.xp;
 
-    `;
+    document.getElementById(
+        "requiredXP"
+    ).innerText=
+        neededXP();
 
-    let x,y;
+    document.getElementById(
+        "coins"
+    ).innerText=
+        playerData.coins;
+
+    document.getElementById(
+        "caught"
+    ).innerText=
+        playerData.caught.length;
+
+    document.getElementById(
+        "profileLevel"
+    ).innerText=
+        playerData.level;
+
+    document.getElementById(
+        "profileCaught"
+    ).innerText=
+        playerData.caught.length;
+
+    document.getElementById(
+        "xpFill"
+    ).style.width=
+        (
+            playerData.xp/
+            neededXP()*
+            100
+        )+"%";
+
+}
+
+
+/* =====================================================
+   WORLD CAMERA
+===================================================== */
+
+function centerWorld(){
+
+    const world=
+        document.getElementById(
+            "world"
+        );
+
+    const viewport=
+        document.getElementById(
+            "worldViewport"
+        );
+
+    const centerX=
+        viewport.clientWidth/2;
+
+    const centerY=
+        viewport.clientHeight/2;
+
+    const offsetX=
+        centerX-playerX;
+
+    const offsetY=
+        centerY-playerY;
+
+    world.style.transform=
+        `
+        translate(
+            ${offsetX}px,
+            ${offsetY}px
+        )
+        `;
+
+}
+
+
+/* =====================================================
+   MOVEMENT
+===================================================== */
+
+function movePlayer(){
+
+    if(
+        movement.x===0 &&
+        movement.y===0
+    ){
+
+        return;
+
+    }
+
+    playerX+=
+        movement.x*speed;
+
+    playerY+=
+        movement.y*speed;
+
 
     /*
-      Gebieden krijgen verschillende delen
-      van de kaart.
+       Binnen de wereld blijven.
     */
 
-    if(zone==="forest"){
-
-        x=8+Math.random()*35;
-        y=8+Math.random()*70;
-
-    }
-
-    else if(zone==="lake"){
-
-        x=58+Math.random()*28;
-        y=10+Math.random()*55;
-
-    }
-
-    else{
-
-        x=8+Math.random()*38;
-        y=55+Math.random()*30;
-
-    }
-
-    element.style.left=x+"%";
-    element.style.top=y+"%";
-
-    element.onclick=
-        ()=>openEncounter(
-            creature,
-            element
+    playerX=
+        Math.max(
+            100,
+            Math.min(
+                2900,
+                playerX
+            )
         );
 
-    map.appendChild(element);
+    playerY=
+        Math.max(
+            100,
+            Math.min(
+                2900,
+                playerY
+            )
+        );
 
-    setTimeout(()=>{
 
-        if(element.isConnected)
-            element.remove();
+    centerWorld();
 
-    },45000);
+    updateCreatureDistances();
 
 }
 
 
-function spawnMultiple(amount){
+/* =====================================================
+   GAME LOOP
+===================================================== */
+
+function gameLoop(){
+
+    movePlayer();
+
+    requestAnimationFrame(
+        gameLoop
+    );
+
+}
+
+gameLoop();
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event=>{
+
+        if(event.key==="ArrowUp"||
+           event.key.toLowerCase()==="w"){
+
+            movement.y=-1;
+
+        }
+
+        if(event.key==="ArrowDown"||
+           event.key.toLowerCase()==="s"){
+
+            movement.y=1;
+
+        }
+
+        if(event.key==="ArrowLeft"||
+           event.key.toLowerCase()==="a"){
+
+            movement.x=-1;
+
+        }
+
+        if(event.key==="ArrowRight"||
+           event.key.toLowerCase()==="d"){
+
+            movement.x=1;
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keyup",
+    event=>{
+
+        if(
+            ["ArrowUp","ArrowDown",
+             "w","s"].includes(event.key)
+        ){
+
+            movement.y=0;
+
+        }
+
+        if(
+            ["ArrowLeft","ArrowRight",
+             "a","d"].includes(event.key)
+        ){
+
+            movement.x=0;
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   JOYSTICK
+===================================================== */
+
+const joystick=
+    document.getElementById(
+        "joystick"
+    );
+
+const knob=
+    document.getElementById(
+        "joystickKnob"
+    );
+
+let joystickActive=false;
+
+function joystickMove(
+    clientX,
+    clientY
+){
+
+    const rect=
+        joystick.getBoundingClientRect();
+
+    const centerX=
+        rect.left+
+        rect.width/2;
+
+    const centerY=
+        rect.top+
+        rect.height/2;
+
+    let dx=
+        clientX-centerX;
+
+    let dy=
+        clientY-centerY;
+
+    const max=
+        rect.width/2-29;
+
+    const distance=
+        Math.sqrt(
+            dx*dx+
+            dy*dy
+        );
+
+    if(distance>max){
+
+        dx=
+            dx/distance*max;
+
+        dy=
+            dy/distance*max;
+
+    }
+
+    knob.style.left=
+        `calc(50% + ${dx}px)`;
+
+    knob.style.top=
+        `calc(50% + ${dy}px)`;
+
+    movement.x=
+        dx/max;
+
+    movement.y=
+        dy/max;
+
+}
+
+
+function joystickStop(){
+
+    joystickActive=false;
+
+    movement.x=0;
+    movement.y=0;
+
+    knob.style.left="50%";
+    knob.style.top="50%";
+
+}
+
+
+joystick.addEventListener(
+    "pointerdown",
+    event=>{
+
+        joystickActive=true;
+
+        joystick.setPointerCapture(
+            event.pointerId
+        );
+
+        joystickMove(
+            event.clientX,
+            event.clientY
+        );
+
+    }
+);
+
+
+joystick.addEventListener(
+    "pointermove",
+    event=>{
+
+        if(!joystickActive)
+            return;
+
+        joystickMove(
+            event.clientX,
+            event.clientY
+        );
+
+    }
+);
+
+
+joystick.addEventListener(
+    "pointerup",
+    joystickStop
+);
+
+joystick.addEventListener(
+    "pointercancel",
+    joystickStop
+);
+
+
+/* =====================================================
+   CREATURE SPAWNS
+===================================================== */
+
+function spawnInitialCreatures(){
 
     for(
         let i=0;
-        i<amount;
+        i<7;
         i++
     ){
 
@@ -1574,54 +2480,352 @@ function spawnMultiple(amount){
 }
 
 
-/* =========================================================
+function randomCreature(){
+
+    const random=
+        Math.random();
+
+    let rarity;
+
+    if(random<.65){
+
+        rarity="Common";
+
+    }
+    else if(random<.90){
+
+        rarity="Rare";
+
+    }
+    else if(random<.985){
+
+        rarity="Epic";
+
+    }
+    else{
+
+        rarity="Legendary";
+
+    }
+
+    let list=
+        CREATURES.filter(
+            c=>c.rarity===rarity
+        );
+
+    if(!list.length)
+        list=CREATURES;
+
+    return list[
+        Math.floor(
+            Math.random()*
+            list.length
+        )
+    ];
+
+}
+
+
+function spawnCreature(){
+
+    const world=
+        document.getElementById(
+            "world"
+        );
+
+    const creature=
+        randomCreature();
+
+
+    /*
+       Creature verschijnt
+       in een gebied rond de speler.
+    */
+
+    const angle=
+        Math.random()*
+        Math.PI*2;
+
+    const distance=
+        220+
+        Math.random()*500;
+
+
+    let x=
+        playerX+
+        Math.cos(angle)*
+        distance;
+
+    let y=
+        playerY+
+        Math.sin(angle)*
+        distance;
+
+
+    x=
+        Math.max(
+            80,
+            Math.min(
+                2920,
+                x
+            )
+        );
+
+    y=
+        Math.max(
+            80,
+            Math.min(
+                2920,
+                y
+            )
+        );
+
+
+    const element=
+        document.createElement(
+            "button"
+        );
+
+    element.className=
+        "creature";
+
+
+    element.dataset.x=x;
+    element.dataset.y=y;
+    element.dataset.id=
+        creature.id;
+
+
+    element.innerHTML=`
+
+        <span
+            class="creature-emoji">
+
+            ${creature.emoji}
+
+        </span>
+
+        <span
+            class="creature-distance">
+
+            zoeken...
+
+        </span>
+
+    `;
+
+
+    element.style.left=
+        x+"px";
+
+    element.style.top=
+        y+"px";
+
+
+    element.onclick=
+        ()=>{
+            tryCatchCreature(
+                creature,
+                element
+            );
+        };
+
+
+    world.appendChild(
+        element
+    );
+
+
+    updateCreatureDistances();
+
+}
+
+
+/* =====================================================
+   AFSTAND
+===================================================== */
+
+function distanceBetween(
+    x1,
+    y1,
+    x2,
+    y2
+){
+
+    return Math.sqrt(
+        Math.pow(x2-x1,2)+
+        Math.pow(y2-y1,2)
+    );
+
+}
+
+
+function updateCreatureDistances(){
+
+    document
+    .querySelectorAll(
+        ".creature"
+    )
+    .forEach(
+        element=>{
+
+            const x=
+                Number(
+                    element.dataset.x
+                );
+
+            const y=
+                Number(
+                    element.dataset.y
+                );
+
+            const distance=
+                Math.round(
+                    distanceBetween(
+                        playerX,
+                        playerY,
+                        x,
+                        y
+                    )
+                );
+
+
+            const label=
+                element.querySelector(
+                    ".creature-distance"
+                );
+
+
+            label.innerText=
+                distance+
+                " m";
+
+
+            /*
+               Alleen binnen 170 meter
+               is hij vangbaar.
+            */
+
+            if(distance<=170){
+
+                element.style.filter=
+                    "none";
+
+            }
+            else{
+
+                element.style.filter=
+                    "brightness(.65)";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   VANGEN
+===================================================== */
+
+function tryCatchCreature(
+    creature,
+    element
+){
+
+    const x=
+        Number(
+            element.dataset.x
+        );
+
+    const y=
+        Number(
+            element.dataset.y
+        );
+
+    const distance=
+        distanceBetween(
+            playerX,
+            playerY,
+            x,
+            y
+        );
+
+
+    if(distance>170){
+
+        showToast(
+            "👣 Loop dichter naar "+
+            creature.name+
+            "!"
+        );
+
+        return;
+
+    }
+
+
+    openEncounter(
+        creature,
+        element
+    );
+
+}
+
+
+/* =====================================================
    ENCOUNTER
-========================================================= */
+===================================================== */
+
+let currentCreature=null;
+let currentElement=null;
+
 
 function openEncounter(
     creature,
     element
 ){
 
-    currentEncounter={
-        creature,
-        element
-    };
+    currentCreature=
+        creature;
+
+    currentElement=
+        element;
+
 
     document.getElementById(
-        "encounterContent"
+        "encounter"
     ).innerHTML=`
 
         <div class="encounter-image">
+
             ${creature.emoji}
+
         </div>
 
         <h2>
             ${creature.name}
         </h2>
 
-        <div class="badges">
-
-            <span class="badge">
-                ${creature.type}
-            </span>
-
-            <span class="
-                badge
-                ${creature.rarity.toLowerCase()}
-            ">
-                ${creature.rarity}
-            </span>
-
-        </div>
-
         <p>
-            Een wilde ${creature.name}
-            is verschenen!
+            Type:
+            <strong>
+                ${creature.type}
+            </strong>
         </p>
 
         <p>
-            ⭐ ${creature.xp} XP
+            Zeldzaamheid:
+            <strong>
+                ${creature.rarity}
+            </strong>
+        </p>
+
+        <p>
+            ⭐
+            ${creature.xp}
+            XP
         </p>
 
         <button
@@ -1634,332 +2838,139 @@ function openEncounter(
 
     `;
 
+
     document.getElementById(
         "encounterModal"
-    ).style.display="flex";
+    ).style.display=
+        "flex";
 
 }
 
 
-/* =========================================================
-   CATCH
-========================================================= */
-
 function catchCreature(){
 
-    if(!currentEncounter)
+    if(
+        !currentCreature||
+        !currentElement
+    ){
+
         return;
 
-    const creature=
-        currentEncounter.creature;
+    }
 
-    const element=
-        currentEncounter.element;
-
-    if(element)
-        element.remove();
 
     const already=
-        player.caught.includes(
-            creature.id
+        playerData.caught.includes(
+            currentCreature.id
         );
+
+
+    currentElement.remove();
+
 
     if(already){
 
         const bonus=
             Math.floor(
-                creature.xp*.4
+                currentCreature.xp*.4
             );
 
         addXP(bonus);
 
-        player.coins+=5;
+        playerData.coins+=5;
 
-        toast(
+        showToast(
             "✨ Dubbel! +"+
             bonus+
             " XP"
         );
 
     }
-
     else{
 
-        player.caught.push(
-            creature.id
+        playerData.caught.push(
+            currentCreature.id
         );
 
         addXP(
-            creature.xp
+            currentCreature.xp
         );
+
 
         let coins=10;
 
-        if(creature.rarity==="Rare")
+
+        if(
+            currentCreature.rarity===
+            "Rare"
+        ){
+
             coins=20;
 
-        if(creature.rarity==="Epic")
+        }
+
+        if(
+            currentCreature.rarity===
+            "Epic"
+        ){
+
             coins=40;
 
-        if(creature.rarity==="Legendary")
+        }
+
+        if(
+            currentCreature.rarity===
+            "Legendary"
+        ){
+
             coins=100;
 
-        player.coins+=coins;
+        }
 
-        toast(
+
+        playerData.coins+=
+            coins;
+
+
+        showToast(
             "🎉 "+
-            creature.name+
+            currentCreature.name+
             " gevangen!"
         );
 
     }
 
-    save();
+
+    saveGame();
+
     updateUI();
 
-    closeEncounter();
+    closeModal(
+        "encounterModal"
+    );
+
+
+    currentCreature=null;
+    currentElement=null;
+
 
     setTimeout(
         spawnCreature,
-        1300
+        1200
     );
 
 }
 
 
-/* =========================================================
-   CLOSE ENCOUNTER
-========================================================= */
-
-function closeEncounter(){
-
-    document.getElementById(
-        "encounterModal"
-    ).style.display="none";
-
-    currentEncounter=null;
-
-}
-
-
-/* =========================================================
-   DEX
-========================================================= */
-
-function openDex(){
-
-    document.getElementById(
-        "dexModal"
-    ).style.display="flex";
-
-    renderDex();
-
-}
-
-
-function renderDex(){
-
-    const grid=
-        document.getElementById(
-            "dexGrid"
-        );
-
-    const search=
-        document.getElementById(
-            "dexSearch"
-        ).value.toLowerCase();
-
-    const filter=
-        document.getElementById(
-            "dexFilter"
-        ).value;
-
-    const discovered=
-        player.caught;
-
-    const filtered=
-        CREATURES.filter(c=>{
-
-            const nameMatch=
-                c.name
-                .toLowerCase()
-                .includes(search);
-
-            const typeMatch=
-                filter==="all" ||
-                c.type===filter;
-
-            return nameMatch&&typeMatch;
-
-        });
-
-    const count=
-        discovered.length;
-
-    document.getElementById(
-        "dexProgress"
-    ).innerText=
-        count+
-        " / "+
-        CREATURES.length+
-        " ontdekt";
-
-    grid.innerHTML="";
-
-    filtered.forEach(
-        (c,index)=>{
-
-            const found=
-                discovered.includes(c.id);
-
-            const card=
-                document.createElement("div");
-
-            card.className=
-                "dex-card";
-
-            if(!found)
-                card.classList.add(
-                    "dex-locked"
-                );
-
-            card.innerHTML=`
-
-                <div
-                    style="
-                        color:#687b93;
-                        font-size:9px;
-                        text-align:left;
-                    ">
-
-                    #${String(
-                        index+1
-                    ).padStart(3,"0")}
-
-                </div>
-
-                <div class="dex-image">
-
-                    ${
-                        found
-                        ? c.emoji
-                        : "?"
-                    }
-
-                </div>
-
-                <div class="dex-name">
-
-                    ${
-                        found
-                        ? c.name
-                        : "???"
-                    }
-
-                </div>
-
-                ${
-                    found
-                    ?
-                    `
-                    <div class="badges">
-
-                        <span class="badge">
-                            ${c.type}
-                        </span>
-
-                        <span class="
-                            badge
-                            ${c.rarity.toLowerCase()}
-                        ">
-                            ${c.rarity}
-                        </span>
-
-                    </div>
-                    `
-                    :
-                    `<p
-                        style="
-                            color:#66768b;
-                            font-size:10px;
-                        ">
-                        Nog niet ontdekt
-                    </p>`
-                }
-
-            `;
-
-            grid.appendChild(card);
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   FRIENDS
-========================================================= */
-
-function openFriends(){
-
-    document.getElementById(
-        "friendsModal"
-    ).style.display="flex";
-
-}
-
-
-/* =========================================================
-   EVENTS
-========================================================= */
-
-function openEvents(){
-
-    document.getElementById(
-        "eventsModal"
-    ).style.display="flex";
-
-}
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-function openProfile(){
-
-    updateUI();
-
-    document.getElementById(
-        "profileModal"
-    ).style.display="flex";
-
-}
-
-
-/* =========================================================
-   HOME
-========================================================= */
-
-function showHome(){
-
-    toast(
-        "🗺️ Je bent op de kaart"
-    );
-
-}
-
-
-/* =========================================================
-   LOCATION
-========================================================= */
-
-function findPlayerLocation(){
+/* =====================================================
+   GPS
+===================================================== */
+
+function useGPS(){
 
     if(!navigator.geolocation){
 
-        toast(
+        showToast(
             "📍 GPS wordt niet ondersteund."
         );
 
@@ -1967,36 +2978,50 @@ function findPlayerLocation(){
 
     }
 
-    toast(
+
+    showToast(
         "📍 Locatie wordt gezocht..."
     );
+
 
     navigator.geolocation.getCurrentPosition(
 
         position=>{
 
-            const lat=
-                position.coords.latitude;
+            gpsActive=true;
 
-            const lon=
-                position.coords.longitude;
 
-            toast(
-                "📍 Locatie gevonden!"
+            /*
+               We gebruiken de echte GPS
+               om een locatie te krijgen.
+
+               Voor deze stap houden we de
+               gamewereld lokaal zodat de
+               game ook zonder echte kaart
+               speelbaar blijft.
+            */
+
+            console.log(
+                "Latitude:",
+                position.coords.latitude
             );
 
             console.log(
-                "GPS:",
-                lat,
-                lon
+                "Longitude:",
+                position.coords.longitude
+            );
+
+
+            showToast(
+                "📍 GPS verbonden!"
             );
 
         },
 
-        error=>{
+        ()=>{
 
-            toast(
-                "⚠️ Geef locatie-toegang aan."
+            showToast(
+                "⚠️ Geef toestemming voor GPS."
             );
 
         },
@@ -2012,111 +3037,297 @@ function findPlayerLocation(){
 }
 
 
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
+/* =====================================================
+   DEX
+===================================================== */
+
+function openDex(){
+
+    document.getElementById(
+        "dexModal"
+    ).style.display=
+        "flex";
+
+    renderDex();
+
+}
+
+
+function renderDex(){
+
+    const grid=
+        document.getElementById(
+            "dexGrid"
+        );
+
+    grid.innerHTML="";
+
+
+    document.getElementById(
+        "dexProgress"
+    ).innerText=
+        playerData.caught.length+
+        " / "+
+        CREATURES.length+
+        " ontdekt";
+
+
+    CREATURES.forEach(
+        (creature,index)=>{
+
+            const found=
+                playerData.caught.includes(
+                    creature.id
+                );
+
+
+            const card=
+                document.createElement(
+                    "div"
+                );
+
+            card.className=
+                "dex-card";
+
+
+            if(!found){
+
+                card.classList.add(
+                    "locked"
+                );
+
+            }
+
+
+            card.innerHTML=`
+
+                <div
+                    style="
+                        color:#718399;
+                        font-size:9px;
+                    ">
+
+                    #${String(
+                        index+1
+                    ).padStart(3,"0")}
+
+                </div>
+
+                <div class="dex-image">
+
+                    ${
+                        found
+                        ? creature.emoji
+                        : "?"
+                    }
+
+                </div>
+
+                <strong>
+
+                    ${
+                        found
+                        ? creature.name
+                        : "???"
+                    }
+
+                </strong>
+
+                <p
+                    style="
+                        color:#8798ad;
+                        font-size:10px;
+                    ">
+
+                    ${
+                        found
+                        ? creature.type
+                        : "Nog niet ontdekt"
+                    }
+
+                </p>
+
+            `;
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   FRIENDS
+===================================================== */
+
+function openFriends(){
+
+    document.getElementById(
+        "friendsModal"
+    ).style.display=
+        "flex";
+
+}
+
+
+/* =====================================================
+   EVENTS
+===================================================== */
+
+function openEvents(){
+
+    document.getElementById(
+        "eventsModal"
+    ).style.display=
+        "flex";
+
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function openProfile(){
+
+    updateUI();
+
+    document.getElementById(
+        "profileModal"
+    ).style.display=
+        "flex";
+
+}
+
+
+/* =====================================================
+   MODALS SLUITEN
+===================================================== */
 
 function closeModal(id){
 
     document.getElementById(
         id
-    ).style.display="none";
+    ).style.display=
+        "none";
 
 }
 
 
-/* =========================================================
+document
+.querySelectorAll(".modal")
+.forEach(
+    modal=>{
+
+        modal.addEventListener(
+            "click",
+            event=>{
+
+                if(
+                    event.target===
+                    modal
+                ){
+
+                    modal.style.display=
+                        "none";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
    TOAST
-========================================================= */
+===================================================== */
 
-function toast(message){
+let toastTimer=null;
 
-    const el=
+
+function showToast(message){
+
+    const toast=
         document.getElementById(
             "toast"
         );
 
-    el.innerText=message;
 
-    el.classList.add("show");
+    toast.innerText=
+        message;
 
-    clearTimeout(
-        window.toastTimeout
+
+    toast.classList.add(
+        "show"
     );
 
-    window.toastTimeout=
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer=
         setTimeout(
             ()=>{
-                el.classList.remove(
+                toast.classList.remove(
                     "show"
                 );
             },
-            2800
+            2600
         );
 
 }
 
 
-/* =========================================================
-   AUTO SPAWNS
-========================================================= */
+/* =====================================================
+   AUTOMATISCHE SPAWNS
+===================================================== */
 
-setInterval(()=>{
+setInterval(
+    ()=>{
 
-    const map=
-        document.getElementById("map");
-
-    if(!map)
-        return;
-
-    const amount=
-        map.querySelectorAll(
-            ".spawned-creature"
-        ).length;
-
-    if(amount<6)
-        spawnCreature();
-
-},6000);
+        const creatures=
+            document.querySelectorAll(
+                ".creature"
+            );
 
 
-/* =========================================================
-   CLOSE MODAL BY BACKGROUND
-========================================================= */
+        if(
+            creatures.length<7
+        ){
 
-document
-.querySelectorAll(".modal")
-.forEach(modal=>{
-
-    modal.addEventListener(
-        "click",
-        event=>{
-
-            if(event.target===modal){
-
-                modal.style.display=
-                    "none";
-
-            }
+            spawnCreature();
 
         }
-    );
 
-});
+    },
+    5000
+);
 
 
-/* =========================================================
+/* =====================================================
    ESC
-========================================================= */
+===================================================== */
 
 document.addEventListener(
     "keydown",
     event=>{
 
-        if(event.key==="Escape"){
+        if(
+            event.key==="Escape"
+        ){
 
             document
-            .querySelectorAll(".modal")
+            .querySelectorAll(
+                ".modal"
+            )
             .forEach(
                 modal=>{
                     modal.style.display=
@@ -2130,9 +3341,9 @@ document.addEventListener(
 );
 
 
-/* =========================================================
+/* =====================================================
    INIT
-========================================================= */
+===================================================== */
 
 updateUI();
 

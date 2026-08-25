@@ -2,1143 +2,328 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Creaturen Trail</title>
 
-<link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
-
 <style>
-
 * {
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
 }
 
-html,
 body {
     margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
     font-family: Arial, sans-serif;
-    background: #07120d;
+    background: #08111f;
     color: white;
 }
 
 button {
     font-family: inherit;
-    cursor: pointer;
 }
 
-/* =========================
-   START
-========================= */
-
-#startScreen {
-    position: fixed;
-    inset: 0;
-    z-index: 10000;
-
+.screen {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-
+    justify-content: center;
+    padding: 25px;
     text-align: center;
-
-    background:
-        radial-gradient(
-            circle at 50% 20%,
-            rgba(80,240,145,.25),
-            transparent 35%
-        ),
-        linear-gradient(
-            160deg,
-            #06110d,
-            #153a26,
-            #06110d
-        );
 }
 
-.logo {
-    width: 120px;
-    height: 120px;
-
-    border-radius: 35px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 65px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #83f5ae,
-            #29955a
-        );
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.5);
+.start-logo {
+    font-size: 70px;
+    margin-bottom: 10px;
 }
 
-#startScreen h1 {
-    margin: 25px 0 5px;
-    font-size: clamp(38px, 10vw, 60px);
-    font-weight: 900;
+h1 {
+    font-size: 48px;
+    margin: 0;
 }
 
 .subtitle {
-    color: #b7cbbf;
+    color: #9daabd;
+    font-size: 18px;
+    margin-bottom: 35px;
 }
 
-.startButton {
-    margin-top: 35px;
-
-    padding: 17px 42px;
-
+.main-button {
     border: none;
-    border-radius: 18px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #7af2a7,
-            #31b66b
-        );
-
-    color: #07120d;
-
+    border-radius: 16px;
+    padding: 16px 30px;
+    background: white;
+    color: #08111f;
     font-size: 17px;
-    font-weight: 900;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 6px;
 }
 
-/* =========================
-   GAME
-========================= */
+.main-button:hover {
+    transform: translateY(-2px);
+}
 
 #game {
     display: none;
-    position: fixed;
-    inset: 0;
+    min-height: 100vh;
+    padding: 15px;
 }
 
-#map {
-    position: absolute;
-    inset: 0;
-}
-
-/* =========================
-   HUD
-========================= */
-
-.hud {
-    position: fixed;
-    z-index: 2000;
-
-    top: 14px;
-    left: 14px;
-    right: 14px;
-
+.topbar {
+    max-width: 1100px;
+    margin: auto;
     display: flex;
     justify-content: space-between;
-
-    pointer-events: none;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
-.hudBox {
-    padding: 11px 14px;
-
-    border-radius: 18px;
-
-    background: rgba(5,18,12,.94);
-
-    border: 1px solid rgba(255,255,255,.12);
-
-    backdrop-filter: blur(14px);
-}
-
-.title {
-    font-weight: 900;
-    font-size: 14px;
-}
-
-.level {
-    margin-top: 5px;
-    color: #73efa3;
-    font-size: 11px;
+.logo {
+    font-size: 22px;
     font-weight: bold;
 }
 
-.xpBar {
-    width: 145px;
-    height: 7px;
-
-    margin-top: 7px;
-
-    border-radius: 20px;
-    overflow: hidden;
-
-    background: rgba(255,255,255,.12);
+.top-actions {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
-.xpFill {
-    width: 0%;
-    height: 100%;
+.small-button {
+    border: 1px solid #33445d;
+    background: #121f32;
+    color: white;
+    padding: 9px 13px;
+    border-radius: 11px;
+    cursor: pointer;
+}
 
-    background:
-        linear-gradient(
-            90deg,
-            #55df91,
-            #d0ff8d
-        );
-
-    transition: .3s;
+.small-button:hover {
+    background: #1c2c43;
 }
 
 .stats {
+    color: #cbd5e1;
+    font-size: 13px;
     text-align: right;
-    font-size: 12px;
-    line-height: 1.7;
 }
 
-/* =========================
-   MENU
-========================= */
-
-.menu {
-    position: fixed;
-
-    z-index: 2500;
-
-    top: 105px;
-    right: 14px;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 9px;
+.map {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    height: 65vh;
+    min-height: 430px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 25px;
+    border: 2px solid #324a43;
+    background:
+        radial-gradient(circle at 20% 20%, #315640 0 7%, transparent 8%),
+        radial-gradient(circle at 80% 70%, #315640 0 8%, transparent 9%),
+        #183326;
 }
 
-.menu button {
-    width: 52px;
-    height: 52px;
-
-    border: none;
-    border-radius: 17px;
-
-    background: rgba(5,18,12,.94);
-
-    color: white;
-
-    font-size: 21px;
-
-    box-shadow:
-        0 6px 18px rgba(0,0,0,.3);
-}
-
-/* =========================
-   MESSAGE
-========================= */
-
-.messageBox {
-    position: fixed;
-
-    z-index: 3000;
-
-    left: 50%;
-    bottom: 145px;
-
-    transform: translateX(-50%);
-
-    width: calc(100% - 30px);
-    max-width: 430px;
-
-    padding: 13px 16px;
-
-    border-radius: 19px;
-
-    background: rgba(5,18,12,.94);
-
-    text-align: center;
-
-    backdrop-filter: blur(12px);
-}
-
-/* =========================
-   JOYSTICK
-========================= */
-
-#joystick {
-    position: fixed;
-
-    z-index: 4000;
-
-    left: 25px;
-    bottom: 25px;
-
-    width: 135px;
-    height: 135px;
-
-    border-radius: 50%;
-
-    background: rgba(5,20,13,.5);
-
-    border: 2px solid rgba(255,255,255,.15);
-
-    touch-action: none;
-}
-
-#stick {
+.road {
     position: absolute;
+    width: 130%;
+    height: 60px;
+    background: #66716c;
+    top: 48%;
+    left: -15%;
+    transform: rotate(18deg);
+}
 
+.road2 {
+    position: absolute;
+    width: 120%;
+    height: 45px;
+    background: #66716c;
+    top: 20%;
+    left: -10%;
+    transform: rotate(-55deg);
+}
+
+.player {
+    position: absolute;
     left: 50%;
     top: 50%;
-
-    width: 58px;
-    height: 58px;
-
-    transform: translate(-50%,-50%);
-
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #78f2a9,
-            #2eaf68
-        );
-
-    border: 3px solid rgba(255,255,255,.7);
-}
-
-/* =========================
-   CREATURE
-========================= */
-
-.creatureMarker {
-    width: 70px;
-    height: 70px;
-
+    background: white;
+    border: 5px solid #111827;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    border-radius: 50%;
-
-    background: white;
-
-    border: 3px solid #17261c;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.5);
+    font-size: 30px;
+    z-index: 5;
 }
 
-.creatureBody {
-    position: relative;
-
-    width: 42px;
-    height: 38px;
-
-    border-radius: 48% 52% 45% 55%;
-}
-
-.eye {
+.creature {
     position: absolute;
-
-    top: 11px;
-
-    width: 7px;
-    height: 9px;
-
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
-
-    background: #101612;
+    border: 3px solid white;
+    background: linear-gradient(145deg, #657dff, #4054c8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,.45);
+    transition: .2s;
+    z-index: 4;
 }
 
-.eye.left {
-    left: 10px;
+.creature:hover {
+    transform: scale(1.12);
 }
 
-.eye.right {
-    right: 10px;
+.message {
+    text-align: center;
+    color: #cbd5e1;
+    margin: 14px;
 }
 
-.mouth {
-    position: absolute;
-
-    left: 50%;
-    bottom: 7px;
-
-    width: 11px;
-    height: 6px;
-
-    transform: translateX(-50%);
-
-    border-bottom: 2px solid #182019;
-    border-radius: 50%;
+.catch-button {
+    display: none;
+    margin: auto;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #fff;
+    color: #101827;
 }
 
-.fire {
-    background: linear-gradient(145deg,#ffbd42,#e94824);
-}
-
-.water {
-    background: linear-gradient(145deg,#73eaff,#2376d9);
-}
-
-.nature {
-    background: linear-gradient(145deg,#8de86d,#38954d);
-}
-
-.electric {
-    background: linear-gradient(145deg,#fff26b,#f1a91d);
-}
-
-.earth {
-    background: linear-gradient(145deg,#b99165,#67452d);
-}
-
-.ice {
-    background: linear-gradient(145deg,#d9ffff,#67bde4);
-}
-
-.shadow {
-    background: linear-gradient(145deg,#7d68aa,#261b3f);
-}
-
-.mystic {
-    background: linear-gradient(145deg,#f69cff,#7952d6);
-}
-
-.legendary {
-    background: linear-gradient(145deg,#fff7a3,#c68dff);
-    box-shadow: 0 0 20px #f6d66b;
-}
-
-/* =========================
-   PLAYER
-========================= */
-
-.playerMarker {
-    width: 30px;
-    height: 30px;
-
-    border-radius: 50%;
-
-    background: #428cff;
-
-    border: 4px solid white;
-
-    box-shadow:
-        0 0 0 9px rgba(66,140,255,.2),
-        0 4px 15px rgba(0,0,0,.45);
-}
-
-/* =========================
-   MODALS
-========================= */
+/* MODALS */
 
 .modal {
+    display: none;
     position: fixed;
     inset: 0;
-
-    z-index: 7000;
-
-    display: none;
-
+    background: rgba(0,0,0,.75);
+    z-index: 100;
+    padding: 20px;
     align-items: center;
     justify-content: center;
-
-    padding: 20px;
-
-    background: rgba(0,0,0,.72);
-
-    backdrop-filter: blur(9px);
 }
 
-.modalCard {
+.modal-box {
     width: 100%;
-    max-width: 500px;
-
-    max-height: 88vh;
-
+    max-width: 600px;
+    max-height: 90vh;
     overflow-y: auto;
-
+    background: #101c2d;
+    border: 1px solid #33445d;
+    border-radius: 22px;
     padding: 22px;
-
-    border-radius: 25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #142b20,
-            #08140e
-        );
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.5);
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
 }
 
-.modalTitle {
+.modal-header {
     display: flex;
-
     justify-content: space-between;
     align-items: center;
+}
 
-    font-size: 22px;
-    font-weight: 900;
+.modal-header h2 {
+    margin: 0;
 }
 
 .close {
     border: none;
-    background: transparent;
+    background: #24334a;
     color: white;
-    font-size: 28px;
-}
-
-/* =========================
-   DEX
-========================= */
-
-.dexGrid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap: 11px;
-
-    margin-top: 20px;
-}
-
-.dexCard {
-    min-height: 140px;
-
-    padding: 14px;
-
-    border-radius: 18px;
-
-    text-align: center;
-
-    background: rgba(255,255,255,.07);
-}
-
-.dexArt {
-    height: 75px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-}
-
-.dexName {
-    font-weight: 900;
-}
-
-.dexType {
-    margin-top: 4px;
-
-    color: #73eaa0;
-
-    font-size: 10px;
-}
-
-.locked {
-    opacity: .35;
-    filter: grayscale(1);
-}
-
-/* =========================
-   EVENTS
-========================= */
-
-.eventList {
-    display: flex;
-    flex-direction: column;
-
-    gap: 13px;
-
-    margin-top: 20px;
-}
-
-.event {
-    padding: 17px;
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(91,210,136,.18),
-            rgba(255,255,255,.05)
-        );
-
-    border:
-        1px solid rgba(115,239,163,.16);
-}
-
-.eventTop {
-    display: flex;
-    justify-content: space-between;
-}
-
-.eventTitle {
-    font-weight: 900;
-    font-size: 17px;
-}
-
-.eventTime {
-    margin-top: 5px;
-
-    color: #7ef0a5;
-
-    font-size: 10px;
-    font-weight: bold;
-}
-
-.eventDescription {
-    margin-top: 12px;
-
-    color: #aabdb3;
-
-    font-size: 12px;
-    line-height: 1.5;
-}
-
-.eventReward {
-    margin-top: 12px;
-
-    padding: 10px;
-
-    border-radius: 12px;
-
-    background: rgba(0,0,0,.2);
-
-    color: #e2f9e9;
-
-    font-size: 11px;
-}
-
-.progressBar {
-    height: 8px;
-
-    margin-top: 12px;
-
-    overflow: hidden;
-
+    width: 38px;
+    height: 38px;
     border-radius: 10px;
-
-    background: rgba(255,255,255,.1);
-}
-
-.progressFill {
-    height: 100%;
-
-    background: #70efa2;
-
-    transition: .3s;
-}
-
-.eventButton {
-    width: 100%;
-
-    margin-top: 12px;
-
-    padding: 12px;
-
-    border: none;
-
-    border-radius: 13px;
-
-    background: #70efa2;
-
-    color: #07120d;
-
-    font-weight: 900;
-}
-
-/* =========================
-   FRIENDS
-========================= */
-
-.profile {
-    display: flex;
-    align-items: center;
-
-    gap: 13px;
-
-    padding: 15px;
-
-    margin-top: 18px;
-
-    border-radius: 18px;
-
-    background: rgba(255,255,255,.07);
-}
-
-.avatar {
-    width: 55px;
-    height: 55px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 17px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #74f1a5,
-            #328d59
-        );
-
-    font-size: 25px;
-}
-
-.addFriend {
-    display: flex;
-    gap: 8px;
-
-    margin-top: 15px;
-}
-
-.addFriend input {
-    flex: 1;
-
-    min-width: 0;
-
-    padding: 13px;
-
-    border: none;
-    outline: none;
-
-    border-radius: 13px;
-
-    background: rgba(255,255,255,.1);
-
-    color: white;
-}
-
-.addFriend button {
-    padding: 13px 15px;
-
-    border: none;
-    border-radius: 13px;
-
-    background: #71efa3;
-
-    color: #07120d;
-
-    font-weight: 900;
-}
-
-.friendList {
-    display: flex;
-    flex-direction: column;
-
-    gap: 9px;
-
-    margin-top: 18px;
-}
-
-.friend {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 13px;
-
-    border-radius: 16px;
-
-    background: rgba(255,255,255,.06);
-}
-
-/* =========================
-   ADMIN
-========================= */
-
-.adminPanel {
-    display: flex;
-    flex-direction: column;
-
-    gap: 14px;
-
-    margin-top: 20px;
-}
-
-.adminSection {
-    padding: 15px;
-
-    border-radius: 18px;
-
-    background: rgba(255,255,255,.06);
-}
-
-.adminSection h3 {
-    margin-top: 0;
-}
-
-.adminInput,
-.adminSelect {
-    width: 100%;
-
-    margin-top: 7px;
-
-    padding: 12px;
-
-    border: none;
-    outline: none;
-
-    border-radius: 11px;
-
-    background: rgba(255,255,255,.1);
-
-    color: white;
-}
-
-.adminSelect option {
-    color: black;
-}
-
-.adminLabel {
-    display: block;
-
-    margin-top: 10px;
-
-    color: #a8bbb0;
-
-    font-size: 11px;
-}
-
-.adminButton {
-    width: 100%;
-
-    padding: 13px;
-
-    margin-top: 10px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    background: #70efa2;
-
-    color: #07120d;
-
-    font-weight: 900;
-}
-
-.adminButton.danger {
-    background: #ef7070;
-    color: white;
-}
-
-.adminEvent {
-    padding: 13px;
-
-    margin-top: 10px;
-
-    border-radius: 15px;
-
-    background: rgba(255,255,255,.06);
-}
-
-.adminEventTop {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.adminSmallButton {
-    border: none;
-
-    padding: 8px 10px;
-
-    border-radius: 9px;
-
-    background: rgba(255,255,255,.12);
-
-    color: white;
-}
-
-.adminSmallButton.delete {
-    background: #8d3535;
-}
-
-/* =========================
-   LOGIN
-========================= */
-
-.loginInput {
-    width: 100%;
-
-    padding: 15px;
-
-    margin-top: 15px;
-
-    border: none;
-    outline: none;
-
-    border-radius: 13px;
-
-    background: rgba(255,255,255,.1);
-
-    color: white;
-
-    text-align: center;
-
+    cursor: pointer;
     font-size: 20px;
-
-    letter-spacing: 5px;
 }
 
-.loginButton {
-    width: 100%;
-
-    padding: 14px;
-
+.card {
+    background: #17253a;
+    border: 1px solid #2d405b;
+    border-radius: 16px;
+    padding: 16px;
     margin-top: 12px;
-
-    border: none;
-    border-radius: 13px;
-
-    background: #70efa2;
-
-    color: #07120d;
-
-    font-weight: 900;
 }
 
-/* =========================
-   ENCOUNTER
-========================= */
-
-#encounter {
-    position: fixed;
-    inset: 0;
-
-    z-index: 6000;
-
-    display: none;
-
-    flex-direction: column;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    padding: 45px 20px 30px;
-
-    text-align: center;
-
-    background:
-        radial-gradient(
-            circle at 50% 35%,
-            rgba(75,230,139,.25),
-            transparent 38%
-        ),
-        linear-gradient(
-            160deg,
-            #06140e,
-            #123021,
-            #06100b
-        );
+.card h3 {
+    margin: 0 0 7px;
 }
 
-.encounterCreature {
-    width: 210px;
-    height: 210px;
-
-    margin: auto;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            white,
-            rgba(105,235,155,.08)
-        );
+.card p {
+    color: #aebbd0;
 }
 
-.encounterCreature .creatureBody {
-    transform: scale(2);
+input,
+textarea,
+select {
+    width: 100%;
+    margin: 7px 0 12px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #3b4d66;
+    background: #0d1828;
+    color: white;
+    outline: none;
 }
 
-.encounterName {
-    margin-top: 22px;
-
-    font-size: 34px;
-    font-weight: 900;
+textarea {
+    min-height: 90px;
+    resize: vertical;
 }
 
-.encounterType {
-    margin-top: 5px;
+.form-label {
+    color: #b9c5d7;
+    font-size: 14px;
+}
 
-    color: #75eca4;
+.event-active {
+    border: 1px solid #53d38a;
+}
 
+.event-completed {
+    opacity: .7;
+}
+
+.reward {
+    font-size: 18px;
     font-weight: bold;
 }
 
-.encounterStats {
-    width: 100%;
-    max-width: 400px;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap: 10px;
+.admin-danger {
+    background: #5b2530;
 }
 
-.statCard {
-    padding: 12px 7px;
-
-    border-radius: 16px;
-
-    background: rgba(255,255,255,.08);
+.admin-success {
+    background: #1f5b3e;
 }
 
-.statNumber {
-    font-size: 18px;
-    font-weight: 900;
-}
-
-.statLabel {
-    margin-top: 4px;
-
-    color: #99ada2;
-
-    font-size: 9px;
-}
-
-#ball {
-    width: 95px;
-    height: 95px;
-
-    border-radius: 50%;
-
-    border: 7px solid white;
-
-    background:
-        linear-gradient(
-            #ed4d4d 0 47%,
-            #181818 47% 54%,
-            #f4f4f4 54%
-        );
-
-    transition: .25s;
-}
-
-/* =========================
-   RESULT
-========================= */
-
-#result {
-    position: fixed;
-    inset: 0;
-
-    z-index: 9000;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-
-    background: rgba(0,0,0,.75);
-
-    backdrop-filter: blur(10px);
-}
-
-.resultCard {
-    width: 100%;
-    max-width: 380px;
-
-    padding: 30px;
-
-    border-radius: 28px;
-
-    text-align: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            #163325,
-            #07130d
-        );
-}
-
-.resultArt {
-    width: 120px;
-    height: 120px;
-
-    margin: auto;
-
+.friend-row {
     display: flex;
-
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,.08);
+    background: #17253a;
+    padding: 13px;
+    border-radius: 13px;
+    margin-top: 8px;
 }
 
-.resultArt .creatureBody {
-    transform: scale(1.5);
+.empty {
+    color: #8f9db2;
+    text-align: center;
+    padding: 25px;
 }
-
-.resultTitle {
-    margin-top: 20px;
-
-    font-size: 27px;
-
-    font-weight: 900;
-}
-
-.resultText {
-    margin-top: 10px;
-
-    color: #b9cec3;
-}
-
-.resultButton {
-    width: 100%;
-
-    margin-top: 22px;
-
-    padding: 15px;
-
-    border: none;
-
-    border-radius: 15px;
-
-    background: #70efa2;
-
-    color: #07120e;
-
-    font-size: 16px;
-
-    font-weight: 900;
-}
-
 </style>
 </head>
 
@@ -1146,24 +331,17 @@ button {
 
 <!-- START -->
 
-<section id="startScreen">
+<section id="startScreen" class="screen">
 
-    <div class="logo">
-        🐾
-    </div>
+    <div class="start-logo">🐾</div>
 
-    <h1>
-        Creaturen Trail
-    </h1>
+    <h1>Creaturen Trail</h1>
 
-    <div class="subtitle">
-        Ontdek • Vind • Vang
-    </div>
+    <p class="subtitle">
+        Ontdek. Vind. Vang.
+    </p>
 
-    <button
-        class="startButton"
-        onclick="startGame()"
-    >
+    <button class="main-button" onclick="startGame()">
         START AVONTUUR
     </button>
 
@@ -1174,390 +352,116 @@ button {
 
 <section id="game">
 
-    <div id="map"></div>
+    <div class="topbar">
 
+        <div class="logo">
+            🐾 Creaturen Trail
+        </div>
 
-    <!-- HUD -->
+        <div class="top-actions">
 
-    <div class="hud">
+            <button class="small-button" onclick="openFriends()">
+                👥 Friends
+            </button>
 
-        <div class="hudBox">
+            <button class="small-button" onclick="openEvents()">
+                🎉 Events
+            </button>
 
-            <div class="title">
-                🐾 Creaturen Trail
-            </div>
-
-            <div class="level">
-                LEVEL <span id="level">1</span>
-            </div>
-
-            <div class="xpBar">
-                <div
-                    id="xpFill"
-                    class="xpFill"
-                ></div>
-            </div>
+            <button class="small-button" onclick="openAdmin()">
+                ⚙️ Admin
+            </button>
 
         </div>
 
-        <div class="hudBox stats">
-
-            ⭐ <span id="xp">0</span> XP
-            <br>
-            🎒 <span id="count">0</span> Creaturen
-
+        <div class="stats">
+            ⭐ XP: <span id="xp">0</span><br>
+            🎒 Creaturen: <span id="count">0</span>
         </div>
 
     </div>
 
 
-    <!-- MENU -->
+    <div class="map" id="map">
 
-    <div class="menu">
+        <div class="road"></div>
+        <div class="road2"></div>
 
-        <button onclick="openDex()">
-            📖
-        </button>
-
-        <button onclick="openFriends()">
-            👥
-        </button>
-
-        <button onclick="openEvents()">
-            🎟️
-        </button>
-
-        <button onclick="openAdminLogin()">
-            ⚙️
-        </button>
-
-        <button onclick="centerPlayer()">
-            📍
-        </button>
-
-        <button onclick="spawnNearPlayer()">
-            👾
-        </button>
+        <div class="player">
+            🧑
+        </div>
 
     </div>
 
 
-    <div class="messageBox">
-
-        <span id="message">
-            Zoek Creaturen!
-        </span>
-
-    </div>
-
-
-    <div id="joystick">
-
-        <div id="stick"></div>
-
-    </div>
-
-</section>
-
-
-<!-- ENCOUNTER -->
-
-<section id="encounter">
+    <p class="message" id="message">
+        Zoek naar Creaturen in de omgeving...
+    </p>
 
     <button
-        onclick="closeEncounter()"
-        style="
-            position:absolute;
-            top:25px;
-            left:20px;
-            width:48px;
-            height:48px;
-            border:0;
-            border-radius:15px;
-            background:rgba(255,255,255,.1);
-            color:white;
-            font-size:22px;
-        "
-    >
-        ←
+        class="catch-button"
+        id="catchButton"
+        onclick="catchCreature()">
+        🎯 VANG CREATURE
     </button>
 
-
-    <div
-        id="rarity"
-        style="
-            position:absolute;
-            top:30px;
-            right:20px;
-            padding:10px 14px;
-            border-radius:20px;
-            background:rgba(255,255,255,.1);
-            color:#9ff8bd;
-            font-size:11px;
-            font-weight:900;
-        "
-    >
-        GEWOON
-    </div>
-
-
-    <div>
-
-        <div
-            id="encounterArt"
-            class="encounterCreature"
-        ></div>
-
-        <div
-            id="encounterName"
-            class="encounterName"
-        ></div>
-
-        <div
-            id="encounterType"
-            class="encounterType"
-        ></div>
-
-    </div>
-
-
-    <div class="encounterStats">
-
-        <div class="statCard">
-
-            <div
-                id="power"
-                class="statNumber"
-            >
-                0
-            </div>
-
-            <div class="statLabel">
-                KRACHT
-            </div>
-
-        </div>
-
-        <div class="statCard">
-
-            <div
-                id="chance"
-                class="statNumber"
-            >
-                0%
-            </div>
-
-            <div class="statLabel">
-                VANGKANS
-            </div>
-
-        </div>
-
-        <div class="statCard">
-
-            <div
-                id="creatureXP"
-                class="statNumber"
-            >
-                +0
-            </div>
-
-            <div class="statLabel">
-                XP
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div>
-
-        <button
-            id="ball"
-            onclick="throwBall()"
-        ></button>
-
-        <div
-            style="
-                margin-top:10px;
-                color:#b7c9bf;
-                font-size:12px;
-            "
-        >
-            Tik op de vangbal!
-        </div>
-
-    </div>
-
 </section>
 
 
-<!-- RESULT -->
+<!-- EVENT MODAL -->
 
-<section id="result">
+<div class="modal" id="eventModal">
 
-    <div class="resultCard">
+    <div class="modal-box">
 
-        <div
-            id="resultArt"
-            class="resultArt"
-        ></div>
+        <div class="modal-header">
+            <h2>🎉 Events</h2>
 
-        <div
-            id="resultTitle"
-            class="resultTitle"
-        ></div>
-
-        <div
-            id="resultText"
-            class="resultText"
-        ></div>
-
-        <button
-            class="resultButton"
-            onclick="closeResult()"
-        >
-            DOORGAAN
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- DEX -->
-
-<div
-    id="dexModal"
-    class="modal"
->
-
-    <div class="modalCard">
-
-        <div class="modalTitle">
-
-            <span>📖 Creaturen-Dex</span>
-
-            <button
-                class="close"
-                onclick="closeDex()"
-            >
+            <button class="close" onclick="closeModal('eventModal')">
                 ×
             </button>
-
         </div>
 
-        <div
-            id="dexGrid"
-            class="dexGrid"
-        ></div>
+        <div id="eventList"></div>
 
     </div>
 
 </div>
 
 
-<!-- FRIENDS -->
+<!-- FRIEND MODAL -->
 
-<div
-    id="friendsModal"
-    class="modal"
->
+<div class="modal" id="friendModal">
 
-    <div class="modalCard">
+    <div class="modal-box">
 
-        <div class="modalTitle">
+        <div class="modal-header">
 
-            <span>👥 Friends</span>
+            <h2>👥 Friends</h2>
 
-            <button
-                class="close"
-                onclick="closeFriends()"
-            >
+            <button class="close" onclick="closeModal('friendModal')">
                 ×
             </button>
 
         </div>
 
-        <div class="profile">
+        <div class="card">
 
-            <div class="avatar">
-                🧑
-            </div>
-
-            <div>
-
-                <b>
-                    Trail Explorer
-                </b>
-
-                <div
-                    style="
-                        margin-top:5px;
-                        color:#93aa9e;
-                        font-size:11px;
-                    "
-                >
-                    Code:
-                    <b>CT-48291</b>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="addFriend">
+            <h3>➕ Friend toevoegen</h3>
 
             <input
-                id="friendInput"
-                placeholder="Vriendencode..."
-            >
+                id="friendName"
+                placeholder="Naam van je vriend">
 
             <button
-                onclick="addFriend()"
-            >
-                +
+                class="main-button"
+                onclick="addFriend()">
+                Vriend toevoegen
             </button>
 
         </div>
 
-        <div
-            id="friendList"
-            class="friendList"
-        ></div>
-
-    </div>
-
-</div>
-
-
-<!-- EVENTS -->
-
-<div
-    id="eventsModal"
-    class="modal"
->
-
-    <div class="modalCard">
-
-        <div class="modalTitle">
-
-            <span>🎟️ Events</span>
-
-            <button
-                class="close"
-                onclick="closeEvents()"
-            >
-                ×
-            </button>
-
-        </div>
-
-        <div
-            id="eventList"
-            class="eventList"
-        ></div>
+        <div id="friendList"></div>
 
     </div>
 
@@ -1566,60 +470,38 @@ button {
 
 <!-- ADMIN LOGIN -->
 
-<div
-    id="adminLoginModal"
-    class="modal"
->
+<div class="modal" id="adminLoginModal">
 
-    <div class="modalCard">
+    <div class="modal-box">
 
-        <div class="modalTitle">
+        <div class="modal-header">
 
-            <span>🔐 Admin Login</span>
+            <h2>🔐 Admin Login</h2>
 
             <button
                 class="close"
-                onclick="closeAdminLogin()"
-            >
+                onclick="closeModal('adminLoginModal')">
                 ×
             </button>
 
         </div>
 
-        <p
-            style="
-                color:#a8bbb0;
-                font-size:13px;
-                text-align:center;
-            "
-        >
-            Voer de admincode in.
+        <p>
+            Voer de admin-code in.
         </p>
 
         <input
             id="adminCode"
-            class="loginInput"
             type="password"
-            maxlength="4"
-            placeholder="••••"
-        >
+            placeholder="Admin code">
 
         <button
-            class="loginButton"
-            onclick="loginAdmin()"
-        >
+            class="main-button"
+            onclick="checkAdminCode()">
             INLOGGEN
         </button>
 
-        <div
-            id="adminLoginMessage"
-            style="
-                margin-top:12px;
-                text-align:center;
-                color:#ff8585;
-                font-size:12px;
-            "
-        ></div>
+        <p id="adminLoginMessage"></p>
 
     </div>
 
@@ -1628,179 +510,95 @@ button {
 
 <!-- ADMIN PANEL -->
 
-<div
-    id="adminModal"
-    class="modal"
->
+<div class="modal" id="adminModal">
 
-    <div class="modalCard">
+    <div class="modal-box">
 
-        <div class="modalTitle">
+        <div class="modal-header">
 
-            <span>⚙️ Admin Panel</span>
+            <h2>⚙️ Admin Panel</h2>
 
             <button
                 class="close"
-                onclick="closeAdmin()"
-            >
+                onclick="closeModal('adminModal')">
                 ×
             </button>
 
         </div>
 
 
-        <div
-            class="adminSection"
-            style="
-                margin-top:18px;
-            "
-        >
+        <div class="card">
 
-            <h3>
-                🎟️ Nieuw event
-            </h3>
+            <h3>🎉 Nieuw Event maken</h3>
 
-
-            <label class="adminLabel">
-                Eventnaam
+            <label class="form-label">
+                Naam van event
             </label>
 
             <input
-                id="eventNameInput"
-                class="adminInput"
-                placeholder="Bijv. Vuurfestival"
-            >
+                id="eventName"
+                placeholder="Bijvoorbeeld: Zomer Festival">
 
 
-            <label class="adminLabel">
-                Icoon
-            </label>
-
-            <input
-                id="eventIconInput"
-                class="adminInput"
-                value="🔥"
-            >
-
-
-            <label class="adminLabel">
+            <label class="form-label">
                 Beschrijving
             </label>
 
-            <input
-                id="eventDescriptionInput"
-                class="adminInput"
-                placeholder="Vang vuur-creaturen!"
-            >
+            <textarea
+                id="eventDescription"
+                placeholder="Wat moeten spelers doen?"></textarea>
 
 
-            <label class="adminLabel">
-                Doel
+            <label class="form-label">
+                Beloning XP
             </label>
 
             <input
-                id="eventGoalInput"
-                class="adminInput"
+                id="eventReward"
                 type="number"
-                min="1"
-                value="10"
-            >
+                value="100"
+                min="1">
 
 
-            <label class="adminLabel">
-                Type doel
+            <label class="form-label">
+                Duur
             </label>
 
-            <select
-                id="eventGoalType"
-                class="adminSelect"
-            >
+            <select id="eventDuration">
 
-                <option value="catch">
-                    Creaturen vangen
+                <option value="1">
+                    1 dag
                 </option>
 
-                <option value="catchFire">
-                    Vuur-Creaturen vangen
+                <option value="3">
+                    3 dagen
                 </option>
 
-                <option value="catchWater">
-                    Water-Creaturen vangen
+                <option value="7" selected>
+                    7 dagen
                 </option>
 
-                <option value="catchNature">
-                    Natuur-Creaturen vangen
-                </option>
-
-                <option value="catchElectric">
-                    Elektrische Creaturen vangen
-                </option>
-
-            </select>
-
-
-            <label class="adminLabel">
-                XP-beloning
-            </label>
-
-            <input
-                id="eventRewardXP"
-                class="adminInput"
-                type="number"
-                min="0"
-                value="500"
-            >
-
-
-            <label class="adminLabel">
-                Creature-beloning
-            </label>
-
-            <select
-                id="eventRewardCreature"
-                class="adminSelect"
-            ></select>
-
-
-            <label class="adminLabel">
-                Status
-            </label>
-
-            <select
-                id="eventActive"
-                class="adminSelect"
-            >
-
-                <option value="true">
-                    🟢 Actief
-                </option>
-
-                <option value="false">
-                    🔴 Uitgeschakeld
+                <option value="30">
+                    30 dagen
                 </option>
 
             </select>
 
 
             <button
-                class="adminButton"
-                onclick="createEvent()"
-            >
-                + EVENT MAKEN
+                class="main-button admin-success"
+                onclick="createEvent()">
+                ➕ MAAK EVENT
             </button>
 
         </div>
 
 
-        <div class="adminSection">
+        <div class="card">
 
-            <h3>
-                📋 Mijn events
-            </h3>
+            <h3>📋 Bestaande Events</h3>
 
-            <div
-                id="adminEventList"
-            ></div>
+            <div id="adminEventList"></div>
 
         </div>
 
@@ -1809,1172 +607,196 @@ button {
 </div>
 
 
-<script
-src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-></script>
-
-
 <script>
 
-/* =========================================
-   CREATURE DATABASE
-========================================= */
+const ADMIN_CODE = "5676";
 
-const creatures = [
-
-    {
-        id: 1,
-        name: "Blazik",
-        type: "Vuur",
-        class: "fire",
-        rarity: "Gewoon",
-        power: 65,
-        catchChance: 75,
-        xp: 10
-    },
-
-    {
-        id: 2,
-        name: "Flamoro",
-        type: "Vuur",
-        class: "fire",
-        rarity: "Zeldzaam",
-        power: 82,
-        catchChance: 55,
-        xp: 18
-    },
-
-    {
-        id: 3,
-        name: "Aquari",
-        type: "Water",
-        class: "water",
-        rarity: "Gewoon",
-        power: 55,
-        catchChance: 80,
-        xp: 10
-    },
-
-    {
-        id: 4,
-        name: "Bubblu",
-        type: "Water",
-        class: "water",
-        rarity: "Gewoon",
-        power: 61,
-        catchChance: 76,
-        xp: 12
-    },
-
-    {
-        id: 5,
-        name: "Leafy",
-        type: "Natuur",
-        class: "nature",
-        rarity: "Gewoon",
-        power: 60,
-        catchChance: 78,
-        xp: 10
-    },
-
-    {
-        id: 6,
-        name: "Floralis",
-        type: "Natuur",
-        class: "nature",
-        rarity: "Zeldzaam",
-        power: 84,
-        catchChance: 52,
-        xp: 20
-    },
-
-    {
-        id: 7,
-        name: "Sparko",
-        type: "Elektrisch",
-        class: "electric",
-        rarity: "Zeldzaam",
-        power: 85,
-        catchChance: 55,
-        xp: 18
-    },
-
-    {
-        id: 8,
-        name: "Voltrix",
-        type: "Elektrisch",
-        class: "electric",
-        rarity: "Episch",
-        power: 96,
-        catchChance: 30,
-        xp: 32
-    },
-
-    {
-        id: 9,
-        name: "Rocko",
-        type: "Aarde",
-        class: "earth",
-        rarity: "Zeldzaam",
-        power: 90,
-        catchChance: 48,
-        xp: 22
-    },
-
-    {
-        id: 10,
-        name: "Frosto",
-        type: "IJs",
-        class: "ice",
-        rarity: "Zeldzaam",
-        power: 88,
-        catchChance: 50,
-        xp: 20
-    },
-
-    {
-        id: 11,
-        name: "Dusko",
-        type: "Schaduw",
-        class: "shadow",
-        rarity: "Zeldzaam",
-        power: 83,
-        catchChance: 48,
-        xp: 22
-    },
-
-    {
-        id: 12,
-        name: "Mysti",
-        type: "Mystiek",
-        class: "mystic",
-        rarity: "Episch",
-        power: 98,
-        catchChance: 25,
-        xp: 40
-    },
-
-    {
-        id: 13,
-        name: "Solaryx",
-        type: "Licht",
-        class: "legendary",
-        rarity: "Legendarisch",
-        power: 120,
-        catchChance: 8,
-        xp: 100
-    },
-
-    {
-        id: 14,
-        name: "Stormyx",
-        type: "Storm",
-        class: "legendary",
-        rarity: "Legendarisch",
-        power: 130,
-        catchChance: 5,
-        xp: 150
-    },
-
-    {
-        id: 15,
-        name: "Eonara",
-        type: "Kosmisch",
-        class: "legendary",
-        rarity: "Mythisch",
-        power: 150,
-        catchChance: 2,
-        xp: 250
-    }
-
-];
-
-
-/* =========================================
-   VARIABLES
-========================================= */
-
-let map;
-
-let playerMarker;
-
-let playerPosition;
-
-let spawnedCreatures = [];
-
-let selectedMarker = null;
+let xp = Number(localStorage.getItem("xp")) || 0;
+let creatureCount =
+    Number(localStorage.getItem("creatureCount")) || 0;
 
 let selectedCreature = null;
 
-let xp = 0;
+let events =
+    JSON.parse(localStorage.getItem("creaturenEvents")) || [];
 
-let totalCaught = 0;
-
-let caughtCreatures = [];
-
-let friends = [];
-
-let events = [];
-
-let joinedEvents = [];
-
-let adminLoggedIn = false;
+let friends =
+    JSON.parse(localStorage.getItem("creaturenFriends")) || [];
 
 
-/* =========================================
-   DEFAULT EVENTS
-========================================= */
+/* =========================
+   GAME
+========================= */
 
-const defaultEvents = [
+function startGame() {
 
-    {
-        id: "default-fire",
-        name: "🔥 Vuurfestival",
-        icon: "🔥",
-        description:
-            "Vang 10 Vuur-Creaturen.",
-        goal: 10,
-        goalType: "catchFire",
-        rewardXP: 500,
-        rewardCreature: 2,
-        active: true
-    },
+    document.getElementById("startScreen").style.display = "none";
 
-    {
-        id: "default-water",
-        name: "💧 Waterweek",
-        icon: "💧",
-        description:
-            "Vang 10 Water-Creaturen.",
-        goal: 10,
-        goalType: "catchWater",
-        rewardXP: 500,
-        rewardCreature: 4,
-        active: true
-    }
+    document.getElementById("game").style.display = "block";
+
+    updateStats();
+
+    spawnCreatures();
+}
+
+
+function updateStats() {
+
+    document.getElementById("xp").innerText = xp;
+
+    document.getElementById("count").innerText =
+        creatureCount;
+}
+
+
+const creatures = [
+
+    {name:"Flamy", emoji:"🔥"},
+    {name:"Bubblu", emoji:"💧"},
+    {name:"Leafy", emoji:"🌿"},
+    {name:"Sparko", emoji:"⚡"},
+    {name:"Rocko", emoji:"🪨"},
+    {name:"Frosto", emoji:"❄️"},
+    {name:"Mysta", emoji:"🔮"},
+    {name:"Shadow", emoji:"🌑"},
+    {name:"Sunni", emoji:"☀️"},
+    {name:"Berry", emoji:"🍓"},
+    {name:"Magma", emoji:"🌋"},
+    {name:"Stormy", emoji:"🌪️"}
 
 ];
 
 
-/* =========================================
-   START
-========================================= */
+function spawnCreatures() {
 
-function startGame() {
+    const map = document.getElementById("map");
 
-    document
-        .getElementById("startScreen")
-        .style.display = "none";
+    for(let i = 0; i < 5; i++) {
 
-    document
-        .getElementById("game")
-        .style.display = "block";
-
-    loadGame();
-
-    createMap();
-
-    setupJoystick();
-
-    locatePlayer();
-
-    fillRewardCreatureSelect();
-
-}
-
-
-/* =========================================
-   SAVE / LOAD
-========================================= */
-
-function saveGame() {
-
-    localStorage.setItem(
-        "creaturenTrailSave",
-        JSON.stringify({
-
-            xp,
-            totalCaught,
-            caughtCreatures,
-            friends,
-            events,
-            joinedEvents
-
-        })
-    );
-
-}
-
-
-function loadGame() {
-
-    const saved =
-        localStorage.getItem(
-            "creaturenTrailSave"
-        );
-
-    if (!saved) {
-
-        events = [...defaultEvents];
-
-        saveGame();
-
-        return;
+        spawnOneCreature();
 
     }
 
-    try {
-
-        const data =
-            JSON.parse(saved);
-
-        xp =
-            data.xp || 0;
-
-        totalCaught =
-            data.totalCaught || 0;
-
-        caughtCreatures =
-            data.caughtCreatures || [];
-
-        friends =
-            data.friends || [];
-
-        events =
-            data.events || [];
-
-        joinedEvents =
-            data.joinedEvents || [];
-
-        if (!events.length) {
-            events = [...defaultEvents];
-        }
-
-    } catch {
-
-        events = [...defaultEvents];
-
-    }
-
-    updateStats();
-
 }
 
 
-/* =========================================
-   MAP
-========================================= */
+function spawnOneCreature() {
 
-function createMap() {
-
-    map =
-        L.map("map")
-        .setView(
-            [52.3676, 4.9041],
-            17
-        );
-
-    L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-            maxZoom: 19,
-            attribution:
-                "© OpenStreetMap"
-        }
-    ).addTo(map);
-
-}
-
-
-/* =========================================
-   LOCATION
-========================================= */
-
-function locatePlayer() {
-
-    if (!navigator.geolocation) {
-
-        setPlayerPosition(
-            52.3676,
-            4.9041
-        );
-
-        spawnInitial();
-
-        return;
-
-    }
-
-    navigator.geolocation.getCurrentPosition(
-
-        position => {
-
-            setPlayerPosition(
-                position.coords.latitude,
-                position.coords.longitude
-            );
-
-            spawnInitial();
-
-        },
-
-        () => {
-
-            setPlayerPosition(
-                52.3676,
-                4.9041
-            );
-
-            spawnInitial();
-
-        },
-
-        {
-            enableHighAccuracy: true,
-            timeout: 10000
-        }
-
-    );
-
-}
-
-
-/* =========================================
-   PLAYER
-========================================= */
-
-function setPlayerPosition(
-    lat,
-    lng
-) {
-
-    playerPosition = [
-        lat,
-        lng
-    ];
-
-    const icon =
-        L.divIcon({
-            className: "",
-            html:
-                `<div class="playerMarker"></div>`,
-            iconSize: [30,30],
-            iconAnchor: [15,15]
-        });
-
-    if (!playerMarker) {
-
-        playerMarker =
-            L.marker(
-                [lat,lng],
-                {icon}
-            ).addTo(map);
-
-        map.setView(
-            [lat,lng],
-            18
-        );
-
-    } else {
-
-        playerMarker.setLatLng(
-            [lat,lng]
-        );
-
-    }
-
-}
-
-
-/* =========================================
-   CREATURE ART
-========================================= */
-
-function creatureArt(creature) {
-
-    return `
-
-        <div class="creatureBody ${creature.class}">
-
-            <div class="eye left"></div>
-
-            <div class="eye right"></div>
-
-            <div class="mouth"></div>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================
-   CREATURE SPAWN
-========================================= */
-
-function chooseCreature() {
-
-    const random =
-        Math.random();
-
-    let pool;
-
-    if (random < .55) {
-
-        pool =
-            creatures.filter(
-                c =>
-                    c.rarity === "Gewoon"
-            );
-
-    } else if (random < .88) {
-
-        pool =
-            creatures.filter(
-                c =>
-                    c.rarity === "Zeldzaam"
-            );
-
-    } else if (random < .985) {
-
-        pool =
-            creatures.filter(
-                c =>
-                    c.rarity === "Episch"
-            );
-
-    } else {
-
-        pool =
-            creatures.filter(
-                c =>
-                    c.rarity === "Legendarisch" ||
-                    c.rarity === "Mythisch"
-            );
-
-    }
-
-    return pool[
-        Math.floor(
-            Math.random() *
-            pool.length
-        )
-    ];
-
-}
-
-
-function spawnInitial() {
-
-    for (
-        let i = 0;
-        i < 12;
-        i++
-    ) {
-
-        spawnCreature();
-
-    }
-
-    message(
-        "👀 Zoek Creaturen op de kaart!"
-    );
-
-}
-
-
-function spawnCreature() {
-
-    if (!playerPosition)
-        return;
+    const map = document.getElementById("map");
 
     const creature =
-        chooseCreature();
+        creatures[
+            Math.floor(Math.random() * creatures.length)
+        ];
 
-    const angle =
-        Math.random() *
-        Math.PI *
-        2;
+    const element =
+        document.createElement("div");
 
-    const distance =
-        .0005 +
-        Math.random() *
-        .002;
+    element.className = "creature";
 
-    const lat =
-        playerPosition[0] +
-        Math.cos(angle) *
-        distance;
+    element.innerHTML = creature.emoji;
 
-    const lng =
-        playerPosition[1] +
-        Math.sin(angle) *
-        distance;
+    element.title = creature.name;
 
-    const icon =
-        L.divIcon({
+    element.style.left =
+        (8 + Math.random() * 82) + "%";
 
-            className: "",
+    element.style.top =
+        (8 + Math.random() * 78) + "%";
 
-            html: `
-                <div class="creatureMarker">
-                    ${creatureArt(creature)}
-                </div>
-            `,
+    element.onclick = function() {
 
-            iconSize: [70,70],
+        selectCreature(creature, element);
 
-            iconAnchor: [35,35]
+    };
 
-        });
-
-    const marker =
-        L.marker(
-            [lat,lng],
-            {icon}
-        ).addTo(map);
-
-    marker.creatureData =
-        creature;
-
-    marker.on(
-        "click",
-        () => {
-
-            const p =
-                marker.getLatLng();
-
-            const distance =
-                getDistance(
-                    playerPosition[0],
-                    playerPosition[1],
-                    p.lat,
-                    p.lng
-                );
-
-            if (distance <= 100) {
-
-                openEncounter(
-                    marker,
-                    creature
-                );
-
-            } else {
-
-                message(
-                    "🚶 Nog " +
-                    Math.round(distance) +
-                    " meter!"
-                );
-
-            }
-
-        }
-    );
-
-    spawnedCreatures.push(
-        marker
-    );
+    map.appendChild(element);
 
 }
 
 
-function spawnNearPlayer() {
+function selectCreature(creature, element) {
 
-    if (!playerPosition)
-        return;
+    selectedCreature = element;
 
-    const creature =
-        chooseCreature();
+    document.getElementById("message").innerText =
+        "✨ Je hebt " +
+        creature.name +
+        " gevonden!";
 
-    const angle =
-        Math.random() *
-        Math.PI *
-        2;
-
-    const distance =
-        .0001 +
-        Math.random() *
-        .0002;
-
-    const lat =
-        playerPosition[0] +
-        Math.cos(angle) *
-        distance;
-
-    const lng =
-        playerPosition[1] +
-        Math.sin(angle) *
-        distance;
-
-    const icon =
-        L.divIcon({
-
-            className: "",
-
-            html: `
-                <div class="creatureMarker">
-                    ${creatureArt(creature)}
-                </div>
-            `,
-
-            iconSize: [70,70],
-
-            iconAnchor: [35,35]
-
-        });
-
-    const marker =
-        L.marker(
-            [lat,lng],
-            {icon}
-        ).addTo(map);
-
-    marker.creatureData =
-        creature;
-
-    marker.on(
-        "click",
-        () => {
-
-            openEncounter(
-                marker,
-                creature
-            );
-
-        }
-    );
-
-    spawnedCreatures.push(
-        marker
-    );
-
-    message(
-        "👾 Een Creature is vlakbij!"
-    );
+    document.getElementById("catchButton").style.display =
+        "block";
 
 }
 
 
-/* =========================================
-   ENCOUNTER
-========================================= */
+function catchCreature() {
 
-function openEncounter(
-    marker,
-    creature
-) {
+    if(!selectedCreature) return;
 
-    selectedMarker =
-        marker;
+    selectedCreature.remove();
 
-    selectedCreature =
-        creature;
-
-    document
-        .getElementById("encounterArt")
-        .innerHTML =
-        creatureArt(creature);
-
-    document
-        .getElementById("encounterName")
-        .innerText =
-        creature.name;
-
-    document
-        .getElementById("encounterType")
-        .innerText =
-        creature.type;
-
-    document
-        .getElementById("rarity")
-        .innerText =
-        creature.rarity.toUpperCase();
-
-    document
-        .getElementById("power")
-        .innerText =
-        creature.power;
-
-    document
-        .getElementById("chance")
-        .innerText =
-        creature.catchChance + "%";
-
-    document
-        .getElementById("creatureXP")
-        .innerText =
-        "+" + creature.xp;
-
-    document
-        .getElementById("encounter")
-        .style.display =
-        "flex";
-
-}
-
-
-function closeEncounter() {
-
-    document
-        .getElementById("encounter")
-        .style.display =
-        "none";
-
-    selectedMarker = null;
     selectedCreature = null;
 
-    document
-        .getElementById("ball")
-        .style.transform = "";
+    creatureCount++;
 
-}
+    xp += 10;
 
-
-/* =========================================
-   CATCH
-========================================= */
-
-function throwBall() {
-
-    if (!selectedCreature)
-        return;
-
-    const ball =
-        document.getElementById("ball");
-
-    ball.style.transform =
-        "translateY(-150px) scale(.6) rotate(360deg)";
-
-    setTimeout(
-        resolveCatch,
-        800
+    localStorage.setItem(
+        "xp",
+        xp
     );
 
-}
-
-
-function resolveCatch() {
-
-    if (!selectedCreature)
-        return;
-
-    const success =
-        Math.random() * 100 <=
-        selectedCreature.catchChance;
-
-    if (success) {
-
-        catchSuccess();
-
-    } else {
-
-        catchFail();
-
-    }
-
-}
-
-
-function catchSuccess() {
-
-    const creature =
-        selectedCreature;
-
-    if (selectedMarker) {
-
-        map.removeLayer(
-            selectedMarker
-        );
-
-        spawnedCreatures =
-            spawnedCreatures.filter(
-                m =>
-                    m !== selectedMarker
-            );
-
-    }
-
-    caughtCreatures.push(
-        creature.id
+    localStorage.setItem(
+        "creatureCount",
+        creatureCount
     );
-
-    totalCaught++;
-
-    xp += creature.xp;
 
     updateStats();
 
-    updateEvents(
-        creature
-    );
+    document.getElementById("message").innerText =
+        "🎉 Creature gevangen! +10 XP";
 
-    saveGame();
-
-    document
-        .getElementById("resultArt")
-        .innerHTML =
-        creatureArt(creature);
-
-    document
-        .getElementById("resultTitle")
-        .innerText =
-        "🎉 " +
-        creature.name +
-        " gevangen!";
-
-    document
-        .getElementById("resultText")
-        .innerText =
-        "+" +
-        creature.xp +
-        " XP";
-
-    document
-        .getElementById("result")
-        .style.display =
-        "flex";
-
-    document
-        .getElementById("ball")
-        .style.transform = "";
-
-}
-
-
-function catchFail() {
-
-    document
-        .getElementById("resultArt")
-        .innerHTML =
-        `<div style="font-size:70px">💨</div>`;
-
-    document
-        .getElementById("resultTitle")
-        .innerText =
-        "Ontsnapt!";
-
-    document
-        .getElementById("resultText")
-        .innerText =
-        selectedCreature.name +
-        " wist te ontsnappen.";
-
-    document
-        .getElementById("result")
-        .style.display =
-        "flex";
-
-    document
-        .getElementById("ball")
-        .style.transform = "";
-
-}
-
-
-function closeResult() {
-
-    document
-        .getElementById("result")
-        .style.display =
+    document.getElementById("catchButton").style.display =
         "none";
 
-    closeEncounter();
-
     setTimeout(
-        spawnCreature,
-        1000
+        spawnOneCreature,
+        1200
     );
 
 }
 
 
-/* =========================================
+/* =========================
+   MODALS
+========================= */
+
+function openModal(id) {
+
+    document.getElementById(id).style.display =
+        "flex";
+
+}
+
+
+function closeModal(id) {
+
+    document.getElementById(id).style.display =
+        "none";
+
+}
+
+
+/* =========================
    EVENTS
-========================================= */
-
-function updateEvents(
-    creature
-) {
-
-    events.forEach(
-        event => {
-
-            if (!event.active)
-                return;
-
-            if (
-                !joinedEvents.includes(
-                    event.id
-                )
-            )
-                return;
-
-            let counts = false;
-
-            if (
-                event.goalType ===
-                "catch"
-            ) {
-
-                counts = true;
-
-            }
-
-            if (
-                event.goalType ===
-                "catchFire" &&
-                creature.type === "Vuur"
-            ) {
-
-                counts = true;
-
-            }
-
-            if (
-                event.goalType ===
-                "catchWater" &&
-                creature.type === "Water"
-            ) {
-
-                counts = true;
-
-            }
-
-            if (
-                event.goalType ===
-                "catchNature" &&
-                creature.type === "Natuur"
-            ) {
-
-                counts = true;
-
-            }
-
-            if (
-                event.goalType ===
-                "catchElectric" &&
-                creature.type === "Elektrisch"
-            ) {
-
-                counts = true;
-
-            }
-
-            if (!counts)
-                return;
-
-            if (!event.progress)
-                event.progress = 0;
-
-            if (event.progress >= event.goal)
-                return;
-
-            event.progress++;
-
-            if (
-                event.progress >=
-                event.goal &&
-                !event.completed
-            ) {
-
-                completeEvent(
-                    event
-                );
-
-            }
-
-        }
-    );
-
-    saveGame();
-
-}
-
-
-function completeEvent(
-    event
-) {
-
-    event.completed = true;
-
-    xp +=
-        Number(event.rewardXP) ||
-        0;
-
-    let rewardName = "";
-
-    if (event.rewardCreature) {
-
-        const creature =
-            creatures.find(
-                c =>
-                    c.id ===
-                    Number(
-                        event.rewardCreature
-                    )
-            );
-
-        if (creature) {
-
-            caughtCreatures.push(
-                creature.id
-            );
-
-            totalCaught++;
-
-            rewardName =
-                " + " +
-                creature.name +
-                "!"
-
-        }
-
-    }
-
-    updateStats();
-
-    saveGame();
-
-    setTimeout(
-        () => {
-
-            alert(
-                "🏆 EVENT VOLTOOID!\n\n" +
-                event.name +
-                "\n\n" +
-                "+" +
-                event.rewardXP +
-                " XP" +
-                rewardName
-            );
-
-        },
-        300
-    );
-
-}
-
+========================= */
 
 function openEvents() {
 
     renderEvents();
 
-    document
-        .getElementById("eventsModal")
-        .style.display =
-        "flex";
-
-}
-
-
-function closeEvents() {
-
-    document
-        .getElementById("eventsModal")
-        .style.display =
-        "none";
+    openModal("eventModal");
 
 }
 
@@ -2982,870 +804,447 @@ function closeEvents() {
 function renderEvents() {
 
     const list =
-        document
-        .getElementById("eventList");
+        document.getElementById("eventList");
 
     list.innerHTML = "";
 
+    const now = Date.now();
+
     const activeEvents =
-        events.filter(
-            event =>
-                event.active
+        events.filter(event =>
+            event.active &&
+            event.endTime > now
         );
 
-    if (!activeEvents.length) {
+    if(activeEvents.length === 0) {
 
-        list.innerHTML = `
-            <div style="
-                padding:30px;
-                text-align:center;
-                color:#8fa49a;
-            ">
+        list.innerHTML =
+            `<div class="empty">
                 Er zijn momenteel geen actieve events.
-            </div>
-        `;
+            </div>`;
 
         return;
 
     }
 
-    activeEvents.forEach(
-        event => {
 
-            const joined =
-                joinedEvents.includes(
-                    event.id
-                );
+    activeEvents.forEach(event => {
 
-            const progress =
-                event.progress || 0;
+        const card =
+            document.createElement("div");
 
-            const percentage =
-                Math.min(
-                    100,
-                    progress /
-                    event.goal *
-                    100
-                );
+        card.className =
+            "card event-active";
 
-            const rewardCreature =
-                creatures.find(
-                    c =>
-                        c.id ===
-                        Number(
-                            event.rewardCreature
-                        )
-                );
 
-            const element =
-                document.createElement(
-                    "div"
-                );
-
-            element.className =
-                "event";
-
-            element.innerHTML = `
-
-                <div class="eventTop">
-
-                    <div>
-
-                        <div class="eventTitle">
-                            ${escapeHTML(event.name)}
-                        </div>
-
-                        <div class="eventTime">
-                            ${joined ? "🟢 ACTIEF" : "NIEUW EVENT"}
-                        </div>
-
-                    </div>
-
-                    <div style="font-size:30px">
-                        ${escapeHTML(event.icon || "🎟️")}
-                    </div>
-
-                </div>
-
-                <div class="eventDescription">
-                    ${escapeHTML(event.description)}
-                </div>
-
-                <div style="
-                    margin-top:12px;
-                    font-size:12px;
-                    font-weight:bold;
-                ">
-                    ${progress} / ${event.goal}
-                </div>
-
-                <div class="progressBar">
-
-                    <div
-                        class="progressFill"
-                        style="width:${percentage}%"
-                    ></div>
-
-                </div>
-
-                <div class="eventReward">
-
-                    🎁 +${event.rewardXP} XP
-
-                    ${
-                        rewardCreature
-                        ?
-                        " + 🐾 " +
-                        escapeHTML(
-                            rewardCreature.name
-                        )
-                        :
-                        ""
-                    }
-
-                </div>
-
-                ${
-                    event.completed
-                    ?
-                    `
-                    <button
-                        class="eventButton"
-                        disabled
-                        style="
-                            background:#4d6658;
-                            color:white;
-                        "
-                    >
-                        🏆 VOLTOOID
-                    </button>
-                    `
-                    :
-                    joined
-                    ?
-                    `
-                    <button
-                        class="eventButton"
-                        style="
-                            background:#385b48;
-                            color:white;
-                        "
-                        disabled
-                    >
-                        ✓ JE DOET MEE
-                    </button>
-                    `
-                    :
-                    `
-                    <button
-                        class="eventButton"
-                        onclick="joinEvent('${event.id}')"
-                    >
-                        MEEDOEN
-                    </button>
-                    `
-                }
-
-            `;
-
-            list.appendChild(
-                element
+        const claimed =
+            localStorage.getItem(
+                "claimedEvent_" + event.id
             );
 
-        }
-    );
+
+        card.innerHTML = `
+
+            <h3>🎉 ${escapeHtml(event.name)}</h3>
+
+            <p>
+                ${escapeHtml(event.description)}
+            </p>
+
+            <div class="reward">
+                ⭐ Beloning: ${event.reward} XP
+            </div>
+
+            <p>
+                ⏳ ${getRemainingTime(event.endTime)}
+            </p>
+
+            ${
+                claimed
+                ?
+                `<button class="main-button" disabled>
+                    ✅ Beloning geclaimd
+                </button>`
+                :
+                `<button
+                    class="main-button"
+                    onclick="claimEvent(${event.id})">
+                    🎁 CLAIM BELONING
+                </button>`
+            }
+
+        `;
+
+        list.appendChild(card);
+
+    });
 
 }
 
 
-function joinEvent(
-    eventId
-) {
+function claimEvent(id) {
 
-    if (
-        !joinedEvents.includes(
-            eventId
-        )
-    ) {
+    const event =
+        events.find(e => e.id === id);
 
-        joinedEvents.push(
-            eventId
-        );
+    if(!event) return;
 
-        saveGame();
+    if(!event.active) return;
 
-        message(
-            "🎟️ Je doet mee aan het event!"
-        );
+    if(event.endTime <= Date.now()) {
+
+        alert("Dit event is afgelopen.");
 
         renderEvents();
 
-    }
-
-}
-
-
-/* =========================================
-   ADMIN LOGIN
-========================================= */
-
-function openAdminLogin() {
-
-    document
-        .getElementById("adminLoginModal")
-        .style.display =
-        "flex";
-
-    document
-        .getElementById("adminCode")
-        .value = "";
-
-}
-
-
-function closeAdminLogin() {
-
-    document
-        .getElementById("adminLoginModal")
-        .style.display =
-        "none";
-
-}
-
-
-function loginAdmin() {
-
-    const code =
-        document
-        .getElementById("adminCode")
-        .value;
-
-    if (code === "5676") {
-
-        adminLoggedIn = true;
-
-        closeAdminLogin();
-
-        openAdmin();
-
-    } else {
-
-        document
-            .getElementById(
-                "adminLoginMessage"
-            )
-            .innerText =
-            "❌ Verkeerde admincode.";
+        return;
 
     }
 
-}
+
+    const key =
+        "claimedEvent_" + event.id;
 
 
-/* =========================================
-   ADMIN PANEL
-========================================= */
+    if(localStorage.getItem(key)) {
 
-function openAdmin() {
-
-    if (!adminLoggedIn) {
-
-        openAdminLogin();
+        alert("Je hebt deze beloning al geclaimd.");
 
         return;
 
     }
 
-    renderAdminEvents();
 
-    document
-        .getElementById("adminModal")
-        .style.display =
-        "flex";
+    xp += Number(event.reward);
 
-}
-
-
-function closeAdmin() {
-
-    document
-        .getElementById("adminModal")
-        .style.display =
-        "none";
-
-}
-
-
-function fillRewardCreatureSelect() {
-
-    const select =
-        document
-        .getElementById(
-            "eventRewardCreature"
-        );
-
-    select.innerHTML =
-        `<option value="">Geen Creature</option>`;
-
-    creatures.forEach(
-        creature => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-            option.value =
-                creature.id;
-
-            option.textContent =
-                creature.name;
-
-            select.appendChild(
-                option
-            );
-
-        }
+    localStorage.setItem(
+        "xp",
+        xp
     );
 
+    localStorage.setItem(
+        key,
+        "true"
+    );
+
+    updateStats();
+
+    alert(
+        "🎉 Beloning ontvangen! +" +
+        event.reward +
+        " XP"
+    );
+
+    renderEvents();
+
 }
 
 
-/* =========================================
-   CREATE EVENT
-========================================= */
+/* =========================
+   ADMIN
+========================= */
+
+function openAdmin() {
+
+    document.getElementById("adminCode").value = "";
+
+    document.getElementById(
+        "adminLoginMessage"
+    ).innerText = "";
+
+    openModal("adminLoginModal");
+
+}
+
+
+function checkAdminCode() {
+
+    const code =
+        document.getElementById("adminCode").value;
+
+
+    if(code === ADMIN_CODE) {
+
+        closeModal("adminLoginModal");
+
+        renderAdminEvents();
+
+        openModal("adminModal");
+
+    } else {
+
+        document.getElementById(
+            "adminLoginMessage"
+        ).innerText =
+            "❌ Verkeerde admin-code.";
+
+    }
+
+}
+
 
 function createEvent() {
 
     const name =
-        document
-        .getElementById(
-            "eventNameInput"
-        )
-        .value
-        .trim();
-
-    const icon =
-        document
-        .getElementById(
-            "eventIconInput"
-        )
-        .value
-        .trim() ||
-        "🎟️";
+        document.getElementById("eventName").value.trim();
 
     const description =
-        document
-        .getElementById(
-            "eventDescriptionInput"
-        )
-        .value
-        .trim();
+        document.getElementById(
+            "eventDescription"
+        ).value.trim();
 
-    const goal =
+    const reward =
         Number(
-            document
-            .getElementById(
-                "eventGoalInput"
-            )
-            .value
+            document.getElementById(
+                "eventReward"
+            ).value
         );
 
-    const goalType =
-        document
-        .getElementById(
-            "eventGoalType"
-        )
-        .value;
-
-    const rewardXP =
+    const duration =
         Number(
-            document
-            .getElementById(
-                "eventRewardXP"
-            )
-            .value
+            document.getElementById(
+                "eventDuration"
+            ).value
         );
 
-    const rewardCreature =
-        document
-        .getElementById(
-            "eventRewardCreature"
-        )
-        .value;
 
-    const active =
-        document
-        .getElementById(
-            "eventActive"
-        )
-        .value ===
-        "true";
+    if(!name) {
 
-    if (!name) {
-
-        alert(
-            "Vul een eventnaam in."
-        );
+        alert("Vul een eventnaam in.");
 
         return;
 
     }
 
-    if (!goal || goal < 1) {
 
-        alert(
-            "Het doel moet minimaal 1 zijn."
-        );
+    if(!description) {
+
+        alert("Vul een beschrijving in.");
 
         return;
 
     }
 
-    const event = {
 
-        id:
-            "event-" +
-            Date.now(),
+    if(!reward || reward < 1) {
 
-        name,
+        alert("De XP-beloning moet minimaal 1 zijn.");
 
-        icon,
+        return;
 
-        description,
+    }
 
-        goal,
 
-        goalType,
+    const startTime =
+        Date.now();
 
-        rewardXP:
-            rewardXP || 0,
+    const endTime =
+        startTime +
+        duration *
+        24 *
+        60 *
+        60 *
+        1000;
 
-        rewardCreature:
-            rewardCreature
-            ?
-            Number(
-                rewardCreature
-            )
-            :
-            null,
 
-        active,
+    const newEvent = {
 
-        progress: 0,
+        id: Date.now(),
 
-        completed: false
+        name: name,
+
+        description: description,
+
+        reward: reward,
+
+        duration: duration,
+
+        startTime: startTime,
+
+        endTime: endTime,
+
+        active: true
 
     };
 
-    events.push(
-        event
+
+    events.push(newEvent);
+
+
+    localStorage.setItem(
+        "creaturenEvents",
+        JSON.stringify(events)
     );
 
-    saveGame();
 
-    clearEventForm();
+    document.getElementById("eventName").value = "";
+
+    document.getElementById(
+        "eventDescription"
+    ).value = "";
+
+    document.getElementById(
+        "eventReward"
+    ).value = "100";
+
 
     renderAdminEvents();
 
-    message(
-        "🎟️ Event aangemaakt!"
+
+    alert(
+        "🎉 Event succesvol gemaakt!"
     );
 
 }
 
-
-/* =========================================
-   CLEAR FORM
-========================================= */
-
-function clearEventForm() {
-
-    document
-        .getElementById(
-            "eventNameInput"
-        )
-        .value = "";
-
-    document
-        .getElementById(
-            "eventDescriptionInput"
-        )
-        .value = "";
-
-    document
-        .getElementById(
-            "eventGoalInput"
-        )
-        .value = "10";
-
-    document
-        .getElementById(
-            "eventRewardXP"
-        )
-        .value = "500";
-
-}
-
-
-/* =========================================
-   ADMIN EVENTS
-========================================= */
 
 function renderAdminEvents() {
 
     const list =
-        document
-        .getElementById(
+        document.getElementById(
             "adminEventList"
         );
 
     list.innerHTML = "";
 
-    if (!events.length) {
+
+    if(events.length === 0) {
 
         list.innerHTML =
-            `<p style="color:#8fa49a">
-                Geen events.
-            </p>`;
+            `<div class="empty">
+                Nog geen events gemaakt.
+            </div>`;
 
         return;
 
     }
 
-    events.forEach(
-        event => {
 
-            const rewardCreature =
-                creatures.find(
-                    c =>
-                        c.id ===
-                        Number(
-                            event.rewardCreature
-                        )
-                );
+    [...events]
+        .reverse()
+        .forEach(event => {
 
-            const item =
-                document.createElement(
-                    "div"
-                );
+            const card =
+                document.createElement("div");
 
-            item.className =
-                "adminEvent";
+            card.className =
+                "card";
 
-            item.innerHTML = `
 
-                <div class="adminEventTop">
+            const expired =
+                event.endTime <= Date.now();
 
-                    <div>
 
-                        <b>
-                            ${escapeHTML(event.icon || "🎟️")}
-                            ${escapeHTML(event.name)}
-                        </b>
+            card.innerHTML = `
 
-                        <div style="
-                            margin-top:5px;
-                            color:#92a99c;
-                            font-size:10px;
-                        ">
+                <h3>
+                    ${escapeHtml(event.name)}
+                </h3>
 
-                            ${event.progress || 0}
-                            /
-                            ${event.goal}
+                <p>
+                    ${escapeHtml(event.description)}
+                </p>
 
-                            •
-                            ${
-                                event.active
-                                ?
-                                "🟢 Actief"
-                                :
-                                "🔴 Uit"
-                            }
+                <p>
+                    ⭐ ${event.reward} XP
+                </p>
 
-                        </div>
+                <p>
+                    ${
+                        expired
+                        ? "⛔ Afgelopen"
+                        : event.active
+                            ? "🟢 Actief"
+                            : "🔴 Uitgeschakeld"
+                    }
+                </p>
 
-                    </div>
-
-                    <div>
-
-                        <button
-                            class="adminSmallButton"
-                            onclick="toggleEvent('${event.id}')"
-                        >
-                            ${event.active ? "UIT" : "AAN"}
-                        </button>
-
-                        <button
-                            class="adminSmallButton delete"
-                            onclick="deleteEvent('${event.id}')"
-                        >
-                            🗑️
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <div style="
-                    margin-top:10px;
-                    color:#a9bcb1;
-                    font-size:11px;
-                ">
-
-                    🎁 ${event.rewardXP} XP
+                <button
+                    class="main-button"
+                    onclick="toggleEvent(${event.id})">
 
                     ${
-                        rewardCreature
-                        ?
-                        " + " +
-                        rewardCreature.name
-                        :
-                        ""
+                        event.active
+                        ? "⏸️ Uitschakelen"
+                        : "▶️ Activeren"
                     }
 
-                </div>
+                </button>
+
+                <button
+                    class="main-button admin-danger"
+                    onclick="deleteEvent(${event.id})">
+
+                    🗑️ Verwijderen
+
+                </button>
 
             `;
 
-            list.appendChild(
-                item
-            );
+            list.appendChild(card);
 
-        }
-    );
+        });
 
 }
 
 
-/* =========================================
-   TOGGLE EVENT
-========================================= */
-
-function toggleEvent(
-    eventId
-) {
+function toggleEvent(id) {
 
     const event =
-        events.find(
-            e =>
-                e.id ===
-                eventId
-        );
+        events.find(e => e.id === id);
 
-    if (!event)
-        return;
+    if(!event) return;
 
     event.active =
         !event.active;
 
-    saveGame();
+
+    localStorage.setItem(
+        "creaturenEvents",
+        JSON.stringify(events)
+    );
+
 
     renderAdminEvents();
-
-    renderEvents();
 
 }
 
 
-/* =========================================
-   DELETE EVENT
-========================================= */
+function deleteEvent(id) {
 
-function deleteEvent(
-    eventId
-) {
+    if(
+        !confirm(
+            "Weet je zeker dat je dit event wilt verwijderen?"
+        )
+    ) return;
 
-    const event =
-        events.find(
-            e =>
-                e.id ===
-                eventId
-        );
-
-    if (!event)
-        return;
-
-    const confirmDelete =
-        confirm(
-            "Event '" +
-            event.name +
-            "' verwijderen?"
-        );
-
-    if (!confirmDelete)
-        return;
 
     events =
         events.filter(
-            e =>
-                e.id !==
-                eventId
+            event => event.id !== id
         );
 
-    joinedEvents =
-        joinedEvents.filter(
-            id =>
-                id !==
-                eventId
-        );
 
-    saveGame();
+    localStorage.setItem(
+        "creaturenEvents",
+        JSON.stringify(events)
+    );
+
 
     renderAdminEvents();
 
-    renderEvents();
-
 }
 
 
-/* =========================================
-   DEX
-========================================= */
-
-function openDex() {
-
-    const grid =
-        document
-        .getElementById(
-            "dexGrid"
-        );
-
-    grid.innerHTML = "";
-
-    creatures.forEach(
-        creature => {
-
-            const caught =
-                caughtCreatures.includes(
-                    creature.id
-                );
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-            card.className =
-                "dexCard" +
-                (
-                    caught
-                    ?
-                    ""
-                    :
-                    " locked"
-                );
-
-            card.innerHTML = `
-
-                <div style="
-                    color:#758d81;
-                    font-size:10px;
-                ">
-
-                    #${String(
-                        creature.id
-                    ).padStart(3,"0")}
-
-                </div>
-
-                <div class="dexArt">
-
-                    ${
-                        caught
-                        ?
-                        creatureArt(
-                            creature
-                        )
-                        :
-                        "❔"
-                    }
-
-                </div>
-
-                <div class="dexName">
-
-                    ${
-                        caught
-                        ?
-                        escapeHTML(
-                            creature.name
-                        )
-                        :
-                        "Onbekend"
-                    }
-
-                </div>
-
-                <div class="dexType">
-
-                    ${
-                        caught
-                        ?
-                        creature.type
-                        :
-                        "???"
-                    }
-
-                </div>
-
-            `;
-
-            grid.appendChild(
-                card
-            );
-
-        }
-    );
-
-    document
-        .getElementById(
-            "dexModal"
-        )
-        .style.display =
-        "flex";
-
-}
-
-
-function closeDex() {
-
-    document
-        .getElementById(
-            "dexModal"
-        )
-        .style.display =
-        "none";
-
-}
-
-
-/* =========================================
+/* =========================
    FRIENDS
-========================================= */
+========================= */
 
 function openFriends() {
 
     renderFriends();
 
-    document
-        .getElementById(
-            "friendsModal"
-        )
-        .style.display =
-        "flex";
-
-}
-
-
-function closeFriends() {
-
-    document
-        .getElementById(
-            "friendsModal"
-        )
-        .style.display =
-        "none";
+    openModal("friendModal");
 
 }
 
@@ -3853,54 +1252,41 @@ function closeFriends() {
 function addFriend() {
 
     const input =
-        document
-        .getElementById(
-            "friendInput"
+        document.getElementById(
+            "friendName"
         );
 
-    const code =
-        input.value
-        .trim()
-        .toUpperCase();
+    const name =
+        input.value.trim();
 
-    if (!code)
-        return;
 
-    if (
-        friends.some(
-            friend =>
-                friend.code ===
-                code
-        )
-    ) {
+    if(!name) {
+
+        alert("Vul een naam in.");
 
         return;
 
     }
 
+
     friends.push({
 
-        code,
+        id: Date.now(),
 
-        name:
-            "Trainer " +
-            code.slice(-3),
-
-        level:
-            Math.floor(
-                Math.random() * 10
-            ) + 1,
-
-        online:
-            Math.random() > .4
+        name: name
 
     });
 
-    saveGame();
 
-    renderFriends();
+    localStorage.setItem(
+        "creaturenFriends",
+        JSON.stringify(friends)
+    );
+
 
     input.value = "";
+
+    renderFriends();
 
 }
 
@@ -3908,449 +1294,169 @@ function addFriend() {
 function renderFriends() {
 
     const list =
-        document
-        .getElementById(
+        document.getElementById(
             "friendList"
         );
 
     list.innerHTML = "";
 
-    if (!friends.length) {
 
-        list.innerHTML = `
-            <div style="
-                padding:25px;
-                text-align:center;
-                color:#849a8e;
-                font-size:12px;
-            ">
-                Nog geen vrienden.
-            </div>
-        `;
+    if(friends.length === 0) {
+
+        list.innerHTML =
+            `<div class="empty">
+                Je hebt nog geen vrienden toegevoegd.
+            </div>`;
 
         return;
 
     }
 
-    friends.forEach(
-        friend => {
 
-            const item =
-                document.createElement(
-                    "div"
-                );
+    friends.forEach(friend => {
 
-            item.className =
-                "friend";
+        const row =
+            document.createElement("div");
 
-            item.innerHTML = `
+        row.className =
+            "friend-row";
 
-                <div>
-                    🧑
-                    <b>
-                        ${escapeHTML(friend.name)}
-                    </b>
 
-                    <div style="
-                        color:#81988b;
-                        font-size:10px;
-                        margin-top:3px;
-                    ">
-                        Level ${friend.level}
-                    </div>
-                </div>
+        row.innerHTML = `
 
-                <div>
-                    ${
-                        friend.online
-                        ?
-                        "🟢"
-                        :
-                        "⚪"
-                    }
-                </div>
+            <span>
+                👤 ${escapeHtml(friend.name)}
+            </span>
 
-            `;
+            <button
+                class="small-button"
+                onclick="removeFriend(${friend.id})">
+                Verwijder
+            </button>
 
-            list.appendChild(
-                item
-            );
+        `;
 
-        }
+
+        list.appendChild(row);
+
+    });
+
+}
+
+
+function removeFriend(id) {
+
+    friends =
+        friends.filter(
+            friend => friend.id !== id
+        );
+
+
+    localStorage.setItem(
+        "creaturenFriends",
+        JSON.stringify(friends)
+    );
+
+
+    renderFriends();
+
+}
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function getRemainingTime(endTime) {
+
+    const difference =
+        endTime - Date.now();
+
+
+    if(difference <= 0) {
+
+        return "Afgelopen";
+
+    }
+
+
+    const days =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60 * 24)
+        );
+
+
+    const hours =
+        Math.floor(
+            (difference %
+            (1000 * 60 * 60 * 24)) /
+            (1000 * 60 * 60)
+        );
+
+
+    return (
+        days +
+        "d " +
+        hours +
+        "u over"
     );
 
 }
 
 
-/* =========================================
-   XP
-========================================= */
+function escapeHtml(text) {
 
-function updateStats() {
-
-    const level =
-        Math.floor(
-            xp / 100
-        ) + 1;
-
-    const progress =
-        xp % 100;
-
-    document
-        .getElementById("xp")
-        .innerText =
-        xp;
-
-    document
-        .getElementById("count")
-        .innerText =
-        totalCaught;
-
-    document
-        .getElementById("level")
-        .innerText =
-        level;
-
-    document
-        .getElementById("xpFill")
-        .style.width =
-        progress + "%";
+    return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
 }
 
 
-/* =========================================
-   JOYSTICK
-========================================= */
+/* =========================
+   MODAL SLUITEN
+========================= */
 
-let joystickActive = false;
+window.onclick = function(event) {
 
-let moveX = 0;
+    const modals =
+        document.querySelectorAll(".modal");
 
-let moveY = 0;
+    modals.forEach(modal => {
 
-let joystickCenter = {
-    x: 0,
-    y: 0
+        if(event.target === modal) {
+
+            modal.style.display = "none";
+
+        }
+
+    });
+
 };
 
 
-function setupJoystick() {
+/* =========================
+   EVENT TIMER UPDATE
+========================= */
 
-    const joystick =
-        document.getElementById(
-            "joystick"
-        );
+setInterval(() => {
 
-    const stick =
-        document.getElementById(
-            "stick"
-        );
+    const eventModal =
+        document.getElementById("eventModal");
 
-    function start(e) {
-
-        joystickActive = true;
-
-        const r =
-            joystick.getBoundingClientRect();
-
-        joystickCenter.x =
-            r.left +
-            r.width / 2;
-
-        joystickCenter.y =
-            r.top +
-            r.height / 2;
-
-        moveJoystick(e);
-
-    }
-
-    function move(e) {
-
-        if (!joystickActive)
-            return;
-
-        moveJoystick(e);
-
-    }
-
-    function end() {
-
-        joystickActive = false;
-
-        moveX = 0;
-        moveY = 0;
-
-        stick.style.left = "50%";
-        stick.style.top = "50%";
-
-    }
-
-    joystick.addEventListener(
-        "touchstart",
-        start,
-        {passive:false}
-    );
-
-    joystick.addEventListener(
-        "touchmove",
-        move,
-        {passive:false}
-    );
-
-    joystick.addEventListener(
-        "touchend",
-        end
-    );
-
-    joystick.addEventListener(
-        "mousedown",
-        start
-    );
-
-    document.addEventListener(
-        "mousemove",
-        move
-    );
-
-    document.addEventListener(
-        "mouseup",
-        end
-    );
-
-}
-
-
-function moveJoystick(e) {
-
-    e.preventDefault();
-
-    let x;
-    let y;
-
-    if (
-        e.touches &&
-        e.touches.length
+    if(
+        eventModal.style.display === "flex"
     ) {
 
-        x =
-            e.touches[0].clientX;
-
-        y =
-            e.touches[0].clientY;
-
-    } else {
-
-        x =
-            e.clientX;
-
-        y =
-            e.clientY;
+        renderEvents();
 
     }
 
-    let dx =
-        x -
-        joystickCenter.x;
-
-    let dy =
-        y -
-        joystickCenter.y;
-
-    const max = 42;
-
-    const distance =
-        Math.sqrt(
-            dx * dx +
-            dy * dy
-        );
-
-    if (distance > max) {
-
-        dx =
-            dx / distance * max;
-
-        dy =
-            dy / distance * max;
-
-    }
-
-    moveX =
-        dx / max;
-
-    moveY =
-        dy / max;
-
-    const stick =
-        document.getElementById(
-            "stick"
-        );
-
-    stick.style.left =
-        `calc(50% + ${dx}px)`;
-
-    stick.style.top =
-        `calc(50% + ${dy}px)`;
-
-}
-
-
-setInterval(
-    movePlayer,
-    50
-);
-
-
-function movePlayer() {
-
-    if (
-        !playerPosition ||
-        (!moveX && !moveY)
-    )
-        return;
-
-    const speed =
-        .000045;
-
-    const lat =
-        playerPosition[0] -
-        moveY *
-        speed;
-
-    const lng =
-        playerPosition[1] +
-        moveX *
-        speed;
-
-    setPlayerPosition(
-        lat,
-        lng
-    );
-
-    map.panTo(
-        playerPosition,
-        {
-            animate: false
-        }
-    );
-
-}
-
-
-/* =========================================
-   LOCATION / DISTANCE
-========================================= */
-
-function centerPlayer() {
-
-    if (!playerPosition)
-        return;
-
-    map.setView(
-        playerPosition,
-        18
-    );
-
-}
-
-
-function getDistance(
-    lat1,
-    lon1,
-    lat2,
-    lon2
-) {
-
-    const R = 6371000;
-
-    const dLat =
-        (lat2-lat1) *
-        Math.PI / 180;
-
-    const dLon =
-        (lon2-lon1) *
-        Math.PI / 180;
-
-    const a =
-        Math.sin(dLat/2) *
-        Math.sin(dLat/2)
-        +
-        Math.cos(
-            lat1 *
-            Math.PI / 180
-        )
-        *
-        Math.cos(
-            lat2 *
-            Math.PI / 180
-        )
-        *
-        Math.sin(dLon/2) *
-        Math.sin(dLon/2);
-
-    const c =
-        2 *
-        Math.atan2(
-            Math.sqrt(a),
-            Math.sqrt(1-a)
-        );
-
-    return R * c;
-
-}
-
-
-/* =========================================
-   MESSAGE
-========================================= */
-
-function message(text) {
-
-    document
-        .getElementById(
-            "message"
-        )
-        .innerText =
-        text;
-
-}
-
-
-/* =========================================
-   SECURITY
-========================================= */
-
-function escapeHTML(text) {
-
-    return String(text)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
+}, 60000);
 
 </script>
 

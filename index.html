@@ -1,16 +1,8 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width,
-    initial-scale=1.0,
-    maximum-scale=1.0,
-    user-scalable=no"
->
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
 <title>Creaturen Trail</title>
 
@@ -20,11 +12,6 @@
 />
 
 <style>
-
-/* ==================================================
-   BASIS
-================================================== */
-
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
@@ -32,435 +19,365 @@
 
 html,
 body {
-
     margin: 0;
-
     width: 100%;
     height: 100%;
-
     overflow: hidden;
-
     font-family: Arial, sans-serif;
-
-    background: #07120f;
-
+    background: #07120e;
     color: white;
 }
 
+button {
+    font-family: inherit;
+}
 
-/* ==================================================
-   STARTSCHERM
-================================================== */
+/* =========================
+   START
+========================= */
 
 #startScreen {
-
     position: fixed;
-
     inset: 0;
-
-    z-index: 9999;
-
+    z-index: 10000;
     display: flex;
-
     flex-direction: column;
-
-    align-items: center;
-
     justify-content: center;
-
+    align-items: center;
     text-align: center;
+    padding: 25px;
 
     background:
-
         radial-gradient(
             circle at 50% 20%,
-            rgba(80,230,140,.25),
+            rgba(83,239,151,.25),
             transparent 35%
         ),
-
         linear-gradient(
             160deg,
             #06110d,
-            #123122,
+            #143624,
             #06110d
         );
 }
 
-
-.logo {
-
-    width: 115px;
-    height: 115px;
+.startLogo {
+    width: 120px;
+    height: 120px;
 
     display: flex;
-
-    align-items: center;
     justify-content: center;
+    align-items: center;
 
-    border-radius: 34px;
+    border-radius: 35px;
 
-    font-size: 62px;
+    font-size: 65px;
 
     background:
         linear-gradient(
             145deg,
-            #75f2a8,
-            #2b9459
+            #7af2a9,
+            #299858
         );
 
     box-shadow:
-        0 20px 55px
-        rgba(0,0,0,.45);
+        0 20px 60px rgba(0,0,0,.45);
 }
 
-
 #startScreen h1 {
-
-    margin: 22px 0 0;
-
-    font-size:
-        clamp(38px, 10vw, 58px);
-
+    margin: 22px 0 8px;
+    font-size: clamp(38px,10vw,60px);
     font-weight: 900;
 }
 
-
-.subtitle {
-
-    margin-top: 10px;
-
-    color: #b9cec3;
+.startSub {
+    color: #b8ccc1;
+    font-size: 17px;
 }
 
-
 .startButton {
+    margin-top: 38px;
 
-    margin-top: 40px;
+    padding: 17px 42px;
 
-    min-width: 245px;
-
-    padding: 18px 35px;
-
-    border: none;
-
+    border: 0;
     border-radius: 18px;
 
     background:
-
         linear-gradient(
             135deg,
-            #72f1a5,
-            #31b96c
+            #76f0a5,
+            #35b96d
         );
 
-    color: #07120f;
+    color: #07120e;
 
-    font-size: 18px;
-
+    font-size: 17px;
     font-weight: 900;
+
+    box-shadow:
+        0 10px 30px rgba(47,185,108,.25);
 
     cursor: pointer;
 }
 
+.startButton:active {
+    transform: scale(.96);
+}
 
-/* ==================================================
+/* =========================
    GAME
-================================================== */
+========================= */
 
 #game {
-
     display: none;
-
     position: fixed;
-
     inset: 0;
 }
-
 
 #map {
-
     position: absolute;
-
     inset: 0;
 }
 
+.leaflet-control-attribution {
+    font-size: 8px;
+}
 
-/* ==================================================
+/* =========================
    HUD
-================================================== */
+========================= */
 
 .hud {
-
     position: fixed;
-
-    top: 14px;
-
-    left: 14px;
-
-    right: 14px;
-
     z-index: 2000;
 
-    display: flex;
+    top: 14px;
+    left: 14px;
+    right: 14px;
 
-    justify-content:
-        space-between;
+    display: flex;
+    justify-content: space-between;
 
     pointer-events: none;
 }
 
-
 .hudBox {
-
     padding: 11px 14px;
 
     border-radius: 18px;
 
-    background:
-        rgba(6,18,13,.93);
-
-    backdrop-filter:
-        blur(14px);
+    background: rgba(5,18,12,.93);
 
     border:
-        1px solid
-        rgba(255,255,255,.12);
+        1px solid rgba(255,255,255,.12);
+
+    backdrop-filter: blur(14px);
 
     box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.35);
+        0 8px 25px rgba(0,0,0,.35);
 }
 
-
-.title {
-
+.gameTitle {
     font-size: 14px;
-
     font-weight: 900;
 }
 
-
-.level {
-
+.levelText {
     margin-top: 5px;
-
-    color: #73eda3;
-
+    color: #72eda2;
     font-size: 11px;
-
     font-weight: bold;
 }
 
-
 .xpBar {
-
     width: 145px;
-
     height: 7px;
-
     margin-top: 7px;
 
+    border-radius: 20px;
     overflow: hidden;
 
-    border-radius: 20px;
-
-    background:
-        rgba(255,255,255,.12);
+    background: rgba(255,255,255,.12);
 }
 
-
 .xpFill {
-
     width: 0%;
-
     height: 100%;
-
-    border-radius: 20px;
 
     background:
         linear-gradient(
             90deg,
-            #5ee594,
-            #c8ff83
+            #57df91,
+            #d1ff8b
         );
 
-    transition:
-        width .4s ease;
+    transition: width .35s ease;
 }
-
 
 .stats {
-
     text-align: right;
-
-    color: #dce7e1;
-
     font-size: 12px;
-
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
-
-/* ==================================================
+/* =========================
    MENU
-================================================== */
+========================= */
 
 .menu {
-
     position: fixed;
-
-    right: 14px;
-
-    top: 105px;
-
     z-index: 2500;
 
+    top: 110px;
+    right: 14px;
+
     display: flex;
-
     flex-direction: column;
-
-    gap: 10px;
+    gap: 9px;
 }
 
-
 .menu button {
+    width: 52px;
+    height: 52px;
 
-    width: 51px;
-
-    height: 51px;
-
-    border: none;
-
+    border: 0;
     border-radius: 17px;
 
-    background:
-        rgba(6,18,13,.93);
+    background: rgba(5,18,12,.94);
 
     color: white;
-
     font-size: 21px;
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,.3);
 
     cursor: pointer;
 }
 
-
-/* ==================================================
+/* =========================
    MESSAGE
-================================================== */
+========================= */
 
 .messageBox {
-
     position: fixed;
+    z-index: 3000;
 
     left: 50%;
-
     bottom: 145px;
 
-    transform:
-        translateX(-50%);
+    transform: translateX(-50%);
 
-    width:
-        calc(100% - 30px);
+    width: calc(100% - 30px);
+    max-width: 430px;
 
-    max-width: 440px;
+    padding: 13px 16px;
 
-    padding: 13px 15px;
+    border-radius: 19px;
 
-    z-index: 3000;
+    background: rgba(5,18,12,.94);
+
+    border:
+        1px solid rgba(255,255,255,.12);
 
     text-align: center;
 
-    border-radius: 20px;
-
-    background:
-        rgba(6,18,13,.94);
-
-    backdrop-filter:
-        blur(15px);
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-
-    box-shadow:
-        0 15px 45px
-        rgba(0,0,0,.45);
+    backdrop-filter: blur(12px);
 }
 
-
 #message {
-
     font-size: 14px;
 }
 
+/* =========================
+   PLAYER
+========================= */
 
-/* ==================================================
-   CATCH BUTTON
-================================================== */
+.playerMarker {
+    width: 30px;
+    height: 30px;
 
-#catchButton {
+    border-radius: 50%;
 
-    display: none;
+    background: #428cff;
 
-    width: 100%;
+    border: 4px solid white;
 
-    margin-top: 10px;
-
-    padding: 13px;
-
-    border: none;
-
-    border-radius: 14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #72efa4,
-            #34b96e
-        );
-
-    color: #07120f;
-
-    font-weight: 900;
+    box-shadow:
+        0 0 0 9px rgba(66,140,255,.2),
+        0 4px 15px rgba(0,0,0,.45);
 }
 
+/* =========================
+   CREATURE MARKERS
+========================= */
 
-/* ==================================================
-   JOYSTICK
-================================================== */
+.creatureMarker {
+    width: 62px;
+    height: 62px;
 
-#joystick {
-
-    position: fixed;
-
-    left: 25px;
-
-    bottom: 25px;
-
-    width: 135px;
-
-    height: 135px;
-
-    z-index: 4000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     border-radius: 50%;
 
     background:
-        rgba(5,20,13,.45);
+        radial-gradient(
+            circle at 30% 25%,
+            #ffffff,
+            #d9e8df
+        );
+
+    border: 3px solid #12281c;
+
+    font-size: 32px;
+
+    box-shadow:
+        0 7px 22px rgba(0,0,0,.5);
+
+    transition:
+        transform .2s,
+        filter .2s;
+}
+
+.creatureMarker.nearby {
+    transform: scale(1.35);
+
+    filter:
+        drop-shadow(
+            0 0 12px #6ff0a3
+        );
+}
+
+/* =========================
+   JOYSTICK
+========================= */
+
+#joystick {
+    position: fixed;
+
+    z-index: 4000;
+
+    left: 25px;
+    bottom: 25px;
+
+    width: 135px;
+    height: 135px;
+
+    border-radius: 50%;
+
+    background: rgba(5,20,13,.5);
 
     border:
-        2px solid
-        rgba(255,255,255,.15);
+        2px solid rgba(255,255,255,.15);
 
-    backdrop-filter:
-        blur(5px);
+    backdrop-filter: blur(5px);
 
     touch-action: none;
 }
 
-
 #stick {
-
     position: absolute;
 
     left: 50%;
@@ -469,8 +386,7 @@ body {
     width: 58px;
     height: 58px;
 
-    transform:
-        translate(-50%,-50%);
+    transform: translate(-50%,-50%);
 
     border-radius: 50%;
 
@@ -482,100 +398,15 @@ body {
         );
 
     border:
-        3px solid
-        rgba(255,255,255,.7);
-
-    box-shadow:
-        0 5px 20px
-        rgba(0,0,0,.4);
+        3px solid rgba(255,255,255,.7);
 }
 
-
-/* ==================================================
-   PLAYER
-================================================== */
-
-.playerMarker {
-
-    width: 30px;
-    height: 30px;
-
-    border-radius: 50%;
-
-    background: #428cff;
-
-    border:
-        4px solid white;
-
-    box-shadow:
-        0 0 0 9px
-        rgba(66,140,255,.22),
-
-        0 4px 14px
-        rgba(0,0,0,.5);
-}
-
-
-/* ==================================================
-   CREATURE
-================================================== */
-
-.creatureMarker {
-
-    width: 60px;
-    height: 60px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle at 30% 25%,
-            white,
-            #e5eee9
-        );
-
-    border:
-        3px solid
-        #10251b;
-
-    font-size: 31px;
-
-    box-shadow:
-        0 8px 22px
-        rgba(0,0,0,.45);
-
-    transition:
-        transform .2s,
-        filter .2s;
-}
-
-
-.creatureNearby {
-
-    transform:
-        scale(1.35);
-
-    filter:
-        drop-shadow(
-            0 0 12px
-            #71efa4
-        );
-}
-
-
-/* ==================================================
+/* =========================
    ENCOUNTER
-================================================== */
+========================= */
 
 #encounter {
-
     position: fixed;
-
     inset: 0;
 
     z-index: 6000;
@@ -583,96 +414,70 @@ body {
     display: none;
 
     flex-direction: column;
-
+    justify-content: space-between;
     align-items: center;
 
-    justify-content: space-between;
-
-    padding:
-        55px 20px 35px;
+    padding: 50px 20px 30px;
 
     text-align: center;
 
     background:
-
         radial-gradient(
             circle at 50% 35%,
-            rgba(70,220,130,.25),
-            transparent 35%
+            rgba(75,230,139,.28),
+            transparent 38%
         ),
-
         linear-gradient(
             160deg,
-            #071812,
-            #102b1f,
-            #06100c
+            #06140e,
+            #123021,
+            #06100b
         );
 }
 
-
-/* creature boven */
-
 .encounterTop {
-
     width: 100%;
 
     display: flex;
-
-    justify-content:
-        space-between;
-
+    justify-content: space-between;
     align-items: center;
 }
 
-
 .backButton {
-
     width: 48px;
     height: 48px;
 
-    border: none;
-
+    border: 0;
     border-radius: 15px;
 
-    background:
-        rgba(255,255,255,.1);
+    background: rgba(255,255,255,.1);
 
     color: white;
-
     font-size: 22px;
 }
 
-
 .rarity {
-
-    padding:
-        8px 13px;
+    padding: 8px 13px;
 
     border-radius: 20px;
 
-    background:
-        rgba(255,255,255,.1);
+    background: rgba(255,255,255,.1);
 
-    color:
-        #a9ffc7;
+    color: #9ff8bd;
 
-    font-size: 12px;
-
+    font-size: 11px;
     font-weight: 900;
 }
 
-
-/* creature */
-
 .encounterCreature {
-
     width: 190px;
     height: 190px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
+
+    margin: 0 auto;
 
     border-radius: 50%;
 
@@ -681,110 +486,70 @@ body {
     background:
         radial-gradient(
             circle,
-            rgba(255,255,255,.95),
-            rgba(115,240,170,.15)
+            rgba(255,255,255,.96),
+            rgba(95,235,145,.12)
         );
 
     box-shadow:
-
-        0 0 70px
-        rgba(110,240,160,.35),
-
-        0 20px 50px
-        rgba(0,0,0,.35);
+        0 0 75px rgba(100,240,160,.3),
+        0 20px 55px rgba(0,0,0,.35);
 
     animation:
-        encounterFloat 2.5s
-        ease-in-out
-        infinite;
+        floating 2.5s ease-in-out infinite;
 }
 
-
-@keyframes encounterFloat {
-
-    0%,
-    100% {
-        transform:
-            translateY(0);
+@keyframes floating {
+    0%,100% {
+        transform: translateY(0);
     }
 
     50% {
-        transform:
-            translateY(-15px);
+        transform: translateY(-13px);
     }
 }
 
-
 .encounterName {
-
     margin-top: 20px;
-
     font-size: 34px;
-
     font-weight: 900;
 }
 
-
 .encounterType {
-
     margin-top: 5px;
-
-    color: #76eda4;
-
+    color: #75eca4;
     font-weight: bold;
 }
 
-
-/* stats */
-
 .encounterStats {
-
     width: 100%;
-
-    max-width: 390px;
+    max-width: 400px;
 
     display: grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
+    grid-template-columns: repeat(3,1fr);
 
     gap: 10px;
 }
 
-
 .statCard {
-
     padding: 12px 7px;
 
     border-radius: 16px;
 
-    background:
-        rgba(255,255,255,.08);
+    background: rgba(255,255,255,.08);
 }
 
-
 .statNumber {
-
     font-size: 18px;
-
     font-weight: 900;
 }
 
-
 .statLabel {
-
     margin-top: 4px;
-
-    color: #9fb1a7;
-
+    color: #99ada2;
     font-size: 9px;
 }
 
-
-/* vangbal */
-
 #ball {
-
     width: 95px;
     height: 95px;
 
@@ -794,48 +559,36 @@ body {
 
     background:
         linear-gradient(
-            #f04e4e 0 48%,
-            #171717 48% 54%,
-            #f1f1f1 54%
+            #f04c4c 0 47%,
+            #181818 47% 54%,
+            #f4f4f4 54%
         );
 
     box-shadow:
-        0 12px 35px
-        rgba(0,0,0,.45);
+        0 12px 35px rgba(0,0,0,.45);
 
     cursor: pointer;
 
     transition:
-        transform .15s;
+        transform .25s;
 }
-
 
 #ball:active {
-
-    transform:
-        scale(.85)
-        rotate(-15deg);
+    transform: scale(.86) rotate(-15deg);
 }
 
-
 #throwText {
-
     margin-top: 10px;
-
-    color: #b9cec3;
-
+    color: #b7c9bf;
     font-size: 12px;
 }
 
-
-/* ==================================================
+/* =========================
    RESULT
-================================================== */
+========================= */
 
 #result {
-
     position: fixed;
-
     inset: 0;
 
     z-index: 9000;
@@ -843,94 +596,72 @@ body {
     display: none;
 
     align-items: center;
-
     justify-content: center;
 
-    text-align: center;
+    padding: 20px;
 
-    background:
-        rgba(0,0,0,.78);
+    background: rgba(0,0,0,.75);
 
-    backdrop-filter:
-        blur(10px);
+    backdrop-filter: blur(10px);
 }
 
-
 .resultCard {
-
-    width:
-        calc(100% - 40px);
-
+    width: 100%;
     max-width: 380px;
 
     padding: 30px;
 
     border-radius: 28px;
 
+    text-align: center;
+
     background:
         linear-gradient(
             145deg,
-            #153124,
+            #163325,
             #07130d
         );
 }
 
-
 .resultEmoji {
-
     font-size: 85px;
 }
 
-
 .resultTitle {
-
     margin-top: 10px;
-
     font-size: 27px;
-
     font-weight: 900;
 }
 
-
 .resultText {
-
     margin-top: 10px;
-
     color: #b9cec3;
 }
 
-
 .resultButton {
-
     width: 100%;
 
     margin-top: 22px;
 
     padding: 15px;
 
-    border: none;
-
+    border: 0;
     border-radius: 15px;
 
-    background:
-        #70efa2;
+    background: #70efa2;
 
-    color: #07120f;
-
-    font-weight: 900;
+    color: #07120e;
 
     font-size: 16px;
+    font-weight: 900;
 }
 
-
-/* ==================================================
+/* =========================
    COLLECTION
-================================================== */
+========================= */
 
 .modal {
-
     position: fixed;
-
     inset: 0;
 
     z-index: 7000;
@@ -938,26 +669,20 @@ body {
     display: none;
 
     align-items: center;
-
     justify-content: center;
 
     padding: 20px;
 
-    background:
-        rgba(0,0,0,.68);
+    background: rgba(0,0,0,.7);
 
-    backdrop-filter:
-        blur(8px);
+    backdrop-filter: blur(8px);
 }
 
-
 .modalCard {
-
     width: 100%;
+    max-width: 450px;
 
-    max-width: 430px;
-
-    max-height: 80vh;
+    max-height: 82vh;
 
     overflow-y: auto;
 
@@ -968,103 +693,116 @@ body {
     background:
         linear-gradient(
             145deg,
-            #142a20,
+            #142b20,
             #08140e
         );
 }
 
-
 .modalTitle {
-
     display: flex;
-
     align-items: center;
-
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
     font-size: 22px;
-
     font-weight: 900;
 }
 
-
 .close {
-
-    border: none;
-
+    border: 0;
     background: transparent;
-
     color: white;
-
     font-size: 28px;
 }
 
-
-.grid {
-
+.dexGrid {
     display: grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap: 12px;
+    grid-template-columns: repeat(2,1fr);
+    gap: 11px;
 
     margin-top: 20px;
 }
 
+.dexCard {
+    min-height: 145px;
 
-.card {
-
-    padding: 16px;
+    padding: 14px;
 
     border-radius: 18px;
 
     text-align: center;
 
-    background:
-        rgba(255,255,255,.07);
+    background: rgba(255,255,255,.07);
+
+    border:
+        1px solid rgba(255,255,255,.05);
 }
 
-
-.cardEmoji {
-
-    font-size: 40px;
-}
-
-
-.cardName {
-
-    margin-top: 7px;
-
-    font-weight: bold;
-}
-
-
-.cardType {
-
-    margin-top: 5px;
-
-    color: #75e9a3;
-
+.dexNumber {
+    color: #758d81;
     font-size: 10px;
 }
 
+.dexEmoji {
+    margin-top: 4px;
+    font-size: 43px;
+}
+
+.dexName {
+    margin-top: 5px;
+    font-weight: 900;
+}
+
+.dexType {
+    margin-top: 4px;
+    color: #73eaa0;
+    font-size: 10px;
+}
+
+.dexRarity {
+    margin-top: 4px;
+    color: #aabbb2;
+    font-size: 9px;
+}
+
+.locked {
+    opacity: .38;
+    filter: grayscale(1);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-height: 650px) {
+
+    .encounterCreature {
+        width: 145px;
+        height: 145px;
+        font-size: 80px;
+    }
+
+    .encounterName {
+        font-size: 28px;
+    }
+
+    #ball {
+        width: 75px;
+        height: 75px;
+    }
+
+}
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- ==================================================
-     START
-================================================== -->
+<!-- =========================
+     STARTSCHERM
+========================= -->
 
 <section id="startScreen">
 
-    <div class="logo">
+    <div class="startLogo">
         🐾
     </div>
 
@@ -1072,8 +810,8 @@ body {
         Creaturen Trail
     </h1>
 
-    <div class="subtitle">
-        Ontdek. Vind. Vang.
+    <div class="startSub">
+        Ontdek • Vind • Vang
     </div>
 
     <button
@@ -1086,104 +824,71 @@ body {
 </section>
 
 
-<!-- ==================================================
+<!-- =========================
      GAME
-================================================== -->
+========================= -->
 
 <section id="game">
 
     <div id="map"></div>
 
-
-    <!-- HUD -->
-
     <div class="hud">
 
         <div class="hudBox">
 
-            <div class="title">
+            <div class="gameTitle">
                 🐾 Creaturen Trail
             </div>
 
-            <div class="level">
-
-                LEVEL
-                <span id="level">
-                    1
-                </span>
-
+            <div class="levelText">
+                LEVEL <span id="level">1</span>
             </div>
 
             <div class="xpBar">
-
                 <div
                     id="xpFill"
                     class="xpFill"
                 ></div>
-
             </div>
 
         </div>
 
-
         <div class="hudBox stats">
 
-            ⭐
-            <span id="xp">
-                0
-            </span>
-
-            XP
+            ⭐ <span id="xp">0</span> XP
 
             <br>
 
-            🎒
-            <span id="count">
-                0
-            </span>
+            🎒 <span id="count">0</span> Creaturen
 
         </div>
 
     </div>
 
 
-    <!-- MENU -->
-
     <div class="menu">
 
-        <button
-            onclick="openCollection()"
-        >
+        <button onclick="openDex()">
             📖
         </button>
 
-        <button
-            onclick="centerPlayer()"
-        >
+        <button onclick="centerPlayer()">
             📍
         </button>
 
-        <button
-            onclick="spawnNearPlayer()"
-        >
+        <button onclick="spawnNearPlayer()">
             👾
         </button>
 
     </div>
 
 
-    <!-- MESSAGE -->
-
     <div class="messageBox">
-
         <div id="message">
-            Gebruik de joystick om te bewegen.
+            Zoek naar Creaturen!
         </div>
-
     </div>
 
-
-    <!-- JOYSTICK -->
 
     <div id="joystick">
 
@@ -1194,9 +899,9 @@ body {
 </section>
 
 
-<!-- ==================================================
+<!-- =========================
      ENCOUNTER
-================================================== -->
+========================= -->
 
 <section id="encounter">
 
@@ -1222,24 +927,22 @@ body {
     <div>
 
         <div
-            class="encounterCreature"
             id="encounterEmoji"
+            class="encounterCreature"
         >
             🔥
         </div>
 
-
         <div
-            class="encounterName"
             id="encounterName"
+            class="encounterName"
         >
             Blazik
         </div>
 
-
         <div
-            class="encounterType"
             id="encounterType"
+            class="encounterType"
         >
             Vuur
         </div>
@@ -1247,15 +950,13 @@ body {
     </div>
 
 
-    <div
-        class="encounterStats"
-    >
+    <div class="encounterStats">
 
         <div class="statCard">
 
             <div
-                class="statNumber"
                 id="statPower"
+                class="statNumber"
             >
                 65
             </div>
@@ -1270,10 +971,10 @@ body {
         <div class="statCard">
 
             <div
-                class="statNumber"
                 id="statChance"
+                class="statNumber"
             >
-                70%
+                75%
             </div>
 
             <div class="statLabel">
@@ -1286,8 +987,8 @@ body {
         <div class="statCard">
 
             <div
-                class="statNumber"
                 id="statXP"
+                class="statNumber"
             >
                 +10
             </div>
@@ -1306,8 +1007,7 @@ body {
         <button
             id="ball"
             onclick="throwBall()"
-        >
-        </button>
+        ></button>
 
         <div id="throwText">
             Tik op de vangbal!
@@ -1318,33 +1018,33 @@ body {
 </section>
 
 
-<!-- ==================================================
+<!-- =========================
      RESULT
-================================================== -->
+========================= -->
 
 <section id="result">
 
     <div class="resultCard">
 
         <div
-            class="resultEmoji"
             id="resultEmoji"
+            class="resultEmoji"
         >
             🎉
         </div>
 
         <div
-            class="resultTitle"
             id="resultTitle"
+            class="resultTitle"
         >
             Gevangen!
         </div>
 
         <div
-            class="resultText"
             id="resultText"
+            class="resultText"
         >
-            Je hebt een Creature gevangen.
+            Creature gevangen!
         </div>
 
         <button
@@ -1359,13 +1059,13 @@ body {
 </section>
 
 
-<!-- ==================================================
-     COLLECTION
-================================================== -->
+<!-- =========================
+     DEX
+========================= -->
 
 <div
+    id="dexModal"
     class="modal"
-    id="collectionModal"
 >
 
     <div class="modalCard">
@@ -1373,12 +1073,12 @@ body {
         <div class="modalTitle">
 
             <span>
-                📖 Creaturenboek
+                📖 Creaturen-Dex
             </span>
 
             <button
                 class="close"
-                onclick="closeCollection()"
+                onclick="closeDex()"
             >
                 ×
             </button>
@@ -1386,8 +1086,8 @@ body {
         </div>
 
         <div
-            class="grid"
-            id="collectionGrid"
+            id="dexGrid"
+            class="dexGrid"
         ></div>
 
     </div>
@@ -1395,22 +1095,358 @@ body {
 </div>
 
 
-<script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-></script>
-
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-/* ==================================================
-   VARIABLES
-================================================== */
+/* =====================================================
+   CREATURE DATABASE
+===================================================== */
+
+const creatures = [
+
+    {
+        id:1,
+        name:"Blazik",
+        emoji:"🔥",
+        type:"Vuur",
+        rarity:"Gewoon",
+        power:65,
+        catchChance:75,
+        xp:10
+    },
+
+    {
+        id:2,
+        name:"Flamoro",
+        emoji:"🌋",
+        type:"Vuur",
+        rarity:"Zeldzaam",
+        power:82,
+        catchChance:55,
+        xp:18
+    },
+
+    {
+        id:3,
+        name:"Emberix",
+        emoji:"🔥",
+        type:"Vuur",
+        rarity:"Episch",
+        power:94,
+        catchChance:35,
+        xp:30
+    },
+
+    {
+        id:4,
+        name:"Aquari",
+        emoji:"💧",
+        type:"Water",
+        rarity:"Gewoon",
+        power:55,
+        catchChance:80,
+        xp:10
+    },
+
+    {
+        id:5,
+        name:"Bubblu",
+        emoji:"🫧",
+        type:"Water",
+        rarity:"Gewoon",
+        power:61,
+        catchChance:76,
+        xp:12
+    },
+
+    {
+        id:6,
+        name:"Hydrino",
+        emoji:"🌊",
+        type:"Water",
+        rarity:"Episch",
+        power:92,
+        catchChance:32,
+        xp:30
+    },
+
+    {
+        id:7,
+        name:"Leafy",
+        emoji:"🌿",
+        type:"Natuur",
+        rarity:"Gewoon",
+        power:60,
+        catchChance:78,
+        xp:10
+    },
+
+    {
+        id:8,
+        name:"Mossy",
+        emoji:"🍃",
+        type:"Natuur",
+        rarity:"Gewoon",
+        power:58,
+        catchChance:82,
+        xp:10
+    },
+
+    {
+        id:9,
+        name:"Floralis",
+        emoji:"🌺",
+        type:"Natuur",
+        rarity:"Zeldzaam",
+        power:84,
+        catchChance:52,
+        xp:20
+    },
+
+    {
+        id:10,
+        name:"Sparko",
+        emoji:"⚡",
+        type:"Elektrisch",
+        rarity:"Zeldzaam",
+        power:85,
+        catchChance:55,
+        xp:18
+    },
+
+    {
+        id:11,
+        name:"Voltrix",
+        emoji:"🔋",
+        type:"Elektrisch",
+        rarity:"Episch",
+        power:96,
+        catchChance:30,
+        xp:32
+    },
+
+    {
+        id:12,
+        name:"Zappit",
+        emoji:"⚡",
+        type:"Elektrisch",
+        rarity:"Gewoon",
+        power:63,
+        catchChance:72,
+        xp:12
+    },
+
+    {
+        id:13,
+        name:"Rocko",
+        emoji:"🪨",
+        type:"Aarde",
+        rarity:"Zeldzaam",
+        power:90,
+        catchChance:48,
+        xp:22
+    },
+
+    {
+        id:14,
+        name:"Pebblit",
+        emoji:"🪨",
+        type:"Aarde",
+        rarity:"Gewoon",
+        power:57,
+        catchChance:80,
+        xp:10
+    },
+
+    {
+        id:15,
+        name:"Terradon",
+        emoji:"⛰️",
+        type:"Aarde",
+        rarity:"Episch",
+        power:97,
+        catchChance:28,
+        xp:35
+    },
+
+    {
+        id:16,
+        name:"Frosto",
+        emoji:"❄️",
+        type:"IJs",
+        rarity:"Zeldzaam",
+        power:88,
+        catchChance:50,
+        xp:20
+    },
+
+    {
+        id:17,
+        name:"Snowbi",
+        emoji:"☃️",
+        type:"IJs",
+        rarity:"Gewoon",
+        power:59,
+        catchChance:79,
+        xp:11
+    },
+
+    {
+        id:18,
+        name:"Glaciron",
+        emoji:"🧊",
+        type:"IJs",
+        rarity:"Episch",
+        power:95,
+        catchChance:30,
+        xp:33
+    },
+
+    {
+        id:19,
+        name:"Dusko",
+        emoji:"🌑",
+        type:"Schaduw",
+        rarity:"Zeldzaam",
+        power:83,
+        catchChance:48,
+        xp:22
+    },
+
+    {
+        id:20,
+        name:"Nocti",
+        emoji:"🌙",
+        type:"Schaduw",
+        rarity:"Episch",
+        power:96,
+        catchChance:27,
+        xp:35
+    },
+
+    {
+        id:21,
+        name:"Mysti",
+        emoji:"✨",
+        type:"Mystiek",
+        rarity:"Episch",
+        power:98,
+        catchChance:25,
+        xp:40
+    },
+
+    {
+        id:22,
+        name:"Lumino",
+        emoji:"🌟",
+        type:"Mystiek",
+        rarity:"Zeldzaam",
+        power:87,
+        catchChance:45,
+        xp:25
+    },
+
+    {
+        id:23,
+        name:"Breezi",
+        emoji:"🌪️",
+        type:"Lucht",
+        rarity:"Gewoon",
+        power:62,
+        catchChance:76,
+        xp:11
+    },
+
+    {
+        id:24,
+        name:"Aeron",
+        emoji:"🪽",
+        type:"Lucht",
+        rarity:"Zeldzaam",
+        power:86,
+        catchChance:51,
+        xp:21
+    },
+
+    {
+        id:25,
+        name:"Venomi",
+        emoji:"☠️",
+        type:"Gif",
+        rarity:"Zeldzaam",
+        power:89,
+        catchChance:43,
+        xp:24
+    },
+
+    {
+        id:26,
+        name:"Toxbit",
+        emoji:"🟣",
+        type:"Gif",
+        rarity:"Gewoon",
+        power:64,
+        catchChance:70,
+        xp:12
+    },
+
+    {
+        id:27,
+        name:"Solaryx",
+        emoji:"☀️",
+        type:"Licht",
+        rarity:"Legendarisch",
+        power:120,
+        catchChance:8,
+        xp:100
+    },
+
+    {
+        id:28,
+        name:"Lunareth",
+        emoji:"🌙",
+        type:"Maan",
+        rarity:"Legendarisch",
+        power:125,
+        catchChance:6,
+        xp:120
+    },
+
+    {
+        id:29,
+        name:"Stormyx",
+        emoji:"🌩️",
+        type:"Storm",
+        rarity:"Legendarisch",
+        power:130,
+        catchChance:5,
+        xp:150
+    },
+
+    {
+        id:30,
+        name:"Eonara",
+        emoji:"🌌",
+        type:"Kosmisch",
+        rarity:"Mythisch",
+        power:150,
+        catchChance:2,
+        xp:250
+    }
+
+];
+
+
+/* =====================================================
+   GAME VARIABLES
+===================================================== */
 
 let map;
 
 let playerMarker;
 
-let playerPosition = null;
+let playerPosition;
 
 let spawnedCreatures = [];
 
@@ -1418,11 +1454,11 @@ let selectedCreature = null;
 
 let selectedCreatureData = null;
 
-let collection = [];
+let caughtCreatures = [];
 
 let xp = 0;
 
-let creatureCount = 0;
+let totalCaught = 0;
 
 let moveX = 0;
 
@@ -1431,100 +1467,24 @@ let moveY = 0;
 let joystickActive = false;
 
 let joystickCenter = {
-    x: 0,
-    y: 0
+    x:0,
+    y:0
 };
 
 
-/* ==================================================
-   CREATURE DATABASE
-================================================== */
-
-const creatures = [
-
-    {
-        name: "Blazik",
-        emoji: "🔥",
-        type: "Vuur",
-        rarity: "Gewoon",
-        power: 65,
-        catchChance: 75
-    },
-
-    {
-        name: "Aquari",
-        emoji: "💧",
-        type: "Water",
-        rarity: "Gewoon",
-        power: 55,
-        catchChance: 80
-    },
-
-    {
-        name: "Leafy",
-        emoji: "🌿",
-        type: "Natuur",
-        rarity: "Gewoon",
-        power: 60,
-        catchChance: 78
-    },
-
-    {
-        name: "Sparko",
-        emoji: "⚡",
-        type: "Elektrisch",
-        rarity: "Zeldzaam",
-        power: 85,
-        catchChance: 55
-    },
-
-    {
-        name: "Rocko",
-        emoji: "🪨",
-        type: "Aarde",
-        rarity: "Zeldzaam",
-        power: 90,
-        catchChance: 48
-    },
-
-    {
-        name: "Mysti",
-        emoji: "✨",
-        type: "Mystiek",
-        rarity: "Episch",
-        power: 98,
-        catchChance: 30
-    },
-
-    {
-        name: "Frosto",
-        emoji: "❄️",
-        type: "IJs",
-        rarity: "Zeldzaam",
-        power: 88,
-        catchChance: 50
-    }
-
-];
-
-
-/* ==================================================
+/* =====================================================
    START
-================================================== */
+===================================================== */
 
 function startGame() {
 
     document
         .getElementById("startScreen")
-        .style.display =
-        "none";
-
+        .style.display = "none";
 
     document
         .getElementById("game")
-        .style.display =
-        "block";
-
+        .style.display = "block";
 
     createMap();
 
@@ -1535,97 +1495,91 @@ function startGame() {
 }
 
 
-/* ==================================================
+/* =====================================================
    MAP
-================================================== */
+===================================================== */
 
 function createMap() {
 
-    map =
-        L.map("map")
-        .setView(
-            [52.3676,4.9041],
-            17
-        );
-
+    map = L.map("map").setView(
+        [52.3676,4.9041],
+        17
+    );
 
     L.tileLayer(
-
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-
         {
-            maxZoom: 19,
-
+            maxZoom:19,
             attribution:
                 "&copy; OpenStreetMap contributors"
         }
-
     ).addTo(map);
 
 }
 
 
-/* ==================================================
+/* =====================================================
    GPS
-================================================== */
+===================================================== */
 
 function locatePlayer() {
 
-    if (
-        !navigator.geolocation
-    ) {
+    if (!navigator.geolocation) {
 
         useDefaultLocation();
 
         return;
-
     }
 
+    navigator.geolocation.getCurrentPosition(
 
-    navigator.geolocation
-        .getCurrentPosition(
+        position => {
 
-            position => {
+            setPlayerPosition(
+                position.coords.latitude,
+                position.coords.longitude
+            );
 
-                setPlayerPosition(
+            createInitialCreatures();
 
-                    position.coords.latitude,
+        },
 
-                    position.coords.longitude
+        () => {
 
-                );
+            useDefaultLocation();
 
-                createCreatures();
+        },
 
-            },
+        {
+            enableHighAccuracy:true,
+            timeout:10000,
+            maximumAge:5000
+        }
 
-            () => {
-
-                useDefaultLocation();
-
-            },
-
-            {
-
-                enableHighAccuracy:
-                    true,
-
-                timeout:
-                    10000,
-
-                maximumAge:
-                    5000
-
-            }
-
-        );
+    );
 
 }
 
 
-/* ==================================================
+/* =====================================================
+   DEFAULT LOCATION
+===================================================== */
+
+function useDefaultLocation() {
+
+    setPlayerPosition(
+        52.3676,
+        4.9041
+    );
+
+    createInitialCreatures();
+
+}
+
+
+/* =====================================================
    PLAYER
-================================================== */
+===================================================== */
 
 function setPlayerPosition(
     lat,
@@ -1637,87 +1591,55 @@ function setPlayerPosition(
         lng
     ];
 
-
     if (!playerMarker) {
 
         const icon =
             L.divIcon({
 
-                className: "",
+                className:"",
 
                 html:
                     '<div class="playerMarker"></div>',
 
-                iconSize: [
-                    30,
-                    30
-                ],
+                iconSize:[30,30],
 
-                iconAnchor: [
-                    15,
-                    15
-                ]
+                iconAnchor:[15,15]
 
             });
 
-
         playerMarker =
             L.marker(
-
                 [lat,lng],
-
                 {
-                    icon: icon
+                    icon:icon
                 }
-
-            )
-            .addTo(map);
-
+            ).addTo(map);
 
         map.setView(
             [lat,lng],
             18
         );
 
-    }
+    } else {
 
-    else {
-
-        playerMarker
-            .setLatLng(
-                [lat,lng]
-            );
+        playerMarker.setLatLng(
+            [lat,lng]
+        );
 
     }
 
 }
 
 
-/* ==================================================
-   DEFAULT
-================================================== */
+/* =====================================================
+   CREATURE SPAWN
+===================================================== */
 
-function useDefaultLocation() {
-
-    setPlayerPosition(
-        52.3676,
-        4.9041
-    );
-
-    createCreatures();
-
-}
-
-
-/* ==================================================
-   CREATURES
-================================================== */
-
-function createCreatures() {
+function createInitialCreatures() {
 
     for (
-        let i = 0;
-        i < 9;
+        let i=0;
+        i<12;
         i++
     ) {
 
@@ -1725,138 +1647,150 @@ function createCreatures() {
 
     }
 
-
     showMessage(
-        "🎮 Loop rond en zoek Creaturen!"
+        "👀 Zoek een Creature op de kaart!"
     );
 
 }
 
 
-/* ==================================================
-   SPAWN
-================================================== */
+function chooseCreature() {
+
+    const random =
+        Math.random();
+
+    let pool;
+
+    if (random < .55) {
+
+        pool =
+            creatures.filter(
+                c => c.rarity === "Gewoon"
+            );
+
+    } else if (random < .88) {
+
+        pool =
+            creatures.filter(
+                c => c.rarity === "Zeldzaam"
+            );
+
+    } else if (random < .985) {
+
+        pool =
+            creatures.filter(
+                c => c.rarity === "Episch"
+            );
+
+    } else {
+
+        pool =
+            creatures.filter(
+                c =>
+                    c.rarity === "Legendarisch" ||
+                    c.rarity === "Mythisch"
+            );
+
+    }
+
+    return pool[
+        Math.floor(
+            Math.random() * pool.length
+        )
+    ];
+
+}
+
 
 function spawnCreature() {
 
     if (!playerPosition)
         return;
 
-
     const creature =
-        creatures[
-            Math.floor(
-                Math.random() *
-                creatures.length
-            )
-        ];
-
+        chooseCreature();
 
     const angle =
         Math.random() *
         Math.PI *
         2;
 
-
     const distance =
-        0.0005 +
+        .0006 +
         Math.random() *
-        0.0025;
-
+        .0028;
 
     const lat =
         playerPosition[0] +
         Math.cos(angle) *
         distance;
 
-
     const lng =
         playerPosition[1] +
         Math.sin(angle) *
         distance;
 
-
     const icon =
         L.divIcon({
 
-            className: "",
+            className:"",
 
             html:
-
                 `<div class="creatureMarker">
                     ${creature.emoji}
                 </div>`,
 
-            iconSize: [
-                60,
-                60
-            ],
+            iconSize:[62,62],
 
-            iconAnchor: [
-                30,
-                30
-            ]
+            iconAnchor:[31,31]
 
         });
 
-
     const marker =
         L.marker(
-
             [lat,lng],
-
             {
-                icon: icon
+                icon:icon
             }
-
-        )
-        .addTo(map);
-
+        ).addTo(map);
 
     marker.creatureData =
         creature;
-
 
     marker.on(
         "click",
         () => {
 
-            const d =
-                getDistance(
+            const position =
+                marker.getLatLng();
 
+            const distance =
+                getDistance(
                     playerPosition[0],
                     playerPosition[1],
-
-                    marker.getLatLng().lat,
-                    marker.getLatLng().lng
-
+                    position.lat,
+                    position.lng
                 );
 
-
-            if (d <= 60) {
+            if (distance <= 60) {
 
                 openEncounter(
                     marker,
                     creature
                 );
 
-            }
-
-            else {
+            } else {
 
                 showMessage(
-
-                    "🚶 Loop nog " +
-                    Math.round(d) +
-                    " meter dichterbij!"
-
+                    "🚶 Nog " +
+                    Math.round(distance) +
+                    " meter!"
                 );
 
             }
 
         }
     );
-
 
     spawnedCreatures.push(
         marker
@@ -1865,15 +1799,102 @@ function spawnCreature() {
 }
 
 
-/* ==================================================
-   AFSTANDEN
-================================================== */
+/* =====================================================
+   SPAWN BUTTON
+===================================================== */
+
+function spawnNearPlayer() {
+
+    if (!playerPosition)
+        return;
+
+    const creature =
+        chooseCreature();
+
+    const angle =
+        Math.random() *
+        Math.PI *
+        2;
+
+    const distance =
+        .00025 +
+        Math.random() *
+        .0005;
+
+    const lat =
+        playerPosition[0] +
+        Math.cos(angle) *
+        distance;
+
+    const lng =
+        playerPosition[1] +
+        Math.sin(angle) *
+        distance;
+
+    const icon =
+        L.divIcon({
+
+            className:"",
+
+            html:
+                `<div class="creatureMarker">
+                    ${creature.emoji}
+                </div>`,
+
+            iconSize:[62,62],
+
+            iconAnchor:[31,31]
+
+        });
+
+    const marker =
+        L.marker(
+            [lat,lng],
+            {
+                icon:icon
+            }
+        ).addTo(map);
+
+    marker.creatureData =
+        creature;
+
+    marker.on(
+        "click",
+        () => {
+
+            openEncounter(
+                marker,
+                creature
+            );
+
+        }
+    );
+
+    spawnedCreatures.push(
+        marker
+    );
+
+    showMessage(
+        "👾 Een Creature is vlakbij verschenen!"
+    );
+
+}
+
+
+/* =====================================================
+   DISTANCE CHECK
+===================================================== */
+
+setInterval(
+    updateCreatureDistances,
+    500
+);
+
 
 function updateCreatureDistances() {
 
     if (!playerPosition)
         return;
-
 
     spawnedCreatures.forEach(
         marker => {
@@ -1881,58 +1902,39 @@ function updateCreatureDistances() {
             const pos =
                 marker.getLatLng();
 
-
-            const d =
+            const distance =
                 getDistance(
-
                     playerPosition[0],
                     playerPosition[1],
-
                     pos.lat,
                     pos.lng
-
                 );
-
 
             const element =
                 marker.getElement();
 
+            if (!element)
+                return;
 
-            if (
-                element
-            ) {
+            const visual =
+                element.querySelector(
+                    ".creatureMarker"
+                );
 
-                const visual =
-                    element.querySelector(
-                        ".creatureMarker"
-                    );
+            if (!visual)
+                return;
 
+            if (distance <= 60) {
 
-                if (
-                    visual
-                ) {
+                visual.classList.add(
+                    "nearby"
+                );
 
-                    if (
-                        d <= 60
-                    ) {
+            } else {
 
-                        visual.classList
-                            .add(
-                                "creatureNearby"
-                            );
-
-                    }
-
-                    else {
-
-                        visual.classList
-                            .remove(
-                                "creatureNearby"
-                            );
-
-                    }
-
-                }
+                visual.classList.remove(
+                    "nearby"
+                );
 
             }
 
@@ -1942,9 +1944,9 @@ function updateCreatureDistances() {
 }
 
 
-/* ==================================================
-   ENCOUNTER OPENEN
-================================================== */
+/* =====================================================
+   ENCOUNTER
+===================================================== */
 
 function openEncounter(
     marker,
@@ -1957,117 +1959,73 @@ function openEncounter(
     selectedCreatureData =
         creature;
 
-
     document
-        .getElementById(
-            "encounterEmoji"
-        )
+        .getElementById("encounterEmoji")
         .innerText =
         creature.emoji;
 
-
     document
-        .getElementById(
-            "encounterName"
-        )
+        .getElementById("encounterName")
         .innerText =
         creature.name;
 
-
     document
-        .getElementById(
-            "encounterType"
-        )
+        .getElementById("encounterType")
         .innerText =
         creature.type;
 
-
     document
-        .getElementById(
-            "encounterRarity"
-        )
+        .getElementById("encounterRarity")
         .innerText =
         creature.rarity.toUpperCase();
 
-
     document
-        .getElementById(
-            "statPower"
-        )
+        .getElementById("statPower")
         .innerText =
         creature.power;
 
-
     document
-        .getElementById(
-            "statChance"
-        )
+        .getElementById("statChance")
         .innerText =
         creature.catchChance + "%";
 
-
     document
-        .getElementById(
-            "statXP"
-        )
+        .getElementById("statXP")
         .innerText =
-        "+10";
-
+        "+" + creature.xp;
 
     document
-        .getElementById(
-            "throwText"
-        )
+        .getElementById("throwText")
         .innerText =
         "Tik op de vangbal!";
 
-
     document
-        .getElementById(
-            "encounter"
-        )
+        .getElementById("encounter")
         .style.display =
         "flex";
-
-
-    document
-        .getElementById(
-            "messageBox"
-        );
 
 }
 
 
-/* ==================================================
-   BAL GOOIEN
-================================================== */
+/* =====================================================
+   THROW
+===================================================== */
 
 function throwBall() {
 
-    if (
-        !selectedCreatureData
-    )
+    if (!selectedCreatureData)
         return;
 
-
     const ball =
-        document
-            .getElementById(
-                "ball"
-            );
-
+        document.getElementById("ball");
 
     ball.style.transform =
         "translateY(-150px) scale(.65) rotate(360deg)";
 
-
     document
-        .getElementById(
-            "throwText"
-        )
+        .getElementById("throwText")
         .innerText =
         "🎯 Vangbal gegooid!";
-
 
     setTimeout(
         resolveCatch,
@@ -2077,32 +2035,21 @@ function throwBall() {
 }
 
 
-/* ==================================================
-   VANGST BEREKENEN
-================================================== */
-
 function resolveCatch() {
 
     const creature =
         selectedCreatureData;
 
-
     const roll =
         Math.random() * 100;
 
-
-    const success =
-        roll <=
-        creature.catchChance;
-
-
-    if (success) {
+    if (
+        roll <= creature.catchChance
+    ) {
 
         catchSuccess();
 
-    }
-
-    else {
+    } else {
 
         catchFail();
 
@@ -2111,22 +2058,20 @@ function resolveCatch() {
 }
 
 
-/* ==================================================
-   SUCCES
-================================================== */
+/* =====================================================
+   CATCH SUCCESS
+===================================================== */
 
 function catchSuccess() {
 
     const creature =
         selectedCreatureData;
 
-
     if (selectedCreature) {
 
         map.removeLayer(
             selectedCreature
         );
-
 
         spawnedCreatures =
             spawnedCreatures.filter(
@@ -2137,120 +2082,126 @@ function catchSuccess() {
 
     }
 
-
-    collection.push(
-        creature
+    caughtCreatures.push(
+        creature.id
     );
 
+    totalCaught++;
 
-    creatureCount++;
-
-    xp += 10;
-
+    xp += creature.xp;
 
     updateStats();
 
-
     document
-        .getElementById(
-            "resultEmoji"
-        )
+        .getElementById("resultEmoji")
         .innerText =
         creature.emoji;
 
-
     document
-        .getElementById(
-            "resultTitle"
-        )
+        .getElementById("resultTitle")
         .innerText =
         "🎉 Gevangen!";
 
-
     document
-        .getElementById(
-            "resultText"
-        )
+        .getElementById("resultText")
         .innerText =
-
         creature.name +
-        " zit nu in je Creaturenboek! +10 XP";
-
+        " is toegevoegd aan je Creaturen-Dex! +" +
+        creature.xp +
+        " XP";
 
     document
-        .getElementById(
-            "result"
-        )
+        .getElementById("result")
         .style.display =
         "flex";
-
 
     resetBall();
 
 }
 
 
-/* ==================================================
-   MISLUKT
-================================================== */
+/* =====================================================
+   CATCH FAIL
+===================================================== */
 
 function catchFail() {
 
     const creature =
         selectedCreatureData;
 
-
     document
-        .getElementById(
-            "resultEmoji"
-        )
+        .getElementById("resultEmoji")
         .innerText =
         "💨";
 
-
     document
-        .getElementById(
-            "resultTitle"
-        )
+        .getElementById("resultTitle")
         .innerText =
         "Ontsnapt!";
 
-
     document
-        .getElementById(
-            "resultText"
-        )
+        .getElementById("resultText")
         .innerText =
-
         creature.name +
-        " wist uit de vangbal te ontsnappen!";
-
+        " is uit de vangbal ontsnapt!";
 
     document
-        .getElementById(
-            "result"
-        )
+        .getElementById("result")
         .style.display =
         "flex";
-
 
     resetBall();
 
 }
 
 
-/* ==================================================
+/* =====================================================
+   CLOSE ENCOUNTER
+===================================================== */
+
+function closeEncounter() {
+
+    document
+        .getElementById("encounter")
+        .style.display =
+        "none";
+
+    selectedCreature =
+        null;
+
+    selectedCreatureData =
+        null;
+
+    resetBall();
+
+}
+
+
+function closeResult() {
+
+    document
+        .getElementById("result")
+        .style.display =
+        "none";
+
+    closeEncounter();
+
+    setTimeout(
+        spawnCreature,
+        1200
+    );
+
+}
+
+
+/* =====================================================
    BALL RESET
-================================================== */
+===================================================== */
 
 function resetBall() {
 
     const ball =
-        document
-            .getElementById(
-                "ball"
-            );
-
+        document.getElementById("ball");
 
     setTimeout(
         () => {
@@ -2259,175 +2210,200 @@ function resetBall() {
                 "";
 
         },
-        300
+        250
     );
 
 }
 
 
-/* ==================================================
-   ENCOUNTER SLUITEN
-================================================== */
-
-function closeEncounter() {
-
-    document
-        .getElementById(
-            "encounter"
-        )
-        .style.display =
-        "none";
-
-
-    selectedCreature =
-        null;
-
-    selectedCreatureData =
-        null;
-
-
-    resetBall();
-
-}
-
-
-/* ==================================================
-   RESULTAAT SLUITEN
-================================================== */
-
-function closeResult() {
-
-    document
-        .getElementById(
-            "result"
-        )
-        .style.display =
-        "none";
-
-
-    closeEncounter();
-
-
-    setTimeout(
-        spawnCreature,
-        1500
-    );
-
-}
-
-
-/* ==================================================
+/* =====================================================
    XP
-================================================== */
+===================================================== */
 
 function updateStats() {
-
-    document
-        .getElementById(
-            "xp"
-        )
-        .innerText =
-        xp;
-
-
-    document
-        .getElementById(
-            "count"
-        )
-        .innerText =
-        creatureCount;
-
 
     const level =
         Math.floor(
             xp / 100
         ) + 1;
 
-
     const progress =
         xp % 100;
 
+    document
+        .getElementById("xp")
+        .innerText =
+        xp;
 
     document
-        .getElementById(
-            "level"
-        )
+        .getElementById("count")
+        .innerText =
+        totalCaught;
+
+    document
+        .getElementById("level")
         .innerText =
         level;
 
-
     document
-        .getElementById(
-            "xpFill"
-        )
+        .getElementById("xpFill")
         .style.width =
         progress + "%";
 
 }
 
 
-/* ==================================================
+/* =====================================================
+   DEX
+===================================================== */
+
+function openDex() {
+
+    renderDex();
+
+    document
+        .getElementById("dexModal")
+        .style.display =
+        "flex";
+
+}
+
+
+function closeDex() {
+
+    document
+        .getElementById("dexModal")
+        .style.display =
+        "none";
+
+}
+
+
+function renderDex() {
+
+    const grid =
+        document
+            .getElementById("dexGrid");
+
+    grid.innerHTML = "";
+
+    creatures.forEach(
+        creature => {
+
+            const caught =
+                caughtCreatures.includes(
+                    creature.id
+                );
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "dexCard" +
+                (
+                    caught
+                    ? ""
+                    : " locked"
+                );
+
+            card.innerHTML = `
+
+                <div class="dexNumber">
+                    #${String(
+                        creature.id
+                    ).padStart(3,"0")}
+                </div>
+
+                <div class="dexEmoji">
+                    ${
+                        caught
+                        ? creature.emoji
+                        : "❔"
+                    }
+                </div>
+
+                <div class="dexName">
+                    ${
+                        caught
+                        ? creature.name
+                        : "Onbekend"
+                    }
+                </div>
+
+                <div class="dexType">
+                    ${
+                        caught
+                        ? creature.type
+                        : "???"
+                    }
+                </div>
+
+                <div class="dexRarity">
+                    ${
+                        caught
+                        ? creature.rarity
+                        : "Nog niet ontdekt"
+                    }
+                </div>
+
+            `;
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
    JOYSTICK
-================================================== */
+===================================================== */
 
 function setupJoystick() {
 
     const joystick =
-        document
-            .getElementById(
-                "joystick"
-            );
-
+        document.getElementById(
+            "joystick"
+        );
 
     const stick =
-        document
-            .getElementById(
-                "stick"
-            );
+        document.getElementById(
+            "stick"
+        );
 
 
-    function start(
-        event
-    ) {
+    function start(event) {
 
         joystickActive =
             true;
 
-
         const rect =
             joystick.getBoundingClientRect();
-
 
         joystickCenter.x =
             rect.left +
             rect.width / 2;
 
-
         joystickCenter.y =
             rect.top +
             rect.height / 2;
 
-
-        moveJoystick(
-            event
-        );
+        moveJoystick(event);
 
     }
 
 
-    function move(
-        event
-    ) {
+    function move(event) {
 
-        if (
-            !joystickActive
-        )
+        if (!joystickActive)
             return;
 
-
-        moveJoystick(
-            event
-        );
+        moveJoystick(event);
 
     }
 
@@ -2437,15 +2413,11 @@ function setupJoystick() {
         joystickActive =
             false;
 
-
         moveX = 0;
-
         moveY = 0;
-
 
         stick.style.left =
             "50%";
-
 
         stick.style.top =
             "50%";
@@ -2456,38 +2428,29 @@ function setupJoystick() {
     joystick.addEventListener(
         "touchstart",
         start,
-        {
-            passive:false
-        }
+        {passive:false}
     );
-
 
     joystick.addEventListener(
         "touchmove",
         move,
-        {
-            passive:false
-        }
+        {passive:false}
     );
-
 
     joystick.addEventListener(
         "touchend",
         end
     );
 
-
     joystick.addEventListener(
         "mousedown",
         start
     );
 
-
     document.addEventListener(
         "mousemove",
         move
     );
-
 
     document.addEventListener(
         "mouseup",
@@ -2497,21 +2460,16 @@ function setupJoystick() {
 }
 
 
-/* ==================================================
-   JOYSTICK BEWEGEN
-================================================== */
+/* =====================================================
+   JOYSTICK MOVE
+===================================================== */
 
-function moveJoystick(
-    event
-) {
+function moveJoystick(event) {
 
     event.preventDefault();
 
-
     let x;
-
     let y;
-
 
     if (
         event.touches &&
@@ -2524,9 +2482,7 @@ function moveJoystick(
         y =
             event.touches[0].clientY;
 
-    }
-
-    else {
+    } else {
 
         x =
             event.clientX;
@@ -2536,83 +2492,68 @@ function moveJoystick(
 
     }
 
-
     let dx =
         x -
         joystickCenter.x;
-
 
     let dy =
         y -
         joystickCenter.y;
 
-
     const max =
         42;
 
-
-    const length =
+    const distance =
         Math.sqrt(
             dx * dx +
             dy * dy
         );
 
-
     if (
-        length > max
+        distance > max
     ) {
 
         dx =
             dx /
-            length *
+            distance *
             max;
 
         dy =
             dy /
-            length *
+            distance *
             max;
 
     }
 
-
     moveX =
         dx / max;
-
 
     moveY =
         dy / max;
 
-
     const stick =
-        document
-            .getElementById(
-                "stick"
-            );
-
+        document.getElementById(
+            "stick"
+        );
 
     stick.style.left =
         `calc(50% + ${dx}px)`;
 
-
     stick.style.top =
-        `calc(50% + ${dy}px)`;
+        `calc(50% + ${dy}px`;
 
 }
 
 
-/* ==================================================
-   GAME LOOP
-================================================== */
+/* =====================================================
+   PLAYER MOVEMENT
+===================================================== */
 
 setInterval(
     movePlayer,
     50
 );
 
-
-/* ==================================================
-   PLAYER BEWEGEN
-================================================== */
 
 function movePlayer() {
 
@@ -2622,29 +2563,21 @@ function movePlayer() {
     )
         return;
 
-
     const speed =
         0.000045;
 
-
-    const newLat =
+    const lat =
         playerPosition[0] -
         moveY * speed;
 
-
-    const newLng =
+    const lng =
         playerPosition[1] +
         moveX * speed;
 
-
     setPlayerPosition(
-        newLat,
-        newLng
+        lat,
+        lng
     );
-
-
-    updateCreatureDistances();
-
 
     map.panTo(
         playerPosition,
@@ -2656,17 +2589,14 @@ function movePlayer() {
 }
 
 
-/* ==================================================
+/* =====================================================
    CENTER
-================================================== */
+===================================================== */
 
 function centerPlayer() {
 
-    if (
-        !playerPosition
-    )
+    if (!playerPosition)
         return;
-
 
     map.setView(
         playerPosition,
@@ -2676,25 +2606,9 @@ function centerPlayer() {
 }
 
 
-/* ==================================================
-   CREATURE SPAWN BUTTON
-================================================== */
-
-function spawnNearPlayer() {
-
-    spawnCreature();
-
-
-    showMessage(
-        "👀 Een nieuwe Creature is verschenen!"
-    );
-
-}
-
-
-/* ==================================================
+/* =====================================================
    DISTANCE
-================================================== */
+===================================================== */
 
 function getDistance(
     lat1,
@@ -2706,21 +2620,15 @@ function getDistance(
     const R =
         6371000;
 
-
     const dLat =
-        (lat2-lat1)
-        *
+        (lat2-lat1) *
         Math.PI / 180;
-
 
     const dLon =
-        (lon2-lon1)
-        *
+        (lon2-lon1) *
         Math.PI / 180;
 
-
     const a =
-
         Math.sin(dLat/2) *
         Math.sin(dLat/2)
 
@@ -2745,7 +2653,6 @@ function getDistance(
         Math.sin(dLon/2) *
         Math.sin(dLon/2);
 
-
     const c =
         2 *
         Math.atan2(
@@ -2753,147 +2660,25 @@ function getDistance(
             Math.sqrt(1-a)
         );
 
-
     return R * c;
 
 }
 
 
-/* ==================================================
+/* =====================================================
    MESSAGE
-================================================== */
+===================================================== */
 
-function showMessage(
-    text
-) {
+function showMessage(text) {
 
     document
-        .getElementById(
-            "message"
-        )
+        .getElementById("message")
         .innerText =
         text;
-
-}
-
-
-/* ==================================================
-   COLLECTION
-================================================== */
-
-function openCollection() {
-
-    renderCollection();
-
-
-    document
-        .getElementById(
-            "collectionModal"
-        )
-        .style.display =
-        "flex";
-
-}
-
-
-function closeCollection() {
-
-    document
-        .getElementById(
-            "collectionModal"
-        )
-        .style.display =
-        "none";
-
-}
-
-
-function renderCollection() {
-
-    const grid =
-        document
-            .getElementById(
-                "collectionGrid"
-            );
-
-
-    grid.innerHTML = "";
-
-
-    if (
-        collection.length === 0
-    ) {
-
-        grid.innerHTML =
-
-            `
-
-            <div
-                style="
-                    grid-column:1/-1;
-                    text-align:center;
-                    padding:30px;
-                    color:#91a39a;
-                "
-            >
-
-                📖 Je Creaturenboek is nog leeg.
-
-                <br><br>
-
-                Ga op avontuur!
-
-            </div>
-
-            `;
-
-        return;
-
-    }
-
-
-    collection.forEach(
-        creature => {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "card";
-
-
-            card.innerHTML =
-
-                `
-
-                <div class="cardEmoji">
-                    ${creature.emoji}
-                </div>
-
-                <div class="cardName">
-                    ${creature.name}
-                </div>
-
-                <div class="cardType">
-                    ${creature.type}
-                </div>
-
-                `;
-
-
-            grid.appendChild(
-                card
-            );
-
-        }
-    );
 
 }
 
 </script>
 
 </body>
-      </html>
+</html>

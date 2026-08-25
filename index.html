@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
 
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
 
 <title>Creaturen Trail</title>
 
@@ -19,10 +16,6 @@
 
 <style>
 
-/* ==================================================
-   BASIS
-================================================== */
-
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
@@ -30,55 +23,37 @@
 
 html,
 body {
-
     margin: 0;
-
     width: 100%;
     height: 100%;
-
     overflow: hidden;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+    font-family: Arial, sans-serif;
     background: #07120f;
-
     color: white;
 }
 
-
-/* ==================================================
+/* ================================
    STARTSCHERM
-================================================== */
+================================ */
 
 #startScreen {
-
     position: fixed;
-
     inset: 0;
-
     z-index: 9999;
 
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
 
     text-align: center;
 
     background:
-
         radial-gradient(
             circle at 50% 20%,
-            rgba(70,220,130,.25),
+            rgba(80,230,140,.25),
             transparent 35%
         ),
-
         linear-gradient(
             160deg,
             #06110d,
@@ -87,17 +62,12 @@ body {
         );
 }
 
-
 .logo {
-
     width: 115px;
-
     height: 115px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     border-radius: 34px;
@@ -105,7 +75,6 @@ body {
     font-size: 62px;
 
     background:
-
         linear-gradient(
             145deg,
             #75f2a8,
@@ -113,53 +82,24 @@ body {
         );
 
     box-shadow:
-
-        0 20px 55px
-        rgba(0,0,0,.45);
-
-    animation:
-        logoFloat 3s ease-in-out infinite;
+        0 20px 55px rgba(0,0,0,.45);
 }
-
-
-@keyframes logoFloat {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-9px);
-    }
-}
-
 
 #startScreen h1 {
-
     margin: 22px 0 0;
 
     font-size:
         clamp(38px, 10vw, 58px);
 
     font-weight: 900;
-
-    letter-spacing: -2px;
 }
-
 
 .subtitle {
-
     margin-top: 10px;
-
     color: #b9cec3;
-
-    font-size: 17px;
 }
 
-
 .startButton {
-
     margin-top: 40px;
 
     min-width: 245px;
@@ -167,11 +107,9 @@ body {
     padding: 18px 35px;
 
     border: none;
-
     border-radius: 18px;
 
     background:
-
         linear-gradient(
             135deg,
             #72f1a5,
@@ -181,87 +119,53 @@ body {
     color: #07120f;
 
     font-size: 18px;
-
     font-weight: 900;
-
-    cursor: pointer;
-
-    box-shadow:
-
-        0 12px 35px
-        rgba(50,190,110,.35);
 }
 
-
-/* ==================================================
+/* ================================
    GAME
-================================================== */
+================================ */
 
 #game {
-
     display: none;
 
     position: fixed;
-
     inset: 0;
 }
-
-
-/* ==================================================
-   MAP
-================================================== */
 
 #map {
-
     position: absolute;
-
     inset: 0;
-
-    width: 100%;
-
-    height: 100%;
 }
 
-
-/* ==================================================
+/* ================================
    HUD
-================================================== */
+================================ */
 
 .hud {
-
     position: fixed;
 
     top: 14px;
-
     left: 14px;
-
     right: 14px;
 
     z-index: 2000;
 
     display: flex;
-
-    justify-content:
-        space-between;
-
-    align-items:
-        flex-start;
+    justify-content: space-between;
 
     pointer-events: none;
 }
 
-
 .hudBox {
-
     padding: 11px 14px;
 
     border-radius: 18px;
 
     background:
-        rgba(6,18,13,.92);
+        rgba(6,18,13,.93);
 
-    backdrop-filter:
-        blur(14px);
+    backdrop-filter: blur(14px);
 
     border:
         1px solid
@@ -272,31 +176,22 @@ body {
         rgba(0,0,0,.35);
 }
 
-
 .title {
-
     font-size: 14px;
-
     font-weight: 900;
 }
 
-
 .level {
-
     margin-top: 5px;
 
     color: #73eda3;
 
     font-size: 11px;
-
     font-weight: bold;
 }
 
-
 .xpBar {
-
     width: 145px;
-
     height: 7px;
 
     margin-top: 7px;
@@ -309,11 +204,8 @@ body {
         rgba(255,255,255,.12);
 }
 
-
 .xpFill {
-
     width: 0%;
-
     height: 100%;
 
     border-radius: 20px;
@@ -324,54 +216,40 @@ body {
             #5ee594,
             #c8ff83
         );
-
-    transition:
-        width .4s ease;
 }
 
-
 .stats {
-
     text-align: right;
 
     color: #dce7e1;
 
     font-size: 12px;
-
     line-height: 1.5;
 }
 
-
-/* ==================================================
-   MENU KNOPPEN
-================================================== */
+/* ================================
+   RECHTS MENU
+================================ */
 
 .menu {
-
     position: fixed;
 
     right: 14px;
+    top: 105px;
 
-    top: 108px;
-
-    z-index: 2000;
+    z-index: 2500;
 
     display: flex;
-
     flex-direction: column;
 
     gap: 10px;
 }
 
-
 .menu button {
-
     width: 51px;
-
     height: 51px;
 
     border: none;
-
     border-radius: 17px;
 
     background:
@@ -380,32 +258,17 @@ body {
     color: white;
 
     font-size: 21px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 20px
-        rgba(0,0,0,.35);
 }
 
-
-.menu button:active {
-
-    transform: scale(.94);
-}
-
-
-/* ==================================================
-   ONDERSTE MELDING
-================================================== */
+/* ================================
+   MESSAGE
+================================ */
 
 .messageBox {
-
     position: fixed;
 
     left: 50%;
-
-    bottom: 17px;
+    bottom: 145px;
 
     transform:
         translateX(-50%);
@@ -413,21 +276,20 @@ body {
     width:
         calc(100% - 30px);
 
-    max-width: 460px;
+    max-width: 440px;
 
-    padding: 15px;
+    padding: 13px 15px;
 
     z-index: 3000;
 
     text-align: center;
 
-    border-radius: 21px;
+    border-radius: 20px;
 
     background:
         rgba(6,18,13,.94);
 
-    backdrop-filter:
-        blur(15px);
+    backdrop-filter: blur(15px);
 
     border:
         1px solid
@@ -438,58 +300,136 @@ body {
         rgba(0,0,0,.45);
 }
 
-
 #message {
-
-    color: #dce8e1;
-
     font-size: 14px;
 }
 
+/* ================================
+   CATCH BUTTON
+================================ */
 
-#lookButton {
-
+#catchButton {
     display: none;
 
     width: 100%;
 
-    margin-top: 12px;
+    margin-top: 10px;
 
-    padding: 14px;
+    padding: 13px;
 
     border: none;
-
-    border-radius: 15px;
+    border-radius: 14px;
 
     background:
         linear-gradient(
             135deg,
-            #71efa4,
-            #35b96f
+            #72efa4,
+            #34b96e
         );
 
     color: #07120f;
 
-    font-size: 15px;
-
     font-weight: 900;
 }
 
+/* ================================
+   JOYSTICK
+================================ */
 
-/* ==================================================
-   CREATURE MARKER
-================================================== */
+#joystick {
+    position: fixed;
+
+    left: 25px;
+    bottom: 25px;
+
+    width: 135px;
+    height: 135px;
+
+    z-index: 4000;
+
+    border-radius: 50%;
+
+    background:
+        rgba(5,20,13,.45);
+
+    border:
+        2px solid
+        rgba(255,255,255,.15);
+
+    backdrop-filter: blur(5px);
+
+    touch-action: none;
+}
+
+#stick {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 58px;
+    height: 58px;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #78f2a9,
+            #2eaf68
+        );
+
+    border:
+        3px solid
+        rgba(255,255,255,.7);
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.4);
+
+    pointer-events: none;
+}
+
+/* ================================
+   PLAYER
+================================ */
+
+.playerMarker {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    background: #428cff;
+
+    border:
+        4px solid white;
+
+    box-shadow:
+        0 0 0 9px
+        rgba(66,140,255,.22),
+
+        0 4px 14px
+        rgba(0,0,0,.5);
+
+    transition:
+        transform .1s linear;
+}
+
+/* ================================
+   CREATURE
+================================ */
 
 .creatureMarker {
-
     width: 60px;
-
     height: 60px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     border-radius: 50%;
@@ -511,62 +451,26 @@ body {
         0 8px 22px
         rgba(0,0,0,.45);
 
-    animation:
-        creatureFloat 2.5s ease-in-out infinite;
+    transition:
+        transform .2s,
+        filter .2s;
 }
 
+.creatureNearby {
+    transform: scale(1.35);
 
-@keyframes creatureFloat {
-
-    0%,
-    100% {
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-
-    50% {
-
-        transform:
-            translateY(-7px)
-            scale(1.05);
-    }
+    filter:
+        drop-shadow(
+            0 0 12px
+            #71efa4
+        );
 }
 
-
-/* ==================================================
-   SPELER
-================================================== */
-
-.playerMarker {
-
-    width: 30px;
-
-    height: 30px;
-
-    border-radius: 50%;
-
-    background: #428cff;
-
-    border: 4px solid white;
-
-    box-shadow:
-
-        0 0 0 9px
-        rgba(66,140,255,.22),
-
-        0 4px 14px
-        rgba(0,0,0,.5);
-}
-
-
-/* ==================================================
+/* ================================
    MODAL
-================================================== */
+================================ */
 
 .modal {
-
     position: fixed;
 
     inset: 0;
@@ -576,28 +480,17 @@ body {
     display: none;
 
     align-items: center;
-
     justify-content: center;
 
     padding: 20px;
 
     background:
         rgba(0,0,0,.68);
-
-    backdrop-filter:
-        blur(8px);
 }
 
-
 .modalCard {
-
     width: 100%;
-
     max-width: 430px;
-
-    max-height: 80vh;
-
-    overflow-y: auto;
 
     padding: 22px;
 
@@ -609,34 +502,21 @@ body {
             #142a20,
             #08140e
         );
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
 }
 
-
 .modalTitle {
-
     display: flex;
+
+    justify-content: space-between;
 
     align-items: center;
 
-    justify-content:
-        space-between;
-
-    margin-bottom: 20px;
-
     font-size: 22px;
-
     font-weight: 900;
 }
 
-
 .close {
-
     border: none;
-
     background: transparent;
 
     color: white;
@@ -644,20 +524,18 @@ body {
     font-size: 28px;
 }
 
-
 .grid {
-
     display: grid;
 
     grid-template-columns:
         repeat(2,1fr);
 
     gap: 12px;
+
+    margin-top: 20px;
 }
 
-
 .card {
-
     padding: 16px;
 
     border-radius: 18px;
@@ -668,25 +546,17 @@ body {
         rgba(255,255,255,.07);
 }
 
-
 .cardEmoji {
-
     font-size: 40px;
 }
 
-
 .cardName {
-
     margin-top: 7px;
-
-    font-size: 14px;
 
     font-weight: bold;
 }
 
-
 .cardType {
-
     margin-top: 5px;
 
     color: #75e9a3;
@@ -694,44 +564,47 @@ body {
     font-size: 10px;
 }
 
+/* ================================
+   CAPTURE ANIMATION
+================================ */
 
-/* ==================================================
-   LEAFLET
-================================================== */
+.captureFlash {
+    position: fixed;
 
-.leaflet-control-zoom {
+    inset: 0;
 
-    border: none !important;
-}
+    z-index: 8000;
 
-
-.leaflet-control-zoom a {
+    pointer-events: none;
 
     background:
-        rgba(6,18,13,.9) !important;
+        rgba(255,255,255,.8);
 
-    color: white !important;
-
-    border: none !important;
+    animation:
+        flash .45s ease-out forwards;
 }
 
+@keyframes flash {
 
-.leaflet-control-attribution {
+    from {
+        opacity: 1;
+    }
 
-    font-size: 8px;
+    to {
+        opacity: 0;
+    }
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<!-- ==================================================
+<!-- ==========================================
      START
-================================================== -->
+========================================== -->
 
 <section id="startScreen">
 
@@ -757,9 +630,9 @@ body {
 </section>
 
 
-<!-- ==================================================
+<!-- ==========================================
      GAME
-================================================== -->
+========================================== -->
 
 <section id="game">
 
@@ -788,8 +661,8 @@ body {
             <div class="xpBar">
 
                 <div
-                    class="xpFill"
                     id="xpFill"
+                    class="xpFill"
                 ></div>
 
             </div>
@@ -803,6 +676,7 @@ body {
             <span id="xp">
                 0
             </span>
+
             XP
 
             <br>
@@ -821,21 +695,15 @@ body {
 
     <div class="menu">
 
-        <button
-            onclick="openCollection()"
-        >
+        <button onclick="openCollection()">
             📖
         </button>
 
-        <button
-            onclick="centerPlayer()"
-        >
+        <button onclick="centerPlayer()">
             📍
         </button>
 
-        <button
-            onclick="spawnNearPlayer()"
-        >
+        <button onclick="spawnNearPlayer()">
             👾
         </button>
 
@@ -847,24 +715,33 @@ body {
     <div class="messageBox">
 
         <div id="message">
-            📍 Locatie wordt gezocht...
+            Gebruik de joystick om te bewegen.
         </div>
 
         <button
-            id="lookButton"
-            onclick="openCreature()"
+            id="catchButton"
+            onclick="catchCreature()"
         >
-            👾 BEKIJK CREATURE
+            🎯 VANG CREATURE
         </button>
+
+    </div>
+
+
+    <!-- JOYSTICK -->
+
+    <div id="joystick">
+
+        <div id="stick"></div>
 
     </div>
 
 </section>
 
 
-<!-- ==================================================
+<!-- ==========================================
      CREATURE MODAL
-================================================== -->
+========================================== -->
 
 <div
     class="modal"
@@ -888,19 +765,16 @@ body {
 
         </div>
 
-
-        <div
-            id="creatureInfo"
-        ></div>
+        <div id="creatureInfo"></div>
 
     </div>
 
 </div>
 
 
-<!-- ==================================================
-     COLLECTIE
-================================================== -->
+<!-- ==========================================
+     COLLECTION
+========================================== -->
 
 <div
     class="modal"
@@ -924,7 +798,6 @@ body {
 
         </div>
 
-
         <div
             class="grid"
             id="collectionGrid"
@@ -940,9 +813,9 @@ body {
 
 <script>
 
-/* ==================================================
-   GAME DATA
-================================================== */
+/* ==========================================
+   GAME VARIABLES
+========================================== */
 
 let map;
 
@@ -950,22 +823,38 @@ let playerMarker;
 
 let playerPosition = null;
 
-let selectedCreature = null;
-
-let selectedCreatureData = null;
-
 let xp = 0;
 
 let creatureCount = 0;
 
 let collection = [];
 
+let selectedCreature = null;
+
+let selectedCreatureData = null;
+
 let spawnedCreatures = [];
 
 
-/* ==================================================
-   CREATURE DATABASE
-================================================== */
+/* ==========================================
+   MOVEMENT
+========================================== */
+
+let moveX = 0;
+
+let moveY = 0;
+
+let joystickActive = false;
+
+let joystickCenter = {
+    x: 0,
+    y: 0
+};
+
+
+/* ==========================================
+   CREATURES
+========================================== */
 
 const creatures = [
 
@@ -973,7 +862,6 @@ const creatures = [
         name: "Blazik",
         emoji: "🔥",
         type: "Vuur",
-        biome: "stad",
         rarity: "Gewoon",
         power: 65
     },
@@ -982,7 +870,6 @@ const creatures = [
         name: "Aquari",
         emoji: "💧",
         type: "Water",
-        biome: "water",
         rarity: "Gewoon",
         power: 55
     },
@@ -991,7 +878,6 @@ const creatures = [
         name: "Leafy",
         emoji: "🌿",
         type: "Natuur",
-        biome: "bos",
         rarity: "Gewoon",
         power: 60
     },
@@ -1000,7 +886,6 @@ const creatures = [
         name: "Sparko",
         emoji: "⚡",
         type: "Elektrisch",
-        biome: "stad",
         rarity: "Zeldzaam",
         power: 85
     },
@@ -1009,7 +894,6 @@ const creatures = [
         name: "Rocko",
         emoji: "🪨",
         type: "Aarde",
-        biome: "berg",
         rarity: "Zeldzaam",
         power: 90
     },
@@ -1018,7 +902,6 @@ const creatures = [
         name: "Mysti",
         emoji: "✨",
         type: "Mystiek",
-        biome: "bos",
         rarity: "Episch",
         power: 98
     },
@@ -1027,7 +910,6 @@ const creatures = [
         name: "Frosto",
         emoji: "❄️",
         type: "IJs",
-        biome: "berg",
         rarity: "Zeldzaam",
         power: 88
     }
@@ -1035,34 +917,32 @@ const creatures = [
 ];
 
 
-/* ==================================================
-   GAME START
-================================================== */
+/* ==========================================
+   START GAME
+========================================== */
 
 function startGame() {
 
     document
         .getElementById("startScreen")
-        .style.display =
-        "none";
-
+        .style.display = "none";
 
     document
         .getElementById("game")
-        .style.display =
-        "block";
-
+        .style.display = "block";
 
     createMap();
+
+    setupJoystick();
 
     locatePlayer();
 
 }
 
 
-/* ==================================================
-   MAP MAKEN
-================================================== */
+/* ==========================================
+   MAP
+========================================== */
 
 function createMap() {
 
@@ -1070,7 +950,7 @@ function createMap() {
         L.map("map")
         .setView(
             [52.3676,4.9041],
-            16
+            17
         );
 
 
@@ -1079,12 +959,10 @@ function createMap() {
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 
         {
-
             maxZoom: 19,
 
             attribution:
                 "&copy; OpenStreetMap contributors"
-
         }
 
     ).addTo(map);
@@ -1092,20 +970,13 @@ function createMap() {
 }
 
 
-/* ==================================================
+/* ==========================================
    GPS
-================================================== */
+========================================== */
 
 function locatePlayer() {
 
-    showMessage(
-        "📍 Je locatie wordt gezocht..."
-    );
-
-
-    if (
-        !navigator.geolocation
-    ) {
+    if (!navigator.geolocation) {
 
         useDefaultLocation();
 
@@ -1114,72 +985,50 @@ function locatePlayer() {
     }
 
 
-    navigator.geolocation.getCurrentPosition(
+    navigator
+        .geolocation
+        .getCurrentPosition(
 
-        function(position) {
+            position => {
 
-            updatePlayer(
-                position
-            );
-
-
-            navigator
-                .geolocation
-                .watchPosition(
-
-                    updatePlayer,
-
-                    function() {},
-
-                    {
-                        enableHighAccuracy: true,
-
-                        maximumAge: 5000
-                    }
-
+                setPlayerPosition(
+                    position.coords.latitude,
+                    position.coords.longitude
                 );
 
-        },
+                createCreatures();
 
-        function() {
+            },
 
-            showMessage(
-                "⚠️ GPS niet beschikbaar. Testlocatie gebruikt."
-            );
+            () => {
 
-            useDefaultLocation();
+                useDefaultLocation();
 
-        },
+            },
 
-        {
+            {
 
-            enableHighAccuracy: true,
+                enableHighAccuracy: true,
 
-            timeout: 10000,
+                timeout: 10000,
 
-            maximumAge: 0
+                maximumAge: 5000
 
-        }
+            }
 
-    );
+        );
 
 }
 
 
-/* ==================================================
-   PLAYER UPDATEN
-================================================== */
+/* ==========================================
+   PLAYER POSITION
+========================================== */
 
-function updatePlayer(
-    position
+function setPlayerPosition(
+    lat,
+    lng
 ) {
-
-    const lat =
-        position.coords.latitude;
-
-    const lng =
-        position.coords.longitude;
-
 
     playerPosition = [
         lat,
@@ -1222,13 +1071,7 @@ function updatePlayer(
 
         map.setView(
             [lat,lng],
-            17
-        );
-
-
-        createWorld(
-            lat,
-            lng
+            18
         );
 
     }
@@ -1241,157 +1084,62 @@ function updatePlayer(
 
     }
 
-
-    checkDistance();
-
 }
 
 
-/* ==================================================
-   TESTLOCATIE
-================================================== */
+/* ==========================================
+   DEFAULT LOCATIE
+========================================== */
 
 function useDefaultLocation() {
 
-    updatePlayer({
+    setPlayerPosition(
+        52.3676,
+        4.9041
+    );
 
-        coords: {
-
-            latitude: 52.3676,
-
-            longitude: 4.9041
-
-        }
-
-    });
+    createCreatures();
 
 }
 
 
-/* ==================================================
-   WERELD MAKEN
-================================================== */
+/* ==========================================
+   CREATURES MAKEN
+========================================== */
 
-function createWorld(
-    lat,
-    lng
-) {
+function createCreatures() {
 
-    /*
-       We maken visuele gebieden
-       rondom de speler.
-    */
+    if (!playerPosition)
+        return;
 
-
-    createBiome(
-        lat + 0.003,
-        lng - 0.002,
-        "🌲 BOS",
-        "#2d7048"
-    );
-
-
-    createBiome(
-        lat - 0.003,
-        lng + 0.003,
-        "💧 MEER",
-        "#397da8"
-    );
-
-
-    createBiome(
-        lat + 0.004,
-        lng + 0.004,
-        "⛰️ BERGEN",
-        "#77736b"
-    );
-
-
-    createBiome(
-        lat - 0.004,
-        lng - 0.003,
-        "🏙️ STAD",
-        "#777777"
-    );
-
-
-    /*
-       Eerste Creaturen
-    */
 
     for (
         let i = 0;
-        i < 8;
+        i < 9;
         i++
     ) {
 
-        spawnCreature(
-            lat,
-            lng
-        );
+        spawnCreature();
 
     }
 
-}
 
-
-/* ==================================================
-   BIOME
-================================================== */
-
-function createBiome(
-    lat,
-    lng,
-    name,
-    color
-) {
-
-    const circle =
-        L.circle(
-
-            [lat,lng],
-
-            {
-
-                radius: 180,
-
-                color: color,
-
-                fillColor: color,
-
-                fillOpacity: .18,
-
-                weight: 2
-
-            }
-
-        )
-        .addTo(map);
-
-
-    circle.bindTooltip(
-        name,
-        {
-            permanent: true,
-
-            direction: "center",
-
-            className:
-                "biomeLabel"
-        }
+    showMessage(
+        "🎮 Gebruik de joystick om rond te lopen!"
     );
 
 }
 
 
-/* ==================================================
+/* ==========================================
    CREATURE SPAWN
-================================================== */
+========================================== */
 
-function spawnCreature(
-    lat,
-    lng
-) {
+function spawnCreature() {
+
+    if (!playerPosition)
+        return;
+
 
     const creature =
         creatures[
@@ -1402,26 +1150,26 @@ function spawnCreature(
         ];
 
 
-    const distance =
-        0.0005 +
-        Math.random() *
-        0.003;
-
-
     const angle =
         Math.random() *
         Math.PI *
         2;
 
 
-    const cLat =
-        lat +
+    const distance =
+        0.0005 +
+        Math.random() *
+        0.0025;
+
+
+    const lat =
+        playerPosition[0] +
         Math.cos(angle) *
         distance;
 
 
-    const cLng =
-        lng +
+    const lng =
+        playerPosition[1] +
         Math.sin(angle) *
         distance;
 
@@ -1432,8 +1180,10 @@ function spawnCreature(
             className: "",
 
             html:
-
-                `<div class="creatureMarker">
+                `<div
+                    class="creatureMarker"
+                    id="creature-${Date.now()}-${Math.random()}"
+                >
                     ${creature.emoji}
                 </div>`,
 
@@ -1452,13 +1202,10 @@ function spawnCreature(
 
     const marker =
         L.marker(
-
-            [cLat,cLng],
-
+            [lat,lng],
             {
                 icon: icon
             }
-
         )
         .addTo(map);
 
@@ -1469,7 +1216,7 @@ function spawnCreature(
 
     marker.on(
         "click",
-        function() {
+        () => {
 
             selectCreature(
                 marker,
@@ -1487,9 +1234,9 @@ function spawnCreature(
 }
 
 
-/* ==================================================
+/* ==========================================
    CREATURE SELECTEREN
-================================================== */
+========================================== */
 
 function selectCreature(
     marker,
@@ -1503,9 +1250,13 @@ function selectCreature(
         creature;
 
 
-    const distance =
-        calculateDistanceToMarker(
-            marker
+    const d =
+        getDistance(
+            playerPosition[0],
+            playerPosition[1],
+
+            marker.getLatLng().lat,
+            marker.getLatLng().lng
         );
 
 
@@ -1513,146 +1264,171 @@ function selectCreature(
 
         "👾 " +
         creature.name +
-        " gevonden! " +
-        Math.round(distance) +
-        " meter afstand."
+        " — " +
+        Math.round(d) +
+        " meter afstand"
 
     );
 
 
-    document
-        .getElementById(
-            "lookButton"
-        )
-        .style.display =
-        "block";
+    if (d <= 50) {
 
-}
-
-
-/* ==================================================
-   CREATURE OPENEN
-================================================== */
-
-function openCreature() {
-
-    if (
-        !selectedCreatureData
-    ) {
-
-        return;
+        document
+            .getElementById(
+                "catchButton"
+            )
+            .style.display =
+            "block";
 
     }
 
-
-    const creature =
-        selectedCreatureData;
+}
 
 
-    document
-        .getElementById(
-            "creatureInfo"
-        )
-        .innerHTML =
+/* ==========================================
+   DISTANCE CHECK
+========================================== */
 
-        `
+function updateCreatureDistances() {
 
-        <div
-            style="
-                text-align:center;
-                font-size:70px;
-                margin:10px;
-            "
-        >
-            ${creature.emoji}
-        </div>
-
-        <h2
-            style="
-                text-align:center;
-                margin:5px;
-            "
-        >
-            ${creature.name}
-        </h2>
-
-        <p
-            style="
-                text-align:center;
-                color:#75e9a3;
-            "
-        >
-            ${creature.type}
-        </p>
-
-        <p>
-            ⭐ Zeldzaamheid:
-            <b>${creature.rarity}</b>
-        </p>
-
-        <p>
-            ⚔️ Kracht:
-            <b>${creature.power}</b>
-        </p>
-
-        <button
-            onclick="catchCreature()"
-            style="
-                width:100%;
-                padding:15px;
-                border:0;
-                border-radius:15px;
-                background:#54db8a;
-                font-weight:900;
-                font-size:16px;
-            "
-        >
-            🎯 VANG ${creature.name}
-        </button>
-
-        `;
+    if (!playerPosition)
+        return;
 
 
-    document
-        .getElementById(
-            "creatureModal"
-        )
-        .style.display =
-        "flex";
+    spawnedCreatures.forEach(
+        marker => {
+
+            const pos =
+                marker.getLatLng();
+
+
+            const d =
+                getDistance(
+
+                    playerPosition[0],
+                    playerPosition[1],
+
+                    pos.lat,
+                    pos.lng
+
+                );
+
+
+            const element =
+                marker
+                    .getElement();
+
+
+            if (element) {
+
+                const creature =
+                    element
+                        .querySelector(
+                            ".creatureMarker"
+                        );
+
+
+                if (creature) {
+
+                    if (d <= 60) {
+
+                        creature.classList
+                            .add(
+                                "creatureNearby"
+                            );
+
+                    }
+
+                    else {
+
+                        creature.classList
+                            .remove(
+                                "creatureNearby"
+                            );
+
+                    }
+
+                }
+
+            }
+
+
+            if (
+                selectedCreature ===
+                marker
+            ) {
+
+                if (d <= 50) {
+
+                    document
+                        .getElementById(
+                            "catchButton"
+                        )
+                        .style.display =
+                        "block";
+
+                    showMessage(
+
+                        "🎯 " +
+                        marker.creatureData.name +
+                        " is dichtbij!"
+
+                    );
+
+                }
+
+                else {
+
+                    document
+                        .getElementById(
+                            "catchButton"
+                        )
+                        .style.display =
+                        "none";
+
+                }
+
+            }
+
+        }
+    );
 
 }
 
 
-/* ==================================================
-   CREATURE VANGEN
-================================================== */
+/* ==========================================
+   VANGEN
+========================================== */
 
 function catchCreature() {
 
     if (
         !selectedCreature
-    ) {
-
+    )
         return;
 
-    }
+
+    const pos =
+        selectedCreature.getLatLng();
 
 
-    const distance =
-        calculateDistanceToMarker(
-            selectedCreature
+    const d =
+        getDistance(
+
+            playerPosition[0],
+            playerPosition[1],
+
+            pos.lat,
+            pos.lng
+
         );
 
 
-    if (
-        distance > 60
-    ) {
+    if (d > 50) {
 
         showMessage(
-            "❌ Je moet dichter bij de Creature komen!"
+            "🚶 Loop dichter naar de Creature!"
         );
-
-        closeCreature();
 
         return;
 
@@ -1661,6 +1437,9 @@ function catchCreature() {
 
     const creature =
         selectedCreatureData;
+
+
+    createCaptureAnimation();
 
 
     map.removeLayer(
@@ -1708,12 +1487,9 @@ function catchCreature() {
         null;
 
 
-    closeCreature();
-
-
     document
         .getElementById(
-            "lookButton"
+            "catchButton"
         )
         .style.display =
         "none";
@@ -1727,73 +1503,410 @@ function catchCreature() {
 
 
     setTimeout(
-        spawnNearPlayer,
+        spawnCreature,
         2500
     );
 
 }
 
 
-/* ==================================================
-   NIEUWE CREATURE BIJ SPELER
-================================================== */
+/* ==========================================
+   CAPTURE EFFECT
+========================================== */
+
+function createCaptureAnimation() {
+
+    const flash =
+        document.createElement(
+            "div"
+        );
+
+
+    flash.className =
+        "captureFlash";
+
+
+    document.body.appendChild(
+        flash
+    );
+
+
+    setTimeout(
+        () => {
+
+            flash.remove();
+
+        },
+        500
+    );
+
+}
+
+
+/* ==========================================
+   XP
+========================================== */
+
+function updateLevel() {
+
+    const level =
+        Math.floor(
+            xp / 100
+        ) + 1;
+
+
+    const progress =
+        xp % 100;
+
+
+    document
+        .getElementById("level")
+        .innerText =
+        level;
+
+
+    document
+        .getElementById("xpFill")
+        .style.width =
+        progress + "%";
+
+}
+
+
+/* ==========================================
+   JOYSTICK
+========================================== */
+
+function setupJoystick() {
+
+    const joystick =
+        document
+            .getElementById(
+                "joystick"
+            );
+
+
+    const stick =
+        document
+            .getElementById(
+                "stick"
+            );
+
+
+    function start(
+        event
+    ) {
+
+        joystickActive =
+            true;
+
+
+        const rect =
+            joystick.getBoundingClientRect();
+
+
+        joystickCenter.x =
+            rect.left +
+            rect.width / 2;
+
+
+        joystickCenter.y =
+            rect.top +
+            rect.height / 2;
+
+
+        moveJoystick(
+            event
+        );
+
+    }
+
+
+    function move(
+        event
+    ) {
+
+        if (!joystickActive)
+            return;
+
+
+        moveJoystick(
+            event
+        );
+
+    }
+
+
+    function end() {
+
+        joystickActive =
+            false;
+
+
+        moveX = 0;
+        moveY = 0;
+
+
+        stick.style.left =
+            "50%";
+
+
+        stick.style.top =
+            "50%";
+
+    }
+
+
+    joystick.addEventListener(
+        "touchstart",
+        start,
+        {
+            passive: false
+        }
+    );
+
+
+    joystick.addEventListener(
+        "touchmove",
+        move,
+        {
+            passive: false
+        }
+    );
+
+
+    joystick.addEventListener(
+        "touchend",
+        end
+    );
+
+
+    joystick.addEventListener(
+        "mousedown",
+        start
+    );
+
+
+    document.addEventListener(
+        "mousemove",
+        move
+    );
+
+
+    document.addEventListener(
+        "mouseup",
+        end
+    );
+
+}
+
+
+/* ==========================================
+   JOYSTICK BEWEGEN
+========================================== */
+
+function moveJoystick(
+    event
+) {
+
+    event.preventDefault();
+
+
+    let clientX;
+    let clientY;
+
+
+    if (
+        event.touches &&
+        event.touches.length
+    ) {
+
+        clientX =
+            event.touches[0].clientX;
+
+        clientY =
+            event.touches[0].clientY;
+
+    }
+
+    else {
+
+        clientX =
+            event.clientX;
+
+        clientY =
+            event.clientY;
+
+    }
+
+
+    let dx =
+        clientX -
+        joystickCenter.x;
+
+
+    let dy =
+        clientY -
+        joystickCenter.y;
+
+
+    const max =
+        42;
+
+
+    const length =
+        Math.sqrt(
+            dx * dx +
+            dy * dy
+        );
+
+
+    if (length > max) {
+
+        dx =
+            dx /
+            length *
+            max;
+
+        dy =
+            dy /
+            length *
+            max;
+
+    }
+
+
+    moveX =
+        dx / max;
+
+    moveY =
+        dy / max;
+
+
+    const stick =
+        document
+            .getElementById(
+                "stick"
+            );
+
+
+    stick.style.left =
+        `calc(50% + ${dx}px)`;
+
+
+    stick.style.top =
+        `calc(50% + ${dy}px)`;
+
+}
+
+
+/* ==========================================
+   GAME LOOP
+========================================== */
+
+setInterval(
+    movePlayer,
+    50
+);
+
+
+/* ==========================================
+   SPELER BEWEGEN
+========================================== */
+
+function movePlayer() {
+
+    if (
+        !playerPosition ||
+        (!moveX && !moveY)
+    )
+        return;
+
+
+    /*
+       Kleine beweging per tick.
+       Hierdoor voelt de joystick
+       soepel aan.
+    */
+
+    const speed =
+        0.000045;
+
+
+    const newLat =
+        playerPosition[0] -
+        moveY * speed;
+
+
+    const newLng =
+        playerPosition[1] +
+        moveX * speed;
+
+
+    setPlayerPosition(
+        newLat,
+        newLng
+    );
+
+
+    updateCreatureDistances();
+
+
+    /*
+       Kaart volgt speler.
+    */
+
+    map.panTo(
+        playerPosition,
+        {
+            animate: false
+        }
+    );
+
+}
+
+
+/* ==========================================
+   GPS KNOP
+========================================== */
+
+function centerPlayer() {
+
+    if (
+        !playerPosition
+    )
+        return;
+
+
+    map.setView(
+        playerPosition,
+        18
+    );
+
+}
+
+
+/* ==========================================
+   NIEUWE CREATURE
+========================================== */
 
 function spawnNearPlayer() {
 
-    if (
-        !playerPosition
-    ) {
-
-        return;
-
-    }
-
-
-    spawnCreature(
-        playerPosition[0],
-        playerPosition[1]
-    );
+    spawnCreature();
 
 
     showMessage(
-        "👀 Een nieuwe Creature is verschenen!"
+        "👀 Er is een nieuwe Creature verschenen!"
     );
 
 }
 
 
-/* ==================================================
+/* ==========================================
    AFSTAND
-================================================== */
+========================================== */
 
-function calculateDistanceToMarker(
-    marker
-) {
-
-    if (
-        !playerPosition
-    ) {
-
-        return 9999;
-
-    }
-
-
-    const position =
-        marker.getLatLng();
-
-
-    return distance(
-        playerPosition[0],
-        playerPosition[1],
-        position.lat,
-        position.lng
-    );
-
-}
-
-
-function distance(
+function getDistance(
     lat1,
     lon1,
     lat2,
@@ -1805,15 +1918,13 @@ function distance(
 
 
     const dLat =
-        radians(
-            lat2-lat1
-        );
+        (lat2-lat1) *
+        Math.PI / 180;
 
 
     const dLon =
-        radians(
-            lon2-lon1
-        );
+        (lon2-lon1) *
+        Math.PI / 180;
 
 
     const a =
@@ -1824,13 +1935,17 @@ function distance(
         +
 
         Math.cos(
-            radians(lat1)
+            lat1 *
+            Math.PI /
+            180
         )
 
         *
 
         Math.cos(
-            radians(lat2)
+            lat2 *
+            Math.PI /
+            180
         )
 
         *
@@ -1847,116 +1962,32 @@ function distance(
         );
 
 
-    return R*c;
+    return R * c;
 
 }
 
 
-function radians(
-    degrees
+/* ==========================================
+   MESSAGE
+========================================== */
+
+function showMessage(
+    text
 ) {
 
-    return degrees *
-        Math.PI /
-        180;
-
-}
-
-
-/* ==================================================
-   DISTANCE CONTROL
-================================================== */
-
-function checkDistance() {
-
-    if (
-        !selectedCreature
-    ) {
-
-        return;
-
-    }
-
-
-    const d =
-        calculateDistanceToMarker(
-            selectedCreature
-        );
-
-
-    showMessage(
-
-        "👾 " +
-        selectedCreatureData.name +
-        " — " +
-        Math.round(d) +
-        " meter afstand."
-
-    );
-
-}
-
-
-/* ==================================================
-   LEVEL
-================================================== */
-
-function updateLevel() {
-
-    const level =
-        Math.floor(
-            xp / 100
-        ) + 1;
-
-
-    const progress =
-        xp % 100;
-
-
     document
         .getElementById(
-            "level"
+            "message"
         )
         .innerText =
-        level;
-
-
-    document
-        .getElementById(
-            "xpFill"
-        )
-        .style.width =
-        progress + "%";
+        text;
 
 }
 
 
-/* ==================================================
-   CENTER PLAYER
-================================================== */
-
-function centerPlayer() {
-
-    if (
-        !playerPosition
-    ) {
-
-        return;
-
-    }
-
-
-    map.setView(
-        playerPosition,
-        18
-    );
-
-}
-
-
-/* ==================================================
+/* ==========================================
    COLLECTION
-================================================== */
+========================================== */
 
 function openCollection() {
 
@@ -2014,11 +2045,11 @@ function renderCollection() {
                 "
             >
 
-                📖 Je Creaturenboek is nog leeg.
+                📖 Je boek is nog leeg.
 
                 <br><br>
 
-                Ga op avontuur en vang Creaturen!
+                Ga Creaturen zoeken!
 
             </div>
 
@@ -2071,27 +2102,9 @@ function renderCollection() {
 }
 
 
-/* ==================================================
-   MESSAGE
-================================================== */
-
-function showMessage(
-    text
-) {
-
-    document
-        .getElementById(
-            "message"
-        )
-        .innerText =
-        text;
-
-}
-
-
-/* ==================================================
-   MODAL SLUITEN
-================================================== */
+/* ==========================================
+   MODAL
+========================================== */
 
 function closeCreature() {
 
@@ -2107,5 +2120,4 @@ function closeCreature() {
 </script>
 
 </body>
-
 </html>

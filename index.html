@@ -6,6 +6,12 @@
 
     <title>Creaturen Trail</title>
 
+    <!-- Leaflet kaart -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
     <style>
         * {
             box-sizing: border-box;
@@ -13,25 +19,26 @@
 
         body {
             margin: 0;
-            min-height: 100vh;
             font-family: Arial, sans-serif;
             background: #101827;
             color: white;
         }
 
-        .screen {
+        /* STARTSCHERM */
+
+        #startScreen {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            padding: 25px;
+            align-items: center;
             text-align: center;
+            padding: 25px;
         }
 
-        h1 {
+        #startScreen h1 {
             font-size: 45px;
-            margin: 0 0 10px;
+            margin-bottom: 10px;
         }
 
         .subtitle {
@@ -41,11 +48,9 @@
         }
 
         .start-button {
-            padding: 18px 45px;
             border: none;
-            border-radius: 15px;
-            background: #ffffff;
-            color: #101827;
+            border-radius: 16px;
+            padding: 18px 45px;
             font-size: 20px;
             font-weight: bold;
             cursor: pointer;
@@ -55,400 +60,837 @@
             transform: scale(0.96);
         }
 
+        /* GAME */
+
         #game {
             display: none;
             min-height: 100vh;
-            padding: 20px;
         }
 
         .topbar {
+            height: 75px;
+            padding: 10px 15px;
+
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            justify-content: space-between;
+
+            background: #101827;
         }
 
         .logo {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
         }
 
         .stats {
+            text-align: right;
             font-size: 14px;
             color: #d5dbea;
         }
 
-        .map {
-            position: relative;
+        /* KAART */
+
+        #map {
             width: 100%;
-            height: 65vh;
-            min-height: 400px;
-            border-radius: 25px;
-            overflow: hidden;
-            background: #263b2f;
-            border: 2px solid #405b49;
+            height: calc(100vh - 75px);
+            min-height: 500px;
         }
 
-        .road {
-            position: absolute;
-            background: #68736d;
-            transform: rotate(25deg);
-            width: 130%;
-            height: 55px;
-            top: 45%;
-            left: -15%;
+        /* SPELER */
+
+        .player-marker {
+            width: 28px;
+            height: 28px;
+
+            background: #4285ff;
+            border: 4px solid white;
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 0 8px rgba(66, 133, 255, 0.25),
+                0 3px 10px rgba(0, 0, 0, 0.4);
         }
 
-        .road2 {
-            position: absolute;
-            background: #68736d;
-            transform: rotate(-55deg);
-            width: 120%;
-            height: 45px;
-            top: 15%;
-            left: -10%;
-        }
+        /* CREATURE */
 
-        .player {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+        .creature-marker {
             width: 55px;
             height: 55px;
-            border-radius: 50%;
+
             background: white;
-            border: 5px solid #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            z-index: 5;
-        }
 
-        .creature {
-            position: absolute;
-            width: 65px;
-            height: 65px;
+            border: 3px solid #222;
+
             border-radius: 50%;
-            border: 3px solid white;
-            background: #6c8cff;
+
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 32px;
+            align-items: center;
+
+            font-size: 29px;
+
+            box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
 
-        .creature:hover {
+        .creature-marker:hover {
             transform: scale(1.1);
         }
 
-        .message {
+        /* ONDERSTE MELDING */
+
+        #messageBox {
+            position: fixed;
+
+            bottom: 20px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: calc(100% - 30px);
+            max-width: 450px;
+
+            background: rgba(16, 24, 39, 0.95);
+
+            border-radius: 15px;
+
+            padding: 15px;
+
             text-align: center;
-            margin-top: 15px;
-            color: #d5dbea;
+
+            z-index: 1000;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
 
-        .catch-button {
+        #catchButton {
             display: none;
-            margin: 15px auto 0;
-            padding: 15px 30px;
+
+            width: 100%;
+
+            margin-top: 10px;
+
+            padding: 14px;
+
             border: none;
+
             border-radius: 12px;
+
             font-size: 17px;
             font-weight: bold;
+
             cursor: pointer;
+        }
+
+        #locationButton {
+            position: fixed;
+
+            right: 15px;
+            bottom: 170px;
+
+            z-index: 1000;
+
+            width: 50px;
+            height: 50px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: white;
+
+            font-size: 23px;
+
+            cursor: pointer;
+
+            box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+        }
+
+        /* LEAFLET AANPASSING */
+
+        .leaflet-control-attribution {
+            font-size: 9px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- STARTSCHERM -->
 
-    <section id="startScreen" class="screen">
+<!-- ========================= -->
+<!-- STARTSCHERM -->
+<!-- ========================= -->
 
-        <h1>Creaturen Trail</h1>
+<section id="startScreen">
 
-        <p class="subtitle">
-            Ontdek. Vind. Vang.
-        </p>
+    <h1>🐾 Creaturen Trail</h1>
 
-        <button class="start-button" onclick="startGame()">
-            START AVONTUUR
-        </button>
+    <p class="subtitle">
+        Ontdek. Vind. Vang.
+    </p>
 
-    </section>
+    <button
+        class="start-button"
+        onclick="startGame()"
+    >
+        START AVONTUUR
+    </button>
+
+</section>
 
 
-    <!-- GAME -->
+<!-- ========================= -->
+<!-- GAME -->
+<!-- ========================= -->
 
-    <section id="game">
+<section id="game">
 
-        <div class="topbar">
+    <div class="topbar">
 
-            <div class="logo">
-                🐾 Creaturen Trail
-            </div>
+        <div class="logo">
+            🐾 Creaturen Trail
+        </div>
 
-            <div class="stats">
-                ⭐ XP: <span id="xp">0</span>
-                <br>
-                🎒 Creaturen: <span id="count">0</span>
-            </div>
+        <div class="stats">
+
+            ⭐ XP:
+            <span id="xp">
+                0
+            </span>
+
+            <br>
+
+            🎒 Creaturen:
+            <span id="count">
+                0
+            </span>
 
         </div>
 
+    </div>
 
-        <!-- GAME MAP -->
 
-        <div class="map" id="map">
+    <!-- KAART -->
 
-            <div class="road"></div>
-            <div class="road2"></div>
+    <div id="map"></div>
 
-            <!-- SPELER -->
 
-            <div class="player">
-                🧑
-            </div>
+    <!-- LOCATIEKNOP -->
 
+    <button
+        id="locationButton"
+        onclick="goToPlayer()"
+    >
+        📍
+    </button>
+
+
+    <!-- MELDING -->
+
+    <div id="messageBox">
+
+        <div id="message">
+            Zoek naar Creaturen...
         </div>
-
-
-        <p class="message" id="message">
-            Zoek naar Creaturen in de omgeving...
-        </p>
 
         <button
-            class="catch-button"
             id="catchButton"
             onclick="catchCreature()"
         >
             🎯 VANG CREATURE
         </button>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <script>
+<!-- LEAFLET -->
 
-        let xp = 0;
-        let creatureCount = 0;
-        let selectedCreature = null;
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
 
 
-        // GAME STARTEN
+<script>
 
-        function startGame() {
+    /* =========================
+       GAME DATA
+    ========================= */
 
-            document.getElementById("startScreen").style.display = "none";
+    let xp = 0;
 
-            document.getElementById("game").style.display = "block";
+    let creatureCount = 0;
 
-            spawnCreatures();
+    let selectedCreature = null;
 
+    let map;
+
+    let playerMarker;
+
+    let playerPosition = null;
+
+
+    /* =========================
+       CREATURES
+    ========================= */
+
+    const creatureTypes = [
+
+        {
+            name: "Blazik",
+            emoji: "🔥"
+        },
+
+        {
+            name: "Aquari",
+            emoji: "💧"
+        },
+
+        {
+            name: "Leafy",
+            emoji: "🌿"
+        },
+
+        {
+            name: "Sparko",
+            emoji: "⚡"
+        },
+
+        {
+            name: "Rocko",
+            emoji: "🪨"
+        },
+
+        {
+            name: "Mysti",
+            emoji: "✨"
         }
 
-
-        // CREATUREN MAKEN
-
-        function spawnCreatures() {
-
-            const map = document.getElementById("map");
-
-            const creatures = [
-                {
-                    name: "Blazik",
-                    emoji: "🔥"
-                },
-                {
-                    name: "Aquari",
-                    emoji: "💧"
-                },
-                {
-                    name: "Leafy",
-                    emoji: "🌿"
-                }
-            ];
+    ];
 
 
-            creatures.forEach((creature, index) => {
+    /* =========================
+       GAME STARTEN
+    ========================= */
 
-                const element = document.createElement("div");
+    function startGame() {
 
-                element.className = "creature";
+        document
+            .getElementById("startScreen")
+            .style.display = "none";
 
-                element.innerHTML = creature.emoji;
-
-                element.title = creature.name;
-
-
-                // Willekeurige positie
-
-                const x = 15 + Math.random() * 70;
-                const y = 15 + Math.random() * 65;
-
-                element.style.left = x + "%";
-                element.style.top = y + "%";
+        document
+            .getElementById("game")
+            .style.display = "block";
 
 
-                element.onclick = function() {
-
-                    selectCreature(
-                        creature,
-                        element
-                    );
-
-                };
+        createMap();
 
 
-                map.appendChild(element);
-
-            });
-
-        }
+        findPlayer();
 
 
-        // CREATURE SELECTEREN
-
-        function selectCreature(creature, element) {
-
-            selectedCreature = element;
-
-            document.getElementById("message").innerText =
-                "Je hebt " +
-                creature.name +
-                " gevonden!";
-
-            document.getElementById("catchButton").style.display =
-                "block";
-
-        }
+    }
 
 
-        // CREATURE VANGEN
+    /* =========================
+       KAART MAKEN
+    ========================= */
 
-        function catchCreature() {
+    function createMap() {
 
-            if (!selectedCreature) {
-                return;
+        /*
+            Startlocatie is tijdelijk
+            Amsterdam.
+
+            Zodra GPS werkt wordt
+            deze vervangen door jouw
+            echte locatie.
+        */
+
+        map = L.map("map").setView(
+            [52.3676, 4.9041],
+            16
+        );
+
+
+        L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+                maxZoom: 19,
+
+                attribution:
+                    '&copy; OpenStreetMap contributors'
             }
+        ).addTo(map);
+
+    }
 
 
-            selectedCreature.remove();
+    /* =========================
+       GPS VINDEN
+       ========================= */
 
-            selectedCreature = null;
+    function findPlayer() {
 
-            creatureCount++;
-
-            xp += 10;
-
-
-            document.getElementById("xp").innerText =
-                xp;
-
-            document.getElementById("count").innerText =
-                creatureCount;
+        showMessage(
+            "📍 Je locatie wordt gezocht..."
+        );
 
 
-            document.getElementById("message").innerText =
-                "🎉 Creature gevangen!";
+        if (!navigator.geolocation) {
 
+            showMessage(
+                "Je apparaat ondersteunt geen GPS."
+            );
 
-            document.getElementById("catchButton").style.display =
-                "none";
+            useDefaultLocation();
 
-
-            // Na een paar seconden een nieuwe Creature
-
-            setTimeout(spawnNewCreature, 1500);
-
+            return;
         }
 
 
-        // NIEUWE CREATURE
+        navigator.geolocation.getCurrentPosition(
 
-        function spawnNewCreature() {
+            function(position) {
 
-            const map = document.getElementById("map");
+                const latitude =
+                    position.coords.latitude;
 
-            const creatures = [
-                {
-                    name: "Flamy",
-                    emoji: "🔥"
-                },
-                {
-                    name: "Bubblu",
-                    emoji: "💧"
-                },
-                {
-                    name: "Mossy",
-                    emoji: "🌿"
-                },
-                {
-                    name: "Sparko",
-                    emoji: "⚡"
-                }
-            ];
+                const longitude =
+                    position.coords.longitude;
 
 
-            const creature =
-                creatures[
-                    Math.floor(
-                        Math.random() * creatures.length
-                    )
+                playerPosition = [
+                    latitude,
+                    longitude
                 ];
 
 
-            const element =
-                document.createElement("div");
+                showPlayer(
+                    latitude,
+                    longitude
+                );
 
 
-            element.className =
-                "creature";
+                spawnCreatures(
+                    latitude,
+                    longitude
+                );
 
 
-            element.innerHTML =
-                creature.emoji;
+                showMessage(
+                    "👀 Zoek Creaturen in je omgeving!"
+                );
+
+            },
 
 
-            const x =
-                10 + Math.random() * 75;
+            function(error) {
 
-            const y =
-                10 + Math.random() * 70;
+                console.log(error);
 
-
-            element.style.left =
-                x + "%";
-
-            element.style.top =
-                y + "%";
+                showMessage(
+                    "⚠️ GPS kon niet worden gevonden. We gebruiken een standaardlocatie."
+                );
 
 
-            element.onclick =
-                function() {
+                useDefaultLocation();
 
-                    selectCreature(
-                        creature,
-                        element
-                    );
-
-                };
+            },
 
 
-            map.appendChild(element);
+            {
+                enableHighAccuracy: true,
+
+                timeout: 10000,
+
+                maximumAge: 0
+            }
+
+        );
+
+    }
 
 
-            document.getElementById("message").innerText =
-                "👀 Een nieuwe Creature is verschenen!";
+    /* =========================
+       STANDAARDLOCATIE
+       ========================= */
+
+    function useDefaultLocation() {
+
+        const latitude = 52.3676;
+
+        const longitude = 4.9041;
+
+
+        playerPosition = [
+            latitude,
+            longitude
+        ];
+
+
+        showPlayer(
+            latitude,
+            longitude
+        );
+
+
+        spawnCreatures(
+            latitude,
+            longitude
+        );
+
+    }
+
+
+    /* =========================
+       SPELER OP KAART
+       ========================= */
+
+    function showPlayer(
+        latitude,
+        longitude
+    ) {
+
+        map.setView(
+            [
+                latitude,
+                longitude
+            ],
+            17
+        );
+
+
+        const playerIcon =
+            L.divIcon({
+
+                className: "",
+
+                html:
+                    '<div class="player-marker"></div>',
+
+                iconSize: [
+                    28,
+                    28
+                ],
+
+                iconAnchor: [
+                    14,
+                    14
+                ]
+
+            });
+
+
+        if (playerMarker) {
+
+            playerMarker.setLatLng([
+                latitude,
+                longitude
+            ]);
+
+        } else {
+
+            playerMarker =
+                L.marker(
+                    [
+                        latitude,
+                        longitude
+                    ],
+                    {
+                        icon: playerIcon
+                    }
+                ).addTo(map);
 
         }
 
-    </script>
+    }
+
+
+    /* =========================
+       CREATUREN SPAWNEN
+       ========================= */
+
+    function spawnCreatures(
+        latitude,
+        longitude
+    ) {
+
+        /*
+            We maken 6 Creaturen.
+
+            Ze worden maximaal ongeveer
+            300 meter rondom de speler
+            geplaatst.
+        */
+
+
+        for (
+            let i = 0;
+            i < 6;
+            i++
+        ) {
+
+            spawnCreature(
+                latitude,
+                longitude
+            );
+
+        }
+
+    }
+
+
+    /* =========================
+       ÉÉN CREATURE
+       ========================= */
+
+    function spawnCreature(
+        latitude,
+        longitude
+    ) {
+
+        const creature =
+            creatureTypes[
+                Math.floor(
+                    Math.random() *
+                    creatureTypes.length
+                )
+            ];
+
+
+        /*
+            Willekeurige afstand
+            rondom speler.
+        */
+
+        const distance =
+            0.001 +
+            Math.random() * 0.002;
+
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const creatureLat =
+            latitude +
+            Math.cos(angle) *
+            distance;
+
+
+        const creatureLng =
+            longitude +
+            Math.sin(angle) *
+            distance;
+
+
+        const icon =
+            L.divIcon({
+
+                className: "",
+
+                html:
+                    '<div class="creature-marker">' +
+                    creature.emoji +
+                    '</div>',
+
+                iconSize: [
+                    55,
+                    55
+                ],
+
+                iconAnchor: [
+                    27,
+                    27
+                ]
+
+            });
+
+
+        const marker =
+            L.marker(
+                [
+                    creatureLat,
+                    creatureLng
+                ],
+                {
+                    icon: icon
+                }
+            ).addTo(map);
+
+
+        marker.creatureData =
+            creature;
+
+
+        marker.on(
+            "click",
+            function() {
+
+                selectCreature(
+                    marker,
+                    creature
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       CREATURE SELECTEREN
+       ========================= */
+
+    function selectCreature(
+        marker,
+        creature
+    ) {
+
+        selectedCreature = marker;
+
+
+        showMessage(
+            "👾 Je hebt " +
+            creature.name +
+            " gevonden!"
+        );
+
+
+        document
+            .getElementById("catchButton")
+            .style.display = "block";
+
+    }
+
+
+    /* =========================
+       CREATURE VANGEN
+       ========================= */
+
+    function catchCreature() {
+
+        if (!selectedCreature) {
+
+            return;
+
+        }
+
+
+        map.removeLayer(
+            selectedCreature
+        );
+
+
+        selectedCreature = null;
+
+
+        creatureCount++;
+
+        xp += 10;
+
+
+        document
+            .getElementById("xp")
+            .innerText = xp;
+
+
+        document
+            .getElementById("count")
+            .innerText =
+            creatureCount;
+
+
+        document
+            .getElementById("catchButton")
+            .style.display = "none";
+
+
+        showMessage(
+            "🎉 Creature gevangen! +10 XP"
+        );
+
+
+        /*
+            Na 3 seconden verschijnt
+            een nieuwe Creature.
+        */
+
+        setTimeout(
+            function() {
+
+                if (!playerPosition) {
+
+                    return;
+
+                }
+
+
+                spawnCreature(
+                    playerPosition[0],
+                    playerPosition[1]
+                );
+
+
+                showMessage(
+                    "👀 Een nieuwe Creature is verschenen!"
+                );
+
+            },
+            3000
+        );
+
+    }
+
+
+    /* =========================
+       TERUG NAAR SPELER
+       ========================= */
+
+    function goToPlayer() {
+
+        if (!playerPosition) {
+
+            showMessage(
+                "📍 Je locatie is nog niet bekend."
+            );
+
+            return;
+
+        }
+
+
+        map.setView(
+            playerPosition,
+            18
+        );
+
+    }
+
+
+    /* =========================
+       MELDING
+       ========================= */
+
+    function showMessage(
+        text
+    ) {
+
+        document
+            .getElementById("message")
+            .innerText = text;
+
+    }
+
+
+</script>
 
 </body>
 </html>

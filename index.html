@@ -1,1626 +1,654 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Creaturen Trail</title>
 
 <style>
+*{box-sizing:border-box}
 
-/* =========================================================
-   RESET
-========================================================= */
-
-* {
-    box-sizing: border-box;
+html,body{
+    margin:0;
+    min-height:100%;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#07111f;
+    color:#fff;
 }
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-}
+button,input,select{font:inherit}
 
-body {
+button{cursor:pointer}
 
-    font-family:
-        Inter,
-        Arial,
-        Helvetica,
-        sans-serif;
-
+#startScreen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    text-align:center;
     background:
-        #07111f;
-
-    color: white;
-
-    overflow-x: hidden;
-}
-
-button,
-input,
-select {
-    font-family: inherit;
-}
-
-
-/* =========================================================
-   START SCREEN
-========================================================= */
-
-#startScreen {
-
-    min-height: 100vh;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 25px;
-
-    background:
-
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(84,130,255,.20),
-            transparent 30%
-        ),
-
-        radial-gradient(
-            circle at 80% 70%,
-            rgba(65,220,145,.14),
-            transparent 30%
-        ),
-
-        #07111f;
-
-    text-align: center;
-}
-
-
-.start-card {
-
-    width: 100%;
-
-    max-width: 430px;
-
-    padding: 40px 25px;
-
-    border-radius: 30px;
-
-    background:
-        rgba(20,32,51,.72);
-
-    border:
-        1px solid
-        rgba(255,255,255,.10);
-
-    box-shadow:
-        0 30px 80px
-        rgba(0,0,0,.45);
-
-    backdrop-filter:
-        blur(18px);
-}
-
-
-.start-icon {
-
-    width: 120px;
-
-    height: 120px;
-
-    margin:
-        0 auto 20px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 35px;
-
-    font-size: 65px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #5e7cff,
-            #7658d9
-        );
-
-    box-shadow:
-        0 20px 50px
-        rgba(82,105,255,.35);
-
-    animation:
-        floating 3s ease-in-out infinite;
-}
-
-
-@keyframes floating {
-
-    0%,
-    100% {
-        transform:
-            translateY(0);
-    }
-
-    50% {
-        transform:
-            translateY(-10px);
-    }
-
-}
-
-
-.start-card h1 {
-
-    margin: 0;
-
-    font-size: 42px;
-
-    letter-spacing: -1px;
-}
-
-
-.start-card p {
-
-    color:
-        #91a1b8;
-
-    margin:
-        12px 0 30px;
-
-}
-
-
-.start-button {
-
-    width: 100%;
-
-    padding: 17px;
-
-    border: none;
-
-    border-radius: 16px;
-
-    background:
-        white;
-
-    color:
-        #0b1525;
-
-    font-size: 16px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition:
-        .2s;
-}
-
-
-.start-button:hover {
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 12px 30px
-        rgba(255,255,255,.12);
-}
-
-
-/* =========================================================
-   GAME
-========================================================= */
-
-#game {
-
-    display: none;
-
-    min-height: 100vh;
-
-    padding:
-        14px 14px 95px;
-
-    background:
+        radial-gradient(circle at 20% 20%,#304bb655,transparent 30%),
+        radial-gradient(circle at 80% 75%,#37a86a33,transparent 30%),
         #07111f;
 }
 
-
-/* =========================================================
-   TOP BAR
-========================================================= */
-
-.topbar {
-
-    width: 100%;
-
-    max-width: 1100px;
-
-    margin:
-        0 auto 12px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 12px;
-
+.start-card{
+    width:100%;
+    max-width:440px;
+    padding:38px 24px;
+    border-radius:30px;
+    background:#132138dd;
+    border:1px solid #ffffff16;
+    box-shadow:0 30px 80px #0008;
 }
 
-
-.player-section {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
+.start-icon{
+    width:120px;
+    height:120px;
+    margin:auto auto 20px;
+    border-radius:35px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:65px;
+    background:linear-gradient(145deg,#5e7cff,#7658d9);
 }
 
+.start-card h1{
+    margin:0;
+    font-size:42px;
+}
 
-.player-avatar {
+.start-card p{
+    color:#91a1b8;
+    margin:12px 0 28px;
+}
 
-    width: 45px;
+.start-button{
+    width:100%;
+    border:0;
+    border-radius:16px;
+    padding:17px;
+    background:#fff;
+    color:#0b1525;
+    font-weight:800;
+}
 
-    height: 45px;
+#game{
+    display:none;
+    min-height:100vh;
+    padding:14px 14px 100px;
+}
 
-    border-radius: 14px;
+.topbar{
+    max-width:1100px;
+    margin:auto auto 10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 
-    display: flex;
+.player-section{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
 
-    align-items: center;
+.avatar{
+    width:45px;
+    height:45px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(145deg,#526dff,#7b58df);
+    font-size:23px;
+}
 
-    justify-content: center;
+.player-name{
+    font-weight:800;
+    font-size:14px;
+}
 
+.level-text{
+    color:#8293aa;
+    font-size:11px;
+    margin-top:3px;
+}
+
+.coins{
+    padding:9px 12px;
+    border-radius:13px;
+    background:#ffffff09;
+    border:1px solid #ffffff0c;
+}
+
+.xp-panel{
+    max-width:1100px;
+    margin:auto auto 12px;
+}
+
+.xp-top{
+    display:flex;
+    justify-content:space-between;
+    color:#8798ae;
+    font-size:10px;
+    margin-bottom:5px;
+}
+
+.xp-bar{
+    height:7px;
+    background:#17263b;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.xp-progress{
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,#596fff,#8a63ef);
+    transition:.4s;
+}
+
+/* MAP */
+
+.map{
+    position:relative;
+    width:100%;
+    max-width:1100px;
+    height:calc(100vh - 220px);
+    min-height:480px;
+    margin:auto;
+    overflow:hidden;
+    border-radius:28px;
+    border:1px solid #ffffff18;
+    background:#31583b;
+    box-shadow:0 25px 70px #0005;
+}
+
+/* wereld */
+
+.world{
+    position:absolute;
+    inset:0;
     background:
-        linear-gradient(
-            145deg,
-            #526dff,
-            #7b58df
-        );
-
-    font-size: 23px;
-
+        radial-gradient(circle at 15% 20%,#4f8a4b 0 13%,transparent 14%),
+        radial-gradient(circle at 82% 25%,#407545 0 17%,transparent 18%),
+        radial-gradient(circle at 30% 82%,#3d7644 0 18%,transparent 19%),
+        radial-gradient(circle at 75% 75%,#477c49 0 15%,transparent 16%),
+        #315c3d;
 }
 
+/* bos */
 
-.player-name {
-
-    font-weight: 800;
-
-    font-size: 14px;
-
+.forest-zone{
+    position:absolute;
+    width:250px;
+    height:180px;
+    border-radius:50%;
+    background:#234e35aa;
 }
 
-
-.player-level {
-
-    color:
-        #8293aa;
-
-    font-size: 11px;
-
-    margin-top: 2px;
-
-}
-
-
-.currency {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 5px;
-
-    padding:
-        8px 11px;
-
-    border-radius: 12px;
-
-    background:
-        rgba(255,255,255,.055);
-
-    border:
-        1px solid
-        rgba(255,255,255,.07);
-
-    font-size: 12px;
-
-}
-
-
-/* =========================================================
-   XP
-========================================================= */
-
-.xp-panel {
-
-    max-width: 1100px;
-
-    margin:
-        0 auto 12px;
-
-}
-
-
-.xp-top {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    color:
-        #8394aa;
-
-    font-size: 10px;
-
-    margin-bottom: 5px;
-
-}
-
-
-.xp-bar {
-
-    width: 100%;
-
-    height: 7px;
-
-    border-radius: 10px;
-
-    background:
-        #17263b;
-
-    overflow: hidden;
-
-}
-
-
-.xp-progress {
-
-    height: 100%;
-
-    width: 0%;
-
-    border-radius: inherit;
-
-    background:
-        linear-gradient(
-            90deg,
-            #596fff,
-            #8a63ef
-        );
-
-    transition:
-        width .4s;
-}
-
-
-/* =========================================================
-   MAP
-========================================================= */
-
-.map {
-
-    position: relative;
-
-    width: 100%;
-
-    max-width: 1100px;
-
-    height:
-        calc(100vh - 215px);
-
-    min-height: 470px;
-
-    margin: auto;
-
-    overflow: hidden;
-
-    border-radius: 28px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-
-    background:
-
-        radial-gradient(
-            circle at 15% 25%,
-            rgba(78,132,80,.9),
-            transparent 25%
-        ),
-
-        radial-gradient(
-            circle at 80% 70%,
-            rgba(47,105,69,.9),
-            transparent 30%
-        ),
-
-        linear-gradient(
-            145deg,
-            #234a35,
-            #173b2d
-        );
-
-    box-shadow:
-        0 25px 70px
-        rgba(0,0,0,.30);
-}
-
-
-/* grass */
-
-.grass {
-
-    position: absolute;
-
-    width: 100%;
-
-    height: 100%;
-
-    opacity: .25;
-
-    background-image:
-
-        radial-gradient(
-            circle,
-            #86b56f 1px,
-            transparent 1px
-        );
-
-    background-size:
-        22px 22px;
-}
-
-
-/* roads */
-
-.road {
-
-    position: absolute;
-
-    width: 130%;
-
-    height: 65px;
-
-    left: -15%;
-
-    top: 45%;
-
-    transform:
-        rotate(16deg);
-
-    background:
-        #758078;
-
-    box-shadow:
-        inset 0 0 0 3px
-        rgba(255,255,255,.08);
-
-}
-
-
-.road.two {
-
-    top: 10%;
-
-    transform:
-        rotate(-45deg);
-
-    height: 48px;
-
-}
-
-
-.road.three {
-
-    top: 78%;
-
-    transform:
-        rotate(-12deg);
-
-    height: 40px;
-
-}
-
+.forest1{left:-60px;top:40px}
+.forest2{right:-70px;bottom:40px}
 
 /* water */
 
-.water {
-
-    position: absolute;
-
-    width: 170px;
-
-    height: 120px;
-
-    right: -25px;
-
-    top: 35px;
-
-    border-radius:
-        50%;
-
-    transform:
-        rotate(-15deg);
-
-    background:
-        #237a91;
-
-    opacity:
-        .8;
-
+.lake{
+    position:absolute;
+    width:270px;
+    height:150px;
+    right:-80px;
+    top:70px;
+    border-radius:50%;
+    transform:rotate(-15deg);
+    background:#247b95;
+    border:4px solid #8bd0dc44;
 }
 
+/* zand */
+
+.desert{
+    position:absolute;
+    width:230px;
+    height:150px;
+    left:-80px;
+    bottom:40px;
+    border-radius:50%;
+    background:#a88b4c;
+    opacity:.8;
+}
+
+/* roads */
+
+.road{
+    position:absolute;
+    height:58px;
+    width:135%;
+    left:-18%;
+    top:46%;
+    transform:rotate(16deg);
+    background:#707b75;
+    box-shadow:inset 0 0 0 3px #ffffff13;
+}
+
+.road2{
+    top:12%;
+    transform:rotate(-43deg);
+    height:45px;
+}
+
+.road3{
+    top:79%;
+    transform:rotate(-10deg);
+    height:38px;
+}
 
 /* trees */
 
-.tree {
-
-    position: absolute;
-
-    font-size: 30px;
-
-    opacity: .75;
-
+.tree{
+    position:absolute;
+    font-size:30px;
+    opacity:.8;
 }
 
+/* signs */
+
+.area-label{
+    position:absolute;
+    padding:7px 10px;
+    border-radius:10px;
+    background:#07111fcc;
+    border:1px solid #ffffff15;
+    color:#dbe4ee;
+    font-size:10px;
+    font-weight:bold;
+    z-index:3;
+}
+
+.label-forest{left:12%;top:12%}
+.label-lake{right:17%;top:37%}
+.label-desert{left:14%;bottom:15%}
 
 /* player */
 
-.player {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 50%;
-
-    transform:
-        translate(-50%,-50%);
-
-    width: 62px;
-
-    height: 62px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        white;
-
-    border:
-        5px solid
-        #172133;
-
-    font-size: 29px;
-
-    z-index: 20;
-
-    box-shadow:
-        0 10px 30px
-        rgba(0,0,0,.4);
-
+.player{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:62px;
+    height:62px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff;
+    border:5px solid #172133;
+    font-size:29px;
+    z-index:20;
+    box-shadow:0 10px 30px #0007;
 }
 
-
-/* player ring */
-
-.player::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 120px;
-
-    height: 120px;
-
-    border-radius: 50%;
-
-    border:
-        2px solid
-        rgba(255,255,255,.18);
-
-    animation:
-        pulse 2.5s infinite;
-
+.player-ring{
+    position:absolute;
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    border:2px solid #ffffff22;
+    animation:pulse 2.5s infinite;
 }
 
-
-@keyframes pulse {
-
-    0% {
-        transform:
-            scale(.8);
-
-        opacity:
-            .8;
-    }
-
-    100% {
-        transform:
-            scale(1.25);
-
-        opacity:
-            0;
-    }
-
+@keyframes pulse{
+    from{transform:scale(.75);opacity:.8}
+    to{transform:scale(1.2);opacity:0}
 }
 
+/* creatures */
 
-/* =========================================================
-   CREATURE SPAWN
-========================================================= */
-
-.spawned-creature {
-
-    position: absolute;
-
-    width: 72px;
-
-    height: 72px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.96),
-            rgba(215,225,255,.90)
-        );
-
-    box-shadow:
-        0 12px 28px
-        rgba(0,0,0,.4);
-
-    cursor: pointer;
-
-    z-index: 15;
-
-    animation:
-        creatureFloat 2.2s ease-in-out infinite;
-
+.spawned-creature{
+    position:absolute;
+    width:72px;
+    height:72px;
+    border:0;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(145deg,#fff,#dce5ff);
+    box-shadow:0 12px 28px #0007;
+    z-index:15;
+    animation:float 2.2s ease-in-out infinite;
 }
 
-
-.spawned-creature:hover {
-
-    transform:
-        scale(1.12);
-
+.spawned-creature:hover{
+    transform:scale(1.12);
 }
 
+.creature-emoji{font-size:36px}
 
-.creature-emoji {
-
-    font-size: 36px;
-
+.rarity-label{
+    position:absolute;
+    bottom:-8px;
+    padding:3px 7px;
+    border-radius:7px;
+    background:#101827;
+    font-size:8px;
+    font-weight:bold;
 }
 
-
-.creature-rarity {
-
-    position: absolute;
-
-    bottom: -8px;
-
-    padding:
-        3px 7px;
-
-    border-radius: 7px;
-
-    background:
-        #101827;
-
-    color:
-        white;
-
-    font-size: 8px;
-
-    font-weight: bold;
-
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-8px)}
 }
 
+/* location */
 
-@keyframes creatureFloat {
-
-    0%,
-    100% {
-        transform:
-            translateY(0);
-    }
-
-    50% {
-        transform:
-            translateY(-8px);
-    }
-
+.location-button{
+    position:absolute;
+    right:14px;
+    bottom:14px;
+    z-index:50;
+    width:48px;
+    height:48px;
+    border:0;
+    border-radius:15px;
+    background:#0d1b2dcc;
+    color:#fff;
+    box-shadow:0 8px 25px #0007;
 }
 
+/* map info */
 
-/* =========================================================
-   MAP MESSAGE
-========================================================= */
-
-.map-message {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 18px;
-
-    transform:
-        translateX(-50%);
-
-    padding:
-        9px 14px;
-
-    border-radius: 12px;
-
-    background:
-        rgba(8,15,27,.72);
-
-    backdrop-filter:
-        blur(8px);
-
-    color:
-        #d7dfeb;
-
-    font-size: 11px;
-
-    z-index: 30;
-
-    white-space:
-        nowrap;
-
+.map-message{
+    position:absolute;
+    top:16px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:40;
+    padding:9px 14px;
+    border-radius:12px;
+    background:#07111fcc;
+    color:#dce5ef;
+    font-size:11px;
+    white-space:nowrap;
 }
 
+/* NAV */
 
-/* =========================================================
-   BOTTOM NAV
-========================================================= */
-
-.bottom-nav {
-
-    position: fixed;
-
-    left: 50%;
-
-    bottom: 12px;
-
-    transform:
-        translateX(-50%);
-
-    width:
-        calc(100% - 24px);
-
-    max-width: 600px;
-
-    height: 66px;
-
-    padding:
-        7px;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
-    gap: 4px;
-
-    border-radius: 21px;
-
-    background:
-        rgba(13,25,42,.94);
-
-    border:
-        1px solid
-        rgba(255,255,255,.09);
-
-    box-shadow:
-        0 15px 45px
-        rgba(0,0,0,.5);
-
-    backdrop-filter:
-        blur(18px);
-
-    z-index: 500;
-
+.bottom-nav{
+    position:fixed;
+    left:50%;
+    bottom:12px;
+    transform:translateX(-50%);
+    width:calc(100% - 24px);
+    max-width:600px;
+    height:66px;
+    padding:7px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:4px;
+    border-radius:21px;
+    background:#0d192af5;
+    border:1px solid #ffffff12;
+    box-shadow:0 15px 45px #0008;
+    z-index:500;
 }
 
-
-.nav-button {
-
-    border: none;
-
-    border-radius: 15px;
-
-    background:
-        transparent;
-
-    color:
-        #73849a;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 2px;
-
-    cursor: pointer;
-
-    font-size: 18px;
-
+.nav-button{
+    border:0;
+    border-radius:15px;
+    background:transparent;
+    color:#73849a;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:2px;
+    font-size:18px;
 }
 
-
-.nav-button span {
-
-    font-size: 9px;
-
+.nav-button span{
+    font-size:9px;
 }
 
-
-.nav-button.active {
-
-    color:
-        white;
-
-    background:
-        rgba(255,255,255,.08);
-
+.nav-button.active{
+    background:#ffffff0d;
+    color:#fff;
 }
 
+/* MODALS */
 
-/* =========================================================
-   MODAL BASIS
-========================================================= */
-
-.modal {
-
-    position: fixed;
-
-    inset: 0;
-
-    display: none;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 15px;
-
-    background:
-        rgba(3,8,18,.84);
-
-    backdrop-filter:
-        blur(12px);
-
-    z-index: 8000;
-
+.modal{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+    background:#030812dd;
+    backdrop-filter:blur(12px);
+    z-index:8000;
 }
 
-
-.modal-box {
-
-    width: 100%;
-
-    max-width: 700px;
-
-    max-height: 90vh;
-
-    overflow-y: auto;
-
-    border-radius: 26px;
-
-    padding: 22px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #182941,
-            #0d1728
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    box-shadow:
-        0 30px 90px
-        rgba(0,0,0,.6);
-
+.modal-box{
+    width:100%;
+    max-width:700px;
+    max-height:90vh;
+    overflow-y:auto;
+    padding:22px;
+    border-radius:26px;
+    background:linear-gradient(145deg,#182941,#0d1728);
+    border:1px solid #ffffff12;
+    box-shadow:0 30px 90px #000a;
 }
 
-
-.modal-header {
-
-    display: flex;
-
-    align-items: flex-start;
-
-    justify-content: space-between;
-
-    margin-bottom: 18px;
-
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:18px;
 }
 
-
-.modal-header h2 {
-
-    margin: 0;
-
-    font-size: 25px;
-
+.modal-header h2{
+    margin:0;
 }
 
-
-.modal-close {
-
-    width: 40px;
-
-    height: 40px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    background:
-        rgba(255,255,255,.08);
-
-    color: white;
-
-    font-size: 21px;
-
-    cursor: pointer;
-
+.close{
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:12px;
+    background:#ffffff0d;
+    color:#fff;
+    font-size:21px;
 }
 
-
-/* =========================================================
-   DEX
-========================================================= */
-
-.dex-controls {
-
-    display: grid;
-
-    grid-template-columns:
-        1fr 160px;
-
-    gap: 8px;
-
-    margin-bottom: 15px;
-
+.encounter{
+    text-align:center;
 }
 
+.encounter-image{
+    width:175px;
+    height:175px;
+    margin:10px auto 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:radial-gradient(circle,#617dff33,transparent 70%);
+    font-size:90px;
+}
+
+.encounter h2{
+    font-size:30px;
+    margin:5px;
+}
+
+.encounter p{
+    color:#9eacc0;
+    line-height:1.6;
+}
+
+.catch-button{
+    width:100%;
+    padding:16px;
+    margin-top:12px;
+    border:0;
+    border-radius:15px;
+    background:#fff;
+    color:#101827;
+    font-weight:800;
+}
+
+.dex-controls{
+    display:grid;
+    grid-template-columns:1fr 160px;
+    gap:8px;
+    margin-bottom:15px;
+}
 
 .dex-controls input,
-.dex-controls select {
-
-    width: 100%;
-
-    padding:
-        12px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    border-radius: 12px;
-
-    background:
-        rgba(255,255,255,.05);
-
-    color: white;
-
-    outline: none;
-
+.dex-controls select{
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid #ffffff12;
+    background:#ffffff08;
+    color:#fff;
+    outline:0;
 }
 
-
-.dex-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fill,
-            minmax(135px,1fr)
-        );
-
-    gap: 10px;
-
+.dex-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(135px,1fr));
+    gap:10px;
 }
 
-
-.dex-card {
-
-    min-height: 190px;
-
-    padding: 12px;
-
-    border-radius: 18px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #20334f,
-            #15243a
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.06);
-
-    text-align: center;
-
-    cursor: pointer;
-
-    transition:
-        .2s;
-
+.dex-card{
+    min-height:185px;
+    padding:12px;
+    border-radius:18px;
+    background:linear-gradient(145deg,#20334f,#15243a);
+    border:1px solid #ffffff0a;
+    text-align:center;
 }
 
-
-.dex-card:hover {
-
-    transform:
-        translateY(-3px);
-
-    border-color:
-        rgba(255,255,255,.2);
-
+.dex-locked{
+    opacity:.4;
+    filter:grayscale(1);
 }
 
-
-.dex-locked {
-
-    opacity:
-        .45;
-
-    filter:
-        grayscale(1);
-
+.dex-image{
+    width:90px;
+    height:90px;
+    margin:10px auto;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#ffffff09;
+    font-size:52px;
 }
 
-
-.dex-number {
-
-    text-align:
-        left;
-
-    color:
-        #687b93;
-
-    font-size: 9px;
-
+.dex-name{
+    font-size:13px;
+    font-weight:800;
 }
 
-
-.dex-image {
-
-    width: 90px;
-
-    height: 90px;
-
-    margin:
-        10px auto;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 52px;
-
-    background:
-        rgba(255,255,255,.07);
-
+.badges{
+    display:flex;
+    justify-content:center;
+    gap:4px;
+    flex-wrap:wrap;
+    margin-top:7px;
 }
 
-
-.dex-name {
-
-    font-size: 13px;
-
-    font-weight: 800;
-
+.badge{
+    padding:4px 7px;
+    border-radius:7px;
+    background:#30445f;
+    font-size:8px;
+    font-weight:bold;
 }
 
+.common{background:#36543f}
+.rare{background:#285276}
+.epic{background:#633e7c}
+.legendary{background:#8d651d}
 
-.dex-badges {
-
-    display: flex;
-
-    justify-content: center;
-
-    gap: 4px;
-
-    margin-top: 7px;
-
-    flex-wrap: wrap;
-
+.simple-card{
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:16px;
+    background:#ffffff08;
+    border:1px solid #ffffff0a;
 }
 
-
-.badge {
-
-    padding:
-        4px 7px;
-
-    border-radius: 7px;
-
-    font-size: 8px;
-
-    font-weight: bold;
-
-    background:
-        #30445f;
-
+.simple-card h3{
+    margin:0 0 6px;
 }
 
-
-.badge.common {
-    background:
-        #36543f;
+.simple-card p{
+    margin:0;
+    color:#8798ae;
+    line-height:1.5;
 }
 
-
-.badge.rare {
-    background:
-        #285276;
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:95px;
+    transform:translate(-50%,30px);
+    opacity:0;
+    padding:13px 18px;
+    border-radius:14px;
+    background:#0c1626f7;
+    border:1px solid #ffffff12;
+    z-index:10000;
+    transition:.3s;
+    font-size:13px;
 }
 
-
-.badge.epic {
-    background:
-        #633e7c;
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
 }
 
+@media(max-width:600px){
 
-.badge.legendary {
-    background:
-        #8d651d;
-}
-
-
-/* =========================================================
-   DEX DETAIL
-========================================================= */
-
-.detail-creature {
-
-    text-align:
-        center;
-
-}
-
-
-.detail-image {
-
-    width: 170px;
-
-    height: 170px;
-
-    margin:
-        10px auto 20px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 50%;
-
-    font-size: 90px;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(92,123,255,.25),
-            transparent 70%
-        );
-
-}
-
-
-.detail-creature h2 {
-
-    font-size: 30px;
-
-    margin:
-        5px 0 10px;
-
-}
-
-
-.detail-description {
-
-    color:
-        #9baac0;
-
-    line-height:
-        1.6;
-
-}
-
-
-.detail-stats {
-
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 8px;
-
-    margin-top: 18px;
-
-}
-
-
-.detail-stat {
-
-    padding: 12px;
-
-    border-radius: 12px;
-
-    background:
-        rgba(255,255,255,.05);
-
-}
-
-
-.detail-stat small {
-
-    display: block;
-
-    color:
-        #708197;
-
-    font-size: 9px;
-
-}
-
-
-.detail-stat strong {
-
-    display: block;
-
-    margin-top: 4px;
-
-}
-
-
-/* =========================================================
-   ENCOUNTER
-========================================================= */
-
-.encounter-card {
-
-    text-align:
-        center;
-
-}
-
-
-.encounter-big {
-
-    width: 175px;
-
-    height: 175px;
-
-    margin:
-        10px auto 20px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 50%;
-
-    font-size: 90px;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(99,126,255,.22),
-            transparent 70%
-        );
-
-    animation:
-        encounterFloat 2s ease-in-out infinite;
-
-}
-
-
-@keyframes encounterFloat {
-
-    0%,
-    100% {
-        transform:
-            translateY(0);
+    .start-card h1{
+        font-size:36px;
     }
 
-    50% {
-        transform:
-            translateY(-9px);
+    .map{
+        min-height:450px;
+    }
+
+    .dex-controls{
+        grid-template-columns:1fr;
+    }
+
+    .dex-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
 }
-
-
-.encounter-card h2 {
-
-    margin:
-        5px 0;
-
-    font-size: 30px;
-
-}
-
-
-.encounter-description {
-
-    color:
-        #9eacc0;
-
-    line-height:
-        1.6;
-
-}
-
-
-.catch-button {
-
-    width: 100%;
-
-    margin-top: 18px;
-
-    padding: 16px;
-
-    border: none;
-
-    border-radius: 15px;
-
-    background:
-        white;
-
-    color:
-        #101827;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-}
-
-
-/* =========================================================
-   FRIENDS / EVENTS
-========================================================= */
-
-.simple-card {
-
-    padding:
-        15px;
-
-    border-radius:
-        16px;
-
-    background:
-        rgba(255,255,255,.05);
-
-    border:
-        1px solid
-        rgba(255,255,255,.06);
-
-    margin-bottom:
-        10px;
-
-}
-
-
-.simple-card h3 {
-
-    margin:
-        0 0 5px;
-
-}
-
-
-.simple-card p {
-
-    margin:
-        0;
-
-    color:
-        #8798ae;
-
-    line-height:
-        1.5;
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-.toast {
-
-    position: fixed;
-
-    left: 50%;
-
-    bottom: 95px;
-
-    transform:
-        translate(-50%,30px);
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    padding:
-        13px 18px;
-
-    border-radius:
-        14px;
-
-    background:
-        rgba(12,22,38,.96);
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.4);
-
-    z-index: 10000;
-
-    transition:
-        .3s;
-
-    font-size: 13px;
-
-    white-space:
-        nowrap;
-
-}
-
-
-.toast.show {
-
-    opacity: 1;
-
-    transform:
-        translate(-50%,0);
-
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(max-width:600px) {
-
-    .start-card h1 {
-        font-size: 36px;
-    }
-
-    .map {
-        height:
-            calc(100vh - 215px);
-
-        min-height:
-            430px;
-    }
-
-    .dex-controls {
-        grid-template-columns:
-            1fr;
-    }
-
-    .dex-grid {
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .dex-card {
-        min-height:
-            185px;
-    }
-
-}
-
-
-/* =========================================================
-   DESKTOP
-========================================================= */
-
-@media(min-width:900px) {
-
-    #game {
-        padding:
-            20px 20px 100px;
-    }
-
-    .bottom-nav {
-        bottom:
-            20px;
-    }
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     START SCREEN
-===================================================== -->
+<!-- START -->
 
 <section id="startScreen">
 
     <div class="start-card">
 
-        <div class="start-icon">
-            🐾
-        </div>
+        <div class="start-icon">🐾</div>
 
-        <h1>
-            Creaturen Trail
-        </h1>
+        <h1>Creaturen Trail</h1>
 
         <p>
             Ontdek een wereld vol mysterieuze Creaturen.
@@ -1629,9 +657,7 @@ select {
         <button
             class="start-button"
             onclick="startGame()">
-
             START AVONTUUR
-
         </button>
 
     </div>
@@ -1639,22 +665,15 @@ select {
 </section>
 
 
-<!-- =====================================================
-     GAME
-===================================================== -->
+<!-- GAME -->
 
 <section id="game">
-
-
-    <!-- TOP -->
 
     <div class="topbar">
 
         <div class="player-section">
 
-            <div class="player-avatar">
-                🧑
-            </div>
+            <div class="avatar">🧑</div>
 
             <div>
 
@@ -1662,70 +681,39 @@ select {
                     Trail Explorer
                 </div>
 
-                <div class="player-level">
-
-                    Level
-                    <span
-                        data-player-level>
-                        1
-                    </span>
-
+                <div class="level-text">
+                    Level <span id="level">1</span>
                 </div>
 
             </div>
 
         </div>
 
-
-        <div class="currency">
-
-            🪙
-
-            <span
-                data-player-coins>
-                100
-            </span>
-
+        <div class="coins">
+            🪙 <span id="coins">100</span>
         </div>
 
     </div>
 
 
-    <!-- XP -->
-
     <div class="xp-panel">
 
         <div class="xp-top">
 
-            <span>
-                XP
-            </span>
+            <span>XP</span>
 
             <span>
-
-                <span
-                    data-player-xp>
-                    0
-                </span>
-
-                /
-                <span
-                    id="requiredXP">
-                    250
-                </span>
-
+                <span id="xp">0</span> /
+                <span id="requiredXP">250</span>
             </span>
 
         </div>
 
-
         <div class="xp-bar">
-
             <div
                 id="xpProgress"
                 class="xp-progress">
             </div>
-
         </div>
 
     </div>
@@ -1733,43 +721,63 @@ select {
 
     <!-- MAP -->
 
-    <div
-        id="map"
-        class="map">
+    <div id="map" class="map">
 
-        <div class="grass"></div>
+        <div class="world"></div>
 
-        <div class="water"></div>
+        <div class="forest-zone forest1"></div>
+        <div class="forest-zone forest2"></div>
+
+        <div class="lake"></div>
+
+        <div class="desert"></div>
 
         <div class="road"></div>
-
-        <div class="road two"></div>
-
-        <div class="road three"></div>
+        <div class="road road2"></div>
+        <div class="road road3"></div>
 
 
         <div
             class="tree"
-            style="left:10%;top:15%;">
+            style="left:8%;top:18%">
             🌲
         </div>
 
         <div
             class="tree"
-            style="left:82%;top:20%;">
+            style="left:23%;top:22%">
             🌳
         </div>
 
         <div
             class="tree"
-            style="left:18%;top:72%;">
+            style="right:24%;top:14%">
             🌲
         </div>
 
         <div
             class="tree"
-            style="left:88%;top:78%;">
+            style="right:9%;bottom:20%">
             🌳
+        </div>
+
+        <div
+            class="tree"
+            style="left:12%;bottom:23%">
+            🌵
+        </div>
+
+
+        <div class="area-label label-forest">
+            🌲 GROENE WILDERNIS
+        </div>
+
+        <div class="area-label label-lake">
+            💧 BLAUW MEER
+        </div>
+
+        <div class="area-label label-desert">
+            🏜️ ZANDVALLEI
         </div>
 
 
@@ -1779,13 +787,26 @@ select {
 
 
         <div class="player">
+
+            <div class="player-ring"></div>
+
             🧑
+
         </div>
+
+
+        <button
+            class="location-button"
+            onclick="findPlayerLocation()">
+
+            📍
+
+        </button>
 
     </div>
 
 
-    <!-- NAVIGATION -->
+    <!-- NAV -->
 
     <nav class="bottom-nav">
 
@@ -1794,62 +815,43 @@ select {
             onclick="showHome()">
 
             🗺️
-
-            <span>
-                Kaart
-            </span>
+            <span>Kaart</span>
 
         </button>
-
 
         <button
             class="nav-button"
             onclick="openDex()">
 
             📖
-
-            <span>
-                Dex
-            </span>
+            <span>Dex</span>
 
         </button>
-
 
         <button
             class="nav-button"
             onclick="openFriends()">
 
             👥
-
-            <span>
-                Friends
-            </span>
+            <span>Friends</span>
 
         </button>
-
 
         <button
             class="nav-button"
             onclick="openEvents()">
 
             🎉
-
-            <span>
-                Events
-            </span>
+            <span>Events</span>
 
         </button>
-
 
         <button
             class="nav-button"
             onclick="openProfile()">
 
             👤
-
-            <span>
-                Profiel
-            </span>
+            <span>Profiel</span>
 
         </button>
 
@@ -1858,9 +860,7 @@ select {
 </section>
 
 
-<!-- =====================================================
-     ENCOUNTER MODAL
-===================================================== -->
+<!-- ENCOUNTER -->
 
 <div
     id="encounterModal"
@@ -1870,24 +870,19 @@ select {
 
         <div class="modal-header">
 
-            <h2>
-                Wilde Creature
-            </h2>
+            <h2>Wilde Creature</h2>
 
             <button
-                class="modal-close"
+                class="close"
                 onclick="closeEncounter()">
-
                 ×
-
             </button>
 
         </div>
 
-
         <div
             id="encounterContent"
-            class="encounter-card">
+            class="encounter">
         </div>
 
     </div>
@@ -1895,9 +890,7 @@ select {
 </div>
 
 
-<!-- =====================================================
-     DEX MODAL
-===================================================== -->
+<!-- DEX -->
 
 <div
     id="dexModal"
@@ -1909,29 +902,23 @@ select {
 
             <div>
 
-                <h2>
-                    📖 Creaturen-Dex
-                </h2>
+                <h2>📖 Creaturen-Dex</h2>
 
                 <p
                     id="dexProgress"
-                    style="color:#8495aa;">
+                    style="color:#8495aa">
                     0 / 20 ontdekt
                 </p>
 
             </div>
 
-
             <button
-                class="modal-close"
-                onclick="closeDex()">
-
+                class="close"
+                onclick="closeModal('dexModal')">
                 ×
-
             </button>
 
         </div>
-
 
         <div class="dex-controls">
 
@@ -1939,7 +926,6 @@ select {
                 id="dexSearch"
                 placeholder="🔎 Zoek Creature..."
                 oninput="renderDex()">
-
 
             <select
                 id="dexFilter"
@@ -1949,46 +935,19 @@ select {
                     Alle types
                 </option>
 
-                <option value="Fire">
-                    🔥 Fire
-                </option>
-
-                <option value="Water">
-                    💧 Water
-                </option>
-
-                <option value="Nature">
-                    🌿 Nature
-                </option>
-
-                <option value="Electric">
-                    ⚡ Electric
-                </option>
-
-                <option value="Ice">
-                    ❄️ Ice
-                </option>
-
-                <option value="Earth">
-                    🪨 Earth
-                </option>
-
-                <option value="Mystic">
-                    🔮 Mystic
-                </option>
-
-                <option value="Dark">
-                    🌑 Dark
-                </option>
-
-                <option value="Light">
-                    ☀️ Light
-                </option>
+                <option>Fire</option>
+                <option>Water</option>
+                <option>Nature</option>
+                <option>Electric</option>
+                <option>Ice</option>
+                <option>Earth</option>
+                <option>Mystic</option>
+                <option>Dark</option>
+                <option>Light</option>
 
             </select>
 
         </div>
-
 
         <div
             id="dexGrid"
@@ -2000,46 +959,7 @@ select {
 </div>
 
 
-<!-- =====================================================
-     DEX DETAIL
-===================================================== -->
-
-<div
-    id="dexDetailModal"
-    class="modal">
-
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <h2>
-                Creature
-            </h2>
-
-            <button
-                class="modal-close"
-                onclick="closeDexDetail()">
-
-                ×
-
-            </button>
-
-        </div>
-
-
-        <div
-            id="dexDetailContent"
-            class="detail-creature">
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     FRIENDS
-===================================================== -->
+<!-- FRIENDS -->
 
 <div
     id="friendsModal"
@@ -2049,31 +969,24 @@ select {
 
         <div class="modal-header">
 
-            <h2>
-                👥 Friends
-            </h2>
+            <h2>👥 Friends</h2>
 
             <button
-                class="modal-close"
+                class="close"
                 onclick="closeModal('friendsModal')">
-
                 ×
-
             </button>
 
         </div>
 
-
         <div class="simple-card">
 
-            <h3>
-                Friends komen eraan
-            </h3>
+            <h3>Friends-systeem</h3>
 
             <p>
-                In een volgende versie kun je vrienden
-                toevoegen, profielen bekijken en samen
-                spelen.
+                In een volgende stap maken we hier
+                echte spelers, friend codes en
+                vriendverzoeken van.
             </p>
 
         </div>
@@ -2083,9 +996,7 @@ select {
 </div>
 
 
-<!-- =====================================================
-     EVENTS
-===================================================== -->
+<!-- EVENTS -->
 
 <div
     id="eventsModal"
@@ -2095,30 +1006,23 @@ select {
 
         <div class="modal-header">
 
-            <h2>
-                🎉 Events
-            </h2>
+            <h2>🎉 Events</h2>
 
             <button
-                class="modal-close"
+                class="close"
                 onclick="closeModal('eventsModal')">
-
                 ×
-
             </button>
 
         </div>
 
-
         <div class="simple-card">
 
-            <h3>
-                🌟 Events komen eraan
-            </h3>
+            <h3>🌟 Events</h3>
 
             <p>
-                Hier komen straks echte tijdelijke
-                events met opdrachten en beloningen.
+                Hier komen tijdelijke events,
+                opdrachten en speciale beloningen.
             </p>
 
         </div>
@@ -2128,9 +1032,7 @@ select {
 </div>
 
 
-<!-- =====================================================
-     PROFILE
-===================================================== -->
+<!-- PROFILE -->
 
 <div
     id="profileModal"
@@ -2140,73 +1042,33 @@ select {
 
         <div class="modal-header">
 
-            <h2>
-                👤 Profiel
-            </h2>
+            <h2>👤 Profiel</h2>
 
             <button
-                class="modal-close"
+                class="close"
                 onclick="closeModal('profileModal')">
-
                 ×
-
             </button>
 
         </div>
 
-
         <div class="simple-card">
 
-            <h3>
-                Trail Explorer
-            </h3>
+            <h3>Trail Explorer</h3>
 
             <p>
-                Level
-                <strong
-                    data-player-level>
-                    1
-                </strong>
+                Level <strong id="profileLevel">1</strong>
             </p>
 
         </div>
 
-
         <div class="simple-card">
 
-            <h3>
-                🐾 Creaturen
-            </h3>
+            <h3>🐾 Creaturen</h3>
 
             <p>
-
-                <span
-                    data-player-caught>
-                    0
-                </span>
-
+                <span id="caughtCount">0</span>
                 ontdekt
-
-            </p>
-
-        </div>
-
-
-        <div class="simple-card">
-
-            <h3>
-                ⭐ XP
-            </h3>
-
-            <p>
-
-                <span
-                    data-player-xp>
-                    0
-                </span>
-
-                XP
-
             </p>
 
         </div>
@@ -2216,20 +1078,13 @@ select {
 </div>
 
 
-<!-- =====================================================
-     TOAST
-===================================================== -->
-
-<div
-    id="toast"
-    class="toast">
-</div>
+<div id="toast" class="toast"></div>
 
 
 <script>
 
 /* =========================================================
-   CREATURE DATABASE
+   CREATURES
 ========================================================= */
 
 const CREATURES = [
@@ -2240,8 +1095,8 @@ const CREATURES = [
         type:"Fire",
         rarity:"Common",
         emoji:"🔥",
-        description:"Een kleine vurige Creature die graag warme plekken bezoekt.",
-        baseXP:25
+        xp:25,
+        zones:["desert","forest"]
     },
 
     {
@@ -2250,8 +1105,8 @@ const CREATURES = [
         type:"Water",
         rarity:"Common",
         emoji:"💧",
-        description:"Een rustige water-Creature die vlak bij rivieren verschijnt.",
-        baseXP:25
+        xp:25,
+        zones:["lake"]
     },
 
     {
@@ -2260,8 +1115,8 @@ const CREATURES = [
         type:"Nature",
         rarity:"Common",
         emoji:"🌿",
-        description:"Een nieuwsgierige Creature die zich verstopt tussen bladeren.",
-        baseXP:25
+        xp:25,
+        zones:["forest"]
     },
 
     {
@@ -2270,8 +1125,8 @@ const CREATURES = [
         type:"Electric",
         rarity:"Rare",
         emoji:"⚡",
-        description:"Een energieke Creature die bliksemsnel door de wereld beweegt.",
-        baseXP:50
+        xp:50,
+        zones:["forest","lake"]
     },
 
     {
@@ -2280,8 +1135,8 @@ const CREATURES = [
         type:"Ice",
         rarity:"Rare",
         emoji:"❄️",
-        description:"Een ijzige Creature die het liefst in koude gebieden leeft.",
-        baseXP:50
+        xp:50,
+        zones:["lake"]
     },
 
     {
@@ -2290,8 +1145,8 @@ const CREATURES = [
         type:"Earth",
         rarity:"Common",
         emoji:"🪨",
-        description:"Een sterke Creature met een lichaam zo hard als steen.",
-        baseXP:25
+        xp:25,
+        zones:["desert"]
     },
 
     {
@@ -2300,8 +1155,8 @@ const CREATURES = [
         type:"Mystic",
         rarity:"Epic",
         emoji:"🔮",
-        description:"Een mysterieuze Creature die maar zelden wordt gezien.",
-        baseXP:100
+        xp:100,
+        zones:["forest"]
     },
 
     {
@@ -2310,8 +1165,8 @@ const CREATURES = [
         type:"Dark",
         rarity:"Epic",
         emoji:"🌑",
-        description:"Een stille Creature die vooral 's nachts verschijnt.",
-        baseXP:100
+        xp:100,
+        zones:["forest"]
     },
 
     {
@@ -2320,8 +1175,8 @@ const CREATURES = [
         type:"Light",
         rarity:"Rare",
         emoji:"☀️",
-        description:"Een zonnige Creature die energie krijgt van daglicht.",
-        baseXP:50
+        xp:50,
+        zones:["desert"]
     },
 
     {
@@ -2330,8 +1185,8 @@ const CREATURES = [
         type:"Electric",
         rarity:"Epic",
         emoji:"🌪️",
-        description:"Een krachtige Creature die stormen kan oproepen.",
-        baseXP:100
+        xp:100,
+        zones:["lake"]
     },
 
     {
@@ -2340,8 +1195,8 @@ const CREATURES = [
         type:"Nature",
         rarity:"Common",
         emoji:"🍓",
-        description:"Een vrolijke Creature die dol is op bessen.",
-        baseXP:25
+        xp:25,
+        zones:["forest"]
     },
 
     {
@@ -2350,8 +1205,8 @@ const CREATURES = [
         type:"Fire",
         rarity:"Rare",
         emoji:"🌋",
-        description:"Een hete Creature die in vulkanische gebieden leeft.",
-        baseXP:50
+        xp:50,
+        zones:["desert"]
     },
 
     {
@@ -2360,8 +1215,8 @@ const CREATURES = [
         type:"Mystic",
         rarity:"Legendary",
         emoji:"🌙",
-        description:"Een legendarische Creature die onder speciale omstandigheden verschijnt.",
-        baseXP:500
+        xp:500,
+        zones:["forest","lake","desert"]
     },
 
     {
@@ -2370,8 +1225,8 @@ const CREATURES = [
         type:"Electric",
         rarity:"Legendary",
         emoji:"⚡",
-        description:"Een legendarische storm-Creature met enorme energie.",
-        baseXP:500
+        xp:500,
+        zones:["lake"]
     },
 
     {
@@ -2380,8 +1235,8 @@ const CREATURES = [
         type:"Nature",
         rarity:"Epic",
         emoji:"🌸",
-        description:"Een zeldzame bloem-Creature die prachtige bloemen laat groeien.",
-        baseXP:100
+        xp:100,
+        zones:["forest"]
     },
 
     {
@@ -2390,8 +1245,8 @@ const CREATURES = [
         type:"Water",
         rarity:"Epic",
         emoji:"🐚",
-        description:"Een mysterieuze Creature uit diepe wateren.",
-        baseXP:100
+        xp:100,
+        zones:["lake"]
     },
 
     {
@@ -2400,8 +1255,8 @@ const CREATURES = [
         type:"Fire",
         rarity:"Rare",
         emoji:"🦊",
-        description:"Een snelle vuur-Creature met een gloeiende staart.",
-        baseXP:50
+        xp:50,
+        zones:["desert"]
     },
 
     {
@@ -2410,8 +1265,8 @@ const CREATURES = [
         type:"Ice",
         rarity:"Epic",
         emoji:"💎",
-        description:"Een kristallen Creature die licht kan weerkaatsen.",
-        baseXP:100
+        xp:100,
+        zones:["lake"]
     },
 
     {
@@ -2420,8 +1275,8 @@ const CREATURES = [
         type:"Dark",
         rarity:"Rare",
         emoji:"🦇",
-        description:"Een nachtelijke Creature die bijna geruisloos vliegt.",
-        baseXP:50
+        xp:50,
+        zones:["forest"]
     },
 
     {
@@ -2430,278 +1285,148 @@ const CREATURES = [
         type:"Light",
         rarity:"Legendary",
         emoji:"🌈",
-        description:"Een extreem zeldzame Creature die tijdens bijzondere gebeurtenissen verschijnt.",
-        baseXP:500
+        xp:500,
+        zones:["lake","forest","desert"]
     }
 
 ];
 
 
 /* =========================================================
-   PLAYER DATA
+   PLAYER
 ========================================================= */
 
-let playerData =
-    JSON.parse(
-        localStorage.getItem(
-            "creaturenPlayer"
-        )
-    ) ||
-    {
-        xp:0,
-        level:1,
-        coins:100,
-        caught:[]
-    };
+let player =
+JSON.parse(
+    localStorage.getItem("creaturenPlayer")
+) ||
+{
+    xp:0,
+    level:1,
+    coins:100,
+    caught:[]
+};
 
-
-let currentEncounter = null;
+let currentEncounter=null;
 
 
 /* =========================================================
    SAVE
 ========================================================= */
 
-function savePlayer() {
+function save(){
 
     localStorage.setItem(
         "creaturenPlayer",
-        JSON.stringify(
-            playerData
-        )
+        JSON.stringify(player)
     );
 
 }
 
 
 /* =========================================================
-   REQUIRED XP
+   XP
 ========================================================= */
 
-function requiredXP() {
+function requiredXP(){
 
-    return (
-        playerData.level *
-        250
-    );
+    return player.level*250;
 
 }
 
 
-/* =========================================================
-   ADD XP
-========================================================= */
+function addXP(amount){
 
-function addXP(amount) {
+    player.xp+=amount;
 
-    playerData.xp +=
-        Number(amount);
+    while(player.xp>=requiredXP()){
 
+        player.xp-=requiredXP();
 
-    while(
-        playerData.xp >=
-        requiredXP()
-    ) {
+        player.level++;
 
-        playerData.xp -=
-            requiredXP();
-
-        playerData.level++;
-
-        showToast(
-            "🎉 Level Up! Je bent nu level " +
-            playerData.level
+        toast(
+            "🎉 Level Up! Level "+
+            player.level
         );
 
     }
 
-
-    savePlayer();
-
+    save();
     updateUI();
 
 }
 
 
 /* =========================================================
-   UPDATE UI
+   UI
 ========================================================= */
 
-function updateUI() {
+function updateUI(){
 
-    document
-        .querySelectorAll(
-            "[data-player-level]"
-        )
-        .forEach(
-            element => {
+    document.getElementById("level").innerText=
+        player.level;
 
-                element.innerText =
-                    playerData.level;
+    document.getElementById("coins").innerText=
+        player.coins;
 
-            }
-        );
+    document.getElementById("xp").innerText=
+        player.xp;
 
-
-    document
-        .querySelectorAll(
-            "[data-player-xp]"
-        )
-        .forEach(
-            element => {
-
-                element.innerText =
-                    playerData.xp;
-
-            }
-        );
-
-
-    document
-        .querySelectorAll(
-            "[data-player-coins]"
-        )
-        .forEach(
-            element => {
-
-                element.innerText =
-                    playerData.coins;
-
-            }
-        );
-
-
-    document
-        .querySelectorAll(
-            "[data-player-caught]"
-        )
-        .forEach(
-            element => {
-
-                element.innerText =
-                    playerData.caught.length;
-
-            }
-        );
-
-
-    const required =
+    document.getElementById("requiredXP").innerText=
         requiredXP();
 
+    document.getElementById("profileLevel").innerText=
+        player.level;
 
-    document.getElementById(
-        "requiredXP"
-    ).innerText =
-        required;
+    document.getElementById("caughtCount").innerText=
+        player.caught.length;
 
-
-    const progress =
+    document.getElementById("xpProgress").style.width=
         Math.min(
             100,
-            (
-                playerData.xp /
-                required
-            ) * 100
-        );
-
-
-    document.getElementById(
-        "xpProgress"
-    ).style.width =
-        progress + "%";
+            player.xp/requiredXP()*100
+        )+"%";
 
 }
 
 
 /* =========================================================
-   START GAME
+   START
 ========================================================= */
 
-function startGame() {
+function startGame(){
 
     document.getElementById(
         "startScreen"
-    ).style.display =
-        "none";
-
+    ).style.display="none";
 
     document.getElementById(
         "game"
-    ).style.display =
-        "block";
-
+    ).style.display="block";
 
     updateUI();
 
-    spawnMultiple(
-        5
-    );
+    spawnMultiple(5);
 
 }
 
 
 /* =========================================================
-   SPAWN RARITY
+   ZONE
 ========================================================= */
 
-function randomCreature() {
+function randomZone(){
 
-    const number =
-        Math.random();
+    const zones=[
+        "forest",
+        "lake",
+        "desert"
+    ];
 
-
-    let list;
-
-
-    if(number < .65) {
-
-        list =
-            CREATURES.filter(
-                c =>
-                    c.rarity ===
-                    "Common"
-            );
-
-    }
-
-    else if(number < .90) {
-
-        list =
-            CREATURES.filter(
-                c =>
-                    c.rarity ===
-                    "Rare"
-            );
-
-    }
-
-    else if(number < .985) {
-
-        list =
-            CREATURES.filter(
-                c =>
-                    c.rarity ===
-                    "Epic"
-            );
-
-    }
-
-    else {
-
-        list =
-            CREATURES.filter(
-                c =>
-                    c.rarity ===
-                    "Legendary"
-            );
-
-    }
-
-
-    return list[
+    return zones[
         Math.floor(
-            Math.random() *
-            list.length
+            Math.random()*zones.length
         )
     ];
 
@@ -2709,115 +1434,139 @@ function randomCreature() {
 
 
 /* =========================================================
-   SPAWN CREATURE
+   CREATURE PICK
 ========================================================= */
 
-function spawnCreature() {
+function pickCreature(zone){
 
-    const map =
-        document.getElementById(
-            "map"
+    let available=
+        CREATURES.filter(
+            c=>c.zones.includes(zone)
         );
 
+    const r=Math.random();
 
-    if(!map) return;
+    let rarity;
 
+    if(r<.65)
+        rarity="Common";
+    else if(r<.9)
+        rarity="Rare";
+    else if(r<.985)
+        rarity="Epic";
+    else
+        rarity="Legendary";
 
-    const creature =
-        randomCreature();
-
-
-    const element =
-        document.createElement(
-            "button"
+    let rareList=
+        available.filter(
+            c=>c.rarity===rarity
         );
 
+    if(!rareList.length)
+        rareList=available;
 
-    element.className =
-        "spawned-creature";
-
-
-    element.innerHTML = `
-
-        <span class="creature-emoji">
-
-            ${creature.emoji}
-
-        </span>
-
-        <span class="creature-rarity">
-
-            ${creature.rarity}
-
-        </span>
-
-    `;
-
-
-    element.style.left =
-        (
-            8 +
-            Math.random() *
-            82
-        ) + "%";
-
-
-    element.style.top =
-        (
-            10 +
-            Math.random() *
-            72
-        ) + "%";
-
-
-    element.onclick =
-        () =>
-            openEncounter(
-                creature,
-                element
-            );
-
-
-    map.appendChild(
-        element
-    );
-
-
-    setTimeout(
-        () => {
-
-            if(
-                element.isConnected
-            ) {
-
-                element.remove();
-
-            }
-
-        },
-        50000
-    );
+    return rareList[
+        Math.floor(
+            Math.random()*rareList.length
+        )
+    ];
 
 }
 
 
 /* =========================================================
-   SPAWN MULTIPLE
+   SPAWN
 ========================================================= */
 
-function spawnMultiple(
-    amount
-) {
+function spawnCreature(){
+
+    const map=
+        document.getElementById("map");
+
+    const zone=
+        randomZone();
+
+    const creature=
+        pickCreature(zone);
+
+    const element=
+        document.createElement("button");
+
+    element.className=
+        "spawned-creature";
+
+    element.innerHTML=`
+
+        <span class="creature-emoji">
+            ${creature.emoji}
+        </span>
+
+        <span class="rarity-label">
+            ${creature.rarity}
+        </span>
+
+    `;
+
+    let x,y;
+
+    /*
+      Gebieden krijgen verschillende delen
+      van de kaart.
+    */
+
+    if(zone==="forest"){
+
+        x=8+Math.random()*35;
+        y=8+Math.random()*70;
+
+    }
+
+    else if(zone==="lake"){
+
+        x=58+Math.random()*28;
+        y=10+Math.random()*55;
+
+    }
+
+    else{
+
+        x=8+Math.random()*38;
+        y=55+Math.random()*30;
+
+    }
+
+    element.style.left=x+"%";
+    element.style.top=y+"%";
+
+    element.onclick=
+        ()=>openEncounter(
+            creature,
+            element
+        );
+
+    map.appendChild(element);
+
+    setTimeout(()=>{
+
+        if(element.isConnected)
+            element.remove();
+
+    },45000);
+
+}
+
+
+function spawnMultiple(amount){
 
     for(
-        let i = 0;
-        i < amount;
+        let i=0;
+        i<amount;
         i++
-    ) {
+    ){
 
         setTimeout(
             spawnCreature,
-            i * 450
+            i*400
         );
 
     }
@@ -2826,245 +1575,153 @@ function spawnMultiple(
 
 
 /* =========================================================
-   OPEN ENCOUNTER
+   ENCOUNTER
 ========================================================= */
 
 function openEncounter(
     creature,
     element
-) {
+){
 
-    currentEncounter = {
-
-        creature:
-            creature,
-
-        element:
-            element
-
+    currentEncounter={
+        creature,
+        element
     };
 
+    document.getElementById(
+        "encounterContent"
+    ).innerHTML=`
 
-    const modal =
-        document.getElementById(
-            "encounterModal"
-        );
-
-
-    const content =
-        document.getElementById(
-            "encounterContent"
-        );
-
-
-    content.innerHTML = `
-
-        <div class="encounter-big">
-
+        <div class="encounter-image">
             ${creature.emoji}
-
         </div>
-
 
         <h2>
             ${creature.name}
         </h2>
 
-
-        <div class="dex-badges">
+        <div class="badges">
 
             <span class="badge">
-
                 ${creature.type}
-
             </span>
 
-            <span
-                class="
-                    badge
-                    ${creature.rarity
-                        .toLowerCase()}
-                ">
-
+            <span class="
+                badge
+                ${creature.rarity.toLowerCase()}
+            ">
                 ${creature.rarity}
-
             </span>
 
         </div>
 
-
-        <p class="encounter-description">
-
-            ${creature.description}
-
+        <p>
+            Een wilde ${creature.name}
+            is verschenen!
         </p>
-
 
         <p>
-
-            ⭐
-            ${creature.baseXP}
-            XP
-
+            ⭐ ${creature.xp} XP
         </p>
-
 
         <button
             class="catch-button"
             onclick="catchCreature()">
 
-            🎯 VANG CREATURE
+            🎯 VANG ${creature.name}
 
         </button>
 
     `;
 
-
-    modal.style.display =
-        "flex";
+    document.getElementById(
+        "encounterModal"
+    ).style.display="flex";
 
 }
 
 
 /* =========================================================
-   CATCH CREATURE
+   CATCH
 ========================================================= */
 
-function catchCreature() {
+function catchCreature(){
 
-    if(
-        !currentEncounter
-    ) return;
+    if(!currentEncounter)
+        return;
 
-
-    const creature =
+    const creature=
         currentEncounter.creature;
 
-
-    const element =
+    const element=
         currentEncounter.element;
 
-
-    if(element) {
-
+    if(element)
         element.remove();
 
-    }
-
-
-    const alreadyCaught =
-        playerData.caught.some(
-            c =>
-                c.id ===
-                creature.id
+    const already=
+        player.caught.includes(
+            creature.id
         );
 
+    if(already){
 
-    if(
-        alreadyCaught
-    ) {
-
-        const bonus =
+        const bonus=
             Math.floor(
-                creature.baseXP *
-                .4
+                creature.xp*.4
             );
 
-        addXP(
-            bonus
-        );
+        addXP(bonus);
 
-        playerData.coins +=
-            5;
+        player.coins+=5;
 
-
-        showToast(
-            "✨ Dubbel gevonden! +" +
-            bonus +
+        toast(
+            "✨ Dubbel! +"+
+            bonus+
             " XP"
         );
 
     }
 
-    else {
+    else{
 
-        playerData.caught.push({
-
-            id:
-                creature.id,
-
-            name:
-                creature.name,
-
-            caughtAt:
-                new Date()
-                    .toISOString()
-
-        });
-
-
-        addXP(
-            creature.baseXP
+        player.caught.push(
+            creature.id
         );
 
+        addXP(
+            creature.xp
+        );
 
-        let coins =
-            10;
+        let coins=10;
 
+        if(creature.rarity==="Rare")
+            coins=20;
 
-        if(
-            creature.rarity ===
-            "Rare"
-        ) {
+        if(creature.rarity==="Epic")
+            coins=40;
 
-            coins = 20;
+        if(creature.rarity==="Legendary")
+            coins=100;
 
-        }
+        player.coins+=coins;
 
-
-        if(
-            creature.rarity ===
-            "Epic"
-        ) {
-
-            coins = 40;
-
-        }
-
-
-        if(
-            creature.rarity ===
-            "Legendary"
-        ) {
-
-            coins = 100;
-
-        }
-
-
-        playerData.coins +=
-            coins;
-
-
-        showToast(
-            "🎉 " +
-            creature.name +
+        toast(
+            "🎉 "+
+            creature.name+
             " gevangen!"
         );
 
     }
 
-
-    savePlayer();
-
+    save();
     updateUI();
 
     closeEncounter();
 
-
     setTimeout(
         spawnCreature,
-        1600
+        1300
     );
 
 }
@@ -3074,274 +1731,165 @@ function catchCreature() {
    CLOSE ENCOUNTER
 ========================================================= */
 
-function closeEncounter() {
+function closeEncounter(){
 
     document.getElementById(
         "encounterModal"
-    ).style.display =
-        "none";
+    ).style.display="none";
 
-
-    currentEncounter =
-        null;
+    currentEncounter=null;
 
 }
 
 
 /* =========================================================
-   DEX OPEN
+   DEX
 ========================================================= */
 
-function openDex() {
+function openDex(){
 
     document.getElementById(
         "dexModal"
-    ).style.display =
-        "flex";
-
+    ).style.display="flex";
 
     renderDex();
 
 }
 
 
-/* =========================================================
-   DEX CLOSE
-========================================================= */
+function renderDex(){
 
-function closeDex() {
-
-    document.getElementById(
-        "dexModal"
-    ).style.display =
-        "none";
-
-}
-
-
-/* =========================================================
-   DEX RENDER
-========================================================= */
-
-function renderDex() {
-
-    const grid =
+    const grid=
         document.getElementById(
             "dexGrid"
         );
 
-
-    const search =
+    const search=
         document.getElementById(
             "dexSearch"
-        ).value
-        .toLowerCase()
-        .trim();
+        ).value.toLowerCase();
 
-
-    const filter =
+    const filter=
         document.getElementById(
             "dexFilter"
         ).value;
 
+    const discovered=
+        player.caught;
 
-    const caughtIds =
-        playerData.caught.map(
-            c =>
-                c.id
-        );
+    const filtered=
+        CREATURES.filter(c=>{
 
+            const nameMatch=
+                c.name
+                .toLowerCase()
+                .includes(search);
 
-    const found =
-        CREATURES.filter(
-            c =>
-                caughtIds.includes(
-                    c.id
-                )
-        ).length;
+            const typeMatch=
+                filter==="all" ||
+                c.type===filter;
 
+            return nameMatch&&typeMatch;
+
+        });
+
+    const count=
+        discovered.length;
 
     document.getElementById(
         "dexProgress"
-    ).innerText =
-        found +
-        " / " +
-        CREATURES.length +
+    ).innerText=
+        count+
+        " / "+
+        CREATURES.length+
         " ontdekt";
 
-
-    const filtered =
-        CREATURES.filter(
-            creature => {
-
-                const searchMatch =
-                    creature.name
-                        .toLowerCase()
-                        .includes(
-                            search
-                        );
-
-
-                const typeMatch =
-                    filter ===
-                    "all" ||
-                    creature.type ===
-                    filter;
-
-
-                return (
-                    searchMatch &&
-                    typeMatch
-                );
-
-            }
-        );
-
-
-    grid.innerHTML =
-        "";
-
+    grid.innerHTML="";
 
     filtered.forEach(
-        (creature,index) => {
+        (c,index)=>{
 
-            const discovered =
-                caughtIds.includes(
-                    creature.id
-                );
+            const found=
+                discovered.includes(c.id);
 
+            const card=
+                document.createElement("div");
 
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
+            card.className=
                 "dex-card";
 
-
-            if(!discovered) {
-
+            if(!found)
                 card.classList.add(
                     "dex-locked"
                 );
 
-            }
+            card.innerHTML=`
 
-
-            card.innerHTML = `
-
-                <div class="dex-number">
+                <div
+                    style="
+                        color:#687b93;
+                        font-size:9px;
+                        text-align:left;
+                    ">
 
                     #${String(
-                        index + 1
-                    ).padStart(
-                        3,
-                        "0"
-                    )}
+                        index+1
+                    ).padStart(3,"0")}
 
                 </div>
-
 
                 <div class="dex-image">
 
                     ${
-                        discovered
-                        ?
-                        creature.emoji
-                        :
-                        "?"
+                        found
+                        ? c.emoji
+                        : "?"
                     }
 
                 </div>
-
 
                 <div class="dex-name">
 
                     ${
-                        discovered
-                        ?
-                        creature.name
-                        :
-                        "???"
+                        found
+                        ? c.name
+                        : "???"
                     }
 
                 </div>
 
-
                 ${
-                    discovered
+                    found
                     ?
-
                     `
-
-                    <div
-                        class="dex-badges">
+                    <div class="badges">
 
                         <span class="badge">
-
-                            ${creature.type}
-
+                            ${c.type}
                         </span>
 
-                        <span
-                            class="
-                                badge
-                                ${creature.rarity
-                                    .toLowerCase()}
-                            ">
-
-                            ${creature.rarity}
-
+                        <span class="
+                            badge
+                            ${c.rarity.toLowerCase()}
+                        ">
+                            ${c.rarity}
                         </span>
 
                     </div>
-
                     `
                     :
-
                     `<p
                         style="
-                            color:#65758b;
+                            color:#66768b;
                             font-size:10px;
                         ">
-
                         Nog niet ontdekt
-
                     </p>`
-
                 }
 
             `;
 
-
-            card.onclick =
-                () => {
-
-                    if(
-                        discovered
-                    ) {
-
-                        openDexDetail(
-                            creature
-                        );
-
-                    }
-                    else {
-
-                        showToast(
-                            "🔒 Nog niet ontdekt"
-                        );
-
-                    }
-
-                };
-
-
-            grid.appendChild(
-                card
-            );
+            grid.appendChild(card);
 
         }
     );
@@ -3350,184 +1898,14 @@ function renderDex() {
 
 
 /* =========================================================
-   DEX DETAIL
-========================================================= */
-
-function openDexDetail(
-    creature
-) {
-
-    const modal =
-        document.getElementById(
-            "dexDetailModal"
-        );
-
-
-    const content =
-        document.getElementById(
-            "dexDetailContent"
-        );
-
-
-    const caught =
-        playerData.caught.find(
-            c =>
-                c.id ===
-                creature.id
-        );
-
-
-    const date =
-        caught?.caughtAt
-        ?
-        new Date(
-            caught.caughtAt
-        ).toLocaleDateString(
-            "nl-NL"
-        )
-        :
-        "-";
-
-
-    content.innerHTML = `
-
-        <div class="detail-image">
-
-            ${creature.emoji}
-
-        </div>
-
-
-        <h2>
-
-            ${creature.name}
-
-        </h2>
-
-
-        <div
-            class="dex-badges">
-
-            <span class="badge">
-
-                ${creature.type}
-
-            </span>
-
-            <span
-                class="
-                    badge
-                    ${creature.rarity
-                        .toLowerCase()}
-                ">
-
-                ${creature.rarity}
-
-            </span>
-
-        </div>
-
-
-        <p class="detail-description">
-
-            ${creature.description}
-
-        </p>
-
-
-        <div
-            class="detail-stats">
-
-            <div
-                class="detail-stat">
-
-                <small>
-                    Vang XP
-                </small>
-
-                <strong>
-                    ${creature.baseXP}
-                </strong>
-
-            </div>
-
-
-            <div
-                class="detail-stat">
-
-                <small>
-                    Type
-                </small>
-
-                <strong>
-                    ${creature.type}
-                </strong>
-
-            </div>
-
-
-            <div
-                class="detail-stat">
-
-                <small>
-                    Rarity
-                </small>
-
-                <strong>
-                    ${creature.rarity}
-                </strong>
-
-            </div>
-
-
-            <div
-                class="detail-stat">
-
-                <small>
-                    Eerste vangst
-                </small>
-
-                <strong>
-                    ${date}
-                </strong>
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    modal.style.display =
-        "flex";
-
-}
-
-
-/* =========================================================
-   DEX DETAIL CLOSE
-========================================================= */
-
-function closeDexDetail() {
-
-    document.getElementById(
-        "dexDetailModal"
-    ).style.display =
-        "none";
-
-}
-
-
-/* =========================================================
    FRIENDS
 ========================================================= */
 
-function openFriends() {
+function openFriends(){
 
     document.getElementById(
         "friendsModal"
-    ).style.display =
-        "flex";
+    ).style.display="flex";
 
 }
 
@@ -3536,12 +1914,11 @@ function openFriends() {
    EVENTS
 ========================================================= */
 
-function openEvents() {
+function openEvents(){
 
     document.getElementById(
         "eventsModal"
-    ).style.display =
-        "flex";
+    ).style.display="flex";
 
 }
 
@@ -3550,14 +1927,13 @@ function openEvents() {
    PROFILE
 ========================================================= */
 
-function openProfile() {
+function openProfile(){
 
     updateUI();
 
     document.getElementById(
         "profileModal"
-    ).style.display =
-        "flex";
+    ).style.display="flex";
 
 }
 
@@ -3566,10 +1942,71 @@ function openProfile() {
    HOME
 ========================================================= */
 
-function showHome() {
+function showHome(){
 
-    showToast(
-        "🗺️ Je bent al op de kaart"
+    toast(
+        "🗺️ Je bent op de kaart"
+    );
+
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+function findPlayerLocation(){
+
+    if(!navigator.geolocation){
+
+        toast(
+            "📍 GPS wordt niet ondersteund."
+        );
+
+        return;
+
+    }
+
+    toast(
+        "📍 Locatie wordt gezocht..."
+    );
+
+    navigator.geolocation.getCurrentPosition(
+
+        position=>{
+
+            const lat=
+                position.coords.latitude;
+
+            const lon=
+                position.coords.longitude;
+
+            toast(
+                "📍 Locatie gevonden!"
+            );
+
+            console.log(
+                "GPS:",
+                lat,
+                lon
+            );
+
+        },
+
+        error=>{
+
+            toast(
+                "⚠️ Geef locatie-toegang aan."
+            );
+
+        },
+
+        {
+            enableHighAccuracy:true,
+            timeout:10000,
+            maximumAge:0
+        }
+
     );
 
 }
@@ -3579,14 +2016,11 @@ function showHome() {
    CLOSE MODAL
 ========================================================= */
 
-function closeModal(
-    id
-) {
+function closeModal(id){
 
     document.getElementById(
         id
-    ).style.display =
-        "none";
+    ).style.display="none";
 
 }
 
@@ -3595,38 +2029,27 @@ function closeModal(
    TOAST
 ========================================================= */
 
-function showToast(
-    message
-) {
+function toast(message){
 
-    const toast =
+    const el=
         document.getElementById(
             "toast"
         );
 
+    el.innerText=message;
 
-    toast.innerText =
-        message;
-
-
-    toast.classList.add(
-        "show"
-    );
-
+    el.classList.add("show");
 
     clearTimeout(
-        window.toastTimer
+        window.toastTimeout
     );
 
-
-    window.toastTimer =
+    window.toastTimeout=
         setTimeout(
-            () => {
-
-                toast.classList.remove(
+            ()=>{
+                el.classList.remove(
                     "show"
                 );
-
             },
             2800
         );
@@ -3635,95 +2058,71 @@ function showToast(
 
 
 /* =========================================================
-   AUTOMATIC SPAWNS
+   AUTO SPAWNS
 ========================================================= */
 
-setInterval(
-    () => {
+setInterval(()=>{
 
-        const map =
-            document.getElementById(
-                "map"
-            );
+    const map=
+        document.getElementById("map");
 
+    if(!map)
+        return;
 
-        if(!map) return;
+    const amount=
+        map.querySelectorAll(
+            ".spawned-creature"
+        ).length;
 
+    if(amount<6)
+        spawnCreature();
 
-        const existing =
-            map.querySelectorAll(
-                ".spawned-creature"
-            ).length;
-
-
-        if(existing < 6) {
-
-            spawnCreature();
-
-        }
-
-    },
-    6500
-);
+},6000);
 
 
 /* =========================================================
-   CLOSE MODALS WHEN BACKGROUND IS CLICKED
+   CLOSE MODAL BY BACKGROUND
 ========================================================= */
 
 document
-    .querySelectorAll(
-        ".modal"
-    )
-    .forEach(
-        modal => {
+.querySelectorAll(".modal")
+.forEach(modal=>{
 
-            modal.addEventListener(
-                "click",
-                event => {
+    modal.addEventListener(
+        "click",
+        event=>{
 
-                    if(
-                        event.target ===
-                        modal
-                    ) {
+            if(event.target===modal){
 
-                        modal.style.display =
-                            "none";
+                modal.style.display=
+                    "none";
 
-                    }
-
-                }
-            );
+            }
 
         }
     );
 
+});
+
 
 /* =========================================================
-   KEYBOARD ESC
+   ESC
 ========================================================= */
 
 document.addEventListener(
     "keydown",
-    event => {
+    event=>{
 
-        if(
-            event.key ===
-            "Escape"
-        ) {
+        if(event.key==="Escape"){
 
             document
-                .querySelectorAll(
-                    ".modal"
-                )
-                .forEach(
-                    modal => {
-
-                        modal.style.display =
-                            "none";
-
-                    }
-                );
+            .querySelectorAll(".modal")
+            .forEach(
+                modal=>{
+                    modal.style.display=
+                        "none";
+                }
+            );
 
         }
 
@@ -3732,7 +2131,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   INITIAL UI
+   INIT
 ========================================================= */
 
 updateUI();
@@ -3740,4 +2139,4 @@ updateUI();
 </script>
 
 </body>
-    </html>
+</html>

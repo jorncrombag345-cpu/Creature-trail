@@ -24,21 +24,17 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             background: #07120f;
             color: white;
         }
 
 
-        /* =================================
+        /* ================================
            STARTSCHERM
         ================================= */
 
         #startScreen {
-
             position: fixed;
             inset: 0;
 
@@ -55,8 +51,8 @@
 
             background:
                 radial-gradient(
-                    circle at 50% 25%,
-                    rgba(55, 160, 100, 0.25),
+                    circle at 50% 20%,
+                    rgba(60, 190, 115, 0.25),
                     transparent 35%
                 ),
                 linear-gradient(
@@ -70,10 +66,7 @@
         }
 
 
-        /* bewegende lichtbollen */
-
         .glow {
-
             position: absolute;
 
             width: 220px;
@@ -85,15 +78,13 @@
 
             opacity: 0.25;
 
-            animation:
-                floatGlow 7s ease-in-out infinite;
+            animation: floatGlow 7s ease-in-out infinite;
 
             pointer-events: none;
         }
 
 
         .glow.one {
-
             background: #39c979;
 
             top: -70px;
@@ -102,7 +93,6 @@
 
 
         .glow.two {
-
             background: #5c8cff;
 
             right: -80px;
@@ -116,26 +106,17 @@
 
             0%,
             100% {
-                transform: translate(
-                    0,
-                    0
-                );
+                transform: translate(0, 0);
             }
 
             50% {
-                transform: translate(
-                    25px,
-                    -20px
-                );
+                transform: translate(25px, -20px);
             }
 
         }
 
 
-        /* LOGO */
-
         .logo-icon {
-
             width: 105px;
             height: 105px;
 
@@ -160,8 +141,7 @@
                 0 20px 50px rgba(0,0,0,0.45),
                 inset 0 2px 0 rgba(255,255,255,0.25);
 
-            animation:
-                logoFloat 3s ease-in-out infinite;
+            animation: logoFloat 3s ease-in-out infinite;
         }
 
 
@@ -169,22 +149,17 @@
 
             0%,
             100% {
-                transform:
-                    translateY(0)
-                    rotate(0deg);
+                transform: translateY(0) rotate(0deg);
             }
 
             50% {
-                transform:
-                    translateY(-8px)
-                    rotate(2deg);
+                transform: translateY(-8px) rotate(2deg);
             }
 
         }
 
 
         #startScreen h1 {
-
             margin: 0;
 
             font-size: clamp(
@@ -203,7 +178,6 @@
 
 
         .tagline {
-
             margin-top: 12px;
 
             color: #b8c9c0;
@@ -214,12 +188,7 @@
         }
 
 
-        /* START BUTTON */
-
         .start-button {
-
-            position: relative;
-
             margin-top: 45px;
 
             min-width: 245px;
@@ -249,7 +218,7 @@
 
             box-shadow:
                 0 12px 30px
-                rgba(40, 190, 110, 0.28);
+                rgba(40,190,110,0.28);
 
             transition:
                 transform 0.15s,
@@ -258,18 +227,11 @@
 
 
         .start-button:active {
-
-            transform:
-                scale(0.96);
-
-            box-shadow:
-                0 5px 15px
-                rgba(40, 190, 110, 0.2);
+            transform: scale(0.96);
         }
 
 
         .start-small {
-
             margin-top: 15px;
 
             color: #70877d;
@@ -278,12 +240,11 @@
         }
 
 
-        /* =================================
+        /* ================================
            GAME
         ================================= */
 
         #game {
-
             display: none;
 
             position: fixed;
@@ -295,7 +256,6 @@
 
 
         #map {
-
             position: absolute;
 
             inset: 0;
@@ -305,26 +265,22 @@
         }
 
 
-        /* =================================
+        /* ================================
            TOP HUD
         ================================= */
 
         .top-hud {
-
             position: fixed;
 
-            top: 15px;
-
-            left: 15px;
-            right: 15px;
+            top: 14px;
+            left: 14px;
+            right: 14px;
 
             display: flex;
 
-            justify-content:
-                space-between;
+            align-items: flex-start;
 
-            align-items:
-                center;
+            justify-content: space-between;
 
             z-index: 2000;
 
@@ -332,58 +288,93 @@
         }
 
 
+        .hud-left {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
         .hud-card {
+            padding: 10px 13px;
 
-            padding: 10px 14px;
-
-            border-radius: 17px;
+            border-radius: 18px;
 
             background:
-                rgba(
-                    8,
-                    18,
-                    15,
-                    0.88
-                );
+                rgba(8,18,15,0.90);
 
-            backdrop-filter:
-                blur(12px);
+            backdrop-filter: blur(14px);
 
             border:
                 1px solid
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.12
-                );
+                rgba(255,255,255,0.12);
 
             box-shadow:
                 0 8px 25px
-                rgba(0,0,0,0.25);
+                rgba(0,0,0,0.28);
+
+            pointer-events: auto;
         }
 
 
         .game-title {
-
-            font-size: 15px;
+            font-size: 14px;
 
             font-weight: 900;
         }
 
 
         .level {
+            margin-top: 3px;
 
             color: #75e9a3;
 
-            font-size: 12px;
+            font-size: 11px;
 
-            margin-top: 3px;
+            font-weight: bold;
+        }
+
+
+        /* XP BALK */
+
+        .xp-bar {
+            width: 140px;
+
+            height: 7px;
+
+            margin-top: 7px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,0.12);
+
+            overflow: hidden;
+        }
+
+
+        .xp-fill {
+            width: 0%;
+
+            height: 100%;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #65e99a,
+                    #b5f77b
+                );
+
+            transition:
+                width 0.4s ease;
         }
 
 
         .stats {
-
             text-align: right;
 
             font-size: 12px;
@@ -394,12 +385,65 @@
         }
 
 
-        /* =================================
-           BOTTOM HUD
+        /* ================================
+           RECHTER KNOPPEN
+        ================================= */
+
+        .hud-buttons {
+            position: fixed;
+
+            right: 14px;
+
+            top: 105px;
+
+            z-index: 2000;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        .hud-button {
+            width: 50px;
+            height: 50px;
+
+            border: 0;
+
+            border-radius: 17px;
+
+            background:
+                rgba(8,18,15,0.92);
+
+            color: white;
+
+            font-size: 22px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 20px
+                rgba(0,0,0,0.3);
+
+            backdrop-filter: blur(12px);
+
+            transition:
+                transform 0.15s;
+        }
+
+
+        .hud-button:active {
+            transform: scale(0.94);
+        }
+
+
+        /* ================================
+           MELDING
         ================================= */
 
         #messageBox {
-
             position: fixed;
 
             left: 50%;
@@ -419,24 +463,14 @@
             border-radius: 20px;
 
             background:
-                rgba(
-                    8,
-                    18,
-                    15,
-                    0.92
-                );
+                rgba(8,18,15,0.93);
 
             backdrop-filter:
                 blur(15px);
 
             border:
                 1px solid
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.12
-                );
+                rgba(255,255,255,0.12);
 
             box-shadow:
                 0 15px 40px
@@ -449,7 +483,6 @@
 
 
         #message {
-
             font-size: 14px;
 
             color: #dce8e1;
@@ -457,7 +490,6 @@
 
 
         #catchButton {
-
             display: none;
 
             width: 100%;
@@ -488,99 +520,49 @@
 
 
         #catchButton:disabled {
-
             background: #59625e;
 
             color: #c5cbc8;
 
             cursor: not-allowed;
-
         }
 
 
-        /* =================================
-           GPS BUTTON
-        ================================= */
-
-        #locationButton {
-
-            position: fixed;
-
-            right: 16px;
-
-            bottom: 145px;
-
-            width: 52px;
-            height: 52px;
-
-            border: 0;
-
-            border-radius: 17px;
-
-            background:
-                rgba(
-                    8,
-                    18,
-                    15,
-                    0.92
-                );
-
-            color: white;
-
-            font-size: 22px;
-
-            z-index: 2500;
-
-            cursor: pointer;
-
-            box-shadow:
-                0 8px 25px
-                rgba(0,0,0,0.3);
-        }
-
-
-        /* =================================
-           MAP MARKERS
+        /* ================================
+           PLAYER MARKER
         ================================= */
 
         .player-marker {
-
             width: 30px;
             height: 30px;
 
             border-radius: 50%;
 
-            background:
-                #4d91ff;
+            background: #4d91ff;
 
-            border:
-                4px solid white;
+            border: 4px solid white;
 
             box-shadow:
                 0 0 0 9px
-                rgba(
-                    77,
-                    145,
-                    255,
-                    0.22
-                ),
+                rgba(77,145,255,0.22),
                 0 3px 12px
                 rgba(0,0,0,0.5);
         }
 
 
-        .creature-marker {
+        /* ================================
+           CREATURE MARKER
+        ================================= */
 
+        .creature-marker {
             width: 58px;
             height: 58px;
 
             display: flex;
 
-            align-items:
-                center;
+            align-items: center;
 
-            justify-content:
-                center;
+            justify-content: center;
 
             border-radius: 50%;
 
@@ -593,12 +575,7 @@
 
             border:
                 3px solid
-                rgba(
-                    10,
-                    30,
-                    20,
-                    0.8
-                );
+                rgba(10,30,20,0.8);
 
             font-size: 31px;
 
@@ -618,20 +595,21 @@
 
             0%,
             100% {
-                transform:
-                    translateY(0);
+                transform: translateY(0);
             }
 
             50% {
-                transform:
-                    translateY(-7px);
+                transform: translateY(-7px);
             }
 
         }
 
 
-        .leaflet-control-zoom {
+        /* ================================
+           LEAFLET
+        ================================= */
 
+        .leaflet-control-zoom {
             border: 0 !important;
 
             box-shadow:
@@ -641,14 +619,8 @@
 
 
         .leaflet-control-zoom a {
-
             background:
-                rgba(
-                    8,
-                    18,
-                    15,
-                    0.9
-                ) !important;
+                rgba(8,18,15,0.9) !important;
 
             color: white !important;
 
@@ -657,8 +629,158 @@
 
 
         .leaflet-control-attribution {
-
             font-size: 8px;
+        }
+
+
+        /* ================================
+           POPUP
+        ================================= */
+
+        .leaflet-popup-content-wrapper {
+            border-radius: 15px;
+        }
+
+
+        .leaflet-popup-content {
+            margin: 12px 15px;
+        }
+
+
+        /* ================================
+           INVENTORY
+        ================================= */
+
+        .modal {
+            position: fixed;
+
+            inset: 0;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                rgba(0,0,0,0.65);
+
+            backdrop-filter:
+                blur(8px);
+
+            z-index: 5000;
+        }
+
+
+        .modal-card {
+            width: 100%;
+
+            max-width: 430px;
+
+            max-height: 80vh;
+
+            overflow-y: auto;
+
+            padding: 22px;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #12231b,
+                    #0a1511
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,0.5);
+        }
+
+
+        .modal-title {
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+
+            font-size: 22px;
+
+            font-weight: 900;
+        }
+
+
+        .close-button {
+            border: 0;
+
+            background: transparent;
+
+            color: white;
+
+            font-size: 25px;
+
+            cursor: pointer;
+        }
+
+
+        .collection-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+        }
+
+
+        .collection-card {
+            padding: 18px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            background:
+                rgba(255,255,255,0.07);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+        }
+
+
+        .collection-emoji {
+            font-size: 42px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .collection-name {
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        .empty-collection {
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 30px 10px;
+
+            color: #91a39a;
         }
 
     </style>
@@ -668,30 +790,26 @@
 <body>
 
 
-<!-- =================================
+<!-- ==================================
      STARTSCHERM
-================================= -->
+================================== -->
 
 <section id="startScreen">
 
     <div class="glow one"></div>
     <div class="glow two"></div>
 
-
     <div class="logo-icon">
         🐾
     </div>
-
 
     <h1>
         Creaturen Trail
     </h1>
 
-
     <div class="tagline">
         Ontdek. Vind. Vang.
     </div>
-
 
     <button
         class="start-button"
@@ -700,7 +818,6 @@
         START AVONTUUR
     </button>
 
-
     <div class="start-small">
         Jouw avontuur begint hier
     </div>
@@ -708,27 +825,43 @@
 </section>
 
 
-<!-- =================================
+<!-- ==================================
      GAME
-================================= -->
+================================== -->
 
 <section id="game">
-
 
     <div id="map"></div>
 
 
+    <!-- TOP HUD -->
+
     <div class="top-hud">
 
+        <div class="hud-left">
 
-        <div class="hud-card">
+            <div class="hud-card">
 
-            <div class="game-title">
-                🐾 Creaturen Trail
-            </div>
+                <div class="game-title">
+                    🐾 Creaturen Trail
+                </div>
 
-            <div class="level">
-                LEVEL <span id="level">1</span>
+                <div class="level">
+                    LEVEL
+                    <span id="level">
+                        1
+                    </span>
+                </div>
+
+                <div class="xp-bar">
+
+                    <div
+                        class="xp-fill"
+                        id="xpFill"
+                    ></div>
+
+                </div>
+
             </div>
 
         </div>
@@ -736,28 +869,53 @@
 
         <div class="hud-card stats">
 
-            ⭐ XP:
-            <span id="xp">0</span>
+            ⭐
+            <span id="xp">
+                0
+            </span>
+            XP
 
             <br>
 
             🎒
-            <span id="count">0</span>
-            Creaturen
+            <span id="count">
+                0
+            </span>
 
         </div>
-
 
     </div>
 
 
-    <button
-        id="locationButton"
-        onclick="goToPlayer()"
-    >
-        📍
-    </button>
+    <!-- RECHTER MENU -->
 
+    <div class="hud-buttons">
+
+        <button
+            class="hud-button"
+            onclick="openInventory()"
+        >
+            🎒
+        </button>
+
+        <button
+            class="hud-button"
+            onclick="openCreatures()"
+        >
+            📖
+        </button>
+
+        <button
+            class="hud-button"
+            onclick="goToPlayer()"
+        >
+            📍
+        </button>
+
+    </div>
+
+
+    <!-- MELDING -->
 
     <div id="messageBox">
 
@@ -776,9 +934,112 @@
 
     </div>
 
-
 </section>
 
+
+<!-- ==================================
+     CREATURENBOEK MODAL
+================================== -->
+
+<div
+    class="modal"
+    id="creatureModal"
+>
+
+    <div class="modal-card">
+
+        <div class="modal-title">
+
+            📖 Creaturenboek
+
+            <button
+                class="close-button"
+                onclick="closeCreatures()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            class="collection-grid"
+            id="collectionGrid"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- ==================================
+     INVENTORY MODAL
+================================== -->
+
+<div
+    class="modal"
+    id="inventoryModal"
+>
+
+    <div class="modal-card">
+
+        <div class="modal-title">
+
+            🎒 Inventory
+
+            <button
+                class="close-button"
+                onclick="closeInventory()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="collection-grid">
+
+            <div class="collection-card">
+
+                <div class="collection-emoji">
+                    🎯
+                </div>
+
+                <div class="collection-name">
+                    Trail Balls
+                </div>
+
+                <div>
+                    ∞
+                </div>
+
+            </div>
+
+
+            <div class="collection-card">
+
+                <div class="collection-emoji">
+                    🍎
+                </div>
+
+                <div class="collection-name">
+                    Bessen
+                </div>
+
+                <div>
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- LEAFLET -->
 
 <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
@@ -787,9 +1048,9 @@
 
 <script>
 
-    /* =================================
-       GAME VARIABLES
-    ================================= */
+    /* ==================================
+       GAME DATA
+    ================================== */
 
     let xp = 0;
 
@@ -844,23 +1105,26 @@
     ];
 
 
-    /* =================================
+    /* ==================================
+       GEVANGEN CREATUREN
+    ================================== */
+
+    let collection = [];
+
+
+    /* ==================================
        START GAME
-    ================================= */
+    ================================== */
 
     function startGame() {
 
         document
-            .getElementById(
-                "startScreen"
-            )
+            .getElementById("startScreen")
             .style.display = "none";
 
 
         document
-            .getElementById(
-                "game"
-            )
+            .getElementById("game")
             .style.display = "block";
 
 
@@ -871,9 +1135,9 @@
     }
 
 
-    /* =================================
+    /* ==================================
        MAP
-    ================================= */
+    ================================== */
 
     function createMap() {
 
@@ -888,21 +1152,19 @@
         L.tileLayer(
             "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             {
-
                 maxZoom: 19,
 
                 attribution:
                     "&copy; OpenStreetMap contributors"
-
             }
         ).addTo(map);
 
     }
 
 
-    /* =================================
+    /* ==================================
        GPS
-    ================================= */
+    ================================== */
 
     function findPlayer() {
 
@@ -922,7 +1184,6 @@
             useDefaultLocation();
 
             return;
-
         }
 
 
@@ -961,7 +1222,6 @@
                             timeout: 10000
 
                         }
-
                     );
 
             },
@@ -988,15 +1248,14 @@
                 maximumAge: 0
 
             }
-
         );
 
     }
 
 
-    /* =================================
+    /* ==================================
        PLAYER UPDATE
-    ================================= */
+    ================================== */
 
     function updatePlayerPosition(
         position
@@ -1027,9 +1286,9 @@
     }
 
 
-    /* =================================
+    /* ==================================
        PLAYER
-    ================================= */
+    ================================== */
 
     function showPlayer(
         latitude,
@@ -1103,15 +1362,14 @@
     }
 
 
-    /* =================================
+    /* ==================================
        DEFAULT LOCATION
-    ================================= */
+    ================================== */
 
     function useDefaultLocation() {
 
         const latitude =
             52.3676;
-
 
         const longitude =
             4.9041;
@@ -1131,9 +1389,9 @@
     }
 
 
-    /* =================================
-       CREATURES
-    ================================= */
+    /* ==================================
+       CREATURES SPAWNEN
+    ================================== */
 
     function spawnCreatures(
         latitude,
@@ -1249,9 +1507,9 @@
     }
 
 
-    /* =================================
+    /* ==================================
        SELECT CREATURE
-    ================================= */
+    ================================== */
 
     function selectCreature(
         marker,
@@ -1277,6 +1535,7 @@
                 getDistance(
                     playerPosition[0],
                     playerPosition[1],
+
                     location.lat,
                     location.lng
                 );
@@ -1310,9 +1569,9 @@
     }
 
 
-    /* =================================
-       CHECK DISTANCE
-    ================================= */
+    /* ==================================
+       AFSTAND
+    ================================== */
 
     function checkSelectedCreatureDistance() {
 
@@ -1331,7 +1590,6 @@
                 "none";
 
             return;
-
         }
 
 
@@ -1343,6 +1601,7 @@
             getDistance(
                 playerPosition[0],
                 playerPosition[1],
+
                 location.lat,
                 location.lng
             );
@@ -1378,9 +1637,9 @@
     }
 
 
-    /* =================================
-       CATCH
-    ================================= */
+    /* ==================================
+       VANG CREATURE
+    ================================== */
 
     function catchCreature() {
 
@@ -1390,7 +1649,6 @@
         ) {
 
             return;
-
         }
 
 
@@ -1402,6 +1660,7 @@
             getDistance(
                 playerPosition[0],
                 playerPosition[1],
+
                 location.lat,
                 location.lng
             );
@@ -1417,7 +1676,6 @@
             );
 
             return;
-
         }
 
 
@@ -1432,6 +1690,13 @@
 
         selectedCreature =
             null;
+
+
+        /* toevoegen aan collectie */
+
+        collection.push(
+            creature
+        );
 
 
         creatureCount++;
@@ -1490,9 +1755,9 @@
     }
 
 
-    /* =================================
+    /* ==================================
        LEVEL
-    ================================= */
+    ================================== */
 
     function updateLevel() {
 
@@ -1502,19 +1767,175 @@
             ) + 1;
 
 
+        const xpThisLevel =
+            xp % 100;
+
+
         document
-            .getElementById(
-                "level"
-            )
+            .getElementById("level")
             .innerText =
             level;
+
+
+        document
+            .getElementById("xpFill")
+            .style.width =
+            xpThisLevel + "%";
 
     }
 
 
-    /* =================================
-       DISTANCE
-    ================================= */
+    /* ==================================
+       INVENTORY
+    ================================== */
+
+    function openInventory() {
+
+        document
+            .getElementById(
+                "inventoryModal"
+            )
+            .style.display =
+            "flex";
+
+    }
+
+
+    function closeInventory() {
+
+        document
+            .getElementById(
+                "inventoryModal"
+            )
+            .style.display =
+            "none";
+
+    }
+
+
+    /* ==================================
+       CREATURENBOEK
+    ================================== */
+
+    function openCreatures() {
+
+        renderCollection();
+
+
+        document
+            .getElementById(
+                "creatureModal"
+            )
+            .style.display =
+            "flex";
+
+    }
+
+
+    function closeCreatures() {
+
+        document
+            .getElementById(
+                "creatureModal"
+            )
+            .style.display =
+            "none";
+
+    }
+
+
+    function renderCollection() {
+
+        const grid =
+            document.getElementById(
+                "collectionGrid"
+            );
+
+
+        grid.innerHTML = "";
+
+
+        if (
+            collection.length === 0
+        ) {
+
+            grid.innerHTML =
+                `
+                <div class="empty-collection">
+                    📖 Je Creaturenboek is nog leeg.<br><br>
+                    Ga op avontuur en vang je eerste Creature!
+                </div>
+                `;
+
+            return;
+
+        }
+
+
+        collection.forEach(
+            function(creature) {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "collection-card";
+
+
+                card.innerHTML =
+                    `
+                    <div class="collection-emoji">
+                        ${creature.emoji}
+                    </div>
+
+                    <div class="collection-name">
+                        ${creature.name}
+                    </div>
+                    `;
+
+
+                grid.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ==================================
+       LOCATIE
+    ================================== */
+
+    function goToPlayer() {
+
+        if (
+            !playerPosition
+        ) {
+
+            showMessage(
+                "📍 Locatie nog niet gevonden."
+            );
+
+            return;
+        }
+
+
+        map.setView(
+            playerPosition,
+            18
+        );
+
+    }
+
+
+    /* ==================================
+       AFSTAND BEREKENEN
+    ================================== */
 
     function getDistance(
         lat1,
@@ -1579,36 +2000,9 @@
     }
 
 
-    /* =================================
-       LOCATION BUTTON
-    ================================= */
-
-    function goToPlayer() {
-
-        if (
-            !playerPosition
-        ) {
-
-            showMessage(
-                "📍 Locatie nog niet gevonden."
-            );
-
-            return;
-
-        }
-
-
-        map.setView(
-            playerPosition,
-            18
-        );
-
-    }
-
-
-    /* =================================
+    /* ==================================
        MESSAGE
-    ================================= */
+    ================================== */
 
     function showMessage(
         text

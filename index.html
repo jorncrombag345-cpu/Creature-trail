@@ -12,161 +12,686 @@
     >
 
     <style>
+
         * {
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
+        html,
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #101827;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+            background: #07120f;
             color: white;
         }
 
+
+        /* =================================
+           STARTSCHERM
+        ================================= */
+
         #startScreen {
-            min-height: 100vh;
+
+            position: fixed;
+            inset: 0;
+
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+
             text-align: center;
+
             padding: 25px;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 50% 25%,
+                    rgba(55, 160, 100, 0.25),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    160deg,
+                    #07120f,
+                    #0d241b 50%,
+                    #07120f
+                );
+
+            z-index: 9999;
         }
 
-        #startScreen h1 {
-            font-size: 45px;
-            margin-bottom: 10px;
-        }
 
-        .subtitle {
-            color: #b8c2d1;
-            font-size: 18px;
-            margin-bottom: 40px;
-        }
+        /* bewegende lichtbollen */
 
-        .start-button,
-        #catchButton {
-            border: none;
-            border-radius: 15px;
-            padding: 16px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+        .glow {
 
-        .start-button {
-            padding: 18px 45px;
-        }
+            position: absolute;
 
-        #game {
-            display: none;
-            min-height: 100vh;
-        }
+            width: 220px;
+            height: 220px;
 
-        .topbar {
-            height: 75px;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #101827;
-            position: relative;
-            z-index: 2000;
-        }
-
-        .logo {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .stats {
-            text-align: right;
-            font-size: 14px;
-            color: #d5dbea;
-        }
-
-        #map {
-            width: 100%;
-            height: calc(100vh - 75px);
-        }
-
-        .player-marker {
-            width: 28px;
-            height: 28px;
-            background: #4285ff;
-            border: 4px solid white;
             border-radius: 50%;
-            box-shadow:
-                0 0 0 8px rgba(66,133,255,0.25),
-                0 3px 10px rgba(0,0,0,0.4);
+
+            filter: blur(60px);
+
+            opacity: 0.25;
+
+            animation:
+                floatGlow 7s ease-in-out infinite;
+
+            pointer-events: none;
         }
 
-        .creature-marker {
-            width: 55px;
-            height: 55px;
-            background: white;
-            border: 3px solid #222;
-            border-radius: 50%;
+
+        .glow.one {
+
+            background: #39c979;
+
+            top: -70px;
+            left: -70px;
+        }
+
+
+        .glow.two {
+
+            background: #5c8cff;
+
+            right: -80px;
+            bottom: -80px;
+
+            animation-delay: -3s;
+        }
+
+
+        @keyframes floatGlow {
+
+            0%,
+            100% {
+                transform: translate(
+                    0,
+                    0
+                );
+            }
+
+            50% {
+                transform: translate(
+                    25px,
+                    -20px
+                );
+            }
+
+        }
+
+
+        /* LOGO */
+
+        .logo-icon {
+
+            width: 105px;
+            height: 105px;
+
+            border-radius: 30px;
+
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 29px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+
+            font-size: 58px;
+
+            margin-bottom: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #53d88a,
+                    #267e52
+                );
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.45),
+                inset 0 2px 0 rgba(255,255,255,0.25);
+
+            animation:
+                logoFloat 3s ease-in-out infinite;
         }
 
-        #messageBox {
+
+        @keyframes logoFloat {
+
+            0%,
+            100% {
+                transform:
+                    translateY(0)
+                    rotate(0deg);
+            }
+
+            50% {
+                transform:
+                    translateY(-8px)
+                    rotate(2deg);
+            }
+
+        }
+
+
+        #startScreen h1 {
+
+            margin: 0;
+
+            font-size: clamp(
+                38px,
+                10vw,
+                58px
+            );
+
+            letter-spacing: -2px;
+
+            font-weight: 900;
+
+            text-shadow:
+                0 5px 25px rgba(0,0,0,0.5);
+        }
+
+
+        .tagline {
+
+            margin-top: 12px;
+
+            color: #b8c9c0;
+
+            font-size: 17px;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* START BUTTON */
+
+        .start-button {
+
+            position: relative;
+
+            margin-top: 45px;
+
+            min-width: 245px;
+
+            padding: 18px 30px;
+
+            border: 0;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6df0a2,
+                    #35b86f
+                );
+
+            color: #07120f;
+
+            font-size: 18px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 30px
+                rgba(40, 190, 110, 0.28);
+
+            transition:
+                transform 0.15s,
+                box-shadow 0.15s;
+        }
+
+
+        .start-button:active {
+
+            transform:
+                scale(0.96);
+
+            box-shadow:
+                0 5px 15px
+                rgba(40, 190, 110, 0.2);
+        }
+
+
+        .start-small {
+
+            margin-top: 15px;
+
+            color: #70877d;
+
+            font-size: 12px;
+        }
+
+
+        /* =================================
+           GAME
+        ================================= */
+
+        #game {
+
+            display: none;
+
             position: fixed;
-            bottom: 20px;
+
+            inset: 0;
+
+            background: #101827;
+        }
+
+
+        #map {
+
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+        }
+
+
+        /* =================================
+           TOP HUD
+        ================================= */
+
+        .top-hud {
+
+            position: fixed;
+
+            top: 15px;
+
+            left: 15px;
+            right: 15px;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            z-index: 2000;
+
+            pointer-events: none;
+        }
+
+
+        .hud-card {
+
+            padding: 10px 14px;
+
+            border-radius: 17px;
+
+            background:
+                rgba(
+                    8,
+                    18,
+                    15,
+                    0.88
+                );
+
+            backdrop-filter:
+                blur(12px);
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.12
+                );
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.25);
+        }
+
+
+        .game-title {
+
+            font-size: 15px;
+
+            font-weight: 900;
+        }
+
+
+        .level {
+
+            color: #75e9a3;
+
+            font-size: 12px;
+
+            margin-top: 3px;
+        }
+
+
+        .stats {
+
+            text-align: right;
+
+            font-size: 12px;
+
+            color: #d4dfda;
+
+            line-height: 1.5;
+        }
+
+
+        /* =================================
+           BOTTOM HUD
+        ================================= */
+
+        #messageBox {
+
+            position: fixed;
+
             left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 30px);
-            max-width: 450px;
-            background: rgba(16,24,39,0.96);
-            border-radius: 15px;
+
+            bottom: 18px;
+
+            transform:
+                translateX(-50%);
+
+            width:
+                calc(100% - 30px);
+
+            max-width: 460px;
+
             padding: 15px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(
+                    8,
+                    18,
+                    15,
+                    0.92
+                );
+
+            backdrop-filter:
+                blur(15px);
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.12
+                );
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.35);
+
             text-align: center;
+
             z-index: 3000;
         }
 
-        #catchButton {
-            display: none;
-            width: 100%;
-            margin-top: 10px;
+
+        #message {
+
+            font-size: 14px;
+
+            color: #dce8e1;
         }
+
+
+        #catchButton {
+
+            display: none;
+
+            width: 100%;
+
+            margin-top: 12px;
+
+            padding: 15px;
+
+            border: 0;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6df0a2,
+                    #35b86f
+                );
+
+            color: #07120f;
+
+            font-size: 16px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+        }
+
 
         #catchButton:disabled {
-            opacity: 0.5;
+
+            background: #59625e;
+
+            color: #c5cbc8;
+
             cursor: not-allowed;
+
         }
 
+
+        /* =================================
+           GPS BUTTON
+        ================================= */
+
         #locationButton {
+
             position: fixed;
-            right: 15px;
-            bottom: 180px;
-            z-index: 2000;
-            width: 50px;
-            height: 50px;
-            border: none;
-            border-radius: 50%;
-            background: white;
-            font-size: 23px;
+
+            right: 16px;
+
+            bottom: 145px;
+
+            width: 52px;
+            height: 52px;
+
+            border: 0;
+
+            border-radius: 17px;
+
+            background:
+                rgba(
+                    8,
+                    18,
+                    15,
+                    0.92
+                );
+
+            color: white;
+
+            font-size: 22px;
+
+            z-index: 2500;
+
             cursor: pointer;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.3);
         }
+
+
+        /* =================================
+           MAP MARKERS
+        ================================= */
+
+        .player-marker {
+
+            width: 30px;
+            height: 30px;
+
+            border-radius: 50%;
+
+            background:
+                #4d91ff;
+
+            border:
+                4px solid white;
+
+            box-shadow:
+                0 0 0 9px
+                rgba(
+                    77,
+                    145,
+                    255,
+                    0.22
+                ),
+                0 3px 12px
+                rgba(0,0,0,0.5);
+        }
+
+
+        .creature-marker {
+
+            width: 58px;
+            height: 58px;
+
+            display: flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    #e8f1ed
+                );
+
+            border:
+                3px solid
+                rgba(
+                    10,
+                    30,
+                    20,
+                    0.8
+                );
+
+            font-size: 31px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(0,0,0,0.4);
+
+            animation:
+                creatureFloat
+                2.4s
+                ease-in-out
+                infinite;
+        }
+
+
+        @keyframes creatureFloat {
+
+            0%,
+            100% {
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+                transform:
+                    translateY(-7px);
+            }
+
+        }
+
+
+        .leaflet-control-zoom {
+
+            border: 0 !important;
+
+            box-shadow:
+                0 5px 15px
+                rgba(0,0,0,0.3) !important;
+        }
+
+
+        .leaflet-control-zoom a {
+
+            background:
+                rgba(
+                    8,
+                    18,
+                    15,
+                    0.9
+                ) !important;
+
+            color: white !important;
+
+            border: 0 !important;
+        }
+
+
+        .leaflet-control-attribution {
+
+            font-size: 8px;
+        }
+
     </style>
 </head>
 
+
 <body>
 
-<!-- STARTSCHERM -->
+
+<!-- =================================
+     STARTSCHERM
+================================= -->
 
 <section id="startScreen">
 
-    <h1>🐾 Creaturen Trail</h1>
+    <div class="glow one"></div>
+    <div class="glow two"></div>
 
-    <p class="subtitle">
+
+    <div class="logo-icon">
+        🐾
+    </div>
+
+
+    <h1>
+        Creaturen Trail
+    </h1>
+
+
+    <div class="tagline">
         Ontdek. Vind. Vang.
-    </p>
+    </div>
+
 
     <button
         class="start-button"
@@ -175,32 +700,56 @@
         START AVONTUUR
     </button>
 
+
+    <div class="start-small">
+        Jouw avontuur begint hier
+    </div>
+
 </section>
 
 
-<!-- GAME -->
+<!-- =================================
+     GAME
+================================= -->
 
 <section id="game">
 
-    <div class="topbar">
 
-        <div class="logo">
-            🐾 Creaturen Trail
+    <div id="map"></div>
+
+
+    <div class="top-hud">
+
+
+        <div class="hud-card">
+
+            <div class="game-title">
+                🐾 Creaturen Trail
+            </div>
+
+            <div class="level">
+                LEVEL <span id="level">1</span>
+            </div>
+
         </div>
 
-        <div class="stats">
+
+        <div class="hud-card stats">
+
             ⭐ XP:
             <span id="xp">0</span>
 
             <br>
 
-            🎒 Creaturen:
+            🎒
             <span id="count">0</span>
+            Creaturen
+
         </div>
+
 
     </div>
 
-    <div id="map"></div>
 
     <button
         id="locationButton"
@@ -209,11 +758,13 @@
         📍
     </button>
 
+
     <div id="messageBox">
 
         <div id="message">
-            Zoek naar Creaturen...
+            📍 Je locatie wordt gezocht...
         </div>
+
 
         <button
             id="catchButton"
@@ -225,6 +776,7 @@
 
     </div>
 
+
 </section>
 
 
@@ -235,9 +787,9 @@
 
 <script>
 
-    /* =========================
-       GAME DATA
-    ========================= */
+    /* =================================
+       GAME VARIABLES
+    ================================= */
 
     let xp = 0;
 
@@ -254,18 +806,8 @@
     let watchId = null;
 
 
-    /*
-        Hoe dichtbij moet je zijn?
-
-        50 = 50 meter
-    */
-
     const CATCH_DISTANCE = 50;
 
-
-    /* =========================
-       CREATURE TYPES
-       ========================= */
 
     const creatureTypes = [
 
@@ -302,18 +844,23 @@
     ];
 
 
-    /* =========================
+    /* =================================
        START GAME
-    ========================= */
+    ================================= */
 
     function startGame() {
 
         document
-            .getElementById("startScreen")
+            .getElementById(
+                "startScreen"
+            )
             .style.display = "none";
 
+
         document
-            .getElementById("game")
+            .getElementById(
+                "game"
+            )
             .style.display = "block";
 
 
@@ -324,34 +871,38 @@
     }
 
 
-    /* =========================
-       CREATE MAP
-    ========================= */
+    /* =================================
+       MAP
+    ================================= */
 
     function createMap() {
 
-        map = L.map("map").setView(
-            [52.3676, 4.9041],
-            16
-        );
+        map =
+            L.map("map")
+            .setView(
+                [52.3676, 4.9041],
+                16
+            );
 
 
         L.tileLayer(
             "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             {
+
                 maxZoom: 19,
 
                 attribution:
                     "&copy; OpenStreetMap contributors"
+
             }
         ).addTo(map);
 
     }
 
 
-    /* =========================
-       FIND PLAYER
-    ========================= */
+    /* =================================
+       GPS
+    ================================= */
 
     function findPlayer() {
 
@@ -360,21 +911,20 @@
         );
 
 
-        if (!navigator.geolocation) {
+        if (
+            !navigator.geolocation
+        ) {
 
             showMessage(
-                "Je apparaat ondersteunt geen GPS."
+                "⚠️ GPS wordt niet ondersteund."
             );
 
             useDefaultLocation();
 
             return;
+
         }
 
-
-        /*
-            Eerst één keer locatie ophalen.
-        */
 
         navigator.geolocation.getCurrentPosition(
 
@@ -384,10 +934,6 @@
                     position
                 );
 
-
-                /*
-                    Daarna blijven volgen.
-                */
 
                 watchId =
                     navigator.geolocation.watchPosition(
@@ -407,16 +953,19 @@
                         },
 
                         {
+
                             enableHighAccuracy: true,
 
                             maximumAge: 5000,
 
                             timeout: 10000
+
                         }
 
                     );
 
             },
+
 
             function(error) {
 
@@ -431,11 +980,13 @@
             },
 
             {
+
                 enableHighAccuracy: true,
 
                 timeout: 10000,
 
                 maximumAge: 0
+
             }
 
         );
@@ -443,9 +994,9 @@
     }
 
 
-    /* =========================
-       UPDATE PLAYER
-    ========================= */
+    /* =================================
+       PLAYER UPDATE
+    ================================= */
 
     function updatePlayerPosition(
         position
@@ -453,6 +1004,7 @@
 
         const latitude =
             position.coords.latitude;
+
 
         const longitude =
             position.coords.longitude;
@@ -470,55 +1022,14 @@
         );
 
 
-        /*
-            Controleer of de geselecteerde
-            Creature dichtbij genoeg is.
-        */
-
         checkSelectedCreatureDistance();
 
     }
 
 
-    /* =========================
-       DEFAULT LOCATION
-    ========================= */
-
-    function useDefaultLocation() {
-
-        const latitude = 52.3676;
-
-        const longitude = 4.9041;
-
-
-        playerPosition = [
-            latitude,
-            longitude
-        ];
-
-
-        showPlayer(
-            latitude,
-            longitude
-        );
-
-
-        spawnCreatures(
-            latitude,
-            longitude
-        );
-
-
-        showMessage(
-            "👀 Zoek een Creature!"
-        );
-
-    }
-
-
-    /* =========================
-       SHOW PLAYER
-    ========================= */
+    /* =================================
+       PLAYER
+    ================================= */
 
     function showPlayer(
         latitude,
@@ -534,24 +1045,28 @@
                     '<div class="player-marker"></div>',
 
                 iconSize: [
-                    28,
-                    28
+                    30,
+                    30
                 ],
 
                 iconAnchor: [
-                    14,
-                    14
+                    15,
+                    15
                 ]
 
             });
 
 
-        if (playerMarker) {
+        if (
+            playerMarker
+        ) {
 
-            playerMarker.setLatLng([
-                latitude,
-                longitude
-            ]);
+            playerMarker.setLatLng(
+                [
+                    latitude,
+                    longitude
+                ]
+            );
 
         } else {
 
@@ -562,9 +1077,11 @@
                         longitude
                     ],
                     {
-                        icon: playerIcon
+                        icon:
+                            playerIcon
                     }
-                ).addTo(map);
+                )
+                .addTo(map);
 
 
             map.setView(
@@ -576,11 +1093,6 @@
             );
 
 
-            /*
-                Alleen bij de eerste locatie
-                Creaturen laten verschijnen.
-            */
-
             spawnCreatures(
                 latitude,
                 longitude
@@ -591,18 +1103,42 @@
     }
 
 
-    /* =========================
-       SPAWN CREATURES
-    ========================= */
+    /* =================================
+       DEFAULT LOCATION
+    ================================= */
+
+    function useDefaultLocation() {
+
+        const latitude =
+            52.3676;
+
+
+        const longitude =
+            4.9041;
+
+
+        playerPosition = [
+            latitude,
+            longitude
+        ];
+
+
+        showPlayer(
+            latitude,
+            longitude
+        );
+
+    }
+
+
+    /* =================================
+       CREATURES
+    ================================= */
 
     function spawnCreatures(
         latitude,
         longitude
     ) {
-
-        /*
-            6 Creaturen.
-        */
 
         for (
             let i = 0;
@@ -620,10 +1156,6 @@
     }
 
 
-    /* =========================
-       SPAWN ONE CREATURE
-    ========================= */
-
     function spawnCreature(
         latitude,
         longitude
@@ -638,14 +1170,10 @@
             ];
 
 
-        /*
-            Ongeveer 50-300 meter
-            rondom de speler.
-        */
-
         const distance =
             0.0005 +
-            Math.random() * 0.0025;
+            Math.random() *
+            0.0025;
 
 
         const angle =
@@ -677,13 +1205,13 @@
                     "</div>",
 
                 iconSize: [
-                    55,
-                    55
+                    58,
+                    58
                 ],
 
                 iconAnchor: [
-                    27,
-                    27
+                    29,
+                    29
                 ]
 
             });
@@ -698,7 +1226,8 @@
                 {
                     icon: icon
                 }
-            ).addTo(map);
+            )
+            .addTo(map);
 
 
         marker.creatureData =
@@ -720,16 +1249,17 @@
     }
 
 
-    /* =========================
+    /* =================================
        SELECT CREATURE
-    ========================= */
+    ================================= */
 
     function selectCreature(
         marker,
         creature
     ) {
 
-        selectedCreature = marker;
+        selectedCreature =
+            marker;
 
 
         checkSelectedCreatureDistance();
@@ -739,24 +1269,28 @@
             playerPosition
         ) {
 
+            const location =
+                marker.getLatLng();
+
+
             const distance =
                 getDistance(
                     playerPosition[0],
                     playerPosition[1],
-
-                    marker.getLatLng().lat,
-                    marker.getLatLng().lng
+                    location.lat,
+                    location.lng
                 );
 
 
             if (
-                distance <= CATCH_DISTANCE
+                distance <=
+                CATCH_DISTANCE
             ) {
 
                 showMessage(
                     "👾 " +
                     creature.name +
-                    " is dichtbij! Je kunt hem vangen."
+                    " is dichtbij! Vang hem!"
                 );
 
             } else {
@@ -766,25 +1300,19 @@
                     creature.name +
                     " is " +
                     Math.round(distance) +
-                    " meter bij je vandaan. Loop dichterbij!"
+                    " meter weg."
                 );
 
             }
-
-        } else {
-
-            showMessage(
-                "📍 Je locatie wordt nog gezocht..."
-            );
 
         }
 
     }
 
 
-    /* =========================
+    /* =================================
        CHECK DISTANCE
-    ========================= */
+    ================================= */
 
     function checkSelectedCreatureDistance() {
 
@@ -799,14 +1327,15 @@
             !playerPosition
         ) {
 
-            button.style.display = "none";
+            button.style.display =
+                "none";
 
             return;
 
         }
 
 
-        const creatureLocation =
+        const location =
             selectedCreature.getLatLng();
 
 
@@ -814,27 +1343,30 @@
             getDistance(
                 playerPosition[0],
                 playerPosition[1],
-
-                creatureLocation.lat,
-                creatureLocation.lng
+                location.lat,
+                location.lng
             );
 
 
-        button.style.display = "block";
+        button.style.display =
+            "block";
 
 
         if (
-            distance <= CATCH_DISTANCE
+            distance <=
+            CATCH_DISTANCE
         ) {
 
-            button.disabled = false;
+            button.disabled =
+                false;
 
             button.innerText =
                 "🎯 VANG CREATURE";
 
         } else {
 
-            button.disabled = true;
+            button.disabled =
+                true;
 
             button.innerText =
                 "📍 " +
@@ -846,9 +1378,9 @@
     }
 
 
-    /* =========================
-       CATCH CREATURE
-    ========================= */
+    /* =================================
+       CATCH
+    ================================= */
 
     function catchCreature() {
 
@@ -870,18 +1402,14 @@
             getDistance(
                 playerPosition[0],
                 playerPosition[1],
-
                 location.lat,
                 location.lng
             );
 
 
-        /*
-            Extra controle.
-        */
-
         if (
-            distance > CATCH_DISTANCE
+            distance >
+            CATCH_DISTANCE
         ) {
 
             showMessage(
@@ -902,7 +1430,8 @@
         );
 
 
-        selectedCreature = null;
+        selectedCreature =
+            null;
 
 
         creatureCount++;
@@ -912,7 +1441,8 @@
 
         document
             .getElementById("xp")
-            .innerText = xp;
+            .innerText =
+            xp;
 
 
         document
@@ -921,9 +1451,15 @@
             creatureCount;
 
 
+        updateLevel();
+
+
         document
-            .getElementById("catchButton")
-            .style.display = "none";
+            .getElementById(
+                "catchButton"
+            )
+            .style.display =
+            "none";
 
 
         showMessage(
@@ -933,27 +1469,19 @@
         );
 
 
-        /*
-            Nieuwe Creature.
-        */
-
         setTimeout(
             function() {
 
-                if (!playerPosition) {
-                    return;
+                if (
+                    playerPosition
+                ) {
+
+                    spawnCreature(
+                        playerPosition[0],
+                        playerPosition[1]
+                    );
+
                 }
-
-
-                spawnCreature(
-                    playerPosition[0],
-                    playerPosition[1]
-                );
-
-
-                showMessage(
-                    "👀 Een nieuwe Creature is verschenen!"
-                );
 
             },
             3000
@@ -962,9 +1490,31 @@
     }
 
 
-    /* =========================
-       DISTANCE BEREKENEN
-       ========================= */
+    /* =================================
+       LEVEL
+    ================================= */
+
+    function updateLevel() {
+
+        const level =
+            Math.floor(
+                xp / 100
+            ) + 1;
+
+
+        document
+            .getElementById(
+                "level"
+            )
+            .innerText =
+            level;
+
+    }
+
+
+    /* =================================
+       DISTANCE
+    ================================= */
 
     function getDistance(
         lat1,
@@ -973,7 +1523,8 @@
         lon2
     ) {
 
-        const earthRadius = 6371000;
+        const earthRadius =
+            6371000;
 
 
         const dLat =
@@ -1028,16 +1579,18 @@
     }
 
 
-    /* =========================
-       PLAYER LOCATIE
-       ========================= */
+    /* =================================
+       LOCATION BUTTON
+    ================================= */
 
     function goToPlayer() {
 
-        if (!playerPosition) {
+        if (
+            !playerPosition
+        ) {
 
             showMessage(
-                "📍 Je locatie is nog niet bekend."
+                "📍 Locatie nog niet gevonden."
             );
 
             return;
@@ -1053,17 +1606,20 @@
     }
 
 
-    /* =========================
+    /* =================================
        MESSAGE
-    ========================= */
+    ================================= */
 
     function showMessage(
         text
     ) {
 
         document
-            .getElementById("message")
-            .innerText = text;
+            .getElementById(
+                "message"
+            )
+            .innerText =
+            text;
 
     }
 

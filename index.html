@@ -8,10 +8,6 @@
 
 <style>
 
-/* =========================================================
-   BASIS
-========================================================= */
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -22,31 +18,18 @@ html,
 body{
     width:100%;
     height:100%;
+    overflow:hidden;
 }
 
 body{
     font-family:Arial,Helvetica,sans-serif;
     background:#07101d;
     color:white;
-    overflow:hidden;
 }
 
-button{
-    border:none;
-    cursor:pointer;
-    color:white;
-    font-weight:bold;
-}
-
-button:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-}
-
-
-/* =========================================================
+/* =========================
    SCREENS
-========================================================= */
+========================= */
 
 .screen{
     position:absolute;
@@ -58,495 +41,301 @@ button:disabled{
     display:block;
 }
 
-
-/* =========================================================
-   START SCHERM
-========================================================= */
+/* =========================
+   START
+========================= */
 
 #startScreen{
-
     background:
-        radial-gradient(
-            circle at 20% 20%,
-            #684cff55,
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 80% 80%,
-            #00e0a855,
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            #050914,
-            #101b30
-        );
-
+        radial-gradient(circle at 20% 20%,#684cff55,transparent 30%),
+        radial-gradient(circle at 80% 80%,#00e0a855,transparent 30%),
+        linear-gradient(135deg,#050914,#101b30);
 }
 
 .startContainer{
-
     width:100%;
     height:100%;
-
     display:flex;
-    align-items:center;
     justify-content:center;
-
-    padding:30px;
-
+    align-items:center;
+    padding:25px;
 }
 
 .startContent{
-
-    max-width:900px;
-
+    max-width:850px;
     text-align:center;
-
 }
 
 .logo{
-
-    font-size:
-        clamp(
-            55px,
-            10vw,
-            110px
-        );
-
+    font-size:clamp(55px,10vw,110px);
     font-weight:1000;
-
     letter-spacing:-7px;
-
-    margin-bottom:20px;
-
 }
 
 .logo span{
-
     color:#8068ff;
-
 }
 
 .subtitle{
-
-    font-size:28px;
-
-    margin-bottom:15px;
-
+    margin-top:15px;
+    font-size:25px;
 }
 
 .description{
-
-    color:#a9b5c8;
-
-    font-size:18px;
-
-    line-height:1.6;
-
     max-width:650px;
-
-    margin:auto;
-
+    margin:18px auto;
+    color:#aab6c9;
+    line-height:1.6;
 }
 
 .startButton{
-
-    margin-top:35px;
-
-    padding:20px 35px;
-
-    border-radius:18px;
-
-    font-size:20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #8068ff,
-            #5334e8
-        );
-
-    box-shadow:
-        0 15px 50px #5334e866;
-
-    transition:.2s;
-
+    margin-top:25px;
+    padding:18px 32px;
+    border:0;
+    border-radius:17px;
+    background:linear-gradient(135deg,#8068ff,#5334e8);
+    color:white;
+    font-weight:bold;
+    font-size:18px;
+    cursor:pointer;
+    box-shadow:0 15px 45px #5334e855;
 }
 
 .startButton:hover{
-
-    transform:translateY(-4px);
-
+    transform:translateY(-3px);
 }
 
 .features{
-
+    margin-top:35px;
     display:flex;
-
     justify-content:center;
-
-    gap:15px;
-
-    margin-top:40px;
-
+    gap:12px;
     flex-wrap:wrap;
-
 }
 
 .feature{
-
-    padding:18px;
-
-    width:180px;
-
+    width:165px;
+    padding:16px;
     border-radius:18px;
-
     background:#ffffff0b;
-
-    border:
-        1px solid
-        #ffffff12;
-
+    border:1px solid #ffffff12;
 }
 
 .featureIcon{
-
-    font-size:35px;
-
+    font-size:32px;
     margin-bottom:8px;
-
 }
 
 .feature small{
-
-    color:#8f9bb0;
-
+    color:#8e9aae;
 }
 
-
-/* =========================================================
+/* =========================
    GAME
-========================================================= */
+========================= */
 
 #gameScreen{
-
     background:#b5d78f;
-
 }
 
 #game{
-
     width:100%;
     height:100%;
-
     display:flex;
     flex-direction:column;
-
 }
 
-
-/* =========================================================
+/* =========================
    TOPBAR
-========================================================= */
+========================= */
 
 .topbar{
-
     height:70px;
-
     flex-shrink:0;
-
-    background:#0c1424ed;
-
+    background:#0b1424ee;
     display:flex;
-
     align-items:center;
-
-    gap:12px;
-
+    gap:10px;
     padding:10px 15px;
-
-    z-index:50;
-
+    z-index:100;
     backdrop-filter:blur(15px);
-
-    border-bottom:
-        1px solid
-        #ffffff12;
-
+    border-bottom:1px solid #ffffff12;
 }
 
 .topButton{
-
-    width:48px;
-    height:48px;
-
+    width:46px;
+    height:46px;
+    border:0;
     border-radius:14px;
-
     background:#ffffff0d;
-
-    font-size:22px;
-
+    color:white;
+    font-size:20px;
+    cursor:pointer;
 }
 
 .topButton:hover{
+    background:#ffffff1a;
+}
 
-    background:#ffffff18;
-
+#levelText{
+    font-size:14px;
 }
 
 .playerInfo{
-
     margin-left:auto;
-
     display:flex;
-
     align-items:center;
-
-    gap:12px;
-
+    gap:10px;
 }
 
 .xpContainer{
-
-    width:160px;
-
+    width:125px;
 }
 
 .xpText{
-
-    font-size:11px;
-
+    font-size:10px;
     color:#a7b3c6;
-
     margin-bottom:4px;
-
 }
 
 .xpBar{
-
-    width:100%;
-
     height:8px;
-
+    background:#ffffff16;
     border-radius:20px;
-
-    background:#ffffff15;
-
     overflow:hidden;
-
 }
 
 .xpFill{
-
     height:100%;
-
     width:0%;
-
-    background:
-        linear-gradient(
-            90deg,
-            #8168ff,
-            #13d7ae
-        );
-
-    transition:.3s;
-
-}
-
-.coinText{
-
-    color:#ffd166;
-
-    font-size:13px;
-
+    background:linear-gradient(90deg,#8068ff,#15d4ac);
 }
 
 .avatar{
-
     width:44px;
     height:44px;
-
     border-radius:14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #8068ff,
-            #16c9a8
-        );
-
     display:flex;
-
     justify-content:center;
     align-items:center;
-
+    background:linear-gradient(135deg,#8068ff,#16c9a8);
     font-size:22px;
-
 }
 
-
-/* =========================================================
+/* =========================
    MAP
-========================================================= */
+========================= */
 
 #mapContainer{
-
     position:relative;
-
     flex:1;
-
     min-height:0;
-
     overflow:hidden;
-
+    background:#9fc77c;
 }
 
 #mapCanvas{
-
     position:absolute;
-
     inset:0;
-
     width:100%;
     height:100%;
 
     cursor:grab;
 
+    touch-action:none;
+
+    user-select:none;
+    -webkit-user-select:none;
 }
 
 #mapCanvas.dragging{
-
     cursor:grabbing;
-
 }
 
+/* =========================
+   MAP CONTROLS
+========================= */
+
 .mapControls{
-
     position:absolute;
-
     top:15px;
     right:15px;
-
     display:flex;
-
     flex-direction:column;
-
     gap:8px;
-
-    z-index:10;
-
+    z-index:30;
 }
 
 .mapButton{
-
     width:48px;
     height:48px;
-
+    border:1px solid #ffffff18;
     border-radius:14px;
-
-    background:#101a2be8;
-
-    border:
-        1px solid
-        #ffffff15;
-
+    background:#101a2bea;
+    color:white;
     font-size:20px;
-
+    cursor:pointer;
 }
 
 .mapButton:hover{
-
-    background:#1c2940;
-
+    background:#1d2b45;
 }
 
-
-/* =========================================================
+/* =========================
    BOTTOM NAV
-========================================================= */
+========================= */
 
 .bottomNav{
-
     height:80px;
-
     flex-shrink:0;
-
     background:#0c1424f5;
-
-    border-top:
-        1px solid
-        #ffffff12;
-
+    border-top:1px solid #ffffff12;
     display:flex;
-
     justify-content:space-around;
-
     align-items:center;
-
-    z-index:50;
-
+    z-index:100;
 }
 
 .navButton{
-
-    width:90px;
+    width:85px;
     height:65px;
-
-    background:transparent;
-
+    border:0;
     border-radius:14px;
-
+    background:transparent;
     color:#8290a7;
-
     display:flex;
-
     flex-direction:column;
-
-    justify-content:center;
-
     align-items:center;
-
+    justify-content:center;
     gap:4px;
-
+    cursor:pointer;
 }
 
 .navButton span{
-
-    font-size:23px;
-
+    font-size:22px;
 }
 
 .navButton small{
-
-    font-size:11px;
-
+    font-size:10px;
 }
 
 .navButton.active{
-
-    background:#ffffff0d;
-
+    background:#ffffff0c;
     color:white;
-
 }
 
-
-/* =========================================================
+/* =========================
    PANELS
-========================================================= */
+========================= */
 
 .panel{
-
     position:absolute;
-
     left:0;
     right:0;
-
     top:70px;
     bottom:80px;
 
-    z-index:40;
+    z-index:150;
 
     display:none;
 
@@ -555,395 +344,323 @@ button:disabled{
     padding:25px;
 
     background:#080f1d;
-
 }
 
 .panel.open{
-
     display:block;
-
 }
 
 .panelHeader{
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     margin-bottom:25px;
-
 }
 
 .panelHeader h2{
-
-    font-size:30px;
-
+    font-size:28px;
 }
 
 .closeButton{
-
     width:40px;
     height:40px;
-
+    border:0;
     border-radius:12px;
-
     background:#ffffff0c;
-
+    color:white;
+    cursor:pointer;
 }
 
-
-/* =========================================================
-   CARDS
-========================================================= */
+/* =========================
+   MONSTERS
+========================= */
 
 .monsterGrid{
-
     display:grid;
-
     grid-template-columns:
-        repeat(
-            auto-fill,
-            minmax(180px,1fr)
-        );
-
+        repeat(auto-fill,minmax(180px,1fr));
     gap:15px;
-
 }
 
 .monsterCard{
-
     padding:18px;
-
     background:#111b2c;
-
-    border:
-        1px solid
-        #ffffff0e;
-
+    border:1px solid #ffffff0e;
     border-radius:20px;
-
     text-align:center;
-
 }
 
 .monsterEmoji{
-
     font-size:65px;
-
     margin-bottom:10px;
-
-}
-
-.monsterCard h3{
-
-    margin-bottom:6px;
-
 }
 
 .monsterCard p{
-
     color:#8d9bb0;
-
     font-size:13px;
-
-    margin-top:4px;
-
+    margin-top:5px;
 }
 
-
-/* =========================================================
+/* =========================
    EVENTS
-========================================================= */
+========================= */
 
 .eventCard{
-
-    background:
-        linear-gradient(
-            135deg,
-            #171e3d,
-            #111a2a
-        );
-
-    border:
-        1px solid
-        #8068ff44;
-
-    border-radius:20px;
-
     padding:20px;
-
     margin-bottom:15px;
-
+    border-radius:20px;
+    background:linear-gradient(135deg,#171e3d,#111a2a);
+    border:1px solid #8068ff44;
 }
 
 .eventEmoji{
-
     font-size:40px;
-
     margin-bottom:10px;
-
-}
-
-.eventCard h3{
-
-    font-size:22px;
-
-    margin-bottom:8px;
-
 }
 
 .eventCard p{
-
     color:#9aa8bc;
-
     line-height:1.5;
-
-    margin-bottom:12px;
-
+    margin:8px 0;
 }
 
 .reward{
-
     color:#ffd166;
-
     font-weight:bold;
-
-    margin-bottom:15px;
-
+    margin:12px 0;
 }
+
+/* =========================
+   BUTTONS
+========================= */
 
 .primaryButton{
-
     padding:12px 18px;
-
+    border:0;
     border-radius:12px;
-
     background:#8068ff;
-
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.greenButton{
-
-    padding:12px 18px;
-
-    border-radius:12px;
-
-    background:#15c9a5;
-
-    color:#061812;
-
+.primaryButton:hover{
+    filter:brightness(1.1);
 }
 
+.deleteButton{
+    padding:10px 13px;
+    border:0;
+    border-radius:10px;
+    background:#ff5574;
+    color:white;
+    cursor:pointer;
+}
 
-/* =========================================================
+/* =========================
    FRIENDS
-========================================================= */
+========================= */
 
 .friendAdd{
-
     display:flex;
-
     gap:10px;
-
     margin-bottom:20px;
-
 }
 
 .friendInput{
-
     flex:1;
-
     padding:14px;
-
     border-radius:13px;
-
-    border:
-        1px solid
-        #ffffff12;
-
+    border:1px solid #ffffff12;
     background:#111a2a;
-
     color:white;
-
     outline:none;
-
 }
 
 .friend{
-
     display:flex;
-
     align-items:center;
-
     gap:12px;
-
     padding:14px;
-
     border-radius:15px;
-
     background:#111a2a;
-
     margin-bottom:10px;
-
 }
 
 .friendAvatar{
-
     width:45px;
     height:45px;
-
     border-radius:13px;
-
-    background:#263550;
-
     display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#263550;
+    font-size:20px;
+}
+
+.friendInfo{
+    flex:1;
+}
+
+.friendInfo small{
+    color:#8190a6;
+}
+
+/* =========================
+   CREATURE ENCOUNTER
+========================= */
+
+#creatureEncounter{
+    position:fixed;
+    inset:0;
+
+    z-index:9999;
+
+    display:none;
 
     align-items:center;
     justify-content:center;
 
-    font-size:20px;
-
-}
-
-.friendInfo{
-
-    flex:1;
-
-}
-
-.friendInfo small{
-
-    color:#8190a6;
-
-}
-
-
-/* =========================================================
-   ENCOUNTER
-========================================================= */
-
-#encounter{
-
-    position:absolute;
-
-    width:min(420px,90vw);
-
-    left:50%;
-    top:50%;
-
-    transform:
-        translate(
-            -50%,
-            -50%
-        );
-
-    z-index:100;
-
-    display:none;
-
     padding:20px;
 
-    background:#101a2af5;
+    background:#030812d9;
 
-    border:
-        1px solid
-        #ffffff18;
+    backdrop-filter:blur(12px);
+}
 
-    border-radius:25px;
+.encounterCard{
+    position:relative;
+
+    width:100%;
+    max-width:430px;
+
+    padding:28px;
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            160deg,
+            #1b2a42,
+            #0e1829
+        );
+
+    border:1px solid #ffffff18;
 
     box-shadow:
-        0 30px 80px
-        #0009;
+        0 30px 90px #000b;
 
-    backdrop-filter:blur(20px);
-
+    text-align:center;
 }
 
-#encounter.open{
+.encounterClose{
+    position:absolute;
+    right:15px;
+    top:15px;
 
-    display:block;
+    width:38px;
+    height:38px;
 
+    border:0;
+    border-radius:12px;
+
+    background:#ffffff10;
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
 }
 
-.encounterTop{
+.bigCreature{
+    width:180px;
+    height:180px;
+
+    margin:10px auto 20px;
+
+    border-radius:50%;
 
     display:flex;
-
-    justify-content:space-between;
-
+    justify-content:center;
     align-items:center;
 
-}
-
-.encounterTop h2{
-
-    font-size:26px;
-
-}
-
-.encounterMonster{
-
-    height:200px;
-
-    margin:15px 0;
-
-    border-radius:20px;
+    font-size:95px;
 
     background:
         radial-gradient(
             circle,
-            #303b62,
-            #111827
+            #ffffff2b,
+            #5c78ff0d
         );
 
-    display:flex;
+    box-shadow:
+        0 0 70px #6884ff33;
 
-    justify-content:center;
+    animation:floatCreature 2s ease-in-out infinite;
+}
 
-    align-items:center;
+@keyframes floatCreature{
 
-    font-size:120px;
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
 
 }
 
-.encounterStats{
-
-    display:flex;
-
-    gap:8px;
-
-    margin-bottom:15px;
-
+.encounterCard h2{
+    font-size:30px;
+    margin-bottom:12px;
 }
 
-.stat{
-
-    flex:1;
-
-    text-align:center;
-
-    padding:10px;
-
-    background:#ffffff08;
-
-    border-radius:12px;
-
+.encounterInfo{
+    margin-bottom:12px;
 }
 
-.stat small{
+.badge{
+    display:inline-block;
+    padding:6px 10px;
+    margin:3px;
 
-    color:#8491a5;
+    border-radius:9px;
 
+    font-size:12px;
+    font-weight:bold;
+
+    background:#263854;
+}
+
+.badge.rarity-common{
+    background:#385342;
+}
+
+.badge.rarity-rare{
+    background:#284c73;
+}
+
+.badge.rarity-epic{
+    background:#603c78;
+}
+
+.badge.rarity-legendary{
+    background:#9b701e;
+}
+
+.encounterDescription{
+    color:#aebbd0;
+    line-height:1.6;
 }
 
 .catchButton{
-
     width:100%;
+    margin-top:18px;
 
     padding:16px;
 
+    border:0;
     border-radius:14px;
 
     background:
@@ -953,118 +670,186 @@ button:disabled{
             #079b7f
         );
 
+    color:#061812;
+
     font-size:17px;
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+/* =========================
+   CREATURE STOP POPUP
+========================= */
+
+#stopPopup{
+    position:fixed;
+
+    left:50%;
+    bottom:105px;
+
+    transform:
+        translate(-50%,20px);
+
+    z-index:500;
+
+    display:none;
+
+    width:min(360px,90vw);
+
+    padding:20px;
+
+    border-radius:20px;
+
+    background:#101a2af5;
+
+    border:1px solid #ffffff18;
+
+    box-shadow:0 20px 60px #0008;
+
+    text-align:center;
+}
+
+#stopPopup.open{
+    display:block;
+    animation:popupIn .2s ease;
+}
+
+@keyframes popupIn{
+
+    from{
+        opacity:0;
+        transform:translate(-50%,30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translate(-50%,0);
+    }
 
 }
 
+.stopIcon{
+    font-size:45px;
+    margin-bottom:8px;
+}
 
-/* =========================================================
+.stopPopupText{
+    color:#9ba9bd;
+    margin:8px 0 15px;
+    line-height:1.5;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+#toast{
+    position:fixed;
+
+    left:50%;
+    bottom:100px;
+
+    transform:
+        translate(-50%,20px);
+
+    padding:13px 18px;
+
+    border-radius:14px;
+
+    background:#0b1424ef;
+
+    border:1px solid #ffffff16;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.25s;
+
+    z-index:10000;
+
+    white-space:nowrap;
+}
+
+#toast.show{
+    opacity:1;
+    transform:
+        translate(-50%,0);
+}
+
+/* =========================
    ADMIN
-========================================================= */
-
-#adminPanel{
-
-    z-index:200;
-
-}
+========================= */
 
 .adminLayout{
-
     max-width:1200px;
-
     margin:auto;
 
     display:grid;
 
-    grid-template-columns:
-        250px 1fr;
+    grid-template-columns:250px 1fr;
 
     gap:20px;
-
 }
 
 .adminMenu{
-
     background:#101a2a;
-
     padding:12px;
-
     border-radius:18px;
-
     height:max-content;
-
 }
 
 .adminTab{
-
     width:100%;
-
     padding:14px;
+
+    border:0;
+    border-radius:12px;
 
     background:transparent;
 
-    border-radius:12px;
+    color:#91a0b5;
 
     text-align:left;
 
-    color:#91a0b5;
-
     margin-bottom:5px;
 
+    cursor:pointer;
 }
 
 .adminTab.active{
-
     background:#ffffff0c;
-
     color:white;
-
 }
 
 .adminContent{
-
     background:#101a2a;
-
     padding:25px;
-
     border-radius:18px;
-
 }
 
 .adminSection{
-
     display:none;
-
 }
 
 .adminSection.active{
-
     display:block;
-
 }
 
 .form{
-
     max-width:650px;
-
     display:grid;
-
     gap:12px;
-
 }
 
 .form label{
-
     color:#98a6ba;
-
     font-size:13px;
-
 }
 
 .form input,
-.form textarea,
-.form select{
-
+.form textarea{
     width:100%;
 
     margin-top:6px;
@@ -1073,32 +858,23 @@ button:disabled{
 
     border-radius:11px;
 
-    border:
-        1px solid
-        #ffffff12;
+    border:1px solid #ffffff12;
 
     background:#09111e;
 
     color:white;
 
     outline:none;
-
 }
 
 .form textarea{
-
     min-height:110px;
-
     resize:vertical;
-
 }
 
 .adminEvent{
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
     gap:15px;
@@ -1110,1461 +886,809 @@ button:disabled{
     border-radius:13px;
 
     margin-top:10px;
-
 }
 
-.deleteButton{
-
-    padding:9px 12px;
-
-    border-radius:9px;
-
-    background:#ff5574;
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-#toast{
-
-    position:absolute;
-
-    left:50%;
-
-    bottom:100px;
-
-    transform:
-        translate(
-            -50%,
-            20px
-        );
-
-    padding:13px 18px;
-
-    border-radius:14px;
-
-    background:#0b1424ef;
-
-    border:
-        1px solid
-        #ffffff16;
-
-    opacity:0;
-
-    pointer-events:none;
-
-    transition:.25s;
-
-    z-index:500;
-
-    white-space:nowrap;
-
-}
-
-#toast.show{
-
-    opacity:1;
-
-    transform:
-        translate(
-            -50%,
-            0
-        );
-
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:700px){
 
     .topbar{
-
         height:62px;
-
     }
 
     .panel{
-
         top:62px;
-
         bottom:70px;
-
     }
 
     .bottomNav{
-
         height:70px;
-
     }
 
     .navButton{
-
         width:70px;
-
-    }
-
-    .navButton small{
-
-        font-size:9px;
-
-    }
-
-    .adminLayout{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .adminMenu{
-
-        display:flex;
-
-        overflow-x:auto;
-
-    }
-
-    .adminTab{
-
-        white-space:nowrap;
-
-        width:auto;
-
-        margin-right:5px;
-
     }
 
     .xpContainer{
-
-        width:90px;
-
+        width:85px;
     }
 
-    .coinText{
-
-        display:none;
-
+    .adminLayout{
+        grid-template-columns:1fr;
     }
 
-}
-
-
-/* =========================================================
-   MAP CREATURES
-========================================================= */
-
-.mapCreature{
-
-    position:absolute;
-
-    width:76px;
-    height:76px;
-
-    transform:
-        translate(
-            -50%,
-            -50%
-        );
-
-    border-radius:50%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffffee,
-            #dce6ffff
-        );
-
-    box-shadow:
-        0 10px 30px
-        #0005;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:38px;
-
-    z-index:20;
-
-    animation:
-        creatureFloat
-        2s
-        ease-in-out
-        infinite;
-
-    transition:.2s;
-
-}
-
-.mapCreature:hover{
-
-    transform:
-        translate(
-            -50%,
-            -50%
-        )
-        scale(1.15);
-
-}
-
-.mapCreature .rarity{
-
-    position:absolute;
-
-    bottom:-10px;
-
-    left:50%;
-
-    transform:
-        translateX(-50%);
-
-    font-size:9px;
-
-    padding:4px 7px;
-
-    background:#111827;
-
-    border-radius:7px;
-
-    white-space:nowrap;
-
-}
-
-@keyframes creatureFloat{
-
-    0%,100%{
-
-        margin-top:0;
-
+    .adminMenu{
+        display:flex;
+        overflow-x:auto;
     }
 
-    50%{
-
-        margin-top:-8px;
-
+    .adminTab{
+        width:auto;
+        white-space:nowrap;
+        margin-right:5px;
     }
-
-}
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-.profileBox{
-
-    max-width:600px;
-
-    margin:auto;
-
-}
-
-.profileAvatar{
-
-    font-size:80px;
-
-    margin-bottom:10px;
-
-}
-
-.profileStatsGrid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(
-            3,
-            1fr
-        );
-
-    gap:10px;
-
-    margin:20px 0;
-
-}
-
-.profileStat{
-
-    background:#ffffff08;
-
-    border-radius:15px;
-
-    padding:15px;
-
-}
-
-.profileStat b{
-
-    font-size:24px;
-
-}
-
-.profileStat small{
-
-    color:#8997aa;
-
-}
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loading{
-
-    opacity:.5;
 
 }
 
 </style>
 </head>
 
-
 <body>
 
-<div id="app">
-
-
-<!-- =======================================================
+<!-- =====================================================
      START
-======================================================= -->
+===================================================== -->
 
-<section
-    id="startScreen"
-    class="screen active"
->
+<section id="startScreen" class="screen active">
 
-    <div class="startContainer">
+<div class="startContainer">
 
-        <div class="startContent">
+<div class="startContent">
 
-            <div class="logo">
-                CREATURE<span>GO</span>
-            </div>
+<div class="logo">
+CREATURE<span>GO</span>
+</div>
 
-            <div class="subtitle">
-                🌍 Jouw Creature-avontuur begint hier
-            </div>
+<div class="subtitle">
+🌍 Jouw Creature-avontuur begint hier
+</div>
 
-            <p class="description">
-                Verken de wereld, ontdek wilde Creatures,
-                vang ze allemaal, verdien XP en word
-                de beste Creature Trainer.
-            </p>
+<p class="description">
+Verken de wereld, ontdek mysterieuze Creatures,
+bezoek Creature Stops, vang zeldzame wezens
+en word de beste Creature Trainer.
+</p>
 
-            <button
-                id="startAdventure"
-                class="startButton"
-            >
-                🚀 START AVONTUUR
-            </button>
+<button
+id="startAdventure"
+class="startButton">
 
-            <div class="features">
+🚀 START AVONTUUR
 
-                <div class="feature">
+</button>
 
-                    <div class="featureIcon">
-                        🗺️
-                    </div>
+<div class="features">
 
-                    <b>
-                        Open wereld
-                    </b>
+<div class="feature">
+<div class="featureIcon">🗺️</div>
+<b>Open wereld</b>
+<br>
+<small>Beweeg over de kaart</small>
+</div>
 
-                    <br>
+<div class="feature">
+<div class="featureIcon">👾</div>
+<b>Creatures</b>
+<br>
+<small>Vang ze allemaal</small>
+</div>
 
-                    <small>
-                        Verken de kaart
-                    </small>
+<div class="feature">
+<div class="featureIcon">🏪</div>
+<b>Creature Stops</b>
+<br>
+<small>Verzamel items</small>
+</div>
 
-                </div>
+<div class="feature">
+<div class="featureIcon">🎉</div>
+<b>Events</b>
+<br>
+<small>Win beloningen</small>
+</div>
 
+</div>
 
-                <div class="feature">
+</div>
 
-                    <div class="featureIcon">
-                        👾
-                    </div>
-
-                    <b>
-                        Creatures
-                    </b>
-
-                    <br>
-
-                    <small>
-                        Vang ze allemaal
-                    </small>
-
-                </div>
-
-
-                <div class="feature">
-
-                    <div class="featureIcon">
-                        ⭐
-                    </div>
-
-                    <b>
-                        Levelen
-                    </b>
-
-                    <br>
-
-                    <small>
-                        Word sterker
-                    </small>
-
-                </div>
-
-
-                <div class="feature">
-
-                    <div class="featureIcon">
-                        👥
-                    </div>
-
-                    <b>
-                        Vrienden
-                    </b>
-
-                    <br>
-
-                    <small>
-                        Speel samen
-                    </small>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
-<!-- =======================================================
+<!-- =====================================================
      GAME
-======================================================= -->
+===================================================== -->
 
-<section
-    id="gameScreen"
-    class="screen"
->
+<section id="gameScreen" class="screen">
 
 <div id="game">
 
-
-<!-- TOPBAR -->
-
 <header class="topbar">
 
-    <button
-        class="topButton"
-        id="menuButton"
-    >
-        ☰
-    </button>
+<button
+id="menuButton"
+class="topButton">
+☰
+</button>
 
+<button
+id="locationButton"
+class="topButton">
+📍
+</button>
 
-    <button
-        class="topButton"
-        id="locationButton"
-    >
-        📍
-    </button>
+<strong id="levelText">
+Lv. 1
+</strong>
 
+<div class="playerInfo">
 
-    <strong id="levelText">
-        Lv. 1
-    </strong>
+<div class="xpContainer">
 
+<div class="xpText">
 
-    <div class="playerInfo">
+<span id="xpCurrent">
+0
+</span>
+ /
+<span id="xpMax">
+250
+</span>
+ XP
 
-        <div class="xpContainer">
+</div>
 
-            <div class="xpText">
+<div class="xpBar">
+<div
+id="xpFill"
+class="xpFill">
+</div>
+</div>
 
-                <span id="xpCurrent">
-                    0
-                </span>
+</div>
 
-                /
+<div class="avatar">
+🧑‍🚀
+</div>
 
-                <span id="xpMax">
-                    250
-                </span>
-
-                XP
-
-            </div>
-
-
-            <div class="xpBar">
-
-                <div
-                    id="xpFill"
-                    class="xpFill"
-                ></div>
-
-            </div>
-
-        </div>
-
-
-        <div
-            class="coinText"
-            id="coinText"
-        >
-            🪙 100
-        </div>
-
-
-        <div class="avatar">
-            🧑‍🚀
-        </div>
-
-    </div>
+</div>
 
 </header>
 
 
-<!-- MAP -->
+<!-- =================================================
+     MAP
+================================================= -->
 
 <div id="mapContainer">
 
-    <canvas id="mapCanvas"></canvas>
+<canvas id="mapCanvas"></canvas>
 
 
-    <div class="mapControls">
+<div class="mapControls">
 
-        <button
-            class="mapButton"
-            id="zoomIn"
-        >
-            ＋
-        </button>
+<button
+id="zoomIn"
+class="mapButton">
+＋
+</button>
 
-        <button
-            class="mapButton"
-            id="zoomOut"
-        >
-            −
-        </button>
+<button
+id="zoomOut"
+class="mapButton">
+−
+</button>
 
-        <button
-            class="mapButton"
-            id="centerMap"
-        >
-            ⌾
-        </button>
-
-    </div>
-
-
-    <!-- ENCOUNTER -->
-
-    <div id="encounter">
-
-        <div class="encounterTop">
-
-            <div>
-
-                <small id="encounterRarity">
-                    COMMON
-                </small>
-
-                <h2 id="encounterName">
-                    Flamora
-                </h2>
-
-            </div>
-
-
-            <button
-                class="closeButton"
-                id="closeEncounter"
-            >
-                ✕
-            </button>
-
-        </div>
-
-
-        <div
-            class="encounterMonster"
-            id="encounterEmoji"
-        >
-            🔥
-        </div>
-
-
-        <div class="encounterStats">
-
-            <div class="stat">
-
-                <b id="encounterXP">
-                    25
-                </b>
-
-                <br>
-
-                <small>
-                    XP
-                </small>
-
-            </div>
-
-
-            <div class="stat">
-
-                <b id="encounterType">
-                    Fire
-                </b>
-
-                <br>
-
-                <small>
-                    Type
-                </small>
-
-            </div>
-
-
-            <div class="stat">
-
-                <b id="encounterRaritySmall">
-                    Common
-                </b>
-
-                <br>
-
-                <small>
-                    Rarity
-                </small>
-
-            </div>
-
-        </div>
-
-
-        <p
-            id="encounterDescription"
-            style="
-                color:#9aa8bc;
-                line-height:1.5;
-                margin-bottom:15px;
-            "
-        >
-            Een kleine vurige Creature.
-        </p>
-
-
-        <button
-            class="catchButton"
-            id="catchButton"
-        >
-            🎯 VANG CREATURE
-        </button>
-
-    </div>
-
-
-    <div id="toast"></div>
+<button
+id="centerMap"
+class="mapButton">
+⌾
+</button>
 
 </div>
 
 
-<!-- BOTTOM NAV -->
+<!-- STOP POPUP -->
+
+<div id="stopPopup">
+
+<div class="stopIcon">
+🏪
+</div>
+
+<h3 id="stopTitle">
+Creature Stop
+</h3>
+
+<p class="stopPopupText">
+Je hebt een Creature Stop gevonden!
+Verzamel je dagelijkse beloning.
+</p>
+
+<button
+id="claimStop"
+class="primaryButton">
+🎁 VERZAMELEN
+</button>
+
+<button
+id="closeStop"
+class="closeButton">
+✕
+</button>
+
+</div>
+
+
+<!-- ENCOUNTER -->
+
+<div id="creatureEncounter">
+
+<div class="encounterCard">
+
+<button
+id="encounterClose"
+class="encounterClose">
+✕
+</button>
+
+<div
+id="encounterCreature"
+class="bigCreature">
+👾
+</div>
+
+<h2 id="encounterName">
+Creature
+</h2>
+
+<div
+id="encounterInfo"
+class="encounterInfo">
+</div>
+
+<p
+id="encounterDescription"
+class="encounterDescription">
+</p>
+
+<button
+id="catchCreature"
+class="catchButton">
+
+🎯 VANG CREATURE
+
+</button>
+
+</div>
+
+</div>
+
+
+<div id="toast"></div>
+
+</div>
+
+
+<!-- =================================================
+     NAV
+================================================= -->
 
 <nav class="bottomNav">
 
-    <button
-        class="navButton active"
-        data-panel="map"
-    >
+<button
+class="navButton active"
+data-panel="map">
 
-        <span>
-            🗺️
-        </span>
+<span>🗺️</span>
+<small>Kaart</small>
 
-        <small>
-            Kaart
-        </small>
+</button>
 
-    </button>
+<button
+class="navButton"
+data-panel="monsters">
 
+<span>👾</span>
+<small>Creatures</small>
 
-    <button
-        class="navButton"
-        data-panel="creatures"
-    >
+</button>
 
-        <span>
-            👾
-        </span>
+<button
+class="navButton"
+data-panel="events">
 
-        <small>
-            Creatures
-        </small>
+<span>🎉</span>
+<small>Events</small>
 
-    </button>
+</button>
 
+<button
+class="navButton"
+data-panel="friends">
 
-    <button
-        class="navButton"
-        data-panel="events"
-    >
+<span>👥</span>
+<small>Vrienden</small>
 
-        <span>
-            🎉
-        </span>
+</button>
 
-        <small>
-            Events
-        </small>
+<button
+class="navButton"
+data-panel="profile">
 
-    </button>
+<span>👤</span>
+<small>Profiel</small>
 
-
-    <button
-        class="navButton"
-        data-panel="friends"
-    >
-
-        <span>
-            👥
-        </span>
-
-        <small>
-            Vrienden
-        </small>
-
-    </button>
-
-
-    <button
-        class="navButton"
-        data-panel="profile"
-    >
-
-        <span>
-            👤
-        </span>
-
-        <small>
-            Profiel
-        </small>
-
-    </button>
+</button>
 
 </nav>
 
 </div>
 
 
-<!-- =======================================================
+<!-- =================================================
      CREATURES PANEL
-======================================================= -->
+================================================= -->
 
 <section
-    id="creaturesPanel"
-    class="panel"
->
+id="monstersPanel"
+class="panel">
 
-    <div class="panelHeader">
+<div class="panelHeader">
 
-        <h2>
-            👾 Mijn Creatures
-        </h2>
+<h2>
+👾 Mijn Creatures
+</h2>
 
-        <button
-            class="closeButton closePanel"
-        >
-            ✕
-        </button>
-
-    </div>
-
-
-    <div
-        id="monsterGrid"
-        class="monsterGrid"
-    ></div>
-
-</section>
-
-
-<!-- =======================================================
-     EVENTS PANEL
-======================================================= -->
-
-<section
-    id="eventsPanel"
-    class="panel"
->
-
-    <div class="panelHeader">
-
-        <h2>
-            🎉 Events
-        </h2>
-
-        <button
-            class="closeButton closePanel"
-        >
-            ✕
-        </button>
-
-    </div>
-
-
-    <div id="eventsList"></div>
-
-</section>
-
-
-<!-- =======================================================
-     FRIENDS PANEL
-======================================================= -->
-
-<section
-    id="friendsPanel"
-    class="panel"
->
-
-    <div class="panelHeader">
-
-        <h2>
-            👥 Vrienden
-        </h2>
-
-        <button
-            class="closeButton closePanel"
-        >
-            ✕
-        </button>
-
-    </div>
-
-
-    <div class="friendAdd">
-
-        <input
-            id="friendInput"
-            class="friendInput"
-            placeholder="Spelersnaam..."
-        >
-
-        <button
-            id="addFriendButton"
-            class="primaryButton"
-        >
-            Toevoegen
-        </button>
-
-    </div>
-
-
-    <div id="friendsList"></div>
-
-</section>
-
-
-<!-- =======================================================
-     PROFILE PANEL
-======================================================= -->
-
-<section
-    id="profilePanel"
-    class="panel"
->
-
-    <div class="panelHeader">
-
-        <h2>
-            👤 Profiel
-        </h2>
-
-        <button
-            class="closeButton closePanel"
-        >
-            ✕
-        </button>
-
-    </div>
-
-
-    <div class="profileBox">
-
-        <div class="monsterCard">
-
-            <div class="profileAvatar">
-                🧑‍🚀
-            </div>
-
-            <h2>
-                Creature Trainer
-            </h2>
-
-            <p>
-                Klaar om de wereld te ontdekken.
-            </p>
-
-
-            <div class="profileStatsGrid">
-
-                <div class="profileStat">
-
-                    <b id="profileLevel">
-                        1
-                    </b>
-
-                    <br>
-
-                    <small>
-                        Level
-                    </small>
-
-                </div>
-
-
-                <div class="profileStat">
-
-                    <b id="profileCaught">
-                        0
-                    </b>
-
-                    <br>
-
-                    <small>
-                        Creatures
-                    </small>
-
-                </div>
-
-
-                <div class="profileStat">
-
-                    <b id="profileCoins">
-                        100
-                    </b>
-
-                    <br>
-
-                    <small>
-                        Coins
-                    </small>
-
-                </div>
-
-            </div>
-
-
-            <button
-                id="openAdminButton"
-                class="primaryButton"
-            >
-                ⚙️ Adminpaneel
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     ADMIN PANEL
-======================================================= -->
-
-<section
-    id="adminPanel"
-    class="panel"
->
-
-    <div class="panelHeader">
-
-        <h2>
-            ⚙️ Admin Control Center
-        </h2>
-
-        <button
-            class="closeButton"
-            id="closeAdmin"
-        >
-            ✕
-        </button>
-
-    </div>
-
-
-    <div class="adminLayout">
-
-
-        <aside class="adminMenu">
-
-            <button
-                class="adminTab active"
-                data-admin="createEvent"
-            >
-                🎉 Event maken
-            </button>
-
-
-            <button
-                class="adminTab"
-                data-admin="manageEvents"
-            >
-                📋 Events beheren
-            </button>
-
-
-            <button
-                class="adminTab"
-                data-admin="world"
-            >
-                🌍 Wereld
-            </button>
-
-
-            <button
-                class="adminTab"
-                data-admin="monsterAdmin"
-            >
-                👾 Creatures
-            </button>
-
-        </aside>
-
-
-        <div class="adminContent">
-
-
-            <!-- CREATE EVENT -->
-
-            <div
-                id="createEvent"
-                class="adminSection active"
-            >
-
-                <h2>
-                    🎉 Nieuw Event
-                </h2>
-
-                <br>
-
-
-                <div class="form">
-
-                    <label>
-                        Event naam
-
-                        <input
-                            id="eventName"
-                            placeholder="Bijvoorbeeld: Nacht van de Vlam"
-                        >
-
-                    </label>
-
-
-                    <label>
-                        Beschrijving
-
-                        <textarea
-                            id="eventDescription"
-                            placeholder="Wat gebeurt er?"
-                        ></textarea>
-
-                    </label>
-
-
-                    <label>
-                        Beloning
-
-                        <input
-                            id="eventReward"
-                            placeholder="500 XP + coins"
-                        >
-
-                    </label>
-
-
-                    <label>
-                        Emoji
-
-                        <input
-                            id="eventEmoji"
-                            value="🎉"
-                            maxlength="4"
-                        >
-
-                    </label>
-
-
-                    <button
-                        id="createEventButton"
-                        class="primaryButton"
-                    >
-                        🚀 EVENT PUBLICEREN
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- MANAGE EVENTS -->
-
-            <div
-                id="manageEvents"
-                class="adminSection"
-            >
-
-                <h2>
-                    📋 Events beheren
-                </h2>
-
-                <div
-                    id="adminEventsList"
-                ></div>
-
-            </div>
-
-
-            <!-- WORLD -->
-
-            <div
-                id="world"
-                class="adminSection"
-            >
-
-                <h2>
-                    🌍 Wereld
-                </h2>
-
-                <br>
-
-
-                <div class="form">
-
-                    <label>
-
-                        Monster spawn rate
-
-                        <input
-                            id="spawnRate"
-                            type="range"
-                            min="1"
-                            max="100"
-                            value="35"
-                        >
-
-                    </label>
-
-
-                    <button
-                        id="spawnMonsterButton"
-                        class="primaryButton"
-                    >
-                        👾 Creature spawnen
-                    </button>
-
-
-                    <button
-                        id="clearMonstersButton"
-                        class="deleteButton"
-                    >
-                        🧹 Creatures verwijderen
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- MONSTER ADMIN -->
-
-            <div
-                id="monsterAdmin"
-                class="adminSection"
-            >
-
-                <h2>
-                    👾 Creature Catalogus
-                </h2>
-
-                <br>
-
-                <div
-                    id="adminMonsterList"
-                ></div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-</section>
+<button class="closeButton closePanel">
+✕
+</button>
 
 </div>
+
+<div
+id="monsterGrid"
+class="monsterGrid">
+</div>
+
+</section>
+
+
+<!-- =================================================
+     EVENTS
+================================================= -->
+
+<section
+id="eventsPanel"
+class="panel">
+
+<div class="panelHeader">
+
+<h2>
+🎉 Events
+</h2>
+
+<button class="closeButton closePanel">
+✕
+</button>
+
+</div>
+
+<div id="eventsList"></div>
+
+</section>
+
+
+<!-- =================================================
+     FRIENDS
+================================================= -->
+
+<section
+id="friendsPanel"
+class="panel">
+
+<div class="panelHeader">
+
+<h2>
+👥 Vrienden
+</h2>
+
+<button class="closeButton closePanel">
+✕
+</button>
+
+</div>
+
+<div class="friendAdd">
+
+<input
+id="friendInput"
+class="friendInput"
+placeholder="Spelersnaam...">
+
+<button
+id="addFriend"
+class="primaryButton">
+Toevoegen
+</button>
+
+</div>
+
+<div id="friendsList"></div>
+
+</section>
+
+
+<!-- =================================================
+     PROFILE
+================================================= -->
+
+<section
+id="profilePanel"
+class="panel">
+
+<div class="panelHeader">
+
+<h2>
+👤 Profiel
+</h2>
+
+<button class="closeButton closePanel">
+✕
+</button>
+
+</div>
+
+<div class="monsterCard">
+
+<div class="monsterEmoji">
+🧑‍🚀
+</div>
+
+<h2>
+Creature Trainer
+</h2>
+
+<br>
+
+<p id="profileStats">
+Level 1 • 0 Creatures • 100 coins
+</p>
+
+<br>
+
+<button
+id="openAdmin"
+class="primaryButton">
+⚙️ Adminpaneel
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =================================================
+     ADMIN
+================================================= -->
+
+<section
+id="adminPanel"
+class="panel">
+
+<div class="panelHeader">
+
+<h2>
+⚙️ Admin Control Center
+</h2>
+
+<button
+id="closeAdmin"
+class="closeButton">
+✕
+</button>
+
+</div>
+
+<div class="adminLayout">
+
+<aside class="adminMenu">
+
+<button
+class="adminTab active"
+data-admin="createEvent">
+🎉 Event maken
+</button>
+
+<button
+class="adminTab"
+data-admin="eventsAdmin">
+📋 Events
+</button>
+
+<button
+class="adminTab"
+data-admin="worldAdmin">
+🌍 Wereld
+</button>
+
+</aside>
+
+<div class="adminContent">
+
+<div
+id="createEvent"
+class="adminSection active">
+
+<h2>
+🎉 Nieuw Event
+</h2>
+
+<br>
+
+<div class="form">
+
+<label>
+Naam
+
+<input
+id="eventName"
+placeholder="Creature Festival">
+</label>
+
+<label>
+Beschrijving
+
+<textarea
+id="eventDescription"
+placeholder="Beschrijving...">
+</textarea>
+
+</label>
+
+<label>
+Beloning
+
+<input
+id="eventReward"
+placeholder="500 XP + 100 coins">
+</label>
+
+<label>
+Emoji
+
+<input
+id="eventEmoji"
+value="🎉">
+</label>
+
+<button
+id="createEvent"
+class="primaryButton">
+🚀 EVENT PUBLICEREN
+</button>
+
+</div>
+
+</div>
+
+
+<div
+id="eventsAdmin"
+class="adminSection">
+
+<h2>
+📋 Events beheren
+</h2>
+
+<div id="adminEvents"></div>
+
+</div>
+
+
+<div
+id="worldAdmin"
+class="adminSection">
+
+<h2>
+🌍 Wereld
+</h2>
+
+<br>
+
+<div class="form">
+
+<button
+id="adminSpawn"
+class="primaryButton">
+👾 Creature spawnen
+</button>
+
+<button
+id="clearCreatures"
+class="deleteButton">
+🧹 Creatures verwijderen
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</section>
 
 
 <script>
 
 /* =========================================================
-   CREATURE DATA
+   CREATURE DATABASE
 ========================================================= */
 
 const CREATURES = [
 
-    {
-        id:"flamora",
-        name:"Flamora",
-        type:"Fire",
-        rarity:"Common",
-        emoji:"🔥",
-        description:
-            "Een kleine vurige Creature die graag warme plekken bezoekt.",
-        baseXP:25
-    },
+{
+id:"flamora",
+name:"Flamora",
+type:"Fire",
+rarity:"Common",
+emoji:"🔥",
+baseXP:25,
+description:
+"Een kleine vurige Creature die graag warme plekken bezoekt."
+},
 
-    {
-        id:"aquari",
-        name:"Aquari",
-        type:"Water",
-        rarity:"Common",
-        emoji:"💧",
-        description:
-            "Een rustige water-Creature die vlak bij rivieren verschijnt.",
-        baseXP:25
-    },
+{
+id:"aquari",
+name:"Aquari",
+type:"Water",
+rarity:"Common",
+emoji:"💧",
+baseXP:25,
+description:
+"Een rustige water-Creature die vlak bij rivieren verschijnt."
+},
 
-    {
-        id:"leafin",
-        name:"Leafin",
-        type:"Nature",
-        rarity:"Common",
-        emoji:"🌿",
-        description:
-            "Een nieuwsgierige Creature die zich verstopt tussen bladeren.",
-        baseXP:25
-    },
+{
+id:"leafin",
+name:"Leafin",
+type:"Nature",
+rarity:"Common",
+emoji:"🌿",
+baseXP:25,
+description:
+"Een nieuwsgierige Creature die zich tussen bladeren verstopt."
+},
 
-    {
-        id:"sparko",
-        name:"Sparko",
-        type:"Electric",
-        rarity:"Rare",
-        emoji:"⚡",
-        description:
-            "Een energieke Creature die bliksemsnel door de wereld beweegt.",
-        baseXP:50
-    },
+{
+id:"sparko",
+name:"Sparko",
+type:"Electric",
+rarity:"Rare",
+emoji:"⚡",
+baseXP:50,
+description:
+"Een energieke Creature vol elektrische energie."
+},
 
-    {
-        id:"frostel",
-        name:"Frostel",
-        type:"Ice",
-        rarity:"Rare",
-        emoji:"❄️",
-        description:
-            "Een ijzige Creature die het liefst in koude gebieden leeft.",
-        baseXP:50
-    },
+{
+id:"frostel",
+name:"Frostel",
+type:"Ice",
+rarity:"Rare",
+emoji:"❄️",
+baseXP:50,
+description:
+"Een ijzige Creature die van koude gebieden houdt."
+},
 
-    {
-        id:"rockon",
-        name:"Rockon",
-        type:"Earth",
-        rarity:"Common",
-        emoji:"🪨",
-        description:
-            "Een sterke Creature met een lichaam zo hard als steen.",
-        baseXP:25
-    },
+{
+id:"rockon",
+name:"Rockon",
+type:"Earth",
+rarity:"Common",
+emoji:"🪨",
+baseXP:25,
+description:
+"Een sterke Creature met een lichaam zo hard als steen."
+},
 
-    {
-        id:"mystia",
-        name:"Mystia",
-        type:"Mystic",
-        rarity:"Epic",
-        emoji:"🔮",
-        description:
-            "Een mysterieuze Creature die maar zelden wordt gezien.",
-        baseXP:100
-    },
+{
+id:"mystia",
+name:"Mystia",
+type:"Mystic",
+rarity:"Epic",
+emoji:"🔮",
+baseXP:100,
+description:
+"Een mysterieuze Creature die maar zelden verschijnt."
+},
 
-    {
-        id:"shadowa",
-        name:"Shadowa",
-        type:"Dark",
-        rarity:"Epic",
-        emoji:"🌑",
-        description:
-            "Een stille Creature die vooral 's nachts verschijnt.",
-        baseXP:100
-    },
+{
+id:"shadowa",
+name:"Shadowa",
+type:"Dark",
+rarity:"Epic",
+emoji:"🌑",
+baseXP:100,
+description:
+"Een stille Creature die vooral 's nachts verschijnt."
+},
 
-    {
-        id:"solari",
-        name:"Solari",
-        type:"Light",
-        rarity:"Rare",
-        emoji:"☀️",
-        description:
-            "Een zonnige Creature die energie krijgt van daglicht.",
-        baseXP:50
-    },
+{
+id:"solari",
+name:"Solari",
+type:"Light",
+rarity:"Rare",
+emoji:"☀️",
+baseXP:50,
+description:
+"Een zonnige Creature die energie krijgt van daglicht."
+},
 
-    {
-        id:"stormix",
-        name:"Stormix",
-        type:"Electric",
-        rarity:"Epic",
-        emoji:"🌪️",
-        description:
-            "Een krachtige Creature die stormen kan oproepen.",
-        baseXP:100
-    },
+{
+id:"stormix",
+name:"Stormix",
+type:"Electric",
+rarity:"Epic",
+emoji:"🌪️",
+baseXP:100,
+description:
+"Een krachtige Creature die stormen kan oproepen."
+},
 
-    {
-        id:"berryn",
-        name:"Berryn",
-        type:"Nature",
-        rarity:"Common",
-        emoji:"🍓",
-        description:
-            "Een vrolijke Creature die dol is op bessen.",
-        baseXP:25
-    },
+{
+id:"lunari",
+name:"Lunari",
+type:"Mystic",
+rarity:"Legendary",
+emoji:"🌙",
+baseXP:500,
+description:
+"Een legendarische Creature die alleen onder speciale omstandigheden verschijnt."
+},
 
-    {
-        id:"magmox",
-        name:"Magmox",
-        type:"Fire",
-        rarity:"Rare",
-        emoji:"🌋",
-        description:
-            "Een hete Creature die in vulkanische gebieden leeft.",
-        baseXP:50
-    },
-
-    {
-        id:"lunari",
-        name:"Lunari",
-        type:"Mystic",
-        rarity:"Legendary",
-        emoji:"🌙",
-        description:
-            "Een legendarische Creature die alleen onder speciale omstandigheden verschijnt.",
-        baseXP:500
-    },
-
-    {
-        id:"thundra",
-        name:"Thundra",
-        type:"Electric",
-        rarity:"Legendary",
-        emoji:"⚡",
-        description:
-            "Een legendarische storm-Creature met enorme energie.",
-        baseXP:500
-    },
-
-    {
-        id:"florion",
-        name:"Florion",
-        type:"Nature",
-        rarity:"Epic",
-        emoji:"🌸",
-        description:
-            "Een zeldzame bloem-Creature die prachtige bloemen laat groeien.",
-        baseXP:100
-    },
-
-    {
-        id:"aquash",
-        name:"Aquash",
-        type:"Water",
-        rarity:"Epic",
-        emoji:"🐚",
-        description:
-            "Een mysterieuze Creature uit diepe wateren.",
-        baseXP:100
-    },
-
-    {
-        id:"emberoo",
-        name:"Emberoo",
-        type:"Fire",
-        rarity:"Rare",
-        emoji:"🦊",
-        description:
-            "Een snelle vuur-Creature met een gloeiende staart.",
-        baseXP:50
-    },
-
-    {
-        id:"crystali",
-        name:"Crystali",
-        type:"Ice",
-        rarity:"Epic",
-        emoji:"💎",
-        description:
-            "Een kristallen Creature die licht kan weerkaatsen.",
-        baseXP:100
-    },
-
-    {
-        id:"nocty",
-        name:"Nocty",
-        type:"Dark",
-        rarity:"Rare",
-        emoji:"🦇",
-        description:
-            "Een nachtelijke Creature die bijna geruisloos vliegt.",
-        baseXP:50
-    },
-
-    {
-        id:"aurora",
-        name:"Aurora",
-        type:"Light",
-        rarity:"Legendary",
-        emoji:"🌈",
-        description:
-            "Een extreem zeldzame Creature die tijdens bijzondere gebeurtenissen verschijnt.",
-        baseXP:500
-    }
+{
+id:"thundra",
+name:"Thundra",
+type:"Electric",
+rarity:"Legendary",
+emoji:"⚡",
+baseXP:500,
+description:
+"Een legendarische storm-Creature met enorme energie."
+}
 
 ];
 
 
 /* =========================================================
-   PLAYER DATA
+   PLAYER
 ========================================================= */
 
-const defaultPlayer = {
+let player =
+JSON.parse(
+localStorage.getItem("creaturego-player")
+) || {
 
     started:false,
-
-    name:"Creature Trainer",
 
     level:1,
 
@@ -2574,105 +1698,23 @@ const defaultPlayer = {
 
     caught:[],
 
-    friends:[],
-
     events:[],
 
-    spawnRate:35
+    friends:[]
 
 };
 
 
-let player = loadPlayer();
-
-
-function loadPlayer(){
-
-    try{
-
-        const saved =
-            localStorage.getItem(
-                "creaturego-save"
-            );
-
-        if(saved){
-
-            return {
-                ...defaultPlayer,
-                ...JSON.parse(saved)
-            };
-
-        }
-
-    }catch(error){
-
-        console.log(
-            "Save kon niet geladen worden."
-        );
-
-    }
-
-    return {
-        ...defaultPlayer
-    };
-
-}
-
-
-function saveGame(){
-
-    localStorage.setItem(
-        "creaturego-save",
-        JSON.stringify(player)
-    );
-
-}
-
-
 /* =========================================================
-   SELECTORS
+   SAVE
 ========================================================= */
 
-const $ =
-    selector =>
-    document.querySelector(selector);
+function save(){
 
-
-const $$ =
-    selector =>
-    [...document.querySelectorAll(selector)];
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-let toastTimer;
-
-
-function showToast(message){
-
-    const toast =
-        $("#toast");
-
-    toast.textContent =
-        message;
-
-    toast.classList.add("show");
-
-    clearTimeout(
-        toastTimer
-    );
-
-    toastTimer =
-        setTimeout(
-            ()=>{
-                toast.classList.remove(
-                    "show"
-                );
-            },
-            2500
-        );
+localStorage.setItem(
+"creaturego-player",
+JSON.stringify(player)
+);
 
 }
 
@@ -2681,112 +1723,64 @@ function showToast(message){
    XP
 ========================================================= */
 
-function getRequiredXP(){
+function requiredXP(){
 
-    return player.level * 250;
+return player.level * 250;
 
 }
 
 
 function addXP(amount){
 
-    player.xp += amount;
+player.xp += amount;
 
-    let leveledUp = false;
+while(
+player.xp >= requiredXP()
+){
 
+player.xp -= requiredXP();
 
-    while(
-        player.xp >=
-        getRequiredXP()
-    ){
+player.level++;
 
-        player.xp -=
-            getRequiredXP();
+toast(
+"🎉 LEVEL UP! Level "+
+player.level+"!"
+);
 
-        player.level++;
+}
 
-        leveledUp = true;
+save();
 
-    }
-
-
-    saveGame();
-
-    updatePlayerUI();
-
-
-    if(leveledUp){
-
-        showToast(
-            "🎉 LEVEL UP! Je bent nu level " +
-            player.level +
-            "!"
-        );
-
-    }
+updateUI();
 
 }
 
 
 /* =========================================================
-   PLAYER UI
+   TOAST
 ========================================================= */
 
-function updatePlayerUI(){
+let toastTimeout;
 
-    $("#levelText").textContent =
-        "Lv. " +
-        player.level;
+function toast(message){
 
+const box =
+document.getElementById("toast");
 
-    $("#xpCurrent").textContent =
-        player.xp;
+box.textContent =
+message;
 
+box.classList.add("show");
 
-    $("#xpMax").textContent =
-        getRequiredXP();
+clearTimeout(toastTimeout);
 
-
-    const percentage =
-        (
-            player.xp /
-            getRequiredXP()
-        ) * 100;
-
-
-    $("#xpFill").style.width =
-        Math.min(
-            100,
-            percentage
-        ) + "%";
-
-
-    $("#coinText").textContent =
-        "🪙 " +
-        player.coins;
-
-
-    $("#profileLevel").textContent =
-        player.level;
-
-
-    $("#profileCaught").textContent =
-        player.caught.length;
-
-
-    $("#profileCoins").textContent =
-        player.coins;
-
-
-    renderCreatures();
-
-    renderEvents();
-
-    renderFriends();
-
-    renderAdminEvents();
-
-    renderAdminCreatures();
+toastTimeout =
+setTimeout(
+()=>{
+box.classList.remove("show");
+},
+2500
+);
 
 }
 
@@ -2795,62 +1789,104 @@ function updatePlayerUI(){
    START GAME
 ========================================================= */
 
-$("#startAdventure")
+document
+.getElementById("startAdventure")
 .addEventListener(
-    "click",
-    startGame
+"click",
+()=>{
+
+player.started=true;
+
+save();
+
+document
+.getElementById("startScreen")
+.classList.remove("active");
+
+document
+.getElementById("gameScreen")
+.classList.add("active");
+
+setTimeout(
+()=>{
+resizeCanvas();
+generateWorld();
+},
+50
+);
+
+toast(
+"🚀 Avontuur gestart!"
+);
+
+}
 );
 
 
-function startGame(){
+/* =========================================================
+   AUTO START
+========================================================= */
 
-    player.started = true;
+if(player.started){
 
-    saveGame();
+document
+.getElementById("startScreen")
+.classList.remove("active");
 
-
-    $("#startScreen")
-        .classList.remove(
-            "active"
-        );
-
-
-    $("#gameScreen")
-        .classList.add(
-            "active"
-        );
-
-
-    resizeCanvas();
-
-    createInitialSpawns();
-
-    updatePlayerUI();
-
-
-    showToast(
-        "🚀 Avontuur gestart!"
-    );
+document
+.getElementById("gameScreen")
+.classList.add("active");
 
 }
 
 
 /* =========================================================
-   IF ALREADY STARTED
+   UI
 ========================================================= */
 
-if(player.started){
+function updateUI(){
 
-    $("#startScreen")
-        .classList.remove(
-            "active"
-        );
+document
+.getElementById("levelText")
+.textContent =
+"Lv. "+player.level;
 
+document
+.getElementById("xpCurrent")
+.textContent =
+player.xp;
 
-    $("#gameScreen")
-        .classList.add(
-            "active"
-        );
+document
+.getElementById("xpMax")
+.textContent =
+requiredXP();
+
+document
+.getElementById("xpFill")
+.style.width =
+Math.min(
+100,
+(player.xp/requiredXP())*100
+)+"%";
+
+document
+.getElementById("profileStats")
+.textContent =
+"Level "+
+player.level+
+" • "+
+player.caught.length+
+" Creatures • "+
+player.coins+
+" coins";
+
+renderCreatures();
+
+renderEvents();
+
+renderFriends();
+
+renderAdminEvents();
 
 }
 
@@ -2861,108 +1897,93 @@ if(player.started){
 
 const panelMap = {
 
-    creatures:
-        "#creaturesPanel",
+monsters:
+"monstersPanel",
 
-    events:
-        "#eventsPanel",
+events:
+"eventsPanel",
 
-    friends:
-        "#friendsPanel",
+friends:
+"friendsPanel",
 
-    profile:
-        "#profilePanel"
+profile:
+"profilePanel"
 
 };
 
 
-$$(".navButton")
+document
+.querySelectorAll(".navButton")
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+()=>{
+
+document
+.querySelectorAll(".navButton")
 .forEach(
-    button => {
-
-        button.addEventListener(
-            "click",
-            ()=>{
-
-                $$(".navButton")
-                    .forEach(
-                        b =>
-                        b.classList.remove(
-                            "active"
-                        )
-                    );
-
-
-                button.classList.add(
-                    "active"
-                );
-
-
-                $$(".panel")
-                    .forEach(
-                        p =>
-                        p.classList.remove(
-                            "open"
-                        )
-                    );
-
-
-                const target =
-                    panelMap[
-                        button.dataset.panel
-                    ];
-
-
-                if(target){
-
-                    $(target)
-                        .classList.add(
-                            "open"
-                        );
-
-                }
-
-            }
-        );
-
-    }
+b=>b.classList.remove("active")
 );
 
+button.classList.add("active");
 
-$$(".closePanel")
+document
+.querySelectorAll(".panel")
 .forEach(
-    button => {
-
-        button.addEventListener(
-            "click",
-            ()=>{
-
-                $$(".panel")
-                    .forEach(
-                        p =>
-                        p.classList.remove(
-                            "open"
-                        )
-                    );
-
-            }
-        );
-
-    }
+p=>p.classList.remove("open")
 );
 
+const panel =
+panelMap[
+button.dataset.panel
+];
 
-$("#menuButton")
+if(panel){
+
+document
+.getElementById(panel)
+.classList.add("open");
+
+}
+
+}
+);
+
+});
+
+
+document
+.querySelectorAll(".closePanel")
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+()=>{
+
+document
+.querySelectorAll(".panel")
+.forEach(
+p=>p.classList.remove("open")
+);
+
+}
+);
+
+});
+
+
+document
+.getElementById("menuButton")
 .addEventListener(
-    "click",
-    ()=>{
+"click",
+()=>{
 
-        $("#profilePanel")
-            .classList.add(
-                "open"
-            );
+document
+.getElementById("profilePanel")
+.classList.add("open");
 
-    }
+}
 );
 
 
@@ -2972,93 +1993,64 @@ $("#menuButton")
 
 function renderCreatures(){
 
-    const container =
-        $("#monsterGrid");
+const grid =
+document.getElementById(
+"monsterGrid"
+);
 
-    container.innerHTML = "";
+grid.innerHTML="";
 
+if(player.caught.length===0){
 
-    if(player.caught.length === 0){
+grid.innerHTML=
+"<div class='monsterCard'>Nog geen Creatures gevangen.</div>";
 
-        container.innerHTML = `
+return;
 
-            <div class="monsterCard">
+}
 
-                <div class="monsterEmoji">
-                    👾
-                </div>
+player.caught.forEach(item=>{
 
-                <h3>
-                    Nog geen Creatures
-                </h3>
+const creature =
+CREATURES.find(
+c=>c.id===item.id
+);
 
-                <p>
-                    Ga naar de kaart en vang je eerste Creature!
-                </p>
+if(!creature)return;
 
-            </div>
+const card =
+document.createElement("div");
 
-        `;
+card.className=
+"monsterCard";
 
-        return;
+card.innerHTML=`
 
-    }
+<div class="monsterEmoji">
+${creature.emoji}
+</div>
 
+<h3>
+${creature.name}
+</h3>
 
-    player.caught.forEach(
-        caught => {
+<p>
+${creature.type}
+</p>
 
-            const creature =
-                CREATURES.find(
-                    c =>
-                    c.id === caught.id
-                );
+<p>
+${creature.rarity}
+</p>
 
+<p>
+${creature.baseXP} XP
+</p>
 
-            if(!creature)return;
+`;
 
+grid.appendChild(card);
 
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "monsterCard";
-
-
-            card.innerHTML = `
-
-                <div class="monsterEmoji">
-                    ${creature.emoji}
-                </div>
-
-                <h3>
-                    ${creature.name}
-                </h3>
-
-                <p>
-                    ${creature.type}
-                </p>
-
-                <p>
-                    ${creature.rarity}
-                </p>
-
-                <p>
-                    +${creature.baseXP} XP
-                </p>
-
-            `;
-
-
-            container.appendChild(
-                card
-            );
-
-        }
-    );
+});
 
 }
 
@@ -3069,131 +2061,101 @@ function renderCreatures(){
 
 function renderEvents(){
 
-    const container =
-        $("#eventsList");
+const list =
+document.getElementById(
+"eventsList"
+);
 
-    container.innerHTML = "";
+list.innerHTML="";
 
+if(player.events.length===0){
 
-    if(player.events.length === 0){
+list.innerHTML=`
 
-        container.innerHTML = `
+<div class="monsterCard">
 
-            <div class="monsterCard">
+<div class="monsterEmoji">
+🌙
+</div>
 
-                <div class="monsterEmoji">
-                    🌙
-                </div>
+<h3>
+Geen actieve events
+</h3>
 
-                <h3>
-                    Geen actieve events
-                </h3>
+<p>
+Er zijn momenteel geen events.
+</p>
 
-                <p>
-                    Er zijn momenteel geen events.
-                </p>
+</div>
 
-            </div>
+`;
 
-        `;
+return;
 
-        return;
+}
 
-    }
+player.events.forEach(
+(event,index)=>{
 
+const card =
+document.createElement("div");
 
-    player.events.forEach(
-        (event,index)=>{
+card.className=
+"eventCard";
 
-            const card =
-                document.createElement(
-                    "div"
-                );
+card.innerHTML=`
 
+<div class="eventEmoji">
+${event.emoji}
+</div>
 
-            card.className =
-                "eventCard";
+<h3>
+${escapeHTML(event.name)}
+</h3>
 
+<p>
+${escapeHTML(event.description)}
+</p>
 
-            card.innerHTML = `
+<div class="reward">
+🏆 ${escapeHTML(event.reward)}
+</div>
 
-                <div class="eventEmoji">
-                    ${escapeHTML(event.emoji)}
-                </div>
+<button
+class="primaryButton"
+onclick="claimEvent(${index})">
 
-                <h3>
-                    ${escapeHTML(event.name)}
-                </h3>
+CLAIM BELONING
 
-                <p>
-                    ${escapeHTML(event.description)}
-                </p>
+</button>
 
-                <div class="reward">
-                    🏆 ${escapeHTML(event.reward)}
-                </div>
+`;
 
-                <button
-                    class="primaryButton"
-                    data-claim="${index}"
-                >
-                    CLAIM BELONING
-                </button>
+list.appendChild(card);
 
-            `;
-
-
-            container.appendChild(
-                card
-            );
-
-        }
-    );
-
-
-    $$("[data-claim]")
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                ()=>{
-
-                    claimEvent(
-                        Number(
-                            button.dataset.claim
-                        )
-                    );
-
-                }
-            );
-
-        }
-    );
+});
 
 }
 
 
 function claimEvent(index){
 
-    const event =
-        player.events[index];
+const event =
+player.events[index];
 
-    if(!event)return;
+if(!event)return;
 
+addXP(50);
 
-    addXP(50);
+player.coins +=100;
 
-    player.coins += 100;
+save();
 
-    saveGame();
+updateUI();
 
-    updatePlayerUI();
-
-
-    showToast(
-        "🏆 Eventbeloning ontvangen! +50 XP +100 coins"
-    );
+toast(
+"🏆 Beloning ontvangen!"
+);
 
 }
 
@@ -3202,241 +2164,194 @@ function claimEvent(index){
    FRIENDS
 ========================================================= */
 
-$("#addFriendButton")
+document
+.getElementById("addFriend")
 .addEventListener(
-    "click",
-    addFriend
+"click",
+addFriend
 );
 
 
 function addFriend(){
 
-    const input =
-        $("#friendInput");
+const input =
+document.getElementById(
+"friendInput"
+);
 
+const name =
+input.value.trim();
 
-    const name =
-        input.value.trim();
+if(!name){
 
+toast("⚠️ Vul een naam in.");
 
-    if(!name){
+return;
 
-        showToast(
-            "⚠️ Vul een spelersnaam in."
-        );
+}
 
-        return;
+if(player.friends.includes(name)){
 
-    }
+toast(
+"Deze speler staat al in je vriendenlijst."
+);
 
+return;
 
-    if(
-        player.friends.includes(
-            name
-        )
-    ){
+}
 
-        showToast(
-            "Deze speler staat al bij je vrienden."
-        );
+player.friends.push(name);
 
-        return;
+input.value="";
 
-    }
+save();
 
+updateUI();
 
-    player.friends.push(
-        name
-    );
-
-
-    input.value = "";
-
-    saveGame();
-
-    updatePlayerUI();
-
-
-    showToast(
-        "👥 Vriend toegevoegd!"
-    );
+toast(
+"👥 Vriend toegevoegd!"
+);
 
 }
 
 
 function renderFriends(){
 
-    const container =
-        $("#friendsList");
+const list =
+document.getElementById(
+"friendsList"
+);
 
-    container.innerHTML = "";
+list.innerHTML="";
 
+if(player.friends.length===0){
 
-    if(player.friends.length === 0){
+list.innerHTML=`
 
-        container.innerHTML = `
+<div class="monsterCard">
 
-            <div class="monsterCard">
+<div class="monsterEmoji">
+👥
+</div>
 
-                <div class="monsterEmoji">
-                    👥
-                </div>
+<h3>
+Nog geen vrienden
+</h3>
 
-                <h3>
-                    Nog geen vrienden
-                </h3>
+<p>
+Voeg spelers toe.
+</p>
 
-                <p>
-                    Voeg spelers toe aan je vriendenlijst.
-                </p>
+</div>
 
-            </div>
+`;
 
-        `;
+return;
 
-        return;
+}
 
-    }
+player.friends.forEach(
+(name,index)=>{
 
+const row =
+document.createElement("div");
 
-    player.friends.forEach(
-        (friend,index)=>{
+row.className="friend";
 
-            const row =
-                document.createElement(
-                    "div"
-                );
+row.innerHTML=`
 
+<div class="friendAvatar">
+🙂
+</div>
 
-            row.className =
-                "friend";
+<div class="friendInfo">
 
+<b>
+${escapeHTML(name)}
+</b>
 
-            row.innerHTML = `
+<br>
 
-                <div class="friendAvatar">
-                    🙂
-                </div>
+<small>
+🟢 Online
+</small>
 
-                <div class="friendInfo">
+</div>
 
-                    <b>
-                        ${escapeHTML(friend)}
-                    </b>
+<button
+class="closeButton"
+onclick="removeFriend(${index})">
 
-                    <br>
+✕
 
-                    <small>
-                        🟢 Online
-                    </small>
+</button>
 
-                </div>
+`;
 
-                <button
-                    class="closeButton"
-                    data-remove-friend="${index}"
-                >
-                    ✕
-                </button>
+list.appendChild(row);
 
-            `;
+});
 
-
-            container.appendChild(
-                row
-            );
-
-        }
-    );
+}
 
 
-    $$("[data-remove-friend]")
-    .forEach(
-        button => {
+function removeFriend(index){
 
-            button.addEventListener(
-                "click",
-                ()=>{
+player.friends.splice(index,1);
 
-                    const index =
-                        Number(
-                            button.dataset.removeFriend
-                        );
+save();
 
-
-                    player.friends.splice(
-                        index,
-                        1
-                    );
-
-
-                    saveGame();
-
-                    updatePlayerUI();
-
-                }
-            );
-
-        }
-    );
+updateUI();
 
 }
 
 
 /* =========================================================
-   ADMIN LOGIN
+   ADMIN
 ========================================================= */
 
-$("#openAdminButton")
+document
+.getElementById("openAdmin")
 .addEventListener(
-    "click",
-    ()=>{
+"click",
+()=>{
 
-        const code =
-            prompt(
-                "Voer de admin code in:"
-            );
+const code =
+prompt("Admin code:");
 
+if(code==="5676"){
 
-        if(code === "5676"){
+document
+.getElementById("adminPanel")
+.classList.add("open");
 
-            $("#adminPanel")
-                .classList.add(
-                    "open"
-                );
+toast(
+"🔓 Adminpaneel geopend."
+);
 
+}else if(code!==null){
 
-            showToast(
-                "🔓 Adminpaneel geopend."
-            );
+toast(
+"❌ Verkeerde code."
+);
 
-        }
+}
 
-        else if(
-            code !== null
-        ){
-
-            showToast(
-                "❌ Verkeerde admin code."
-            );
-
-        }
-
-    }
+}
 );
 
 
-$("#closeAdmin")
+document
+.getElementById("closeAdmin")
 .addEventListener(
-    "click",
-    ()=>{
+"click",
+()=>{
 
-        $("#adminPanel")
-            .classList.remove(
-                "open"
-            );
+document
+.getElementById("adminPanel")
+.classList.remove("open");
 
-    }
+}
 );
 
 
@@ -3444,141 +2359,181 @@ $("#closeAdmin")
    ADMIN TABS
 ========================================================= */
 
-$$(".adminTab")
+document
+.querySelectorAll(".adminTab")
+.forEach(tab=>{
+
+tab.addEventListener(
+"click",
+()=>{
+
+document
+.querySelectorAll(".adminTab")
 .forEach(
-    tab => {
-
-        tab.addEventListener(
-            "click",
-            ()=>{
-
-                $$(".adminTab")
-                    .forEach(
-                        t =>
-                        t.classList.remove(
-                            "active"
-                        )
-                    );
-
-
-                tab.classList.add(
-                    "active"
-                );
-
-
-                $$(".adminSection")
-                    .forEach(
-                        section =>
-                        section.classList.remove(
-                            "active"
-                        )
-                    );
-
-
-                const target =
-                    tab.dataset.admin;
-
-
-                $("#" + target)
-                    .classList.add(
-                        "active"
-                    );
-
-            }
-        );
-
-    }
+t=>t.classList.remove("active")
 );
+
+tab.classList.add("active");
+
+document
+.querySelectorAll(".adminSection")
+.forEach(
+s=>s.classList.remove("active")
+);
+
+document
+.getElementById(
+tab.dataset.admin
+)
+.classList.add("active");
+
+}
+);
+
+});
 
 
 /* =========================================================
    CREATE EVENT
 ========================================================= */
 
-$("#createEventButton")
+document
+.getElementById("createEvent")
 .addEventListener(
-    "click",
-    createEvent
+"submit",
+e=>e.preventDefault()
 );
 
 
-function createEvent(){
-
-    const name =
-        $("#eventName")
-            .value
-            .trim();
+document
+.getElementById("createEvent")
+;
 
 
-    const description =
-        $("#eventDescription")
-            .value
-            .trim();
+/* =========================================================
+   EVENT BUTTON
+========================================================= */
+
+document
+.getElementById("createEvent")
+;
 
 
-    const reward =
-        $("#eventReward")
-            .value
-            .trim();
+/* Use actual publish button through delegation */
 
+document
+.getElementById("createEvent")
+.addEventListener(
+"click",
+event=>{
 
-    const emoji =
-        $("#eventEmoji")
-            .value
-            .trim();
-
-
-    if(!name){
-
-        showToast(
-            "⚠️ Geef het event een naam."
-        );
-
-        return;
-
-    }
-
-
-    player.events.unshift({
-
-        id:Date.now(),
-
-        name:name,
-
-        description:
-            description ||
-            "Een speciaal CreatureGO event.",
-
-        reward:
-            reward ||
-            "50 XP + 100 coins",
-
-        emoji:
-            emoji ||
-            "🎉"
-
-    });
-
-
-    saveGame();
-
-    updatePlayerUI();
-
-
-    $("#eventName").value = "";
-
-    $("#eventDescription").value = "";
-
-    $("#eventReward").value = "";
-
-    $("#eventEmoji").value = "🎉";
-
-
-    showToast(
-        "🎉 Event gepubliceerd!"
-    );
+if(
+event.target.id !==
+"createEvent"
+)return;
 
 }
+);
+
+
+/* create event button is generated below */
+
+const eventForm =
+document.querySelector(
+"#createEvent .form"
+);
+
+const eventButton =
+document.createElement("button");
+
+eventButton.className=
+"primaryButton";
+
+eventButton.textContent=
+"🚀 EVENT PUBLICEREN";
+
+eventButton.type="button";
+
+eventForm.appendChild(
+eventButton
+);
+
+eventButton.addEventListener(
+"click",
+()=>{
+
+const name =
+document.getElementById(
+"eventName"
+).value.trim();
+
+const description =
+document.getElementById(
+"eventDescription"
+).value.trim();
+
+const reward =
+document.getElementById(
+"eventReward"
+).value.trim();
+
+const emoji =
+document.getElementById(
+"eventEmoji"
+).value.trim();
+
+if(!name){
+
+toast(
+"⚠️ Geef het event een naam."
+);
+
+return;
+
+}
+
+player.events.unshift({
+
+id:Date.now(),
+
+name,
+
+description:
+description ||
+"Een speciaal CreatureGO event.",
+
+reward:
+reward ||
+"50 XP + 100 coins",
+
+emoji:
+emoji ||
+"🎉"
+
+});
+
+save();
+
+updateUI();
+
+document.getElementById(
+"eventName"
+).value="";
+
+document.getElementById(
+"eventDescription"
+).value="";
+
+document.getElementById(
+"eventReward"
+).value="";
+
+toast(
+"🎉 Event gepubliceerd!"
+);
+
+}
+);
 
 
 /* =========================================================
@@ -3587,255 +2542,129 @@ function createEvent(){
 
 function renderAdminEvents(){
 
-    const container =
-        $("#adminEventsList");
+const list =
+document.getElementById(
+"adminEvents"
+);
 
-    container.innerHTML = "";
+list.innerHTML="";
 
+if(player.events.length===0){
 
-    if(player.events.length === 0){
+list.innerHTML=
+"<p style='color:#8997aa;margin-top:15px'>Geen events.</p>";
 
-        container.innerHTML =
-            "<p style='color:#8997aa;margin-top:15px'>Geen events.</p>";
+return;
 
-        return;
+}
 
-    }
+player.events.forEach(
+(event,index)=>{
 
+const row =
+document.createElement("div");
 
-    player.events.forEach(
-        (event,index)=>{
+row.className=
+"adminEvent";
 
-            const row =
-                document.createElement(
-                    "div"
-                );
+row.innerHTML=`
 
+<div>
 
-            row.className =
-                "adminEvent";
+<b>
+${escapeHTML(event.emoji)}
+${escapeHTML(event.name)}
+</b>
 
+<br>
 
-            row.innerHTML = `
+<small style="color:#8190a5">
+${escapeHTML(event.reward)}
+</small>
 
-                <div>
+</div>
 
-                    <b>
-                        ${escapeHTML(event.emoji)}
-                        ${escapeHTML(event.name)}
-                    </b>
+<button
+class="deleteButton"
+onclick="deleteEvent(${index})">
 
-                    <br>
+Verwijderen
 
-                    <small style="color:#8190a5">
-                        ${escapeHTML(event.reward)}
-                    </small>
+</button>
 
-                </div>
+`;
 
-                <button
-                    class="deleteButton"
-                    data-delete-event="${index}"
-                >
-                    Verwijderen
-                </button>
+list.appendChild(row);
 
-            `;
+});
 
-
-            container.appendChild(
-                row
-            );
-
-        }
-    );
+}
 
 
-    $$("[data-delete-event]")
-    .forEach(
-        button => {
+function deleteEvent(index){
 
-            button.addEventListener(
-                "click",
-                ()=>{
+player.events.splice(index,1);
 
-                    const index =
-                        Number(
-                            button.dataset.deleteEvent
-                        );
+save();
 
+updateUI();
 
-                    player.events.splice(
-                        index,
-                        1
-                    );
-
-
-                    saveGame();
-
-                    updatePlayerUI();
-
-
-                    showToast(
-                        "🗑️ Event verwijderd."
-                    );
-
-                }
-            );
-
-        }
-    );
+toast(
+"🗑️ Event verwijderd."
+);
 
 }
 
 
 /* =========================================================
-   ADMIN CREATURES
-========================================================= */
-
-function renderAdminCreatures(){
-
-    const container =
-        $("#adminMonsterList");
-
-    container.innerHTML = "";
-
-
-    CREATURES.forEach(
-        creature=>{
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-
-            row.className =
-                "adminEvent";
-
-
-            row.innerHTML = `
-
-                <div>
-
-                    <b>
-                        ${creature.emoji}
-                        ${creature.name}
-                    </b>
-
-                    <br>
-
-                    <small style="color:#8190a5">
-
-                        ${creature.type}
-
-                        •
-
-                        ${creature.rarity}
-
-                        •
-
-                        ${creature.baseXP} XP
-
-                    </small>
-
-                </div>
-
-                <button
-                    class="primaryButton"
-                    data-admin-spawn="${creature.id}"
-                >
-                    SPAWN
-                </button>
-
-            `;
-
-
-            container.appendChild(
-                row
-            );
-
-        }
-    );
-
-
-    $$("[data-admin-spawn]")
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                ()=>{
-
-                    const creature =
-                        CREATURES.find(
-                            c =>
-                            c.id ===
-                            button.dataset.adminSpawn
-                        );
-
-
-                    if(creature){
-
-                        spawnCreature(
-                            creature
-                        );
-
-
-                        showToast(
-                            "👾 " +
-                            creature.name +
-                            " gespawned!"
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   MAP
+   MAP ENGINE
 ========================================================= */
 
 const canvas =
-    $("#mapCanvas");
-
+document.getElementById(
+"mapCanvas"
+);
 
 const ctx =
-    canvas.getContext(
-        "2d"
-    );
+canvas.getContext("2d");
 
 
-let map = {
+let mapState={
 
-    x:0,
+x:0,
 
-    y:0,
+y:0,
 
-    zoom:1
+zoom:1
 
 };
 
 
-let dragging = false;
+/*
+    BELANGRIJK:
 
-let dragStartX = 0;
+    De wereld is groter dan het scherm.
+    x en y zijn wereld-offsets.
 
-let dragStartY = 0;
+    Hierdoor kunnen we echt pannen.
+*/
 
-let mapStartX = 0;
+let dragging=false;
 
-let mapStartY = 0;
+let pointerStart={x:0,y:0};
+
+let mapStart={x:0,y:0};
+
+let movedDuringDrag=false;
 
 
-let creatureSpawns = [];
+/* =========================================================
+   WORLD OBJECTS
+========================================================= */
+
+let creatures=[];
+
+let stops=[];
 
 
 /* =========================================================
@@ -3844,467 +2673,727 @@ let creatureSpawns = [];
 
 function resizeCanvas(){
 
-    const rect =
-        canvas.getBoundingClientRect();
+const rect =
+canvas.getBoundingClientRect();
 
+const dpr =
+window.devicePixelRatio || 1;
 
-    const dpr =
-        window.devicePixelRatio ||
-        1;
+canvas.width =
+rect.width*dpr;
 
+canvas.height =
+rect.height*dpr;
 
-    canvas.width =
-        rect.width * dpr;
+ctx.setTransform(
+dpr,
+0,
+0,
+dpr,
+0,
+0
+);
 
-
-    canvas.height =
-        rect.height * dpr;
-
-
-    ctx.setTransform(
-        dpr,
-        0,
-        0,
-        dpr,
-        0,
-        0
-    );
-
-
-    drawMap();
+drawMap();
 
 }
 
 
 window.addEventListener(
-    "resize",
-    resizeCanvas
+"resize",
+resizeCanvas
 );
 
 
 /* =========================================================
-   MAP DRAW
+   WORLD GENERATION
+========================================================= */
+
+function generateWorld(){
+
+creatures=[];
+
+stops=[];
+
+
+/* Creatures */
+
+for(
+let i=0;
+i<14;
+i++
+){
+
+creatures.push({
+
+x:Math.random(),
+y:Math.random(),
+
+creature:
+getSpawnCreature()
+
+});
+
+}
+
+
+/* Creature Stops */
+
+const stopPositions=[
+
+{ x:.15,y:.18 },
+
+{ x:.50,y:.25 },
+
+{ x:.82,y:.18 },
+
+{ x:.25,y:.55 },
+
+{ x:.72,y:.52 },
+
+{ x:.42,y:.78 },
+
+{ x:.88,y:.78 }
+
+];
+
+stopPositions.forEach(
+(pos,index)=>{
+
+stops.push({
+
+id:index,
+
+x:pos.x,
+
+y:pos.y,
+
+claimed:false
+
+});
+
+});
+
+drawMap();
+
+}
+
+
+/* =========================================================
+   SPAWN CREATURE
+========================================================= */
+
+function getSpawnCreature(){
+
+const random =
+Math.random();
+
+let available;
+
+if(random<.60){
+
+available=
+CREATURES.filter(
+c=>c.rarity==="Common"
+);
+
+}
+
+else if(random<.87){
+
+available=
+CREATURES.filter(
+c=>c.rarity==="Rare"
+);
+
+}
+
+else if(random<.98){
+
+available=
+CREATURES.filter(
+c=>c.rarity==="Epic"
+);
+
+}
+
+else{
+
+available=
+CREATURES.filter(
+c=>c.rarity==="Legendary"
+);
+
+}
+
+return available[
+Math.floor(
+Math.random()*available.length
+)
+];
+
+}
+
+
+function spawnCreatureAtRandom(
+creature=getSpawnCreature()
+){
+
+creatures.push({
+
+x:.05+
+Math.random()*.90,
+
+y:.05+
+Math.random()*.90,
+
+creature
+
+});
+
+drawMap();
+
+}
+
+
+/* =========================================================
+   WORLD TO SCREEN
+========================================================= */
+
+function worldToScreen(
+x,
+y
+){
+
+const width =
+canvas.clientWidth;
+
+const height =
+canvas.clientHeight;
+
+
+/*
+    De kaart heeft een wereld van
+    0 → 1.
+
+    De offset wordt vervolgens
+    toegepast.
+*/
+
+return{
+
+x:
+(x-mapState.x)*
+width*
+mapState.zoom+
+width/2,
+
+y:
+(y-mapState.y)*
+height*
+mapState.zoom+
+height/2
+
+};
+
+}
+
+
+/* =========================================================
+   DRAW MAP
 ========================================================= */
 
 function drawMap(){
 
-    const width =
-        canvas.clientWidth;
+const width =
+canvas.clientWidth;
 
+const height =
+canvas.clientHeight;
 
-    const height =
-        canvas.clientHeight;
+if(!width || !height)return;
 
 
-    if(
-        !width ||
-        !height
-    )return;
+ctx.clearRect(
+0,
+0,
+width,
+height
+);
 
 
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
+/* =========================
+   GRASS BASE
+========================= */
 
+ctx.fillStyle="#a9cf80";
 
-    /* GRASS */
+ctx.fillRect(
+0,
+0,
+width,
+height
+);
 
-    ctx.fillStyle =
-        "#b8d792";
 
+/* =========================
+   GRID / LAND
+========================= */
 
-    ctx.fillRect(
-        0,
-        0,
-        width,
-        height
-    );
+const grid=
+70*mapState.zoom;
 
+const offsetX =
+(mapState.x*width*mapState.zoom)
+%grid;
 
-    /* GRID */
+const offsetY =
+(mapState.y*height*mapState.zoom)
+%grid;
 
-    const grid =
-        80 * map.zoom;
+for(
+let x=-grid;
+x<width+grid;
+x+=grid
+){
 
+for(
+let y=-grid;
+y<height+grid;
+y+=grid
+){
 
-    for(
-        let x = -grid;
-        x < width + grid;
-        x += grid
-    ){
+const even=
+(
+Math.floor(
+(x+offsetX)/grid
+)+
+Math.floor(
+(y+offsetY)/grid
+)
+)%2===0;
 
-        for(
-            let y = -grid;
-            y < height + grid;
-            y += grid
-        ){
+ctx.fillStyle=
+even
+?"#afd286"
+:"#a6cb7e";
 
-            const tileX =
-                Math.floor(
-                    x / grid
-                );
+ctx.fillRect(
+x+offsetX,
+y+offsetY,
+grid+1,
+grid+1
+);
 
+}
+
+}
 
-            const tileY =
-                Math.floor(
-                    y / grid
-                );
 
+/* =========================
+   RIVER
+========================= */
 
-            ctx.fillStyle =
-                (
-                    tileX +
-                    tileY
-                ) % 2 === 0
-                ?
-                "#b9d996"
-                :
-                "#b2cf8d";
+ctx.strokeStyle="#69add0";
+
+ctx.lineWidth=55;
 
+ctx.lineCap="round";
 
-            ctx.fillRect(
-                x +
-                (
-                    map.x *
-                    width *
-                    map.zoom
-                ) % grid,
+ctx.beginPath();
 
-                y +
-                (
-                    map.y *
-                    height *
-                    map.zoom
-                ) % grid,
+ctx.moveTo(
+-width*.1,
+height*.28
+);
+
+ctx.bezierCurveTo(
+width*.20,
+height*.12,
+width*.35,
+height*.48,
+width*.57,
+height*.28
+);
+
+ctx.bezierCurveTo(
+width*.76,
+height*.08,
+width*.88,
+height*.42,
+width*1.1,
+height*.31
+);
+
+ctx.stroke();
+
+ctx.strokeStyle="#8bcde5";
 
-                grid + 1,
-                grid + 1
-            );
+ctx.lineWidth=35;
+
+ctx.stroke();
+
+
+/* =========================
+   ROADS
+========================= */
+
+drawRoad(
+-width*.1,
+height*.68,
+width*1.1,
+height*.50
+);
+
+drawRoad(
+width*.65,
+-height*.1,
+width*.55,
+height*1.1
+);
 
-        }
+drawRoad(
+width*.05,
+height*.12,
+width*.45,
+height*.35
+);
+
+
+/* =========================
+   PARKS
+========================= */
+
+drawPark(
+width*.18,
+height*.34,
+95
+);
 
-    }
+drawPark(
+width*.80,
+height*.70,
+110
+);
 
+drawPark(
+width*.34,
+height*.82,
+70
+);
 
-    /* RIVER */
+
+/* =========================
+   BUILDINGS
+========================= */
 
-    ctx.strokeStyle =
-        "#6fb8d4";
+for(
+let i=0;
+i<38;
+i++
+){
 
-    ctx.lineWidth =
-        45;
+const bx=
+(i*137)%width;
 
-    ctx.lineCap =
-        "round";
+const by=
+(i*83)%height;
 
+const bw=
+35+(i%4)*13;
 
-    ctx.beginPath();
+const bh=
+28+(i%3)*10;
 
+ctx.fillStyle="#d8d4c5";
 
-    ctx.moveTo(
-        -100,
-        height * .20
-    );
+ctx.fillRect(
+bx,
+by,
+bw,
+bh
+);
 
+ctx.fillStyle="#a57963";
 
-    ctx.bezierCurveTo(
-        width * .25,
-        height * .35,
-        width * .45,
-        height * .08,
-        width * .72,
-        height * .35
-    );
+ctx.fillRect(
+bx,
+by,
+bw,
+7
+);
 
 
-    ctx.bezierCurveTo(
-        width * .85,
-        height * .48,
-        width * .92,
-        height * .30,
-        width + 100,
-        height * .45
-    );
+/* windows */
 
+ctx.fillStyle="#91b9c7";
 
-    ctx.stroke();
+ctx.fillRect(
+bx+8,
+by+12,
+7,
+6
+);
 
+ctx.fillRect(
+bx+bw-15,
+by+12,
+7,
+6
+);
 
-    ctx.strokeStyle =
-        "#91d3e6";
+}
 
 
-    ctx.lineWidth =
-        31;
+/* =========================
+   CREATURE STOPS
+========================= */
 
+stops.forEach(stop=>{
 
-    ctx.stroke();
+const p=
+worldToScreen(
+stop.x,
+stop.y
+);
 
+if(
+p.x<-60 ||
+p.x>width+60 ||
+p.y<-60 ||
+p.y>height+60
+)return;
 
-    /* ROADS */
 
-    drawRoad(
-        -100,
-        height * .55,
-        width + 100,
-        height * .48
-    );
+/* shadow */
 
+ctx.beginPath();
 
-    drawRoad(
-        width * .65,
-        -100,
-        width * .58,
-        height + 100
-    );
+ctx.fillStyle="#00000030";
 
+ctx.ellipse(
+p.x,
+p.y+18,
+28,
+10,
+0,
+0,
+Math.PI*2
+);
 
-    /* PARKS */
+ctx.fill();
 
-    drawPark(
-        width * .17,
-        height * .27,
-        90
-    );
 
+/* circle */
 
-    drawPark(
-        width * .78,
-        height * .72,
-        100
-    );
+ctx.beginPath();
 
+ctx.fillStyle=
+stop.claimed
+?"#667080"
+:"#8068ff";
 
-    drawPark(
-        width * .38,
-        height * .80,
-        65
-    );
+ctx.arc(
+p.x,
+p.y,
+25,
+0,
+Math.PI*2
+);
 
+ctx.fill();
 
-    /* BUILDINGS */
+ctx.strokeStyle="#ffffff";
 
-    for(
-        let i=0;
-        i<30;
-        i++
-    ){
+ctx.lineWidth=3;
 
-        const bx =
-            (
-                i * 137
-            ) % width;
+ctx.stroke();
 
 
-        const by =
-            (
-                i * 83
-            ) % height;
+ctx.font="23px Arial";
 
+ctx.textAlign="center";
 
-        ctx.fillStyle =
-            "#d8d5c7";
+ctx.textBaseline="middle";
 
+ctx.fillText(
+"🏪",
+p.x,
+p.y
+);
 
-        ctx.fillRect(
-            bx,
-            by,
-            45 +
-            (
-                i % 3
-            ) * 12,
 
-            32 +
-            (
-                i % 2
-            ) * 10
-        );
+/* label */
 
+ctx.font="11px Arial";
 
-        ctx.fillStyle =
-            "#9f806b";
+ctx.fillStyle="#172033";
 
+ctx.fillText(
+"Creature Stop",
+p.x,
+p.y+40
+);
 
-        ctx.fillRect(
-            bx,
-            by,
-            45 +
-            (
-                i % 3
-            ) * 12,
+});
 
-            8
-        );
 
-    }
+/* =========================
+   CREATURES
+========================= */
 
+creatures.forEach(
+spawn=>{
 
-    /* POI */
+const p=
+worldToScreen(
+spawn.x,
+spawn.y
+);
 
-    drawPOI(
-        width * .22,
-        height * .46,
-        "🏪"
-    );
+if(
+p.x<-60 ||
+p.x>width+60 ||
+p.y<-60 ||
+p.y>height+60
+)return;
 
 
-    drawPOI(
-        width * .72,
-        height * .30,
-        "🏥"
-    );
+/* glow */
 
+ctx.beginPath();
 
-    drawPOI(
-        width * .48,
-        height * .67,
-        "🏛️"
-    );
+ctx.fillStyle="#ffffff44";
 
+ctx.arc(
+p.x,
+p.y,
+35,
+0,
+Math.PI*2
+);
 
-    drawPOI(
-        width * .85,
-        height * .58,
-        "🌳"
-    );
+ctx.fill();
 
 
-    /* CREATURES */
+/* white circle */
 
-    creatureSpawns.forEach(
-        spawn=>{
+ctx.beginPath();
 
-            const position =
-                worldToScreen(
-                    spawn.x,
-                    spawn.y
-                );
+ctx.fillStyle="#ffffffee";
 
+ctx.arc(
+p.x,
+p.y,
+27,
+0,
+Math.PI*2
+);
 
-            if(
-                position.x > -50 &&
-                position.x < width + 50 &&
-                position.y > -50 &&
-                position.y < height + 50
-            ){
+ctx.fill();
 
-                ctx.beginPath();
 
+ctx.font="30px Arial";
 
-                ctx.fillStyle =
-                    "#ffffffdd";
+ctx.textAlign="center";
 
+ctx.textBaseline="middle";
 
-                ctx.arc(
-                    position.x,
-                    position.y,
-                    27,
-                    0,
-                    Math.PI * 2
-                );
+ctx.fillText(
+spawn.creature.emoji,
+p.x,
+p.y
+);
 
 
-                ctx.fill();
+/* name */
 
+ctx.font="11px Arial";
 
-                ctx.font =
-                    "30px Arial";
+ctx.fillStyle="#172033";
 
+ctx.fillText(
+spawn.creature.name,
+p.x,
+p.y+40
+);
 
-                ctx.textAlign =
-                    "center";
+});
 
 
-                ctx.textBaseline =
-                    "middle";
+/* =========================
+   PLAYER
+========================= */
 
+const playerPosition =
+worldToScreen(
+.50,
+.55
+);
 
-                ctx.fillText(
-                    spawn.creature.emoji,
-                    position.x,
-                    position.y
-                );
 
+/* player radius */
 
-                ctx.font =
-                    "10px Arial";
+ctx.beginPath();
 
+ctx.fillStyle="#5d7cff33";
 
-                ctx.fillStyle =
-                    "#172033";
+ctx.arc(
+playerPosition.x,
+playerPosition.y,
+40,
+0,
+Math.PI*2
+);
 
+ctx.fill();
 
-                ctx.fillText(
-                    spawn.creature.name,
-                    position.x,
-                    position.y + 40
-                );
 
-            }
+ctx.beginPath();
 
-        }
-    );
+ctx.fillStyle="#5d7cff";
 
+ctx.arc(
+playerPosition.x,
+playerPosition.y,
+13,
+0,
+Math.PI*2
+);
 
-    /* PLAYER */
+ctx.fill();
 
-    const playerPosition =
-        worldToScreen(
-            .5,
-            .55
-        );
+ctx.strokeStyle="white";
 
+ctx.lineWidth=4;
 
-    ctx.beginPath();
+ctx.stroke();
 
 
-    ctx.fillStyle =
-        "#5d7cff33";
+/* direction */
 
+ctx.beginPath();
 
-    ctx.arc(
-        playerPosition.x,
-        playerPosition.y,
-        38,
-        0,
-        Math.PI * 2
-    );
+ctx.moveTo(
+playerPosition.x,
+playerPosition.y-22
+);
 
+ctx.lineTo(
+playerPosition.x-7,
+playerPosition.y-10
+);
 
-    ctx.fill();
+ctx.lineTo(
+playerPosition.x+7,
+playerPosition.y-10
+);
 
+ctx.closePath();
 
-    ctx.beginPath();
+ctx.fillStyle="#ffffff";
 
-
-    ctx.fillStyle =
-        "#5d7cff";
-
-
-    ctx.arc(
-        playerPosition.x,
-        playerPosition.y,
-        12,
-        0,
-        Math.PI * 2
-    );
-
-
-    ctx.fill();
-
-
-    ctx.strokeStyle =
-        "white";
-
-
-    ctx.lineWidth =
-        4;
-
-
-    ctx.stroke();
+ctx.fill();
 
 }
 
@@ -4314,54 +3403,35 @@ function drawMap(){
 ========================================================= */
 
 function drawRoad(
-    x1,
-    y1,
-    x2,
-    y2
+x1,
+y1,
+x2,
+y2
 ){
 
-    ctx.strokeStyle =
-        "#d7c493";
+ctx.strokeStyle="#cbb67f";
 
-    ctx.lineWidth =
-        25;
+ctx.lineWidth=30;
 
+ctx.beginPath();
 
-    ctx.beginPath();
+ctx.moveTo(x1,y1);
 
-    ctx.moveTo(
-        x1,
-        y1
-    );
+ctx.lineTo(x2,y2);
 
-    ctx.lineTo(
-        x2,
-        y2
-    );
+ctx.stroke();
 
-    ctx.stroke();
+ctx.strokeStyle="#ead9a8";
 
+ctx.lineWidth=20;
 
-    ctx.strokeStyle =
-        "#ead9a8";
+ctx.beginPath();
 
-    ctx.lineWidth =
-        16;
+ctx.moveTo(x1,y1);
 
+ctx.lineTo(x2,y2);
 
-    ctx.beginPath();
-
-    ctx.moveTo(
-        x1,
-        y1
-    );
-
-    ctx.lineTo(
-        x2,
-        y2
-    );
-
-    ctx.stroke();
+ctx.stroke();
 
 }
 
@@ -4371,446 +3441,176 @@ function drawRoad(
 ========================================================= */
 
 function drawPark(
-    x,
-    y,
-    radius
+x,
+y,
+radius
 ){
 
-    ctx.fillStyle =
-        "#8fbd70";
+ctx.beginPath();
+
+ctx.fillStyle="#8fbd70";
+
+ctx.arc(
+x,
+y,
+radius,
+0,
+Math.PI*2
+);
+
+ctx.fill();
 
 
-    ctx.beginPath();
-
-
-    ctx.arc(
-        x,
-        y,
-        radius,
-        0,
-        Math.PI * 2
-    );
-
-
-    ctx.fill();
-
-
-    for(
-        let i=0;
-        i<8;
-        i++
-    ){
-
-        ctx.fillStyle =
-            "#5d9960";
-
-
-        ctx.beginPath();
-
-
-        ctx.arc(
-            x +
-            Math.sin(i) *
-            radius *
-            .6,
-
-            y +
-            Math.cos(i) *
-            radius *
-            .6,
-
-            10,
-
-            0,
-            Math.PI * 2
-        );
-
-
-        ctx.fill();
-
-    }
-
-}
-
-
-/* =========================================================
-   POI
-========================================================= */
-
-function drawPOI(
-    x,
-    y,
-    emoji
+for(
+let i=0;
+i<10;
+i++
 ){
 
-    ctx.beginPath();
+const angle=
+(i/10)*Math.PI*2;
 
+const tx=
+x+
+Math.cos(angle)*
+radius*.65;
 
-    ctx.fillStyle =
-        "white";
+const ty=
+y+
+Math.sin(angle)*
+radius*.65;
 
+ctx.beginPath();
 
-    ctx.arc(
-        x,
-        y,
-        23,
-        0,
-        Math.PI * 2
-    );
+ctx.fillStyle="#548f5a";
 
+ctx.arc(
+tx,
+ty,
+11,
+0,
+Math.PI*2
+);
 
-    ctx.fill();
+ctx.fill();
 
-
-    ctx.font =
-        "22px Arial";
-
-
-    ctx.textAlign =
-        "center";
-
-
-    ctx.textBaseline =
-        "middle";
-
-
-    ctx.fillText(
-        emoji,
-        x,
-        y
-    );
+}
 
 }
 
 
 /* =========================================================
-   WORLD COORDINATES
-========================================================= */
-
-function worldToScreen(
-    x,
-    y
-){
-
-    const width =
-        canvas.clientWidth;
-
-
-    const height =
-        canvas.clientHeight;
-
-
-    return {
-
-        x:
-            (
-                x -
-                map.x
-            ) *
-            width *
-            map.zoom +
-            width / 2,
-
-        y:
-            (
-                y -
-                map.y
-            ) *
-            height *
-            map.zoom +
-            height / 2
-
-    };
-
-}
-
-
-/* =========================================================
-   CREATURE RANDOM
-========================================================= */
-
-function getRandomCreature(){
-
-    const random =
-        Math.random();
-
-
-    let available;
-
-
-    if(random < .65){
-
-        available =
-            CREATURES.filter(
-                c =>
-                c.rarity ===
-                "Common"
-            );
-
-    }
-
-    else if(random < .90){
-
-        available =
-            CREATURES.filter(
-                c =>
-                c.rarity ===
-                "Rare"
-            );
-
-    }
-
-    else if(random < .985){
-
-        available =
-            CREATURES.filter(
-                c =>
-                c.rarity ===
-                "Epic"
-            );
-
-    }
-
-    else{
-
-        available =
-            CREATURES.filter(
-                c =>
-                c.rarity ===
-                "Legendary"
-            );
-
-    }
-
-
-    return available[
-        Math.floor(
-            Math.random() *
-            available.length
-        )
-    ];
-
-}
-
-
-/* =========================================================
-   INITIAL SPAWNS
-========================================================= */
-
-function createInitialSpawns(){
-
-    if(
-        creatureSpawns.length > 0
-    ){
-
-        drawMap();
-
-        return;
-
-    }
-
-
-    for(
-        let i=0;
-        i<8;
-        i++
-    ){
-
-        spawnCreature(
-            getRandomCreature(),
-            false
-        );
-
-    }
-
-
-    drawMap();
-
-}
-
-
-/* =========================================================
-   SPAWN CREATURE
-========================================================= */
-
-function spawnCreature(
-    creature = getRandomCreature(),
-    message = true
-){
-
-    const spawn = {
-
-        x:
-            .10 +
-            Math.random() *
-            .80,
-
-        y:
-            .10 +
-            Math.random() *
-            .80,
-
-        creature:
-            creature,
-
-        created:
-            Date.now()
-
-    };
-
-
-    creatureSpawns.push(
-        spawn
-    );
-
-
-    drawMap();
-
-
-    if(message){
-
-        showToast(
-            "👾 " +
-            creature.name +
-            " verschenen!"
-        );
-
-    }
-
-
-    setTimeout(
-        ()=>{
-
-            const index =
-                creatureSpawns.indexOf(
-                    spawn
-                );
-
-
-            if(index !== -1){
-
-                creatureSpawns.splice(
-                    index,
-                    1
-                );
-
-                drawMap();
-
-            }
-
-        },
-        45000
-    );
-
-}
-
-
-/* =========================================================
-   MAP DRAG
+   MAP POINTER DOWN
 ========================================================= */
 
 canvas.addEventListener(
-    "pointerdown",
-    event=>{
+"pointerdown",
+event=>{
 
-        dragging = true;
+dragging=true;
 
+movedDuringDrag=false;
 
-        canvas.classList.add(
-            "dragging"
-        );
+pointerStart.x=
+event.clientX;
 
+pointerStart.y=
+event.clientY;
 
-        dragStartX =
-            event.clientX;
+mapStart.x=
+mapState.x;
 
+mapStart.y=
+mapState.y;
 
-        dragStartY =
-            event.clientY;
+canvas.classList.add(
+"dragging"
+);
 
+canvas.setPointerCapture(
+event.pointerId
+);
 
-        mapStartX =
-            map.x;
-
-
-        mapStartY =
-            map.y;
-
-
-        canvas.setPointerCapture(
-            event.pointerId
-        );
-
-    }
+}
 );
 
 
+/* =========================================================
+   MAP POINTER MOVE
+========================================================= */
+
 canvas.addEventListener(
-    "pointermove",
-    event=>{
+"pointermove",
+event=>{
 
-        if(!dragging)return;
+if(!dragging)return;
 
+const dx=
+event.clientX-pointerStart.x;
 
-        const width =
-            canvas.clientWidth;
+const dy=
+event.clientY-pointerStart.y;
 
+if(
+Math.abs(dx)>5 ||
+Math.abs(dy)>5
+){
 
-        const height =
-            canvas.clientHeight;
+movedDuringDrag=true;
 
+}
 
-        map.x =
-            mapStartX -
-            (
-                event.clientX -
-                dragStartX
-            ) /
-            (
-                width *
-                map.zoom
-            );
+const width=
+canvas.clientWidth;
 
-
-        map.y =
-            mapStartY -
-            (
-                event.clientY -
-                dragStartY
-            ) /
-            (
-                height *
-                map.zoom
-            );
+const height=
+canvas.clientHeight;
 
 
-        drawMap();
+/*
+    BELANGRIJK:
 
-    }
+    Hier zit de fix voor het bewegen
+    van de kaart.
+*/
+
+mapState.x=
+mapStart.x-
+dx/(width*mapState.zoom);
+
+mapState.y=
+mapStart.y-
+dy/(height*mapState.zoom);
+
+drawMap();
+
+}
 );
 
 
+/* =========================================================
+   POINTER UP
+========================================================= */
+
 canvas.addEventListener(
-    "pointerup",
-    event=>{
+"pointerup",
+event=>{
 
-        dragging = false;
+dragging=false;
 
+canvas.classList.remove(
+"dragging"
+);
 
-        canvas.classList.remove(
-            "dragging"
-        );
+try{
 
+canvas.releasePointerCapture(
+event.pointerId
+);
 
-        try{
+}catch{}
 
-            canvas.releasePointerCapture(
-                event.pointerId
-            );
-
-        }catch{}
-
-    }
+}
 );
 
 
@@ -4819,90 +3619,119 @@ canvas.addEventListener(
 ========================================================= */
 
 canvas.addEventListener(
-    "click",
-    event=>{
+"click",
+event=>{
 
-        if(
-            Math.abs(
-                event.clientX -
-                dragStartX
-            ) > 8 ||
-            Math.abs(
-                event.clientY -
-                dragStartY
-            ) > 8
-        ){
+/*
+    Als de gebruiker de kaart heeft
+    gesleept, mag dit GEEN klik zijn.
+*/
 
-            return;
+if(movedDuringDrag){
 
-        }
+return;
 
+}
 
-        const rect =
-            canvas.getBoundingClientRect();
+const rect=
+canvas.getBoundingClientRect();
 
+const clickX=
+event.clientX-rect.left;
 
-        const clickX =
-            event.clientX -
-            rect.left;
+const clickY=
+event.clientY-rect.top;
 
 
-        const clickY =
-            event.clientY -
-            rect.top;
+/* =========================
+   CREATURE STOP CHECK
+========================= */
+
+let closestStop=null;
+
+let stopDistance=45;
+
+stops.forEach(stop=>{
+
+const p=
+worldToScreen(
+stop.x,
+stop.y
+);
+
+const distance=
+Math.hypot(
+p.x-clickX,
+p.y-clickY
+);
+
+if(distance<stopDistance){
+
+closestStop=stop;
+
+stopDistance=distance;
+
+}
+
+});
 
 
-        let closest = null;
+if(closestStop){
 
-        let closestDistance = 60;
+openStop(
+closestStop
+);
 
+return;
 
-        creatureSpawns.forEach(
-            spawn=>{
-
-                const position =
-                    worldToScreen(
-                        spawn.x,
-                        spawn.y
-                    );
+}
 
 
-                const distance =
-                    Math.hypot(
-                        position.x -
-                        clickX,
+/* =========================
+   CREATURE CHECK
+========================= */
 
-                        position.y -
-                        clickY
-                    );
+let closestCreature=null;
+
+let creatureDistance=55;
+
+creatures.forEach(
+spawn=>{
+
+const p=
+worldToScreen(
+spawn.x,
+spawn.y
+);
+
+const distance=
+Math.hypot(
+p.x-clickX,
+p.y-clickY
+);
+
+if(
+distance<creatureDistance
+){
+
+closestCreature=spawn;
+
+creatureDistance=distance;
+
+}
+
+});
 
 
-                if(
-                    distance <
-                    closestDistance
-                ){
+if(closestCreature){
 
-                    closestDistance =
-                        distance;
+openEncounter(
+closestCreature
+);
 
-                    closest =
-                        spawn;
+}
 
-                }
-
-            }
-        );
-
-
-        if(closest){
-
-            openEncounter(
-                closest
-            );
-
-        }
-
-    }
+}
 );
 
 
@@ -4910,61 +3739,65 @@ canvas.addEventListener(
    ZOOM
 ========================================================= */
 
-$("#zoomIn")
+document
+.getElementById("zoomIn")
 .addEventListener(
-    "click",
-    ()=>{
+"click",
+()=>{
 
-        map.zoom =
-            Math.min(
-                2.5,
-                map.zoom * 1.2
-            );
+mapState.zoom=
+Math.min(
+2.8,
+mapState.zoom*1.2
+);
 
+drawMap();
 
-        drawMap();
-
-    }
+}
 );
 
 
-$("#zoomOut")
+document
+.getElementById("zoomOut")
 .addEventListener(
-    "click",
-    ()=>{
+"click",
+()=>{
 
-        map.zoom =
-            Math.max(
-                .65,
-                map.zoom / 1.2
-            );
+mapState.zoom=
+Math.max(
+0.65,
+mapState.zoom/1.2
+);
 
+drawMap();
 
-        drawMap();
-
-    }
+}
 );
 
 
-$("#centerMap")
+/* =========================================================
+   CENTER
+========================================================= */
+
+document
+.getElementById("centerMap")
 .addEventListener(
-    "click",
-    ()=>{
+"click",
+()=>{
 
-        map.x = 0;
+mapState.x=0;
 
-        map.y = 0;
+mapState.y=0;
 
-        map.zoom = 1;
+mapState.zoom=1;
 
-        drawMap();
+drawMap();
 
+toast(
+"⌾ Kaart gecentreerd"
+);
 
-        showToast(
-            "⌾ Kaart gecentreerd"
-        );
-
-    }
+}
 );
 
 
@@ -4972,124 +3805,142 @@ $("#centerMap")
    LOCATION
 ========================================================= */
 
-$("#locationButton")
+document
+.getElementById("locationButton")
 .addEventListener(
-    "click",
-    ()=>{
+"click",
+()=>{
 
-        if(
-            !navigator.geolocation
-        ){
+if(
+!navigator.geolocation
+){
 
-            showToast(
-                "📍 Locatie wordt niet ondersteund."
-            );
+toast(
+"📍 Locatie wordt niet ondersteund."
+);
 
-            return;
+return;
 
-        }
+}
 
+navigator
+.geolocation
+.getCurrentPosition(
 
-        navigator.geolocation.getCurrentPosition(
+()=>{
+toast(
+"📍 Locatie gevonden!"
+);
 
-            ()=>{
-                showToast(
-                    "📍 Locatie gevonden!"
-                );
-            },
+},
 
-            ()=>{
-                showToast(
-                    "⚠️ Locatie kon niet worden opgehaald."
-                );
-            }
+()=>{
+toast(
+"⚠️ Locatie kon niet worden opgehaald."
+);
 
-        );
+}
 
-    }
+);
+
+}
 );
 
 
 /* =========================================================
-   ENCOUNTER
+   CREATURE ENCOUNTER
 ========================================================= */
 
-let currentEncounter = null;
+let currentCreature=null;
 
 
 function openEncounter(
-    spawn
+spawn
 ){
 
-    currentEncounter =
-        spawn;
+currentCreature=spawn;
+
+const creature=
+spawn.creature;
 
 
-    const creature =
-        spawn.creature;
+document
+.getElementById(
+"encounterCreature"
+)
+.textContent=
+creature.emoji;
 
 
-    $("#encounterName")
-        .textContent =
-        creature.name;
+document
+.getElementById(
+"encounterName"
+)
+.textContent=
+creature.name;
 
 
-    $("#encounterEmoji")
-        .textContent =
-        creature.emoji;
+document
+.getElementById(
+"encounterInfo"
+)
+.innerHTML=`
+
+<span class="badge">
+${creature.type}
+</span>
+
+<span class="badge rarity-${creature.rarity.toLowerCase()}">
+${creature.rarity}
+</span>
+
+<span class="badge">
++${creature.baseXP} XP
+</span>
+
+`;
 
 
-    $("#encounterType")
-        .textContent =
-        creature.type;
+document
+.getElementById(
+"encounterDescription"
+)
+.textContent=
+creature.description;
 
 
-    $("#encounterXP")
-        .textContent =
-        creature.baseXP;
-
-
-    $("#encounterRarity")
-        .textContent =
-        creature.rarity
-            .toUpperCase();
-
-
-    $("#encounterRaritySmall")
-        .textContent =
-        creature.rarity;
-
-
-    $("#encounterDescription")
-        .textContent =
-        creature.description;
-
-
-    $("#encounter")
-        .classList.add(
-            "open"
-        );
+document
+.getElementById(
+"creatureEncounter"
+)
+.style.display=
+"flex";
 
 }
 
 
-$("#closeEncounter")
+/* =========================================================
+   CLOSE ENCOUNTER
+========================================================= */
+
+document
+.getElementById("encounterClose")
 .addEventListener(
-    "click",
-    closeEncounter
+"click",
+closeEncounter
 );
 
 
 function closeEncounter(){
 
-    $("#encounter")
-        .classList.remove(
-            "open"
-        );
+document
+.getElementById(
+"creatureEncounter"
+)
+.style.display=
+"none";
 
-
-    currentEncounter =
-        null;
+currentCreature=null;
 
 }
 
@@ -5098,304 +3949,343 @@ function closeEncounter(){
    CATCH
 ========================================================= */
 
-$("#catchButton")
+document
+.getElementById("catchCreature")
 .addEventListener(
-    "click",
-    catchCurrentCreature
+"click",
+()=>{
+
+if(!currentCreature)return;
+
+const creature=
+currentCreature.creature;
+
+
+/* catch chance */
+
+let chance=.9;
+
+if(
+creature.rarity==="Rare"
+)chance=.78;
+
+if(
+creature.rarity==="Epic"
+)chance=.60;
+
+if(
+creature.rarity==="Legendary"
+)chance=.40;
+
+
+if(
+Math.random()<chance
+){
+
+const alreadyCaught=
+player.caught.some(
+c=>c.id===creature.id
+);
+
+if(alreadyCaught){
+
+addXP(
+Math.floor(
+creature.baseXP*.4
+)
+);
+
+player.coins+=5;
+
+}else{
+
+player.caught.push({
+
+id:creature.id,
+
+caughtAt:
+new Date().toISOString()
+
+});
+
+addXP(
+creature.baseXP
+);
+
+player.coins+=
+creature.rarity==="Legendary"
+?100
+:creature.rarity==="Epic"
+?40
+:creature.rarity==="Rare"
+?20
+:10;
+
+}
+
+const index=
+creatures.indexOf(
+currentCreature
+);
+
+if(index!==-1){
+
+creatures.splice(
+index,
+1
+);
+
+}
+
+save();
+
+updateUI();
+
+drawMap();
+
+closeEncounter();
+
+toast(
+"🎉 "+
+creature.name+
+" gevangen!"
+);
+
+setTimeout(
+()=>{
+spawnCreatureAtRandom();
+},
+1800
+);
+
+}else{
+
+toast(
+"💨 "+
+creature.name+
+" ontsnapte!"
+);
+
+}
+
+}
 );
 
 
-function catchCurrentCreature(){
+/* =========================================================
+   CREATURE STOPS
+========================================================= */
 
-    if(
-        !currentEncounter
-    )return;
-
-
-    const creature =
-        currentEncounter.creature;
+let currentStop=null;
 
 
-    const spawn =
-        currentEncounter;
+function openStop(stop){
 
+currentStop=stop;
 
-    const index =
-        creatureSpawns.indexOf(
-            spawn
-        );
+document
+.getElementById("stopTitle")
+.textContent=
+stop.claimed
+?"Creature Stop"
+:"Creature Stop";
 
-
-    if(index !== -1){
-
-        creatureSpawns.splice(
-            index,
-            1
-        );
-
-    }
-
-
-    const alreadyCaught =
-        player.caught.some(
-            c =>
-            c.id === creature.id
-        );
-
-
-    let xpAmount;
-
-
-    if(alreadyCaught){
-
-        xpAmount =
-            Math.floor(
-                creature.baseXP *
-                .4
-            );
-
-
-        player.coins += 5;
-
-
-        showToast(
-            "✨ Dubbele Creature! +" +
-            xpAmount +
-            " XP"
-        );
-
-    }
-
-    else{
-
-        player.caught.push({
-
-            id:
-                creature.id,
-
-            caughtAt:
-                new Date()
-                    .toISOString()
-
-        });
-
-
-        xpAmount =
-            creature.baseXP;
-
-
-        if(
-            creature.rarity ===
-            "Legendary"
-        ){
-
-            player.coins += 100;
-
-        }
-
-        else if(
-            creature.rarity ===
-            "Epic"
-        ){
-
-            player.coins += 40;
-
-        }
-
-        else if(
-            creature.rarity ===
-            "Rare"
-        ){
-
-            player.coins += 20;
-
-        }
-
-        else{
-
-            player.coins += 10;
-
-        }
-
-    }
-
-
-    addXP(
-        xpAmount
-    );
-
-
-    saveGame();
-
-    updatePlayerUI();
-
-    drawMap();
-
-    closeEncounter();
-
-
-    if(!alreadyCaught){
-
-        showToast(
-            "🎉 " +
-            creature.name +
-            " gevangen! +" +
-            xpAmount +
-            " XP"
-        );
-
-    }
-
-
-    setTimeout(
-        ()=>{
-            spawnCreature();
-        },
-        1800
-    );
+document
+.getElementById("stopPopup")
+.classList.add("open");
 
 }
 
 
+document
+.getElementById("closeStop")
+.addEventListener(
+"click",
+()=>{
+
+document
+.getElementById("stopPopup")
+.classList.remove("open");
+
+currentStop=null;
+
+}
+);
+
+
 /* =========================================================
-   ADMIN WORLD
+   CLAIM STOP
 ========================================================= */
 
-$("#spawnMonsterButton")
+document
+.getElementById("claimStop")
 .addEventListener(
-    "click",
-    ()=>{
+"click",
+()=>{
 
-        spawnCreature();
+if(!currentStop)return;
 
-    }
+
+if(currentStop.claimed){
+
+toast(
+"⏳ Deze Stop is al gebruikt."
 );
 
+return;
 
-$("#clearMonstersButton")
-.addEventListener(
-    "click",
-    ()=>{
-
-        creatureSpawns = [];
-
-        drawMap();
+}
 
 
-        showToast(
-            "🧹 Alle Creatures verwijderd."
-        );
+/*
+    Beloning
+*/
 
-    }
+const coins=
+10+
+Math.floor(
+Math.random()*21
 );
 
+player.coins+=coins;
 
-$("#spawnRate")
-.addEventListener(
-    "input",
-    event=>{
+addXP(15);
 
-        player.spawnRate =
-            Number(
-                event.target.value
-            );
+currentStop.claimed=true;
 
+save();
 
-        saveGame();
+updateUI();
 
-    }
+drawMap();
+
+document
+.getElementById("stopPopup")
+.classList.remove("open");
+
+toast(
+"🎁 Creature Stop geopend! +"+
+coins+
+" coins"
+);
+
+}
 );
 
 
 /* =========================================================
-   AUTOMATISCHE SPAWNS
+   ADMIN SPAWN
+========================================================= */
+
+document
+.getElementById("adminSpawn")
+.addEventListener(
+"click",
+()=>{
+
+const creature=
+getSpawnCreature();
+
+spawnCreatureAtRandom(
+creature
+);
+
+toast(
+"👾 "+
+creature.name+
+" gespawned!"
+);
+
+}
+);
+
+
+/* =========================================================
+   CLEAR CREATURES
+========================================================= */
+
+document
+.getElementById("clearCreatures")
+.addEventListener(
+"click",
+()=>{
+
+creatures=[];
+
+drawMap();
+
+toast(
+"🧹 Alle Creatures verwijderd."
+);
+
+}
+);
+
+
+/* =========================================================
+   AUTOMATIC SPAWNS
 ========================================================= */
 
 setInterval(
-    ()=>{
+()=>{
 
-        if(
-            !player.started
-        )return;
+if(!player.started)return;
 
+if(
+creatures.length<12
+){
 
-        if(
-            creatureSpawns.length >= 10
-        )return;
+spawnCreatureAtRandom();
 
+}
 
-        const chance =
-            Math.random() * 100;
-
-
-        if(
-            chance <
-            player.spawnRate
-        ){
-
-            spawnCreature();
-
-        }
-
-    },
-    5000
+},
+5000
 );
 
 
 /* =========================================================
-   SECURITY
+   ESCAPE HTML
 ========================================================= */
 
-function escapeHTML(
-    text
-){
+function escapeHTML(text){
 
-    return String(text)
-        .replace(
-            /[&<>"']/g,
-            character=>{
+return String(text)
+.replace(
+/[&<>"']/g,
+char=>({
 
-                const map = {
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
 
-                    "&":"&amp;",
-                    "<":"&lt;",
-                    ">":"&gt;",
-                    '"':"&quot;",
-                    "'":"&#039;"
-
-                };
-
-
-                return map[
-                    character
-                ];
-
-            }
-        );
+}[char])
+);
 
 }
 
 
 /* =========================================================
-   INITIALISE
+   INITIALIZE
 ========================================================= */
 
 window.addEventListener(
-    "load",
-    ()=>{
+"load",
+()=>{
 
-        resizeCanvas();
+resizeCanvas();
 
-        updatePlayerUI();
+if(player.started){
 
+generateWorld();
 
-        if(player.started){
+}
 
-            createInitialSpawns();
+updateUI();
 
-        }
-
-    }
+}
 );
 
 </script>

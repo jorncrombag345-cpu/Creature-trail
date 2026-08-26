@@ -2,504 +2,450 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Creaturen Trail</title>
 
 <style>
-
-*{
-    box-sizing:border-box;
+:root {
+    --bg: #07111d;
+    --panel: rgba(10, 23, 38, .88);
+    --panel2: rgba(18, 35, 55, .9);
+    --line: rgba(255,255,255,.11);
+    --white: #f7f9ff;
+    --muted: #91a5ba;
+    --purple: #7c8cff;
+    --green: #4de0a7;
+    --gold: #ffd86a;
 }
 
-html,body{
-    margin:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#07111f;
-    color:white;
+* {
+    box-sizing: border-box;
 }
 
-button{
-    font:inherit;
-    cursor:pointer;
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--white);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
 
-/* =====================================================
+button:active {
+    transform: scale(.96);
+}
+
+/* =========================
    STARTSCHERM
-===================================================== */
+========================= */
 
-#startScreen{
-    position:fixed;
-    inset:0;
-    z-index:9999;
+#startScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    padding:20px;
+    padding: 20px;
+
+    overflow: hidden;
 
     background:
         radial-gradient(
-            circle at 20% 20%,
-            #5d72ff55,
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 80% 80%,
-            #35c47744,
-            transparent 30%
-        ),
-        #07111f;
+            circle at 50% 20%,
+            #304a8b,
+            #12233b 40%,
+            #07111d 78%
+        );
 }
 
-.start-card{
-    width:100%;
-    max-width:440px;
+.startGlow {
+    position: absolute;
 
-    padding:40px 25px;
+    width: 500px;
+    height: 500px;
 
-    text-align:center;
+    border-radius: 50%;
 
-    border-radius:30px;
+    background:
+        radial-gradient(
+            circle,
+            rgba(124,140,255,.35),
+            transparent 70%
+        );
 
-    background:#132138ee;
+    animation: glowMove 7s ease-in-out infinite;
+}
 
-    border:1px solid #ffffff15;
+.startGlow.two {
+    width: 300px;
+    height: 300px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(77,224,167,.18),
+            transparent 70%
+        );
+
+    animation-delay: -3s;
+}
+
+@keyframes glowMove {
+    50% {
+        transform:
+            translate(30px,-20px)
+            scale(1.15);
+    }
+}
+
+.startCard {
+    position: relative;
+
+    width: min(450px, 100%);
+
+    padding: 35px 25px 25px;
+
+    text-align: center;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    border-radius: 34px;
+
+    background:
+        rgba(10,23,38,.78);
+
+    backdrop-filter: blur(25px);
 
     box-shadow:
-        0 30px 100px #0009;
+        0 35px 100px rgba(0,0,0,.65);
 }
 
-.start-icon{
-    width:120px;
-    height:120px;
+.logoArt {
+    width: 130px;
+    height: 130px;
 
-    margin:auto auto 20px;
+    margin: 0 auto 20px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    border-radius:35px;
+    border-radius: 38px;
 
     background:
         linear-gradient(
             145deg,
-            #637aff,
-            #7c57d9
+            #7d8cff,
+            #694ed2
         );
 
-    font-size:65px;
+    font-size: 65px;
+
+    box-shadow:
+        0 20px 55px
+        rgba(92,88,219,.45);
 }
 
-.start-card h1{
-    margin:0;
+.startCard h1 {
+    margin: 0;
 
-    font-size:42px;
+    font-size: 42px;
+
+    letter-spacing: -1px;
 }
 
-.start-card p{
-    color:#92a1b5;
+.startCard p {
+    margin: 13px 0 28px;
 
-    line-height:1.6;
+    color: var(--muted);
 
-    margin:12px 0 30px;
+    line-height: 1.6;
 }
 
-.start-button{
-    width:100%;
+.startButton {
+    width: 100%;
 
-    padding:17px;
+    padding: 17px;
 
-    border:0;
+    border: none;
+    border-radius: 17px;
 
-    border-radius:16px;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #dce5ff
+        );
 
-    background:white;
+    color: #111b2b;
 
-    color:#0b1525;
+    font-weight: 900;
 
-    font-weight:900;
+    box-shadow:
+        0 15px 35px
+        rgba(0,0,0,.35);
 }
 
-
-/* =====================================================
+/* =========================
    GAME
-===================================================== */
+========================= */
 
-#game{
-    display:none;
+#game {
+    display: none;
 
-    width:100%;
-    height:100%;
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
 }
 
-
-/* =====================================================
-   TOPBAR
-===================================================== */
-
-.topbar{
-    position:fixed;
-
-    top:0;
-    left:0;
-    right:0;
-
-    z-index:1000;
-
-    height:74px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:12px 15px;
+.sky {
+    position: absolute;
+    inset: 0;
 
     background:
         linear-gradient(
-            #07111fee,
-            #07111f99,
-            transparent
+            160deg,
+            #07111d,
+            #0b1d2b 55%,
+            #10271f
         );
 }
 
-.player-info{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
+.stars {
+    position: absolute;
+    inset: 0;
 
-.avatar{
-    width:45px;
-    height:45px;
+    opacity: .3;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:14px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #6075ff,
-            #7856d7
+    background-image:
+        radial-gradient(
+            white 1px,
+            transparent 1px
         );
 
-    font-size:23px;
+    background-size: 75px 75px;
+
+    animation:
+        starsMove 35s linear infinite;
 }
 
-.player-name{
-    font-weight:800;
-    font-size:14px;
+@keyframes starsMove {
+    to {
+        transform:
+            translate(75px,75px);
+    }
 }
 
-.level{
-    margin-top:3px;
-
-    color:#8292a8;
-
-    font-size:10px;
-}
-
-.stats{
-    display:flex;
-    gap:7px;
-}
-
-.stat{
-    padding:8px 10px;
-
-    border-radius:12px;
-
-    background:#07111fd9;
-
-    border:1px solid #ffffff10;
-
-    font-size:11px;
-}
-
-
-/* =====================================================
-   XP
-===================================================== */
-
-.xp-box{
-    position:fixed;
-
-    top:75px;
-    left:15px;
-    right:15px;
-
-    z-index:900;
-}
-
-.xp-info{
-    display:flex;
-    justify-content:space-between;
-
-    margin-bottom:4px;
-
-    color:#91a1b6;
-
-    font-size:9px;
-}
-
-.xp-bar{
-    height:6px;
-
-    overflow:hidden;
-
-    border-radius:20px;
-
-    background:#18283d;
-}
-
-.xp-fill{
-    width:0%;
-    height:100%;
-
-    border-radius:20px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #6378ff,
-            #9a67ee
-        );
-
-    transition:.4s;
-}
-
-
-/* =====================================================
+/* =========================
    WERELD
-===================================================== */
+========================= */
 
-#worldViewport{
-    position:absolute;
+#worldViewport {
+    position: absolute;
+    inset: 0;
 
-    inset:0;
-
-    overflow:hidden;
-
-    background:#315b3d;
+    overflow: hidden;
 }
 
-#world{
-    position:absolute;
+#world {
+    position: absolute;
 
-    width:3000px;
-    height:3000px;
+    width: 3200px;
+    height: 3200px;
 
-    left:50%;
-    top:50%;
+    left: 50%;
+    top: 50%;
+
+    background:
+        radial-gradient(
+            circle at 20% 25%,
+            #4b814f 0 12%,
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 77% 18%,
+            #287d8c 0 10%,
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 22% 78%,
+            #a3834d 0 12%,
+            transparent 27%
+        ),
+
+        radial-gradient(
+            circle at 78% 78%,
+            #3f7549 0 12%,
+            transparent 28%
+        ),
+
+        #315d42;
+
+    box-shadow:
+        inset 0 0 170px
+        rgba(0,0,0,.4);
 
     transform:
         translate(-50%,-50%);
+}
 
-    transition:
-        transform .15s linear;
+/* wegen */
+
+.road {
+    position: absolute;
+
+    width: 3600px;
+    height: 80px;
+
+    background: #68746f;
+
+    border-top:
+        3px solid
+        rgba(255,255,255,.08);
+
+    border-bottom:
+        3px solid
+        rgba(0,0,0,.2);
+}
+
+.road.one {
+    left: -250px;
+    top: 1450px;
+
+    transform: rotate(14deg);
+}
+
+.road.two {
+    left: -250px;
+    top: 850px;
+
+    height: 62px;
+
+    transform: rotate(-42deg);
+}
+
+.road.three {
+    left: -250px;
+    top: 2050px;
+
+    height: 58px;
+
+    transform: rotate(-8deg);
+}
+
+/* meer */
+
+.lake {
+    position: absolute;
+
+    width: 720px;
+    height: 500px;
+
+    right: 180px;
+    top: 300px;
+
+    border-radius: 48%;
 
     background:
-        radial-gradient(
-            circle at 20% 20%,
-            #497e48 0 11%,
-            transparent 11.5%
-        ),
-        radial-gradient(
-            circle at 70% 15%,
-            #477c48 0 15%,
-            transparent 15.5%
-        ),
-        radial-gradient(
-            circle at 30% 70%,
-            #407645 0 17%,
-            transparent 17.5%
-        ),
-        radial-gradient(
-            circle at 80% 75%,
-            #3e7141 0 15%,
-            transparent 15.5%
-        ),
-        #315c3e;
-
-    overflow:hidden;
-}
-
-
-/* =====================================================
-   GEBIEDEN
-===================================================== */
-
-.zone{
-    position:absolute;
-
-    border-radius:50%;
-
-    opacity:.9;
-}
-
-.forest-zone{
-    background:#234d34;
-}
-
-.forest-a{
-    width:800px;
-    height:600px;
-
-    left:100px;
-    top:150px;
-}
-
-.forest-b{
-    width:700px;
-    height:650px;
-
-    right:50px;
-    bottom:100px;
-}
-
-.lake-zone{
-    width:650px;
-    height:450px;
-
-    right:100px;
-    top:300px;
-
-    background:#247b98;
-
-    transform:rotate(-13deg);
+        linear-gradient(
+            145deg,
+            #2c9db5,
+            #216c91
+        );
 
     border:
         12px solid
-        #8bd0dc33;
-}
+        rgba(200,245,255,.1);
 
-.desert-zone{
-    width:700px;
-    height:450px;
-
-    left:-100px;
-    bottom:100px;
-
-    background:#a9894d;
-}
-
-
-/* =====================================================
-   WEGEN
-===================================================== */
-
-.road{
-    position:absolute;
-
-    width:3600px;
-    height:80px;
-
-    left:-300px;
-    top:1450px;
-
-    background:#717c76;
-
-    transform:rotate(15deg);
+    transform: rotate(-12deg);
 
     box-shadow:
-        inset 0 0 0 4px #ffffff13;
+        inset 0 0 70px
+        rgba(0,0,0,.2);
 }
 
-.road2{
-    top:850px;
+.sand {
+    position: absolute;
 
-    transform:
-        rotate(-42deg);
+    width: 780px;
+    height: 520px;
+
+    left: -160px;
+    bottom: 100px;
+
+    border-radius: 50%;
+
+    background: #a9874e;
 }
 
-.road3{
-    top:2000px;
+/* wereld labels */
 
-    transform:
-        rotate(-8deg);
+.zone {
+    position: absolute;
 
-    height:60px;
+    padding: 10px 14px;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius: 14px;
+
+    background:
+        rgba(7,17,29,.72);
+
+    backdrop-filter: blur(10px);
+
+    font-size: 11px;
+    font-weight: 900;
 }
 
-.road4{
-    top:1250px;
+/* decor */
 
-    transform:
-        rotate(75deg);
+.decor {
+    position: absolute;
 
-    height:55px;
+    font-size: 40px;
+
+    filter:
+        drop-shadow(
+            0 8px 8px
+            rgba(0,0,0,.3)
+        );
+
+    user-select: none;
 }
 
+/* =========================
+   CREATUREN
+========================= */
 
-/* =====================================================
-   DECORATIE
-===================================================== */
+.creature {
+    position: absolute;
 
-.tree{
-    position:absolute;
+    width: 88px;
+    height: 88px;
 
-    font-size:38px;
+    border:
+        1px solid
+        rgba(255,255,255,.35);
 
-    opacity:.8;
-
-    user-select:none;
-}
-
-.rock{
-    position:absolute;
-
-    font-size:27px;
-
-    opacity:.7;
-}
-
-.area-name{
-    position:absolute;
-
-    padding:9px 13px;
-
-    border-radius:12px;
-
-    background:#07111dcc;
-
-    border:1px solid #ffffff14;
-
-    color:#dce5ef;
-
-    font-size:11px;
-
-    font-weight:900;
-
-    white-space:nowrap;
-}
-
-
-/* =====================================================
-   CREATURES
-===================================================== */
-
-.creature{
-    position:absolute;
-
-    width:78px;
-    height:78px;
-
-    border:0;
-
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    border-radius: 28px;
 
     background:
         linear-gradient(
@@ -508,610 +454,772 @@ button{
             #dce5ff
         );
 
-    box-shadow:
-        0 14px 30px #0008;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    z-index:50;
+    z-index: 30;
+
+    box-shadow:
+        0 18px 38px
+        rgba(0,0,0,.45);
 
     animation:
-        creatureFloat
-        2.2s
-        ease-in-out
-        infinite;
+        creatureFloat 2.3s
+        ease-in-out infinite;
 }
 
-.creature:hover{
-    transform:scale(1.12);
+.creature:hover {
+    transform: scale(1.08);
 }
 
-.creature-emoji{
-    font-size:39px;
-}
+.creatureAura {
+    position: absolute;
 
-.creature-distance{
-    position:absolute;
+    inset: -8px;
 
-    bottom:-10px;
-
-    padding:4px 7px;
-
-    border-radius:8px;
-
-    background:#07111f;
-
-    color:#dbe5f0;
-
-    font-size:8px;
-
-    font-weight:900;
-
-    white-space:nowrap;
-}
-
-@keyframes creatureFloat{
-
-    0%,100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-9px);
-    }
-
-}
-
-
-/* =====================================================
-   SPELER
-===================================================== */
-
-#player{
-    position:fixed;
-
-    left:50%;
-    top:50%;
-
-    z-index:500;
-
-    width:68px;
-    height:68px;
-
-    transform:
-        translate(-50%,-50%);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:white;
-
-    border:
-        5px solid
-        #162033;
-
-    box-shadow:
-        0 15px 35px #0009;
-
-    font-size:30px;
-
-    pointer-events:none;
-}
-
-.player-range{
-    position:absolute;
-
-    width:170px;
-    height:170px;
-
-    border-radius:50%;
-
-    border:
-        2px solid
-        #ffffff25;
-
-    animation:
-        rangePulse
-        2.5s
-        infinite;
-}
-
-@keyframes rangePulse{
-
-    0%{
-        transform:scale(.75);
-
-        opacity:.8;
-    }
-
-    100%{
-        transform:scale(1.2);
-
-        opacity:0;
-    }
-
-}
-
-
-/* =====================================================
-   JOYSTICK
-===================================================== */
-
-#joystick{
-    position:fixed;
-
-    left:25px;
-    bottom:90px;
-
-    z-index:1500;
-
-    width:130px;
-    height:130px;
-
-    border-radius:50%;
-
-    background:#07111f88;
-
-    border:
-        1px solid
-        #ffffff16;
-
-    backdrop-filter:blur(5px);
-}
-
-#joystickKnob{
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    width:58px;
-    height:58px;
-
-    transform:
-        translate(-50%,-50%);
-
-    border-radius:50%;
-
-    background:#ffffffdd;
-
-    box-shadow:
-        0 8px 20px #0008;
-}
-
-
-/* =====================================================
-   GPS BUTTON
-===================================================== */
-
-.gps-button{
-    position:fixed;
-
-    right:18px;
-    bottom:95px;
-
-    z-index:1500;
-
-    width:52px;
-    height:52px;
-
-    border:0;
-
-    border-radius:16px;
-
-    background:#07111fee;
-
-    color:white;
-
-    font-size:21px;
-
-    box-shadow:
-        0 10px 25px #0008;
-}
-
-
-/* =====================================================
-   BOTTOM NAV
-===================================================== */
-
-.bottom-nav{
-    position:fixed;
-
-    left:50%;
-    bottom:12px;
-
-    transform:
-        translateX(-50%);
-
-    z-index:2000;
-
-    width:
-        calc(100% - 24px);
-
-    max-width:600px;
-
-    height:65px;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
-    gap:4px;
-
-    padding:7px;
-
-    border-radius:21px;
-
-    background:#0c192af2;
-
-    border:
-        1px solid
-        #ffffff12;
-
-    box-shadow:
-        0 15px 45px #0009;
-}
-
-.nav-button{
-    border:0;
-
-    border-radius:15px;
-
-    background:transparent;
-
-    color:#718399;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:2px;
-
-    font-size:18px;
-}
-
-.nav-button span{
-    font-size:9px;
-}
-
-.nav-button.active{
-    color:white;
-
-    background:#ffffff0d;
-}
-
-
-/* =====================================================
-   MODALS
-===================================================== */
-
-.modal{
-    position:fixed;
-
-    inset:0;
-
-    z-index:5000;
-
-    display:none;
-
-    align-items:center;
-    justify-content:center;
-
-    padding:15px;
-
-    background:#020811df;
-
-    backdrop-filter:
-        blur(12px);
-}
-
-.modal-box{
-    width:100%;
-    max-width:700px;
-
-    max-height:90vh;
-
-    overflow:auto;
-
-    padding:22px;
-
-    border-radius:26px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #182941,
-            #0c1728
-        );
-
-    border:
-        1px solid
-        #ffffff12;
-
-    box-shadow:
-        0 30px 90px #000a;
-}
-
-.modal-header{
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:15px;
-}
-
-.modal-header h2{
-    margin:0;
-}
-
-.close{
-    width:40px;
-    height:40px;
-
-    border:0;
-
-    border-radius:12px;
-
-    background:#ffffff0c;
-
-    color:white;
-
-    font-size:22px;
-}
-
-
-/* =====================================================
-   ENCOUNTER
-===================================================== */
-
-.encounter{
-    text-align:center;
-}
-
-.encounter-image{
-    width:180px;
-    height:180px;
-
-    margin:
-        10px
-        auto
-        20px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
+    border-radius: 34px;
 
     background:
         radial-gradient(
             circle,
-            #667cff33,
+            rgba(124,140,255,.3),
             transparent 70%
         );
 
-    font-size:95px;
+    z-index: -1;
 }
 
-.encounter h2{
-    margin:0;
+.creatureEmoji {
+    font-size: 48px;
 
-    font-size:30px;
-}
-
-.encounter p{
-    color:#93a2b6;
-
-    line-height:1.6;
-}
-
-.catch-button{
-    width:100%;
-
-    margin-top:10px;
-
-    padding:16px;
-
-    border:0;
-
-    border-radius:15px;
-
-    background:white;
-
-    color:#101827;
-
-    font-weight:900;
-}
-
-
-/* =====================================================
-   DEX
-===================================================== */
-
-.dex-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fill,
-            minmax(130px,1fr)
+    filter:
+        drop-shadow(
+            0 7px 8px
+            rgba(0,0,0,.25)
         );
-
-    gap:10px;
 }
 
-.dex-card{
-    padding:12px;
+.distance {
+    position: absolute;
 
-    min-height:175px;
+    bottom: -19px;
 
-    text-align:center;
+    padding: 5px 8px;
 
-    border-radius:18px;
+    border-radius: 9px;
+
+    background:
+        rgba(3,10,17,.9);
+
+    font-size: 9px;
+    font-weight: 900;
+
+    white-space: nowrap;
+}
+
+@keyframes creatureFloat {
+    50% {
+        transform:
+            translateY(-9px)
+            rotate(1deg);
+    }
+}
+
+/* =========================
+   SPELER
+========================= */
+
+#player {
+    position: fixed;
+
+    left: 50%;
+    top: 50%;
+
+    width: 76px;
+    height: 76px;
+
+    transform:
+        translate(-50%,-50%);
+
+    z-index: 100;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border:
+        5px solid
+        #111c2c;
+
+    border-radius: 26px;
 
     background:
         linear-gradient(
             145deg,
-            #20334f,
-            #15243a
+            #ffffff,
+            #dfe7ff
         );
+
+    font-size: 34px;
+
+    box-shadow:
+        0 16px 40px
+        rgba(0,0,0,.55);
 }
 
-.dex-card.locked{
-    opacity:.4;
+.range {
+    position: absolute;
 
-    filter:grayscale(1);
-}
-
-.dex-image{
-    width:85px;
-    height:85px;
-
-    margin:
-        10px
-        auto;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:#ffffff09;
-
-    font-size:48px;
-}
-
-
-/* =====================================================
-   SIMPLE CARDS
-===================================================== */
-
-.simple-card{
-    padding:16px;
-
-    margin-bottom:10px;
-
-    border-radius:17px;
-
-    background:#ffffff08;
+    width: 190px;
+    height: 190px;
 
     border:
         1px solid
-        #ffffff0b;
+        rgba(255,255,255,.16);
+
+    border-radius: 50%;
+
+    animation:
+        rangePulse 2.6s infinite;
 }
 
-.simple-card h3{
-    margin:
-        0
-        0
-        7px;
+@keyframes rangePulse {
+    from {
+        transform: scale(.65);
+        opacity: .9;
+    }
+
+    to {
+        transform: scale(1.15);
+        opacity: 0;
+    }
 }
 
-.simple-card p{
-    margin:0;
+/* =========================
+   TOP HUD
+========================= */
 
-    color:#8798ad;
+.topbar {
+    position: fixed;
 
-    line-height:1.5;
+    left: 0;
+    right: 0;
+    top: 0;
+
+    z-index: 500;
+
+    padding:
+        calc(12px + env(safe-area-inset-top))
+        14px
+        10px;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            #07111dee,
+            #07111d99,
+            transparent
+        );
+
+    pointer-events: none;
 }
 
+.profileMini {
+    display: flex;
 
-/* =====================================================
-   TOAST
-===================================================== */
+    align-items: center;
 
-#toast{
-    position:fixed;
+    gap: 10px;
+}
 
-    left:50%;
-    bottom:95px;
+.avatar {
+    width: 46px;
+    height: 46px;
 
-    z-index:10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #7588ff,
+            #684fd2
+        );
+
+    font-size: 23px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(100,88,220,.4);
+}
+
+.playerName {
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.levelText {
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.stats {
+    display: flex;
+
+    gap: 6px;
+}
+
+.stat {
+    padding: 8px 10px;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius: 13px;
+
+    background:
+        rgba(7,17,29,.8);
+
+    backdrop-filter: blur(12px);
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+/* xp */
+
+.xpArea {
+    position: fixed;
+
+    top: 78px;
+    left: 15px;
+    right: 15px;
+
+    z-index: 450;
+}
+
+.xpInfo {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 5px;
+
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+.xpBar {
+    height: 7px;
+
+    border-radius: 99px;
+
+    background:
+        rgba(255,255,255,.09);
+
+    overflow: hidden;
+}
+
+.xpFill {
+    height: 100%;
+
+    width: 0;
+
+    border-radius: 99px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7d8cff,
+            #b66cff,
+            #4de0a7
+        );
+
+    transition:
+        width .45s;
+}
+
+/* =========================
+   JOYSTICK
+========================= */
+
+.joystick {
+    position: fixed;
+
+    left: 22px;
+    bottom: 93px;
+
+    width: 128px;
+    height: 128px;
+
+    z-index: 600;
+
+    border-radius: 50%;
+
+    background:
+        rgba(7,17,29,.5);
+
+    border:
+        1px solid
+        var(--line);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 16px 40px
+        rgba(0,0,0,.3);
+}
+
+.knob {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 58px;
+    height: 58px;
 
     transform:
-        translate(-50%,30px);
+        translate(-50%,-50%);
 
-    opacity:0;
+    border-radius: 20px;
 
-    padding:13px 18px;
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #d8e1f2
+        );
 
-    border-radius:14px;
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.4);
+}
 
-    background:#0b1627f7;
+.gpsButton {
+    position: fixed;
+
+    right: 18px;
+    bottom: 103px;
+
+    width: 53px;
+    height: 53px;
+
+    z-index: 600;
 
     border:
         1px solid
-        #ffffff12;
+        var(--line);
 
-    transition:.3s;
+    border-radius: 17px;
 
-    font-size:13px;
+    background:
+        rgba(7,17,29,.88);
 
-    pointer-events:none;
+    color: white;
+
+    font-size: 20px;
+
+    backdrop-filter: blur(12px);
 }
 
-#toast.show{
-    opacity:1;
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottomNav {
+    position: fixed;
+
+    left: 50%;
+    bottom: 10px;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 700;
+
+    width:
+        calc(100% - 20px);
+
+    max-width: 620px;
+
+    padding: 7px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap: 4px;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius: 24px;
+
+    background:
+        rgba(8,17,29,.92);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 18px 55px
+        rgba(0,0,0,.5);
+}
+
+.bottomNav button {
+    border: none;
+
+    background: transparent;
+
+    color: #73849a;
+
+    border-radius: 17px;
+
+    padding: 8px 3px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+
+    font-size: 18px;
+}
+
+.bottomNav button span {
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.bottomNav button.active {
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+}
+
+/* =========================
+   MODALS
+========================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px;
+
+    background:
+        rgba(2,8,17,.85);
+
+    backdrop-filter: blur(14px);
+}
+
+.modalBox {
+    width: min(720px,100%);
+
+    max-height: 88vh;
+
+    overflow: auto;
+
+    padding: 22px;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #182b43,
+            #0b1727
+        );
+
+    box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.65);
+}
+
+.modalHeader {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.modalHeader h2 {
+    margin: 0;
+}
+
+.closeButton {
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+
+    font-size: 22px;
+}
+
+/* encounter */
+
+.encounter {
+    text-align: center;
+}
+
+.encounterImage {
+    width: 190px;
+    height: 190px;
+
+    margin: 10px auto 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(124,140,255,.3),
+            transparent 70%
+        );
+
+    font-size: 100px;
+}
+
+.encounter h2 {
+    margin: 0;
+
+    font-size: 30px;
+}
+
+.encounter p {
+    color: var(--muted);
+}
+
+.catchButton {
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 16px;
+
+    background: white;
+
+    color: #101827;
+
+    font-weight: 950;
+}
+
+/* dex */
+
+.dexGrid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(125px,1fr)
+        );
+
+    gap: 10px;
+}
+
+.dexCard {
+    min-height: 170px;
+
+    padding: 12px;
+
+    text-align: center;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #203650,
+            #14263c
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+.dexCard.locked {
+    opacity: .35;
+
+    filter: grayscale(1);
+}
+
+.dexImage {
+    width: 82px;
+    height: 82px;
+
+    margin: 10px auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.08);
+
+    font-size: 47px;
+}
+
+/* cards */
+
+.infoCard {
+    padding: 17px;
+
+    margin-bottom: 10px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    border-radius: 17px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    color: var(--muted);
+
+    line-height: 1.5;
+}
+
+.infoCard h3 {
+    margin:
+        0 0 7px;
+
+    color: white;
+}
+
+/* toast */
+
+#toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 94px;
+
+    z-index: 10000;
+
+    transform:
+        translate(-50%,25px);
+
+    opacity: 0;
+
+    padding:
+        13px 18px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(10,22,38,.96);
+
+    border:
+        1px solid
+        var(--line);
+
+    transition: .3s;
+
+    font-size: 13px;
+
+    pointer-events: none;
+
+    white-space: nowrap;
+}
+
+#toast.show {
+    opacity: 1;
 
     transform:
         translate(-50%,0);
 }
 
+@media(max-width:600px) {
 
-/* =====================================================
-   MOBIEL
-===================================================== */
-
-@media(max-width:600px){
-
-    #joystick{
-        width:115px;
-        height:115px;
+    .startCard h1 {
+        font-size: 36px;
     }
 
-    #joystickKnob{
-        width:52px;
-        height:52px;
+    .creature {
+        width: 78px;
+        height: 78px;
     }
 
-    .stats .stat:nth-child(2){
-        display:none;
+    .joystick {
+        width: 116px;
+        height: 116px;
     }
 
-    .creature{
-        width:68px;
-        height:68px;
+    .knob {
+        width: 53px;
+        height: 53px;
     }
 
+    .stats .stat:nth-child(2) {
+        display: none;
+    }
 }
-
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =====================================================
-     STARTSCHERM
-===================================================== -->
+<!-- =========================
+     START
+========================= -->
 
 <section id="startScreen">
 
-    <div class="start-card">
+    <div class="startGlow"></div>
+    <div class="startGlow two"></div>
 
-        <div class="start-icon">
+    <div class="startCard">
+
+        <div class="logoArt">
             🐾
         </div>
 
@@ -1120,16 +1228,16 @@ button{
         </h1>
 
         <p>
-            Ga op avontuur, ontdek wilde
-            Creaturen en bouw jouw collectie.
+            Ontdek een levende wereld vol mysterieuze
+            Creaturen. Vind ze, vang ze en bouw jouw
+            eigen collectie.
         </p>
 
         <button
-            class="start-button"
-            onclick="startGame()">
-
-            START AVONTUUR
-
+            class="startButton"
+            onclick="startGame()"
+        >
+            START AVONTUUR →
         </button>
 
     </div>
@@ -1137,18 +1245,142 @@ button{
 </section>
 
 
-<!-- =====================================================
+<!-- =========================
      GAME
-===================================================== -->
+========================= -->
 
 <section id="game">
 
+    <div class="sky"></div>
+    <div class="stars"></div>
 
-    <!-- TOPBAR -->
 
-    <div class="topbar">
+    <div id="worldViewport">
 
-        <div class="player-info">
+        <div id="world">
+
+            <div class="lake"></div>
+
+            <div class="sand"></div>
+
+            <div class="road one"></div>
+            <div class="road two"></div>
+            <div class="road three"></div>
+
+
+            <div
+                class="zone"
+                style="left:220px;top:280px"
+            >
+                🌲 GROENE WILDERNIS
+            </div>
+
+            <div
+                class="zone"
+                style="right:430px;top:660px"
+            >
+                💧 BLAUW MEER
+            </div>
+
+            <div
+                class="zone"
+                style="left:240px;bottom:350px"
+            >
+                🏜️ ZANDVALLEI
+            </div>
+
+
+            <div
+                class="decor"
+                style="left:150px;top:210px"
+            >
+                🌲
+            </div>
+
+            <div
+                class="decor"
+                style="left:350px;top:390px"
+            >
+                🌳
+            </div>
+
+            <div
+                class="decor"
+                style="left:550px;top:250px"
+            >
+                🌲
+            </div>
+
+            <div
+                class="decor"
+                style="left:700px;top:450px"
+            >
+                🌳
+            </div>
+
+            <div
+                class="decor"
+                style="right:310px;top:410px"
+            >
+                🌲
+            </div>
+
+            <div
+                class="decor"
+                style="right:180px;bottom:350px"
+            >
+                🌳
+            </div>
+
+            <div
+                class="decor"
+                style="left:250px;bottom:280px"
+            >
+                🌵
+            </div>
+
+            <div
+                class="decor"
+                style="left:480px;bottom:190px"
+            >
+                🌵
+            </div>
+
+            <div
+                class="decor"
+                style="left:900px;top:700px"
+            >
+                🪨
+            </div>
+
+            <div
+                class="decor"
+                style="right:600px;bottom:500px"
+            >
+                🪨
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PLAYER -->
+
+    <div id="player">
+
+        <div class="range"></div>
+
+        🧑
+
+    </div>
+
+
+    <!-- TOP HUD -->
+
+    <header class="topbar">
+
+        <div class="profileMini">
 
             <div class="avatar">
                 🧑
@@ -1156,15 +1388,15 @@ button{
 
             <div>
 
-                <div class="player-name">
+                <div class="playerName">
                     Trail Explorer
                 </div>
 
-                <div class="level">
-                    Level
-                    <span id="level">
+                <div class="levelText">
+                    LEVEL
+                    <b id="level">
                         1
-                    </span>
+                    </b>
                 </div>
 
             </div>
@@ -1197,243 +1429,54 @@ button{
 
         </div>
 
-    </div>
+    </header>
 
 
     <!-- XP -->
 
-    <div class="xp-box">
+    <div class="xpArea">
 
-        <div class="xp-info">
+        <div class="xpInfo">
 
             <span>
                 XP
             </span>
 
             <span>
-
-                <span id="currentXP">
+                <b id="currentXP">
                     0
-                </span>
-
+                </b>
                 /
-
-                <span id="requiredXP">
+                <b id="requiredXP">
                     250
-                </span>
-
+                </b>
             </span>
 
         </div>
 
-        <div class="xp-bar">
+        <div class="xpBar">
 
             <div
                 id="xpFill"
-                class="xp-fill">
-            </div>
+                class="xpFill"
+            ></div>
 
         </div>
-
-    </div>
-
-
-    <!-- =================================================
-         WERELD
-    ================================================= -->
-
-    <div id="worldViewport">
-
-        <div id="world">
-
-
-            <!-- GEBIEDEN -->
-
-            <div
-                class="
-                    zone
-                    forest-zone
-                    forest-a
-                ">
-            </div>
-
-            <div
-                class="
-                    zone
-                    forest-zone
-                    forest-b
-                ">
-            </div>
-
-            <div
-                class="
-                    zone
-                    lake-zone
-                ">
-            </div>
-
-            <div
-                class="
-                    zone
-                    desert-zone
-                ">
-            </div>
-
-
-            <!-- WEGEN -->
-
-            <div class="road"></div>
-
-            <div
-                class="
-                    road
-                    road2
-                ">
-            </div>
-
-            <div
-                class="
-                    road
-                    road3
-                ">
-            </div>
-
-            <div
-                class="
-                    road
-                    road4
-                ">
-            </div>
-
-
-            <!-- GEBIEDSNAMEN -->
-
-            <div
-                class="area-name"
-                style="
-                    left:250px;
-                    top:300px;
-                ">
-
-                🌲 GROENE WILDERNIS
-
-            </div>
-
-            <div
-                class="area-name"
-                style="
-                    right:400px;
-                    top:650px;
-                ">
-
-                💧 BLAUW MEER
-
-            </div>
-
-            <div
-                class="area-name"
-                style="
-                    left:250px;
-                    bottom:350px;
-                ">
-
-                🏜️ ZANDVALLEI
-
-            </div>
-
-
-            <!-- BOMEN -->
-
-            <div
-                class="tree"
-                style="left:150px;top:220px">
-                🌲
-            </div>
-
-            <div
-                class="tree"
-                style="left:350px;top:380px">
-                🌳
-            </div>
-
-            <div
-                class="tree"
-                style="left:550px;top:250px">
-                🌲
-            </div>
-
-            <div
-                class="tree"
-                style="left:700px;top:450px">
-                🌳
-            </div>
-
-            <div
-                class="tree"
-                style="right:300px;top:400px">
-                🌲
-            </div>
-
-            <div
-                class="tree"
-                style="right:180px;bottom:350px">
-                🌳
-            </div>
-
-            <div
-                class="tree"
-                style="left:250px;bottom:280px">
-                🌵
-            </div>
-
-            <div
-                class="tree"
-                style="left:480px;bottom:180px">
-                🌵
-            </div>
-
-
-            <!-- ROTSTENEN -->
-
-            <div
-                class="rock"
-                style="left:900px;top:700px">
-                🪨
-            </div>
-
-            <div
-                class="rock"
-                style="left:1100px;top:900px">
-                🪨
-            </div>
-
-            <div
-                class="rock"
-                style="right:700px;bottom:500px">
-                🪨
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- SPELER -->
-
-    <div id="player">
-
-        <div class="player-range"></div>
-
-        🧑
 
     </div>
 
 
     <!-- JOYSTICK -->
 
-    <div id="joystick">
+    <div
+        id="joystick"
+        class="joystick"
+    >
 
-        <div id="joystickKnob"></div>
+        <div
+            id="knob"
+            class="knob"
+        ></div>
 
     </div>
 
@@ -1441,135 +1484,116 @@ button{
     <!-- GPS -->
 
     <button
-        class="gps-button"
-        onclick="useGPS()">
-
+        class="gpsButton"
+        onclick="useGPS()"
+    >
         📍
-
     </button>
 
 
-    <!-- NAVIGATIE -->
+    <!-- BOTTOM NAV -->
 
-    <nav class="bottom-nav">
+    <nav class="bottomNav">
 
         <button
-            class="nav-button active"
-            onclick="showToast('🗺️ Je bent op de kaart')">
-
+            class="active"
+            onclick="showMap()"
+        >
             🗺️
-
             <span>
                 Kaart
             </span>
-
         </button>
 
-
         <button
-            class="nav-button"
-            onclick="openDex()">
-
+            onclick="openDex()"
+        >
             📖
-
             <span>
                 Dex
             </span>
-
         </button>
 
-
         <button
-            class="nav-button"
-            onclick="openFriends()">
-
+            onclick="openFriends()"
+        >
             👥
-
             <span>
                 Friends
             </span>
-
         </button>
 
-
         <button
-            class="nav-button"
-            onclick="openEvents()">
-
+            onclick="openEvents()"
+        >
             🎉
-
             <span>
                 Events
             </span>
-
         </button>
 
-
         <button
-            class="nav-button"
-            onclick="openProfile()">
-
+            onclick="openProfile()"
+        >
             👤
-
             <span>
                 Profiel
             </span>
-
         </button>
 
     </nav>
 
-
 </section>
 
 
-<!-- =====================================================
-     ENCOUNTER
-===================================================== -->
+<!-- =========================
+     CREATURE MODAL
+========================= -->
 
 <div
     id="encounterModal"
-    class="modal">
+    class="modal"
+>
 
-    <div class="modal-box">
+    <div class="modalBox">
 
-        <div class="modal-header">
+        <div class="modalHeader">
 
             <h2>
                 Wilde Creature
             </h2>
 
             <button
-                class="close"
-                onclick="closeModal('encounterModal')">
-
+                class="closeButton"
+                onclick="closeModal('encounterModal')"
+            >
                 ×
-
             </button>
 
         </div>
 
         <div
             id="encounter"
-            class="encounter">
-        </div>
+            class="encounter"
+        ></div>
 
     </div>
 
 </div>
 
 
-<!-- =====================================================
+<!-- =========================
      DEX
-===================================================== -->
+========================= -->
 
 <div
     id="dexModal"
-    class="modal">
+    class="modal"
+>
 
-    <div class="modal-box">
+    <div class="modalBox">
 
-        <div class="modal-header">
+        <div class="modalHeader">
 
             <div>
 
@@ -1577,78 +1601,79 @@ button{
                     📖 Creaturen-Dex
                 </h2>
 
-                <p
+                <small
                     id="dexProgress"
-                    style="
-                        color:#8495aa;
-                        font-size:11px;
-                    ">
-
-                    0 ontdekt
-
-                </p>
+                    style="color:var(--muted)"
+                ></small>
 
             </div>
 
             <button
-                class="close"
-                onclick="closeModal('dexModal')">
-
+                class="closeButton"
+                onclick="closeModal('dexModal')"
+            >
                 ×
-
             </button>
 
         </div>
 
-
         <div
-            id="dexGrid"
-            class="dex-grid">
-        </div>
+            id="dex"
+            class="dexGrid"
+        ></div>
 
     </div>
 
 </div>
 
 
-<!-- =====================================================
+<!-- =========================
      FRIENDS
-===================================================== -->
+========================= -->
 
 <div
     id="friendsModal"
-    class="modal">
+    class="modal"
+>
 
-    <div class="modal-box">
+    <div class="modalBox">
 
-        <div class="modal-header">
+        <div class="modalHeader">
 
             <h2>
                 👥 Friends
             </h2>
 
             <button
-                class="close"
-                onclick="closeModal('friendsModal')">
-
+                class="closeButton"
+                onclick="closeModal('friendsModal')"
+            >
                 ×
-
             </button>
 
         </div>
 
-        <div class="simple-card">
+        <div class="infoCard">
 
             <h3>
                 Vrienden
             </h3>
 
-            <p>
-                Het vrienden-systeem komt in een
-                volgende stap. Hier kunnen later
-                friend codes, verzoeken en spelers
-                komen.
-            </p>
+            Je vriendenlijst komt hier.
+            Later kunnen we echte accounts,
+            friend codes en uitnodigingen toevoegen.
+
+        </div>
+
+        <div class="infoCard">
+
+            <h3>
+                ➕ Vriend toevoegen
+            </h3>
+
+            Friend-system klaar om later
+            aan een echte database gekoppeld
+            te worden.
 
         </div>
 
@@ -1657,43 +1682,52 @@ button{
 </div>
 
 
-<!-- =====================================================
+<!-- =========================
      EVENTS
-===================================================== -->
+========================= -->
 
 <div
     id="eventsModal"
-    class="modal">
+    class="modal"
+>
 
-    <div class="modal-box">
+    <div class="modalBox">
 
-        <div class="modal-header">
+        <div class="modalHeader">
 
             <h2>
                 🎉 Events
             </h2>
 
             <button
-                class="close"
-                onclick="closeModal('eventsModal')">
-
+                class="closeButton"
+                onclick="closeModal('eventsModal')"
+            >
                 ×
-
             </button>
 
         </div>
 
-        <div class="simple-card">
+        <div class="infoCard">
 
             <h3>
-                🌟 Events
+                🌟 Creaturen Events
             </h3>
 
-            <p>
-                Tijdelijke events en speciale
-                Creaturen kunnen hier later
-                verschijnen.
-            </p>
+            Tijdelijke events,
+            speciale Creaturen,
+            opdrachten en beloningen
+            komen hier samen.
+
+        </div>
+
+        <div class="infoCard">
+
+            <h3>
+                🔥 Volgend event
+            </h3>
+
+            Nog geen actief event.
 
         </div>
 
@@ -1702,59 +1736,56 @@ button{
 </div>
 
 
-<!-- =====================================================
+<!-- =========================
      PROFILE
-===================================================== -->
+========================= -->
 
 <div
     id="profileModal"
-    class="modal">
+    class="modal"
+>
 
-    <div class="modal-box">
+    <div class="modalBox">
 
-        <div class="modal-header">
+        <div class="modalHeader">
 
             <h2>
                 👤 Profiel
             </h2>
 
             <button
-                class="close"
-                onclick="closeModal('profileModal')">
-
+                class="closeButton"
+                onclick="closeModal('profileModal')"
+            >
                 ×
-
             </button>
 
         </div>
 
-        <div class="simple-card">
+        <div class="infoCard">
 
             <h3>
                 Trail Explorer
             </h3>
 
-            <p>
-                Level:
-                <strong id="profileLevel">
-                    1
-                </strong>
-            </p>
+            Level:
+            <b id="profileLevel">
+                1
+            </b>
 
         </div>
 
-        <div class="simple-card">
+        <div class="infoCard">
 
             <h3>
-                🐾 Creaturen
+                🐾 Collectie
             </h3>
 
-            <p>
-                <span id="profileCaught">
-                    0
-                </span>
-                verschillende Creaturen ontdekt.
-            </p>
+            <span id="profileCaught">
+                0
+            </span>
+
+            Creaturen ontdekt.
 
         </div>
 
@@ -1770,304 +1801,340 @@ button{
 
 <script>
 
-
-/* =====================================================
+/* ==================================================
    CREATURE DATABASE
-===================================================== */
+================================================== */
 
-const CREATURES=[
+const CREATURES = [
 
-{
-    id:"flamora",
-    name:"Flamora",
-    type:"Fire",
-    rarity:"Common",
-    emoji:"🔥",
-    xp:25,
-    zone:"desert"
-},
+    {
+        id:"flamora",
+        name:"Flamora",
+        type:"Fire",
+        rarity:"Common",
+        emoji:"🔥",
+        xp:25
+    },
 
-{
-    id:"aquari",
-    name:"Aquari",
-    type:"Water",
-    rarity:"Common",
-    emoji:"💧",
-    xp:25,
-    zone:"lake"
-},
+    {
+        id:"aquari",
+        name:"Aquari",
+        type:"Water",
+        rarity:"Common",
+        emoji:"💧",
+        xp:25
+    },
 
-{
-    id:"leafin",
-    name:"Leafin",
-    type:"Nature",
-    rarity:"Common",
-    emoji:"🌿",
-    xp:25,
-    zone:"forest"
-},
+    {
+        id:"leafin",
+        name:"Leafin",
+        type:"Nature",
+        rarity:"Common",
+        emoji:"🌿",
+        xp:25
+    },
 
-{
-    id:"sparko",
-    name:"Sparko",
-    type:"Electric",
-    rarity:"Rare",
-    emoji:"⚡",
-    xp:50,
-    zone:"forest"
-},
+    {
+        id:"sparko",
+        name:"Sparko",
+        type:"Electric",
+        rarity:"Rare",
+        emoji:"⚡",
+        xp:50
+    },
 
-{
-    id:"frostel",
-    name:"Frostel",
-    type:"Ice",
-    rarity:"Rare",
-    emoji:"❄️",
-    xp:50,
-    zone:"lake"
-},
+    {
+        id:"frostel",
+        name:"Frostel",
+        type:"Ice",
+        rarity:"Rare",
+        emoji:"❄️",
+        xp:50
+    },
 
-{
-    id:"rockon",
-    name:"Rockon",
-    type:"Earth",
-    rarity:"Common",
-    emoji:"🪨",
-    xp:25,
-    zone:"desert"
-},
+    {
+        id:"rockon",
+        name:"Rockon",
+        type:"Earth",
+        rarity:"Common",
+        emoji:"🪨",
+        xp:25
+    },
 
-{
-    id:"mystia",
-    name:"Mystia",
-    type:"Mystic",
-    rarity:"Epic",
-    emoji:"🔮",
-    xp:100,
-    zone:"forest"
-},
+    {
+        id:"mystia",
+        name:"Mystia",
+        type:"Mystic",
+        rarity:"Epic",
+        emoji:"🔮",
+        xp:100
+    },
 
-{
-    id:"shadowa",
-    name:"Shadowa",
-    type:"Dark",
-    rarity:"Epic",
-    emoji:"🌑",
-    xp:100,
-    zone:"forest"
-},
+    {
+        id:"shadowa",
+        name:"Shadowa",
+        type:"Dark",
+        rarity:"Epic",
+        emoji:"🌑",
+        xp:100
+    },
 
-{
-    id:"solari",
-    name:"Solari",
-    type:"Light",
-    rarity:"Rare",
-    emoji:"☀️",
-    xp:50,
-    zone:"desert"
-},
+    {
+        id:"solari",
+        name:"Solari",
+        type:"Light",
+        rarity:"Rare",
+        emoji:"☀️",
+        xp:50
+    },
 
-{
-    id:"stormix",
-    name:"Stormix",
-    type:"Electric",
-    rarity:"Epic",
-    emoji:"🌪️",
-    xp:100,
-    zone:"lake"
-},
+    {
+        id:"stormix",
+        name:"Stormix",
+        type:"Electric",
+        rarity:"Epic",
+        emoji:"🌪️",
+        xp:100
+    },
 
-{
-    id:"berryn",
-    name:"Berryn",
-    type:"Nature",
-    rarity:"Common",
-    emoji:"🍓",
-    xp:25,
-    zone:"forest"
-},
+    {
+        id:"berryn",
+        name:"Berryn",
+        type:"Nature",
+        rarity:"Common",
+        emoji:"🍓",
+        xp:25
+    },
 
-{
-    id:"magmox",
-    name:"Magmox",
-    type:"Fire",
-    rarity:"Rare",
-    emoji:"🌋",
-    xp:50,
-    zone:"desert"
-},
+    {
+        id:"magmox",
+        name:"Magmox",
+        type:"Fire",
+        rarity:"Rare",
+        emoji:"🌋",
+        xp:50
+    },
 
-{
-    id:"lunari",
-    name:"Lunari",
-    type:"Mystic",
-    rarity:"Legendary",
-    emoji:"🌙",
-    xp:500,
-    zone:"forest"
-},
+    {
+        id:"lunari",
+        name:"Lunari",
+        type:"Mystic",
+        rarity:"Legendary",
+        emoji:"🌙",
+        xp:500
+    },
 
-{
-    id:"thundra",
-    name:"Thundra",
-    type:"Electric",
-    rarity:"Legendary",
-    emoji:"⚡",
-    xp:500,
-    zone:"lake"
-},
+    {
+        id:"thundra",
+        name:"Thundra",
+        type:"Electric",
+        rarity:"Legendary",
+        emoji:"⚡",
+        xp:500
+    },
 
-{
-    id:"florion",
-    name:"Florion",
-    type:"Nature",
-    rarity:"Epic",
-    emoji:"🌸",
-    xp:100,
-    zone:"forest"
-},
+    {
+        id:"florion",
+        name:"Florion",
+        type:"Nature",
+        rarity:"Epic",
+        emoji:"🌸",
+        xp:100
+    },
 
-{
-    id:"aquash",
-    name:"Aquash",
-    type:"Water",
-    rarity:"Epic",
-    emoji:"🐚",
-    xp:100,
-    zone:"lake"
-},
+    {
+        id:"aquash",
+        name:"Aquash",
+        type:"Water",
+        rarity:"Epic",
+        emoji:"🐚",
+        xp:100
+    },
 
-{
-    id:"emberoo",
-    name:"Emberoo",
-    type:"Fire",
-    rarity:"Rare",
-    emoji:"🦊",
-    xp:50,
-    zone:"desert"
-},
+    {
+        id:"emberoo",
+        name:"Emberoo",
+        type:"Fire",
+        rarity:"Rare",
+        emoji:"🦊",
+        xp:50
+    },
 
-{
-    id:"crystali",
-    name:"Crystali",
-    type:"Ice",
-    rarity:"Epic",
-    emoji:"💎",
-    xp:100,
-    zone:"lake"
-},
+    {
+        id:"crystali",
+        name:"Crystali",
+        type:"Ice",
+        rarity:"Epic",
+        emoji:"💎",
+        xp:100
+    },
 
-{
-    id:"nocty",
-    name:"Nocty",
-    type:"Dark",
-    rarity:"Rare",
-    emoji:"🦇",
-    xp:50,
-    zone:"forest"
-},
+    {
+        id:"nocty",
+        name:"Nocty",
+        type:"Dark",
+        rarity:"Rare",
+        emoji:"🦇",
+        xp:50
+    },
 
-{
-    id:"aurora",
-    name:"Aurora",
-    type:"Light",
-    rarity:"Legendary",
-    emoji:"🌈",
-    xp:500,
-    zone:"lake"
-}
+    {
+        id:"aurora",
+        name:"Aurora",
+        type:"Legendary",
+        rarity:"Legendary",
+        emoji:"🌈",
+        xp:500
+    }
 
 ];
 
 
-/* =====================================================
-   PLAYER DATA
-===================================================== */
+/* ==================================================
+   DATA
+================================================== */
 
-let playerData=
-JSON.parse(
-    localStorage.getItem(
-        "creaturenTrailSave"
-    )
-)||
-{
-    level:1,
-    xp:0,
-    coins:100,
-    caught:[]
-};
+let saveData =
+    JSON.parse(
+        localStorage.getItem("creaturenTrailSave")
+    );
 
+if (!saveData) {
 
-/* =====================================================
-   WERELD POSITIE
-===================================================== */
+    saveData = {
 
-let playerX=1500;
-let playerY=1500;
+        level: 1,
 
-let speed=5;
+        xp: 0,
 
-let movement={
-    x:0,
-    y:0
-};
+        coins: 100,
 
-let gpsActive=false;
+        caught: []
+
+    };
+
+}
 
 
-/* =====================================================
-   GAME START
-===================================================== */
+/* ==================================================
+   GAME STATE
+================================================== */
 
-function startGame(){
+let playerX = 1600;
+let playerY = 1600;
 
-    document.getElementById(
-        "startScreen"
-    ).style.display="none";
+let moveX = 0;
+let moveY = 0;
 
-    document.getElementById(
-        "game"
-    ).style.display="block";
+let speed = 4.5;
 
-    updateUI();
+let selectedCreature = null;
+let selectedElement = null;
 
-    centerWorld();
 
-    spawnInitialCreatures();
+/* ==================================================
+   ELEMENTS
+================================================== */
 
-    showToast(
-        "🗺️ Welkom in Creaturen Trail!"
+const world =
+    document.getElementById("world");
+
+const startScreen =
+    document.getElementById("startScreen");
+
+const game =
+    document.getElementById("game");
+
+const joystick =
+    document.getElementById("joystick");
+
+const knob =
+    document.getElementById("knob");
+
+
+/* ==================================================
+   XP
+================================================== */
+
+function requiredXP() {
+
+    return saveData.level * 250;
+
+}
+
+
+function updateUI() {
+
+    document.getElementById("level")
+        .textContent =
+        saveData.level;
+
+    document.getElementById("xp")
+        .textContent =
+        saveData.xp;
+
+    document.getElementById("coins")
+        .textContent =
+        saveData.coins;
+
+    document.getElementById("caught")
+        .textContent =
+        saveData.caught.length;
+
+    document.getElementById("currentXP")
+        .textContent =
+        saveData.xp;
+
+    document.getElementById("requiredXP")
+        .textContent =
+        requiredXP();
+
+    document.getElementById("profileLevel")
+        .textContent =
+        saveData.level;
+
+    document.getElementById("profileCaught")
+        .textContent =
+        saveData.caught.length;
+
+    document.getElementById("xpFill")
+        .style.width =
+        (
+            saveData.xp /
+            requiredXP() *
+            100
+        ) + "%";
+
+}
+
+
+function saveGame() {
+
+    localStorage.setItem(
+        "creaturenTrailSave",
+        JSON.stringify(saveData)
     );
 
 }
 
 
-/* =====================================================
-   XP
-===================================================== */
+function addXP(amount) {
 
-function neededXP(){
+    saveData.xp += amount;
 
-    return playerData.level*250;
+    while (
+        saveData.xp >=
+        requiredXP()
+    ) {
 
-}
+        saveData.xp -=
+            requiredXP();
 
-
-function addXP(amount){
-
-    playerData.xp+=amount;
-
-    while(
-        playerData.xp>=neededXP()
-    ){
-
-        playerData.xp-=neededXP();
-
-        playerData.level++;
+        saveData.level++;
 
         showToast(
-            "🎉 LEVEL UP! Level "+
-            playerData.level
+            "🎉 LEVEL UP! Level " +
+            saveData.level
         );
 
     }
@@ -2079,159 +2146,752 @@ function addXP(amount){
 }
 
 
-/* =====================================================
-   SAVE
-===================================================== */
+/* ==================================================
+   START GAME
+================================================== */
 
-function saveGame(){
+function startGame() {
 
-    localStorage.setItem(
-        "creaturenTrailSave",
-        JSON.stringify(
-            playerData
-        )
+    startScreen.style.display =
+        "none";
+
+    game.style.display =
+        "block";
+
+    updateUI();
+
+    centerWorld();
+
+    for (
+        let i = 0;
+        i < 8;
+        i++
+    ) {
+
+        setTimeout(
+            spawnCreature,
+            i * 300
+        );
+
+    }
+
+    showToast(
+        "🌟 Welkom bij Creaturen Trail!"
     );
 
 }
 
 
-/* =====================================================
-   UI
-===================================================== */
-
-function updateUI(){
-
-    document.getElementById(
-        "level"
-    ).innerText=
-        playerData.level;
-
-    document.getElementById(
-        "xp"
-    ).innerText=
-        playerData.xp;
-
-    document.getElementById(
-        "currentXP"
-    ).innerText=
-        playerData.xp;
-
-    document.getElementById(
-        "requiredXP"
-    ).innerText=
-        neededXP();
-
-    document.getElementById(
-        "coins"
-    ).innerText=
-        playerData.coins;
-
-    document.getElementById(
-        "caught"
-    ).innerText=
-        playerData.caught.length;
-
-    document.getElementById(
-        "profileLevel"
-    ).innerText=
-        playerData.level;
-
-    document.getElementById(
-        "profileCaught"
-    ).innerText=
-        playerData.caught.length;
-
-    document.getElementById(
-        "xpFill"
-    ).style.width=
-        (
-            playerData.xp/
-            neededXP()*
-            100
-        )+"%";
-
-}
-
-
-/* =====================================================
+/* ==================================================
    WORLD CAMERA
-===================================================== */
+================================================== */
 
-function centerWorld(){
+function centerWorld() {
 
-    const world=
-        document.getElementById(
-            "world"
-        );
+    const x =
+        window.innerWidth / 2 -
+        playerX;
 
-    const viewport=
-        document.getElementById(
-            "worldViewport"
-        );
+    const y =
+        window.innerHeight / 2 -
+        playerY;
 
-    const centerX=
-        viewport.clientWidth/2;
-
-    const centerY=
-        viewport.clientHeight/2;
-
-    const offsetX=
-        centerX-playerX;
-
-    const offsetY=
-        centerY-playerY;
-
-    world.style.transform=
-        `
-        translate(
-            ${offsetX}px,
-            ${offsetY}px
-        )
-        `;
+    world.style.transform =
+        `translate(${x}px,${y}px)`;
 
 }
 
 
-/* =====================================================
-   MOVEMENT
-===================================================== */
+/* ==================================================
+   DISTANCE
+================================================== */
 
-function movePlayer(){
+function distanceTo(
+    x,
+    y
+) {
 
-    if(
-        movement.x===0 &&
-        movement.y===0
-    ){
+    return Math.sqrt(
+        Math.pow(x-playerX,2) +
+        Math.pow(y-playerY,2)
+    );
+
+}
+
+
+/* ==================================================
+   CREATURE SELECTIE
+================================================== */
+
+function randomCreature() {
+
+    const random =
+        Math.random();
+
+    let rarity;
+
+    if (random < .62) {
+
+        rarity = "Common";
+
+    } else if (random < .88) {
+
+        rarity = "Rare";
+
+    } else if (random < .985) {
+
+        rarity = "Epic";
+
+    } else {
+
+        rarity = "Legendary";
+
+    }
+
+    const list =
+        CREATURES.filter(
+            creature =>
+            creature.rarity === rarity
+        );
+
+    return list[
+        Math.floor(
+            Math.random() *
+            list.length
+        )
+    ];
+
+}
+
+
+/* ==================================================
+   SPAWN
+================================================== */
+
+function spawnCreature() {
+
+    const creature =
+        randomCreature();
+
+    const angle =
+        Math.random() *
+        Math.PI *
+        2;
+
+    const distance =
+        250 +
+        Math.random() * 800;
+
+    const x =
+        Math.max(
+            120,
+            Math.min(
+                3080,
+                playerX +
+                Math.cos(angle) *
+                distance
+            )
+        );
+
+    const y =
+        Math.max(
+            120,
+            Math.min(
+                3080,
+                playerY +
+                Math.sin(angle) *
+                distance
+            )
+        );
+
+
+    const element =
+        document.createElement("button");
+
+    element.className =
+        "creature";
+
+    element.dataset.x =
+        x;
+
+    element.dataset.y =
+        y;
+
+    element.dataset.id =
+        creature.id;
+
+
+    element.innerHTML = `
+
+        <div class="creatureAura"></div>
+
+        <div class="creatureEmoji">
+            ${creature.emoji}
+        </div>
+
+        <div class="distance">
+            zoeken...
+        </div>
+
+    `;
+
+
+    element.style.left =
+        x + "px";
+
+    element.style.top =
+        y + "px";
+
+
+    element.onclick =
+        function() {
+
+            encounterCreature(
+                creature,
+                element
+            );
+
+        };
+
+
+    world.appendChild(
+        element
+    );
+
+    updateDistances();
+
+}
+
+
+/* ==================================================
+   UPDATE DISTANCES
+================================================== */
+
+function updateDistances() {
+
+    document
+        .querySelectorAll(".creature")
+        .forEach(
+            element => {
+
+                const x =
+                    Number(
+                        element.dataset.x
+                    );
+
+                const y =
+                    Number(
+                        element.dataset.y
+                    );
+
+                const distance =
+                    Math.round(
+                        distanceTo(
+                            x,
+                            y
+                        )
+                    );
+
+                element
+                    .querySelector(".distance")
+                    .textContent =
+                    distance + " m";
+
+
+                if (
+                    distance > 180
+                ) {
+
+                    element.style.opacity =
+                        ".65";
+
+                } else {
+
+                    element.style.opacity =
+                        "1";
+
+                }
+
+            }
+        );
+
+}
+
+
+/* ==================================================
+   ENCOUNTER
+================================================== */
+
+function encounterCreature(
+    creature,
+    element
+) {
+
+    const x =
+        Number(element.dataset.x);
+
+    const y =
+        Number(element.dataset.y);
+
+    const distance =
+        distanceTo(x,y);
+
+
+    if (
+        distance > 180
+    ) {
+
+        showToast(
+            "👣 Loop dichter naar " +
+            creature.name
+        );
 
         return;
 
     }
 
-    playerX+=
-        movement.x*speed;
 
-    playerY+=
-        movement.y*speed;
+    selectedCreature =
+        creature;
+
+    selectedElement =
+        element;
 
 
-    /*
-       Binnen de wereld blijven.
-    */
+    document.getElementById(
+        "encounter"
+    ).innerHTML = `
 
-    playerX=
+        <div class="encounterImage">
+            ${creature.emoji}
+        </div>
+
+        <h2>
+            ${creature.name}
+        </h2>
+
+        <p>
+            Type:
+            <b>
+                ${creature.type}
+            </b>
+            ·
+            ${creature.rarity}
+        </p>
+
+        <p>
+            ⭐
+            ${creature.xp}
+            XP
+        </p>
+
+        <button
+            class="catchButton"
+            onclick="catchCreature()"
+        >
+            🎯 VANG ${creature.name}
+        </button>
+
+    `;
+
+
+    document.getElementById(
+        "encounterModal"
+    ).style.display =
+        "flex";
+
+}
+
+
+/* ==================================================
+   CATCH
+================================================== */
+
+function catchCreature() {
+
+    if (
+        !selectedCreature
+    ) {
+
+        return;
+
+    }
+
+
+    const alreadyCaught =
+        saveData.caught.includes(
+            selectedCreature.id
+        );
+
+
+    selectedElement.remove();
+
+
+    if (
+        alreadyCaught
+    ) {
+
+        const bonus =
+            Math.floor(
+                selectedCreature.xp *
+                .4
+            );
+
+        addXP(
+            bonus
+        );
+
+        saveData.coins +=
+            5;
+
+        showToast(
+            "✨ Dubbel! +" +
+            bonus +
+            " XP"
+        );
+
+    } else {
+
+        saveData.caught.push(
+            selectedCreature.id
+        );
+
+        addXP(
+            selectedCreature.xp
+        );
+
+
+        let coins = 10;
+
+        if (
+            selectedCreature.rarity ===
+            "Rare"
+        ) {
+
+            coins = 20;
+
+        }
+
+        if (
+            selectedCreature.rarity ===
+            "Epic"
+        ) {
+
+            coins = 40;
+
+        }
+
+        if (
+            selectedCreature.rarity ===
+            "Legendary"
+        ) {
+
+            coins = 100;
+
+        }
+
+        saveData.coins +=
+            coins;
+
+
+        showToast(
+            "🎉 " +
+            selectedCreature.name +
+            " gevangen!"
+        );
+
+    }
+
+
+    saveGame();
+
+    updateUI();
+
+    closeModal(
+        "encounterModal"
+    );
+
+
+    selectedCreature =
+        null;
+
+    selectedElement =
+        null;
+
+
+    setTimeout(
+        spawnCreature,
+        1200
+    );
+
+}
+
+
+/* ==================================================
+   DEX
+================================================== */
+
+function openDex() {
+
+    document.getElementById(
+        "dexModal"
+    ).style.display =
+        "flex";
+
+
+    document.getElementById(
+        "dexProgress"
+    ).textContent =
+        saveData.caught.length +
+        " / " +
+        CREATURES.length +
+        " ontdekt";
+
+
+    document.getElementById(
+        "dex"
+    ).innerHTML =
+
+        CREATURES
+        .map(
+            (creature,index) => {
+
+                const found =
+                    saveData.caught
+                    .includes(
+                        creature.id
+                    );
+
+                return `
+
+                    <div
+                        class="
+                            dexCard
+                            ${
+                                found
+                                ? ""
+                                : "locked"
+                            }
+                        "
+                    >
+
+                        <small>
+                            #
+                            ${String(index+1)
+                                .padStart(3,"0")}
+                        </small>
+
+                        <div class="dexImage">
+                            ${
+                                found
+                                ? creature.emoji
+                                : "?"
+                            }
+                        </div>
+
+                        <b>
+                            ${
+                                found
+                                ? creature.name
+                                : "???"
+                            }
+                        </b>
+
+                        <div
+                            style="
+                                font-size:10px;
+                                color:#91a5ba;
+                                margin-top:6px
+                            "
+                        >
+                            ${
+                                found
+                                ? creature.type
+                                : "Nog niet ontdekt"
+                            }
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* ==================================================
+   FRIENDS
+================================================== */
+
+function openFriends() {
+
+    document.getElementById(
+        "friendsModal"
+    ).style.display =
+        "flex";
+
+}
+
+
+/* ==================================================
+   EVENTS
+================================================== */
+
+function openEvents() {
+
+    document.getElementById(
+        "eventsModal"
+    ).style.display =
+        "flex";
+
+}
+
+
+/* ==================================================
+   PROFILE
+================================================== */
+
+function openProfile() {
+
+    updateUI();
+
+    document.getElementById(
+        "profileModal"
+    ).style.display =
+        "flex";
+
+}
+
+
+/* ==================================================
+   MAP
+================================================== */
+
+function showMap() {
+
+    showToast(
+        "🗺️ Je bent op de kaart"
+    );
+
+}
+
+
+/* ==================================================
+   MODALS
+================================================== */
+
+function closeModal(
+    id
+) {
+
+    document.getElementById(
+        id
+    ).style.display =
+        "none";
+
+}
+
+
+document
+    .querySelectorAll(".modal")
+    .forEach(
+        modal => {
+
+            modal.addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target ===
+                        modal
+                    ) {
+
+                        modal.style.display =
+                            "none";
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* ==================================================
+   TOAST
+================================================== */
+
+let toastTimer;
+
+function showToast(
+    message
+) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        toastTimer
+    );
+
+    toastTimer =
+        setTimeout(
+            function() {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2600
+        );
+
+}
+
+
+/* ==================================================
+   MOVEMENT
+================================================== */
+
+function movementLoop() {
+
+    playerX +=
+        moveX *
+        speed;
+
+    playerY +=
+        moveY *
+        speed;
+
+
+    playerX =
         Math.max(
             100,
             Math.min(
-                2900,
+                3100,
                 playerX
             )
         );
 
-    playerY=
+
+    playerY =
         Math.max(
             100,
             Math.min(
-                2900,
+                3100,
                 playerY
             )
         );
@@ -2239,61 +2899,66 @@ function movePlayer(){
 
     centerWorld();
 
-    updateCreatureDistances();
+    updateDistances();
 
-}
-
-
-/* =====================================================
-   GAME LOOP
-===================================================== */
-
-function gameLoop(){
-
-    movePlayer();
 
     requestAnimationFrame(
-        gameLoop
+        movementLoop
     );
 
 }
 
-gameLoop();
+movementLoop();
 
 
-/* =====================================================
+/* ==================================================
    KEYBOARD
-===================================================== */
+================================================== */
 
 document.addEventListener(
     "keydown",
-    event=>{
+    function(event) {
 
-        if(event.key==="ArrowUp"||
-           event.key.toLowerCase()==="w"){
+        const key =
+            event.key.toLowerCase();
 
-            movement.y=-1;
 
-        }
+        if (
+            key === "w" ||
+            event.key === "ArrowUp"
+        ) {
 
-        if(event.key==="ArrowDown"||
-           event.key.toLowerCase()==="s"){
-
-            movement.y=1;
-
-        }
-
-        if(event.key==="ArrowLeft"||
-           event.key.toLowerCase()==="a"){
-
-            movement.x=-1;
+            moveY = -1;
 
         }
 
-        if(event.key==="ArrowRight"||
-           event.key.toLowerCase()==="d"){
 
-            movement.x=1;
+        if (
+            key === "s" ||
+            event.key === "ArrowDown"
+        ) {
+
+            moveY = 1;
+
+        }
+
+
+        if (
+            key === "a" ||
+            event.key === "ArrowLeft"
+        ) {
+
+            moveX = -1;
+
+        }
+
+
+        if (
+            key === "d" ||
+            event.key === "ArrowRight"
+        ) {
+
+            moveX = 1;
 
         }
 
@@ -2303,23 +2968,32 @@ document.addEventListener(
 
 document.addEventListener(
     "keyup",
-    event=>{
+    function(event) {
 
-        if(
-            ["ArrowUp","ArrowDown",
-             "w","s"].includes(event.key)
-        ){
+        const key =
+            event.key.toLowerCase();
 
-            movement.y=0;
+
+        if (
+            key === "w" ||
+            key === "s" ||
+            event.key === "ArrowUp" ||
+            event.key === "ArrowDown"
+        ) {
+
+            moveY = 0;
 
         }
 
-        if(
-            ["ArrowLeft","ArrowRight",
-             "a","d"].includes(event.key)
-        ){
 
-            movement.x=0;
+        if (
+            key === "a" ||
+            key === "d" ||
+            event.key === "ArrowLeft" ||
+            event.key === "ArrowRight"
+        ) {
+
+            moveX = 0;
 
         }
 
@@ -2327,96 +3001,112 @@ document.addEventListener(
 );
 
 
-/* =====================================================
+/* ==================================================
    JOYSTICK
-===================================================== */
+================================================== */
 
-const joystick=
-    document.getElementById(
-        "joystick"
-    );
+let joystickActive =
+    false;
 
-const knob=
-    document.getElementById(
-        "joystickKnob"
-    );
-
-let joystickActive=false;
 
 function joystickMove(
-    clientX,
-    clientY
-){
+    x,
+    y
+) {
 
-    const rect=
-        joystick.getBoundingClientRect();
+    const rect =
+        joystick
+        .getBoundingClientRect();
 
-    const centerX=
-        rect.left+
-        rect.width/2;
 
-    const centerY=
-        rect.top+
-        rect.height/2;
+    const centerX =
+        rect.left +
+        rect.width / 2;
 
-    let dx=
-        clientX-centerX;
+    const centerY =
+        rect.top +
+        rect.height / 2;
 
-    let dy=
-        clientY-centerY;
 
-    const max=
-        rect.width/2-29;
+    let dx =
+        x -
+        centerX;
 
-    const distance=
+    let dy =
+        y -
+        centerY;
+
+
+    const max =
+        rect.width / 2 -
+        29;
+
+
+    const distance =
         Math.sqrt(
-            dx*dx+
-            dy*dy
+            dx * dx +
+            dy * dy
         );
 
-    if(distance>max){
 
-        dx=
-            dx/distance*max;
+    if (
+        distance > max
+    ) {
 
-        dy=
-            dy/distance*max;
+        dx =
+            dx /
+            distance *
+            max;
+
+        dy =
+            dy /
+            distance *
+            max;
 
     }
 
-    knob.style.left=
+
+    knob.style.left =
         `calc(50% + ${dx}px)`;
 
-    knob.style.top=
+    knob.style.top =
         `calc(50% + ${dy}px)`;
 
-    movement.x=
-        dx/max;
 
-    movement.y=
-        dy/max;
+    moveX =
+        dx /
+        max;
+
+    moveY =
+        dy /
+        max;
 
 }
 
 
-function joystickStop(){
+function joystickStop() {
 
-    joystickActive=false;
+    joystickActive =
+        false;
 
-    movement.x=0;
-    movement.y=0;
+    moveX = 0;
+    moveY = 0;
 
-    knob.style.left="50%";
-    knob.style.top="50%";
+    knob.style.left =
+        "50%";
+
+    knob.style.top =
+        "50%";
 
 }
 
 
 joystick.addEventListener(
     "pointerdown",
-    event=>{
+    function(event) {
 
-        joystickActive=true;
+        joystickActive =
+            true;
 
         joystick.setPointerCapture(
             event.pointerId
@@ -2433,15 +3123,18 @@ joystick.addEventListener(
 
 joystick.addEventListener(
     "pointermove",
-    event=>{
+    function(event) {
 
-        if(!joystickActive)
-            return;
+        if (
+            joystickActive
+        ) {
 
-        joystickMove(
-            event.clientX,
-            event.clientY
-        );
+            joystickMove(
+                event.clientX,
+                event.clientY
+            );
+
+        }
 
     }
 );
@@ -2452,523 +3145,22 @@ joystick.addEventListener(
     joystickStop
 );
 
+
 joystick.addEventListener(
     "pointercancel",
     joystickStop
 );
 
 
-/* =====================================================
-   CREATURE SPAWNS
-===================================================== */
-
-function spawnInitialCreatures(){
-
-    for(
-        let i=0;
-        i<7;
-        i++
-    ){
-
-        setTimeout(
-            spawnCreature,
-            i*400
-        );
-
-    }
-
-}
-
-
-function randomCreature(){
-
-    const random=
-        Math.random();
-
-    let rarity;
-
-    if(random<.65){
-
-        rarity="Common";
-
-    }
-    else if(random<.90){
-
-        rarity="Rare";
-
-    }
-    else if(random<.985){
-
-        rarity="Epic";
-
-    }
-    else{
-
-        rarity="Legendary";
-
-    }
-
-    let list=
-        CREATURES.filter(
-            c=>c.rarity===rarity
-        );
-
-    if(!list.length)
-        list=CREATURES;
-
-    return list[
-        Math.floor(
-            Math.random()*
-            list.length
-        )
-    ];
-
-}
-
-
-function spawnCreature(){
-
-    const world=
-        document.getElementById(
-            "world"
-        );
-
-    const creature=
-        randomCreature();
-
-
-    /*
-       Creature verschijnt
-       in een gebied rond de speler.
-    */
-
-    const angle=
-        Math.random()*
-        Math.PI*2;
-
-    const distance=
-        220+
-        Math.random()*500;
-
-
-    let x=
-        playerX+
-        Math.cos(angle)*
-        distance;
-
-    let y=
-        playerY+
-        Math.sin(angle)*
-        distance;
-
-
-    x=
-        Math.max(
-            80,
-            Math.min(
-                2920,
-                x
-            )
-        );
-
-    y=
-        Math.max(
-            80,
-            Math.min(
-                2920,
-                y
-            )
-        );
-
-
-    const element=
-        document.createElement(
-            "button"
-        );
-
-    element.className=
-        "creature";
-
-
-    element.dataset.x=x;
-    element.dataset.y=y;
-    element.dataset.id=
-        creature.id;
-
-
-    element.innerHTML=`
-
-        <span
-            class="creature-emoji">
-
-            ${creature.emoji}
-
-        </span>
-
-        <span
-            class="creature-distance">
-
-            zoeken...
-
-        </span>
-
-    `;
-
-
-    element.style.left=
-        x+"px";
-
-    element.style.top=
-        y+"px";
-
-
-    element.onclick=
-        ()=>{
-            tryCatchCreature(
-                creature,
-                element
-            );
-        };
-
-
-    world.appendChild(
-        element
-    );
-
-
-    updateCreatureDistances();
-
-}
-
-
-/* =====================================================
-   AFSTAND
-===================================================== */
-
-function distanceBetween(
-    x1,
-    y1,
-    x2,
-    y2
-){
-
-    return Math.sqrt(
-        Math.pow(x2-x1,2)+
-        Math.pow(y2-y1,2)
-    );
-
-}
-
-
-function updateCreatureDistances(){
-
-    document
-    .querySelectorAll(
-        ".creature"
-    )
-    .forEach(
-        element=>{
-
-            const x=
-                Number(
-                    element.dataset.x
-                );
-
-            const y=
-                Number(
-                    element.dataset.y
-                );
-
-            const distance=
-                Math.round(
-                    distanceBetween(
-                        playerX,
-                        playerY,
-                        x,
-                        y
-                    )
-                );
-
-
-            const label=
-                element.querySelector(
-                    ".creature-distance"
-                );
-
-
-            label.innerText=
-                distance+
-                " m";
-
-
-            /*
-               Alleen binnen 170 meter
-               is hij vangbaar.
-            */
-
-            if(distance<=170){
-
-                element.style.filter=
-                    "none";
-
-            }
-            else{
-
-                element.style.filter=
-                    "brightness(.65)";
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   VANGEN
-===================================================== */
-
-function tryCatchCreature(
-    creature,
-    element
-){
-
-    const x=
-        Number(
-            element.dataset.x
-        );
-
-    const y=
-        Number(
-            element.dataset.y
-        );
-
-    const distance=
-        distanceBetween(
-            playerX,
-            playerY,
-            x,
-            y
-        );
-
-
-    if(distance>170){
-
-        showToast(
-            "👣 Loop dichter naar "+
-            creature.name+
-            "!"
-        );
-
-        return;
-
-    }
-
-
-    openEncounter(
-        creature,
-        element
-    );
-
-}
-
-
-/* =====================================================
-   ENCOUNTER
-===================================================== */
-
-let currentCreature=null;
-let currentElement=null;
-
-
-function openEncounter(
-    creature,
-    element
-){
-
-    currentCreature=
-        creature;
-
-    currentElement=
-        element;
-
-
-    document.getElementById(
-        "encounter"
-    ).innerHTML=`
-
-        <div class="encounter-image">
-
-            ${creature.emoji}
-
-        </div>
-
-        <h2>
-            ${creature.name}
-        </h2>
-
-        <p>
-            Type:
-            <strong>
-                ${creature.type}
-            </strong>
-        </p>
-
-        <p>
-            Zeldzaamheid:
-            <strong>
-                ${creature.rarity}
-            </strong>
-        </p>
-
-        <p>
-            ⭐
-            ${creature.xp}
-            XP
-        </p>
-
-        <button
-            class="catch-button"
-            onclick="catchCreature()">
-
-            🎯 VANG ${creature.name}
-
-        </button>
-
-    `;
-
-
-    document.getElementById(
-        "encounterModal"
-    ).style.display=
-        "flex";
-
-}
-
-
-function catchCreature(){
-
-    if(
-        !currentCreature||
-        !currentElement
-    ){
-
-        return;
-
-    }
-
-
-    const already=
-        playerData.caught.includes(
-            currentCreature.id
-        );
-
-
-    currentElement.remove();
-
-
-    if(already){
-
-        const bonus=
-            Math.floor(
-                currentCreature.xp*.4
-            );
-
-        addXP(bonus);
-
-        playerData.coins+=5;
-
-        showToast(
-            "✨ Dubbel! +"+
-            bonus+
-            " XP"
-        );
-
-    }
-    else{
-
-        playerData.caught.push(
-            currentCreature.id
-        );
-
-        addXP(
-            currentCreature.xp
-        );
-
-
-        let coins=10;
-
-
-        if(
-            currentCreature.rarity===
-            "Rare"
-        ){
-
-            coins=20;
-
-        }
-
-        if(
-            currentCreature.rarity===
-            "Epic"
-        ){
-
-            coins=40;
-
-        }
-
-        if(
-            currentCreature.rarity===
-            "Legendary"
-        ){
-
-            coins=100;
-
-        }
-
-
-        playerData.coins+=
-            coins;
-
-
-        showToast(
-            "🎉 "+
-            currentCreature.name+
-            " gevangen!"
-        );
-
-    }
-
-
-    saveGame();
-
-    updateUI();
-
-    closeModal(
-        "encounterModal"
-    );
-
-
-    currentCreature=null;
-    currentElement=null;
-
-
-    setTimeout(
-        spawnCreature,
-        1200
-    );
-
-}
-
-
-/* =====================================================
+/* ==================================================
    GPS
-===================================================== */
+================================================== */
 
-function useGPS(){
+function useGPS() {
 
-    if(!navigator.geolocation){
+    if (
+        !navigator.geolocation
+    ) {
 
         showToast(
             "📍 GPS wordt niet ondersteund."
@@ -2980,328 +3172,65 @@ function useGPS(){
 
 
     showToast(
-        "📍 Locatie wordt gezocht..."
+        "📍 GPS wordt gezocht..."
     );
 
 
-    navigator.geolocation.getCurrentPosition(
+    navigator.geolocation
+        .getCurrentPosition(
 
-        position=>{
+            function(position) {
 
-            gpsActive=true;
-
-
-            /*
-               We gebruiken de echte GPS
-               om een locatie te krijgen.
-
-               Voor deze stap houden we de
-               gamewereld lokaal zodat de
-               game ook zonder echte kaart
-               speelbaar blijft.
-            */
-
-            console.log(
-                "Latitude:",
-                position.coords.latitude
-            );
-
-            console.log(
-                "Longitude:",
-                position.coords.longitude
-            );
-
-
-            showToast(
-                "📍 GPS verbonden!"
-            );
-
-        },
-
-        ()=>{
-
-            showToast(
-                "⚠️ Geef toestemming voor GPS."
-            );
-
-        },
-
-        {
-            enableHighAccuracy:true,
-            timeout:10000,
-            maximumAge:0
-        }
-
-    );
-
-}
-
-
-/* =====================================================
-   DEX
-===================================================== */
-
-function openDex(){
-
-    document.getElementById(
-        "dexModal"
-    ).style.display=
-        "flex";
-
-    renderDex();
-
-}
-
-
-function renderDex(){
-
-    const grid=
-        document.getElementById(
-            "dexGrid"
-        );
-
-    grid.innerHTML="";
-
-
-    document.getElementById(
-        "dexProgress"
-    ).innerText=
-        playerData.caught.length+
-        " / "+
-        CREATURES.length+
-        " ontdekt";
-
-
-    CREATURES.forEach(
-        (creature,index)=>{
-
-            const found=
-                playerData.caught.includes(
-                    creature.id
+                console.log(
+                    position.coords.latitude,
+                    position.coords.longitude
                 );
 
-
-            const card=
-                document.createElement(
-                    "div"
+                showToast(
+                    "📍 GPS verbonden!"
                 );
 
-            card.className=
-                "dex-card";
-
-
-            if(!found){
-
-                card.classList.add(
-                    "locked"
-                );
-
-            }
-
-
-            card.innerHTML=`
-
-                <div
-                    style="
-                        color:#718399;
-                        font-size:9px;
-                    ">
-
-                    #${String(
-                        index+1
-                    ).padStart(3,"0")}
-
-                </div>
-
-                <div class="dex-image">
-
-                    ${
-                        found
-                        ? creature.emoji
-                        : "?"
-                    }
-
-                </div>
-
-                <strong>
-
-                    ${
-                        found
-                        ? creature.name
-                        : "???"
-                    }
-
-                </strong>
-
-                <p
-                    style="
-                        color:#8798ad;
-                        font-size:10px;
-                    ">
-
-                    ${
-                        found
-                        ? creature.type
-                        : "Nog niet ontdekt"
-                    }
-
-                </p>
-
-            `;
-
-
-            grid.appendChild(
-                card
-            );
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   FRIENDS
-===================================================== */
-
-function openFriends(){
-
-    document.getElementById(
-        "friendsModal"
-    ).style.display=
-        "flex";
-
-}
-
-
-/* =====================================================
-   EVENTS
-===================================================== */
-
-function openEvents(){
-
-    document.getElementById(
-        "eventsModal"
-    ).style.display=
-        "flex";
-
-}
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
-
-function openProfile(){
-
-    updateUI();
-
-    document.getElementById(
-        "profileModal"
-    ).style.display=
-        "flex";
-
-}
-
-
-/* =====================================================
-   MODALS SLUITEN
-===================================================== */
-
-function closeModal(id){
-
-    document.getElementById(
-        id
-    ).style.display=
-        "none";
-
-}
-
-
-document
-.querySelectorAll(".modal")
-.forEach(
-    modal=>{
-
-        modal.addEventListener(
-            "click",
-            event=>{
-
-                if(
-                    event.target===
-                    modal
-                ){
-
-                    modal.style.display=
-                        "none";
-
-                }
-
-            }
-        );
-
-    }
-);
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-let toastTimer=null;
-
-
-function showToast(message){
-
-    const toast=
-        document.getElementById(
-            "toast"
-        );
-
-
-    toast.innerText=
-        message;
-
-
-    toast.classList.add(
-        "show"
-    );
-
-
-    clearTimeout(
-        toastTimer
-    );
-
-
-    toastTimer=
-        setTimeout(
-            ()=>{
-                toast.classList.remove(
-                    "show"
-                );
             },
-            2600
+
+            function() {
+
+                showToast(
+                    "⚠️ Geef GPS-toegang."
+                );
+
+            },
+
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+
         );
 
 }
 
 
-/* =====================================================
-   AUTOMATISCHE SPAWNS
-===================================================== */
+/* ==================================================
+   AUTOMATISCH NIEUWE CREATUREN
+================================================== */
 
 setInterval(
-    ()=>{
+    function() {
 
-        const creatures=
-            document.querySelectorAll(
-                ".creature"
-            );
+        const count =
+            document
+                .querySelectorAll(
+                    ".creature"
+                )
+                .length;
 
 
-        if(
-            creatures.length<7
-        ){
+        if (
+            count < 8 &&
+            game.style.display ===
+            "block"
+        ) {
 
             spawnCreature();
 
@@ -3312,42 +3241,13 @@ setInterval(
 );
 
 
-/* =====================================================
-   ESC
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    event=>{
-
-        if(
-            event.key==="Escape"
-        ){
-
-            document
-            .querySelectorAll(
-                ".modal"
-            )
-            .forEach(
-                modal=>{
-                    modal.style.display=
-                        "none";
-                }
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
+/* ==================================================
    INIT
-===================================================== */
+================================================== */
 
 updateUI();
 
 </script>
 
 </body>
-</html>
+    </html>

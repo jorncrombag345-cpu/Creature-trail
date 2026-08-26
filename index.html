@@ -1,8693 +1,3631 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-
-    <!-- =========================================================
-         CREATUREN WORLD
-         MEGA INDEX.HTML — PART 1
-         ========================================================= -->
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="
-            width=device-width,
-            initial-scale=1.0,
-            maximum-scale=1.0,
-            user-scalable=no,
-            viewport-fit=cover
-        "
-    >
-
-    <meta
-        name="theme-color"
-        content="#070b16"
-    >
-
-    <meta
-        name="mobile-web-app-capable"
-        content="yes"
-    >
-
-    <meta
-        name="apple-mobile-web-app-capable"
-        content="yes"
-    >
-
-    <title>
-        Creaturen World
-    </title>
-
-
-    <!-- =========================================================
-         LEAFLET
-         ========================================================= -->
-
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIINfQ3dLqvZsN1lQ5XK6R9F1X6vZ7Q8Z4M="
-        crossorigin=""
-    >
-
-
-    <!-- =========================================================
-         FONTS
-         ========================================================= -->
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="
-            https://fonts.googleapis.com/css2?
-            family=Inter:wght@400;500;600;700;800;900&
-            family=Nunito:wght@400;600;700;800;900&
-            display=swap
-        "
-        rel="stylesheet"
-    >
-
-
-    <!-- =========================================================
-         GLOBAL STYLE
-         ========================================================= -->
-
-    <style>
-
-    /* =========================================================
-       RESET
-       ========================================================= */
-
-    *,
-    *::before,
-    *::after {
-
-        box-sizing: border-box;
-
-        margin: 0;
-
-        padding: 0;
-
-        -webkit-tap-highlight-color: transparent;
-
-    }
-
-
-    html,
-    body {
-
-        width: 100%;
-
-        height: 100%;
-
-        overflow: hidden;
-
-    }
-
-
-    body {
-
-        font-family:
-            "Inter",
-            Arial,
-            sans-serif;
-
-        background:
-            #070b16;
-
-        color:
-            #ffffff;
-
-        overscroll-behavior:
-            none;
-
-    }
-
-
-    button,
-    input,
-    textarea,
-    select {
-
-        font-family:
-            inherit;
-
-    }
-
-
-    button {
-
-        border: 0;
-
-        outline: none;
-
-        cursor: pointer;
-
-        color: inherit;
-
-    }
-
-
-    button:active {
-
-        transform:
-            scale(.96);
-
-    }
-
-
-    input,
-    textarea {
-
-        outline: none;
-
-    }
-
-
-    ::-webkit-scrollbar {
-
-        width: 4px;
-
-        height: 4px;
-
-    }
-
-
-    ::-webkit-scrollbar-thumb {
-
-        background:
-            rgba(255,255,255,.15);
-
-        border-radius:
-            999px;
-
-    }
-
-
-    /* =========================================================
-       VARIABLES
-       ========================================================= */
-
-    :root {
-
-        --bg:
-            #070b16;
-
-        --bg-2:
-            #0b1220;
-
-        --panel:
-            rgba(12,18,32,.94);
-
-        --panel-light:
-            rgba(255,255,255,.07);
-
-        --panel-lighter:
-            rgba(255,255,255,.10);
-
-        --border:
-            rgba(255,255,255,.10);
-
-        --border-light:
-            rgba(255,255,255,.16);
-
-        --text:
-            #ffffff;
-
-        --text-soft:
-            #b8c2d4;
-
-        --text-muted:
-            #748197;
-
-        --primary:
-            #7667ff;
-
-        --primary-2:
-            #9d7cff;
-
-        --cyan:
-            #4de3ff;
-
-        --green:
-            #47e0a0;
-
-        --yellow:
-            #ffd65c;
-
-        --orange:
-            #ff9a5c;
-
-        --red:
-            #ff5f72;
-
-        --pink:
-            #ff65c7;
-
-        --shadow:
-            0 20px 70px rgba(0,0,0,.45);
-
-        --radius-small:
-            12px;
-
-        --radius:
-            18px;
-
-        --radius-large:
-            26px;
-
-        --radius-xl:
-            34px;
-
-    }
-
-
-    /* =========================================================
-       APP
-       ========================================================= */
-
-    #app {
-
-        position:
-            fixed;
-
-        inset:
-            0;
-
-        width:
-            100%;
-
-        height:
-            100%;
-
-        overflow:
-            hidden;
-
-        background:
-            var(--bg);
-
-    }
-
-
-    /* =========================================================
-       START SCREEN
-       ========================================================= */
-
-    #startScreen {
-
-        position:
-            fixed;
-
-        inset:
-            0;
-
-        z-index:
-            99999;
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        padding:
-            24px;
-
-        overflow:
-            hidden;
-
-        background:
-
-            radial-gradient(
-                circle at 50% 0%,
-                rgba(118,103,255,.35),
-                transparent 42%
-            ),
-
-            radial-gradient(
-                circle at 0% 100%,
-                rgba(77,227,255,.12),
-                transparent 35%
-            ),
-
-            linear-gradient(
-                145deg,
-                #050813,
-                #0b1020 55%,
-                #060914
-            );
-
-    }
-
-
-    .start-orb {
-
-        position:
-            absolute;
-
-        width:
-            280px;
-
-        height:
-            280px;
-
-        border-radius:
-            50%;
-
-        background:
-            rgba(118,103,255,.12);
-
-        filter:
-            blur(10px);
-
-        animation:
-            floatingOrb 7s ease-in-out infinite;
-
-    }
-
-
-    .start-orb.one {
-
-        top:
-            -100px;
-
-        left:
-            -100px;
-
-    }
-
-
-    .start-orb.two {
-
-        right:
-            -130px;
-
-        bottom:
-            -100px;
-
-        animation-delay:
-            -3s;
-
-    }
-
-
-    @keyframes floatingOrb {
-
-        0%,
-        100% {
-
-            transform:
-                translate3d(0,0,0)
-                scale(1);
-
-        }
-
-        50% {
-
-            transform:
-                translate3d(25px,-20px,0)
-                scale(1.1);
-
-        }
-
-    }
-
-
-    .start-card {
-
-        position:
-            relative;
-
-        z-index:
-            2;
-
-        width:
-            min(460px,100%);
-
-        padding:
-            34px 26px 28px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            var(--radius-xl);
-
-        background:
-            rgba(9,14,27,.84);
-
-        backdrop-filter:
-            blur(30px);
-
-        -webkit-backdrop-filter:
-            blur(30px);
-
-        box-shadow:
-            0 40px 120px rgba(0,0,0,.65);
-
-        text-align:
-            center;
-
-        animation:
-            startCardIn .7s cubic-bezier(.2,.8,.2,1);
-
-    }
-
-
-    @keyframes startCardIn {
-
-        from {
-
-            opacity:
-                0;
-
-            transform:
-                translateY(30px)
-                scale(.96);
-
-        }
-
-        to {
-
-            opacity:
-                1;
-
-            transform:
-                translateY(0)
-                scale(1);
-
-        }
-
-    }
-
-
-    .start-logo {
-
-        width:
-            118px;
-
-        height:
-            118px;
-
-        margin:
-            0 auto 22px;
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        border:
-            1px solid rgba(255,255,255,.2);
-
-        border-radius:
-            36px;
-
-        background:
-
-            linear-gradient(
-                145deg,
-                #8d81ff,
-                #5c49d8
-            );
-
-        box-shadow:
-
-            0 25px 70px
-            rgba(118,103,255,.4),
-
-            inset 0 1px 0
-            rgba(255,255,255,.35);
-
-        font-size:
-            58px;
-
-        animation:
-            logoFloat 3s ease-in-out infinite;
-
-    }
-
-
-    @keyframes logoFloat {
-
-        0%,
-        100% {
-
-            transform:
-                translateY(0);
-
-        }
-
-        50% {
-
-            transform:
-                translateY(-8px);
-
-        }
-
-    }
-
-
-    .start-title {
-
-        font-family:
-            "Nunito",
-            sans-serif;
-
-        font-size:
-            clamp(34px,9vw,50px);
-
-        line-height:
-            1;
-
-        font-weight:
-            900;
-
-        letter-spacing:
-            -2px;
-
-    }
-
-
-    .start-title span {
-
-        background:
-
-            linear-gradient(
-                90deg,
-                #8d81ff,
-                #4de3ff
-            );
-
-        -webkit-background-clip:
-            text;
-
-        background-clip:
-            text;
-
-        color:
-            transparent;
-
-    }
-
-
-    .start-description {
-
-        margin:
-            17px auto 25px;
-
-        max-width:
-            360px;
-
-        color:
-            var(--text-soft);
-
-        font-size:
-            14px;
-
-        line-height:
-            1.7;
-
-    }
-
-
-    .start-features {
-
-        display:
-            grid;
-
-        grid-template-columns:
-            repeat(3,1fr);
-
-        gap:
-            8px;
-
-        margin-bottom:
-            22px;
-
-    }
-
-
-    .start-feature {
-
-        padding:
-            12px 6px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            15px;
-
-        background:
-            rgba(255,255,255,.035);
-
-    }
-
-
-    .start-feature-icon {
-
-        font-size:
-            23px;
-
-        margin-bottom:
-            5px;
-
-    }
-
-
-    .start-feature-text {
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            9px;
-
-        font-weight:
-            800;
-
-        text-transform:
-            uppercase;
-
-        letter-spacing:
-            .5px;
-
-    }
-
-
-    .main-button {
-
-        position:
-            relative;
-
-        width:
-            100%;
-
-        min-height:
-            56px;
-
-        border-radius:
-            18px;
-
-        overflow:
-            hidden;
-
-        background:
-
-            linear-gradient(
-                135deg,
-                #8c7fff,
-                #6453dc
-            );
-
-        box-shadow:
-            0 15px 40px
-            rgba(118,103,255,.35);
-
-        font-weight:
-            900;
-
-        font-size:
-            14px;
-
-        letter-spacing:
-            .4px;
-
-    }
-
-
-    .main-button::after {
-
-        content:
-            "";
-
-        position:
-            absolute;
-
-        top:
-            0;
-
-        left:
-            -100%;
-
-        width:
-            60%;
-
-        height:
-            100%;
-
-        background:
-            linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,.25),
-                transparent
-            );
-
-        animation:
-            buttonShine 3s infinite;
-
-    }
-
-
-    @keyframes buttonShine {
-
-        0% {
-
-            left:
-                -100%;
-
-        }
-
-        45%,
-        100% {
-
-            left:
-                150%;
-
-        }
-
-    }
-
-
-    /* =========================================================
-       GAME WORLD
-       ========================================================= */
-
-    #gameWorld {
-
-        position:
-            absolute;
-
-        inset:
-            0;
-
-        display:
-            none;
-
-        overflow:
-            hidden;
-
-        background:
-            #18251c;
-
-    }
-
-
-    /* =========================================================
-       MAP
-       ========================================================= */
-
-    #map {
-
-        position:
-            absolute;
-
-        inset:
-            0;
-
-        z-index:
-            1;
-
-        background:
-            #d8e6d0;
-
-    }
-
-
-    #mapFallback {
-
-        position:
-            absolute;
-
-        inset:
-            0;
-
-        z-index:
-            5;
-
-        display:
-            none;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        text-align:
-            center;
-
-        padding:
-            30px;
-
-        pointer-events:
-            none;
-
-        background:
-            linear-gradient(
-                145deg,
-                #15241d,
-                #1d3327
-            );
-
-    }
-
-
-    .map-fallback-card {
-
-        width:
-            min(380px,100%);
-
-        padding:
-            28px;
-
-        border:
-            1px solid rgba(255,255,255,.1);
-
-        border-radius:
-            26px;
-
-        background:
-            rgba(5,12,9,.8);
-
-        backdrop-filter:
-            blur(20px);
-
-    }
-
-
-    .map-fallback-icon {
-
-        font-size:
-            50px;
-
-        margin-bottom:
-            14px;
-
-    }
-
-
-    .map-fallback-card h2 {
-
-        font-size:
-            20px;
-
-        margin-bottom:
-            8px;
-
-    }
-
-
-    .map-fallback-card p {
-
-        color:
-            var(--text-soft);
-
-        font-size:
-            12px;
-
-        line-height:
-            1.6;
-
-    }
-
-
-    /* =========================================================
-       MAP OVERLAY
-       ========================================================= */
-
-    .map-vignette {
-
-        position:
-            absolute;
-
-        inset:
-            0;
-
-        z-index:
-            300;
-
-        pointer-events:
-            none;
-
-        background:
-
-            radial-gradient(
-                circle at 50% 45%,
-                transparent 35%,
-                rgba(0,0,0,.06) 65%,
-                rgba(0,0,0,.25) 100%
-            );
-
-    }
-
-
-    .map-top-gradient {
-
-        position:
-            absolute;
-
-        top:
-            0;
-
-        left:
-            0;
-
-        right:
-            0;
-
-        height:
-            170px;
-
-        z-index:
-            301;
-
-        pointer-events:
-            none;
-
-        background:
-            linear-gradient(
-                rgba(5,10,20,.82),
-                transparent
-            );
-
-    }
-
-
-    .map-bottom-gradient {
-
-        position:
-            absolute;
-
-        bottom:
-            0;
-
-        left:
-            0;
-
-        right:
-            0;
-
-        height:
-            170px;
-
-        z-index:
-            301;
-
-        pointer-events:
-            none;
-
-        background:
-            linear-gradient(
-                transparent,
-                rgba(5,10,20,.72)
-            );
-
-    }
-
-
-    /* =========================================================
-       TOP HUD
-       ========================================================= */
-
-    #topHUD {
-
-        position:
-            absolute;
-
-        top:
-            0;
-
-        left:
-            0;
-
-        right:
-            0;
-
-        z-index:
-            1000;
-
-        padding:
-            calc(10px + env(safe-area-inset-top))
-            14px
-            15px;
-
-        pointer-events:
-            none;
-
-    }
-
-
-    .hud-row {
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            space-between;
-
-        gap:
-            10px;
-
-    }
-
-
-    .profile-chip {
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        gap:
-            9px;
-
-        padding:
-            6px 10px 6px 6px;
-
-        border:
-            1px solid rgba(255,255,255,.12);
-
-        border-radius:
-            18px;
-
-        background:
-            rgba(7,12,23,.78);
-
-        backdrop-filter:
-            blur(18px);
-
-        box-shadow:
-            0 8px 30px rgba(0,0,0,.2);
-
-    }
-
-
-    .profile-avatar {
-
-        width:
-            42px;
-
-        height:
-            42px;
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        border-radius:
-            14px;
-
-        background:
-            linear-gradient(
-                145deg,
-                #8b7eff,
-                #5848c8
-            );
-
-        font-size:
-            21px;
-
-        box-shadow:
-            inset 0 1px 0
-            rgba(255,255,255,.25);
-
-    }
-
-
-    .profile-info {
-
-        min-width:
-            75px;
-
-    }
-
-
-    .profile-name {
-
-        font-size:
-            11px;
-
-        font-weight:
-            900;
-
-        white-space:
-            nowrap;
-
-    }
-
-
-    .profile-level {
-
-        margin-top:
-            3px;
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            9px;
-
-        font-weight:
-            700;
-
-    }
-
-
-    .hud-resources {
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        gap:
-            5px;
-
-    }
-
-
-    .resource {
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        gap:
-            4px;
-
-        min-height:
-            34px;
-
-        padding:
-            0 9px;
-
-        border:
-            1px solid rgba(255,255,255,.10);
-
-        border-radius:
-            12px;
-
-        background:
-            rgba(7,12,23,.78);
-
-        backdrop-filter:
-            blur(18px);
-
-        font-size:
-            10px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .resource.gold {
-
-        color:
-            var(--yellow);
-
-    }
-
-
-    .resource.xp {
-
-        color:
-            #c5baff;
-
-    }
-
-
-    .resource.ball {
-
-        color:
-            #ffffff;
-
-    }
-
-
-    /* =========================================================
-       XP BAR
-       ========================================================= */
-
-    .xp-container {
-
-        margin-top:
-            9px;
-
-        padding:
-            8px 10px;
-
-        border:
-            1px solid rgba(255,255,255,.08);
-
-        border-radius:
-            13px;
-
-        background:
-            rgba(7,12,23,.62);
-
-        backdrop-filter:
-            blur(18px);
-
-    }
-
-
-    .xp-top {
-
-        display:
-            flex;
-
-        justify-content:
-            space-between;
-
-        align-items:
-            center;
-
-        margin-bottom:
-            5px;
-
-    }
-
-
-    .xp-label {
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            8px;
-
-        font-weight:
-            900;
-
-        text-transform:
-            uppercase;
-
-        letter-spacing:
-            1px;
-
-    }
-
-
-    .xp-value {
-
-        color:
-            var(--text-soft);
-
-        font-size:
-            8px;
-
-        font-weight:
-            800;
-
-    }
-
-
-    .xp-track {
-
-        width:
-            100%;
-
-        height:
-            5px;
-
-        overflow:
-            hidden;
-
-        border-radius:
-            99px;
-
-        background:
-            rgba(255,255,255,.09);
-
-    }
-
-
-    #xpFill {
-
-        width:
-            0%;
-
-        height:
-            100%;
-
-        border-radius:
-            inherit;
-
-        background:
-            linear-gradient(
-                90deg,
-                #7565ff,
-                #aa7bff,
-                #4de3ff
-            );
-
-        box-shadow:
-            0 0 12px
-            rgba(118,103,255,.5);
-
-        transition:
-            width .5s ease;
-
-    }
-
-
-    /* =========================================================
-       MAP ACTIONS
-       ========================================================= */
-
-    #mapActions {
-
-        position:
-            absolute;
-
-        top:
-            150px;
-
-        right:
-            13px;
-
-        z-index:
-            900;
-
-        display:
-            flex;
-
-        flex-direction:
-            column;
-
-        gap:
-            8px;
-
-    }
-
-
-    .map-action {
-
-        width:
-            48px;
-
-        height:
-            48px;
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        border:
-            1px solid rgba(255,255,255,.12);
-
-        border-radius:
-            16px;
-
-        background:
-            rgba(7,12,23,.84);
-
-        backdrop-filter:
-            blur(18px);
-
-        box-shadow:
-            0 10px 30px rgba(0,0,0,.25);
-
-        font-size:
-            19px;
-
-    }
-
-
-    .map-action.active {
-
-        background:
-            linear-gradient(
-                145deg,
-                #7667ff,
-                #5748d1
-            );
-
-    }
-
-
-    /* =========================================================
-       PLAYER MARKER
-       ========================================================= */
-
-    .player-marker-wrapper {
-
-        position:
-            relative;
-
-        width:
-            72px;
-
-        height:
-            72px;
-
-    }
-
-
-    .player-range {
-
-        position:
-            absolute;
-
-        left:
-            50%;
-
-        top:
-            50%;
-
-        width:
-            160px;
-
-        height:
-            160px;
-
-        transform:
-            translate(-50%,-50%);
-
-        border:
-            2px solid
-            rgba(118,103,255,.45);
-
-        border-radius:
-            50%;
-
-        background:
-            rgba(118,103,255,.045);
-
-        box-shadow:
-            0 0 35px
-            rgba(118,103,255,.12);
-
-        animation:
-            rangePulse 2.8s infinite;
-
-    }
-
-
-    @keyframes rangePulse {
-
-        0%,
-        100% {
-
-            opacity:
-                .55;
-
-            transform:
-                translate(-50%,-50%)
-                scale(.92);
-
-        }
-
-        50% {
-
-            opacity:
-                1;
-
-            transform:
-                translate(-50%,-50%)
-                scale(1);
-
-        }
-
-    }
-
-
-    .player-marker {
-
-        position:
-            absolute;
-
-        left:
-            50%;
-
-        top:
-            50%;
-
-        width:
-            55px;
-
-        height:
-            55px;
-
-        transform:
-            translate(-50%,-50%);
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        border:
-            3px solid #ffffff;
-
-        border-radius:
-            50%;
-
-        background:
-            linear-gradient(
-                145deg,
-                #8678ff,
-                #5d4bd1
-            );
-
-        box-shadow:
-            0 8px 30px rgba(0,0,0,.4);
-
-        font-size:
-            27px;
-
-    }
-
-
-    /* =========================================================
-       CREATURE MARKER
-       ========================================================= */
-
-    .creature-marker {
-
-        position:
-            relative;
-
-        width:
-            72px;
-
-        height:
-            84px;
-
-        display:
-            flex;
-
-        flex-direction:
-            column;
-
-        align-items:
-            center;
-
-        justify-content:
-            flex-start;
-
-        cursor:
-            pointer;
-
-    }
-
-
-    .creature-marker-orb {
-
-        width:
-            58px;
-
-        height:
-            58px;
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        border:
-            3px solid white;
-
-        border-radius:
-            20px;
-
-        background:
-            linear-gradient(
-                145deg,
-                rgba(255,255,255,.98),
-                rgba(222,230,255,.95)
-            );
-
-        box-shadow:
-            0 8px 25px rgba(0,0,0,.32);
-
-        font-size:
-            32px;
-
-        transition:
-            transform .2s ease;
-
-    }
-
-
-    .creature-marker:hover
-    .creature-marker-orb {
-
-        transform:
-            translateY(-5px)
-            scale(1.08);
-
-    }
-
-
-    .creature-marker-name {
-
-        max-width:
-            100px;
-
-        margin-top:
-            4px;
-
-        padding:
-            4px 7px;
-
-        overflow:
-            hidden;
-
-        border-radius:
-            7px;
-
-        background:
-            rgba(5,10,20,.86);
-
-        color:
-            white;
-
-        font-size:
-            8px;
-
-        font-weight:
-            900;
-
-        text-overflow:
-            ellipsis;
-
-        white-space:
-            nowrap;
-
-    }
-
-
-    .creature-marker.shiny
-    .creature-marker-orb {
-
-        border-color:
-            var(--yellow);
-
-        box-shadow:
-            0 0 25px
-            rgba(255,214,92,.7),
-            0 10px 30px
-            rgba(0,0,0,.35);
-
-        animation:
-            shinyGlow 1.2s infinite;
-
-    }
-
-
-    @keyframes shinyGlow {
-
-        0%,
-        100% {
-
-            transform:
-                scale(1);
-
-        }
-
-        50% {
-
-            transform:
-                scale(1.08);
-
-        }
-
-    }
-
-
-    /* =========================================================
-       LOCATION STATUS
-       ========================================================= */
-
-    #locationStatus {
-
-        position:
-            absolute;
-
-        left:
-            50%;
-
-        top:
-            152px;
-
-        z-index:
-            850;
-
-        transform:
-            translateX(-50%);
-
-        padding:
-            7px 11px;
-
-        border:
-            1px solid rgba(255,255,255,.1);
-
-        border-radius:
-            99px;
-
-        background:
-            rgba(7,12,23,.76);
-
-        backdrop-filter:
-            blur(15px);
-
-        color:
-            var(--text-soft);
-
-        font-size:
-            8px;
-
-        font-weight:
-            800;
-
-        white-space:
-            nowrap;
-
-        pointer-events:
-            none;
-
-    }
-
-
-    /* =========================================================
-       BOTTOM NAV
-       ========================================================= */
-
-    #bottomNav {
-
-        position:
-            absolute;
-
-        left:
-            50%;
-
-        bottom:
-            calc(8px + env(safe-area-inset-bottom));
-
-        z-index:
-            2000;
-
-        width:
-            calc(100% - 16px);
-
-        max-width:
-            720px;
-
-        transform:
-            translateX(-50%);
-
-        display:
-            grid;
-
-        grid-template-columns:
-            repeat(6,1fr);
-
-        gap:
-            3px;
-
-        padding:
-            6px;
-
-        border:
-            1px solid rgba(255,255,255,.11);
-
-        border-radius:
-            23px;
-
-        background:
-            rgba(7,12,23,.91);
-
-        backdrop-filter:
-            blur(25px);
-
-        -webkit-backdrop-filter:
-            blur(25px);
-
-        box-shadow:
-            0 18px 60px rgba(0,0,0,.45);
-
-    }
-
-
-    .nav-button {
-
-        min-height:
-            57px;
-
-        display:
-            flex;
-
-        flex-direction:
-            column;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        gap:
-            3px;
-
-        border-radius:
-            17px;
-
-        background:
-            transparent;
-
-        color:
-            #68758a;
-
-        transition:
-            .2s ease;
-
-    }
-
-
-    .nav-button-icon {
-
-        font-size:
-            20px;
-
-        line-height:
-            1;
-
-    }
-
-
-    .nav-button-label {
-
-        font-size:
-            8px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .nav-button.active {
-
-        color:
-            white;
-
-        background:
-            rgba(118,103,255,.16);
-
-    }
-
-
-    .nav-button.active
-    .nav-button-icon {
-
-        filter:
-            drop-shadow(
-                0 0 8px
-                rgba(118,103,255,.6)
-            );
-
-    }
-
-
-    /* =========================================================
-       MODAL BACKDROP
-       ========================================================= */
-
-    .modal {
-
-        position:
-            fixed;
-
-        inset:
-            0;
-
-        z-index:
-            9000;
-
-        display:
-            none;
-
-        align-items:
-            flex-end;
-
-        justify-content:
-            center;
-
-        padding:
-            10px;
-
-        background:
-            rgba(0,0,0,.67);
-
-        backdrop-filter:
-            blur(12px);
-
-        -webkit-backdrop-filter:
-            blur(12px);
-
-    }
-
-
-    .modal.open {
-
-        display:
-            flex;
-
-        animation:
-            modalFade .2s ease;
-
-    }
-
-
-    @keyframes modalFade {
-
-        from {
-
-            opacity:
-                0;
-
-        }
-
-        to {
-
-            opacity:
-                1;
-
-        }
-
-    }
-
-
-    .modal-card {
-
-        position:
-            relative;
-
-        width:
-            min(760px,100%);
-
-        max-height:
-            calc(
-                100vh -
-                20px -
-                env(safe-area-inset-top)
-            );
-
-        overflow:
-            auto;
-
-        padding:
-            20px;
-
-        border:
-            1px solid rgba(255,255,255,.11);
-
-        border-radius:
-            28px 28px 22px 22px;
-
-        background:
-            linear-gradient(
-                145deg,
-                rgba(19,29,47,.98),
-                rgba(8,14,26,.98)
-            );
-
-        box-shadow:
-            0 -20px 100px rgba(0,0,0,.5);
-
-        animation:
-            modalSlide .28s
-            cubic-bezier(.2,.8,.2,1);
-
-    }
-
-
-    @keyframes modalSlide {
-
-        from {
-
-            opacity:
-                0;
-
-            transform:
-                translateY(35px);
-
-        }
-
-        to {
-
-            opacity:
-                1;
-
-            transform:
-                translateY(0);
-
-        }
-
-    }
-
-
-    .modal-handle {
-
-        width:
-            40px;
-
-        height:
-            4px;
-
-        margin:
-            -4px auto 17px;
-
-        border-radius:
-            99px;
-
-        background:
-            rgba(255,255,255,.15);
-
-    }
-
-
-    .modal-header {
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            space-between;
-
-        gap:
-            12px;
-
-        margin-bottom:
-            17px;
-
-    }
-
-
-    .modal-title {
-
-        font-family:
-            "Nunito",
-            sans-serif;
-
-        font-size:
-            23px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .modal-subtitle {
-
-        margin-top:
-            3px;
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            10px;
-
-    }
-
-
-    .close-button {
-
-        flex:
-            0 0 auto;
-
-        width:
-            40px;
-
-        height:
-            40px;
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            13px;
-
-        background:
-            rgba(255,255,255,.05);
-
-        color:
-            white;
-
-        font-size:
-            20px;
-
-    }
-
-
-    /* =========================================================
-       GENERAL CARDS
-       ========================================================= */
-
-    .content-grid {
-
-        display:
-            grid;
-
-        grid-template-columns:
-            repeat(
-                auto-fill,
-                minmax(135px,1fr)
-            );
-
-        gap:
-            9px;
-
-    }
-
-
-    .glass-card {
-
-        padding:
-            14px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            18px;
-
-        background:
-            rgba(255,255,255,.035);
-
-    }
-
-
-    .glass-card-title {
-
-        font-size:
-            12px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .glass-card-text {
-
-        margin-top:
-            6px;
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            10px;
-
-        line-height:
-            1.5;
-
-    }
-
-
-    /* =========================================================
-       DEX
-       ========================================================= */
-
-    .dex-card {
-
-        min-height:
-            155px;
-
-        padding:
-            12px;
-
-        text-align:
-            center;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            18px;
-
-        background:
-            rgba(255,255,255,.035);
-
-    }
-
-
-    .dex-image {
-
-        width:
-            76px;
-
-        height:
-            76px;
-
-        margin:
-            5px auto 10px;
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        border-radius:
-            50%;
-
-        background:
-            rgba(255,255,255,.045);
-
-        font-size:
-            42px;
-
-    }
-
-
-    .dex-number {
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            8px;
-
-    }
-
-
-    .dex-name {
-
-        margin-top:
-            3px;
-
-        font-size:
-            10px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .dex-type {
-
-        margin-top:
-            3px;
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            8px;
-
-    }
-
-
-    .dex-card.locked {
-
-        opacity:
-            .3;
-
-        filter:
-            grayscale(1);
-
-    }
-
-
-    /* =========================================================
-       INVENTORY
-       ========================================================= */
-
-    .item-card {
-
-        position:
-            relative;
-
-        min-height:
-            150px;
-
-        padding:
-            16px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            20px;
-
-        background:
-            rgba(255,255,255,.035);
-
-    }
-
-
-    .item-icon {
-
-        width:
-            62px;
-
-        height:
-            62px;
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        border-radius:
-            18px;
-
-        background:
-            rgba(118,103,255,.12);
-
-        font-size:
-            31px;
-
-    }
-
-
-    .item-name {
-
-        margin-top:
-            10px;
-
-        font-size:
-            11px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .item-count {
-
-        margin-top:
-            4px;
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            9px;
-
-    }
-
-
-    /* =========================================================
-       QUEST
-       ========================================================= */
-
-    .quest-card {
-
-        margin-bottom:
-            9px;
-
-        padding:
-            15px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            18px;
-
-        background:
-            rgba(255,255,255,.035);
-
-    }
-
-
-    .quest-top {
-
-        display:
-            flex;
-
-        justify-content:
-            space-between;
-
-        gap:
-            10px;
-
-    }
-
-
-    .quest-name {
-
-        font-size:
-            11px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .quest-progress {
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            9px;
-
-    }
-
-
-    .progress-track {
-
-        height:
-            6px;
-
-        margin-top:
-            10px;
-
-        overflow:
-            hidden;
-
-        border-radius:
-            99px;
-
-        background:
-            rgba(255,255,255,.08);
-
-    }
-
-
-    .progress-fill {
-
-        width:
-            0%;
-
-        height:
-            100%;
-
-        border-radius:
-            inherit;
-
-        background:
-            linear-gradient(
-                90deg,
-                #47e0a0,
-                #4de3ff
-            );
-
-    }
-
-
-    .quest-reward {
-
-        margin-top:
-            9px;
-
-        color:
-            var(--yellow);
-
-        font-size:
-            9px;
-
-        font-weight:
-            800;
-
-    }
-
-
-    /* =========================================================
-       EVENT CARD
-       ========================================================= */
-
-    .event-card {
-
-        position:
-            relative;
-
-        overflow:
-            hidden;
-
-        margin-bottom:
-            10px;
-
-        padding:
-            18px;
-
-        border:
-            1px solid rgba(118,103,255,.25);
-
-        border-radius:
-            22px;
-
-        background:
-
-            radial-gradient(
-                circle at 100% 0%,
-                rgba(118,103,255,.2),
-                transparent 45%
-            ),
-
-            rgba(255,255,255,.035);
-
-    }
-
-
-    .event-card::before {
-
-        content:
-            "";
-
-        position:
-            absolute;
-
-        left:
-            0;
-
-        top:
-            0;
-
-        bottom:
-            0;
-
-        width:
-            4px;
-
-        background:
-            linear-gradient(
-                #7667ff,
-                #4de3ff
-            );
-
-    }
-
-
-    .event-title {
-
-        font-family:
-            "Nunito",
-            sans-serif;
-
-        font-size:
-            18px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .event-description {
-
-        margin-top:
-            6px;
-
-        color:
-            var(--text-soft);
-
-        font-size:
-            10px;
-
-        line-height:
-            1.6;
-
-    }
-
-
-    .event-rewards {
-
-        display:
-            flex;
-
-        gap:
-            6px;
-
-        margin-top:
-            12px;
-
-        flex-wrap:
-            wrap;
-
-    }
-
-
-    .reward-pill {
-
-        padding:
-            6px 9px;
-
-        border-radius:
-            9px;
-
-        background:
-            rgba(255,255,255,.07);
-
-        font-size:
-            9px;
-
-        font-weight:
-            800;
-
-    }
-
-
-    /* =========================================================
-       FORMS
-       ========================================================= */
-
-    .form-group {
-
-        margin-bottom:
-            12px;
-
-    }
-
-
-    .form-label {
-
-        display:
-            block;
-
-        margin-bottom:
-            6px;
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            9px;
-
-        font-weight:
-            800;
-
-        text-transform:
-            uppercase;
-
-        letter-spacing:
-            .5px;
-
-    }
-
-
-    .form-input {
-
-        width:
-            100%;
-
-        min-height:
-            45px;
-
-        padding:
-            0 13px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            13px;
-
-        background:
-            rgba(0,0,0,.2);
-
-        color:
-            white;
-
-        font-size:
-            11px;
-
-    }
-
-
-    .form-input:focus {
-
-        border-color:
-            rgba(118,103,255,.7);
-
-        box-shadow:
-            0 0 0 3px
-            rgba(118,103,255,.1);
-
-    }
-
-
-    .form-textarea {
-
-        width:
-            100%;
-
-        min-height:
-            90px;
-
-        padding:
-            12px 13px;
-
-        resize:
-            vertical;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            13px;
-
-        background:
-            rgba(0,0,0,.2);
-
-        color:
-            white;
-
-        font-size:
-            11px;
-
-    }
-
-
-    /* =========================================================
-       BUTTONS
-       ========================================================= */
-
-    .button {
-
-        min-height:
-            45px;
-
-        padding:
-            0 15px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            13px;
-
-        background:
-            rgba(255,255,255,.06);
-
-        font-size:
-            10px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .button.primary {
-
-        border:
-            0;
-
-        background:
-            linear-gradient(
-                135deg,
-                #8071ff,
-                #5b4bd2
-            );
-
-    }
-
-
-    .button.green {
-
-        border:
-            0;
-
-        background:
-            linear-gradient(
-                135deg,
-                #47e0a0,
-                #24b77b
-            );
-
-        color:
-            #04140d;
-
-    }
-
-
-    .button.danger {
-
-        border:
-            0;
-
-        background:
-            rgba(255,95,114,.15);
-
-        color:
-            #ff8494;
-
-    }
-
-
-    .button.full {
-
-        width:
-            100%;
-
-    }
-
-
-    .button-row {
-
-        display:
-            flex;
-
-        gap:
-            8px;
-
-    }
-
-
-    .button-row .button {
-
-        flex:
-            1;
-
-    }
-
-
-    /* =========================================================
-       ENCOUNTER
-       ========================================================= */
-
-    .encounter-card {
-
-        text-align:
-            center;
-
-    }
-
-
-    .encounter-creature {
-
-        position:
-            relative;
-
-        width:
-            190px;
-
-        height:
-            190px;
-
-        margin:
-            0 auto 15px;
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        border-radius:
-            50%;
-
-        background:
-
-            radial-gradient(
-                circle,
-                rgba(118,103,255,.28),
-                transparent 68%
-            );
-
-        font-size:
-            100px;
-
-        animation:
-            creatureFloat 2.5s ease-in-out infinite;
-
-    }
-
-
-    @keyframes creatureFloat {
-
-        0%,
-        100% {
-
-            transform:
-                translateY(0);
-
-        }
-
-        50% {
-
-            transform:
-                translateY(-10px);
-
-        }
-
-    }
-
-
-    .encounter-name {
-
-        font-family:
-            "Nunito",
-            sans-serif;
-
-        font-size:
-            28px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .encounter-type {
-
-        margin-top:
-            5px;
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            10px;
-
-    }
-
-
-    .encounter-info {
-
-        display:
-            grid;
-
-        grid-template-columns:
-            repeat(3,1fr);
-
-        gap:
-            7px;
-
-        margin:
-            17px 0;
-
-    }
-
-
-    .encounter-stat {
-
-        padding:
-            10px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            13px;
-
-        background:
-            rgba(255,255,255,.035);
-
-    }
-
-
-    .encounter-stat-value {
-
-        font-size:
-            12px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .encounter-stat-label {
-
-        margin-top:
-            3px;
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            7px;
-
-        text-transform:
-            uppercase;
-
-    }
-
-
-    /* =========================================================
-       FRIENDS
-       ========================================================= */
-
-    .friend-card {
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        gap:
-            11px;
-
-        padding:
-            12px;
-
-        margin-bottom:
-            8px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            16px;
-
-        background:
-            rgba(255,255,255,.035);
-
-    }
-
-
-    .friend-avatar {
-
-        width:
-            44px;
-
-        height:
-            44px;
-
-        flex:
-            0 0 auto;
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        border-radius:
-            14px;
-
-        background:
-            rgba(118,103,255,.15);
-
-        font-size:
-            20px;
-
-    }
-
-
-    .friend-info {
-
-        flex:
-            1;
-
-    }
-
-
-    .friend-name {
-
-        font-size:
-            10px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .friend-status {
-
-        margin-top:
-            3px;
-
-        color:
-            var(--green);
-
-        font-size:
-            8px;
-
-    }
-
-
-    /* =========================================================
-       SHOP
-       ========================================================= */
-
-    .shop-card {
-
-        padding:
-            15px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            20px;
-
-        background:
-            rgba(255,255,255,.035);
-
-    }
-
-
-    .shop-icon {
-
-        width:
-            65px;
-
-        height:
-            65px;
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        border-radius:
-            18px;
-
-        background:
-            rgba(118,103,255,.12);
-
-        font-size:
-            33px;
-
-    }
-
-
-    .shop-name {
-
-        margin-top:
-            11px;
-
-        font-size:
-            12px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .shop-description {
-
-        margin-top:
-            5px;
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            9px;
-
-        line-height:
-            1.5;
-
-    }
-
-
-    .shop-price {
-
-        margin-top:
-            12px;
-
-        color:
-            var(--yellow);
-
-        font-size:
-            10px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    /* =========================================================
-       ADMIN
-       ========================================================= */
-
-    .admin-warning {
-
-        margin-bottom:
-            13px;
-
-        padding:
-            11px;
-
-        border:
-            1px solid rgba(255,95,114,.18);
-
-        border-radius:
-            13px;
-
-        background:
-            rgba(255,95,114,.06);
-
-        color:
-            #ff9aa6;
-
-        font-size:
-            9px;
-
-        line-height:
-            1.5;
-
-    }
-
-
-    .admin-section {
-
-        margin-bottom:
-            15px;
-
-        padding:
-            15px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            20px;
-
-        background:
-            rgba(255,255,255,.025);
-
-    }
-
-
-    .admin-section-title {
-
-        margin-bottom:
-            13px;
-
-        font-family:
-            "Nunito",
-            sans-serif;
-
-        font-size:
-            16px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .admin-stat-grid {
-
-        display:
-            grid;
-
-        grid-template-columns:
-            repeat(2,1fr);
-
-        gap:
-            8px;
-
-    }
-
-
-    .admin-stat {
-
-        padding:
-            13px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            14px;
-
-        background:
-            rgba(255,255,255,.035);
-
-    }
-
-
-    .admin-stat-value {
-
-        font-size:
-            19px;
-
-        font-weight:
-            900;
-
-    }
-
-
-    .admin-stat-label {
-
-        margin-top:
-            4px;
-
-        color:
-            var(--text-muted);
-
-        font-size:
-            8px;
-
-    }
-
-
-    /* =========================================================
-       TOAST
-       ========================================================= */
-
-    #toast {
-
-        position:
-            fixed;
-
-        left:
-            50%;
-
-        bottom:
-            calc(
-                92px +
-                env(safe-area-inset-bottom)
-            );
-
-        z-index:
-            20000;
-
-        max-width:
-            calc(100% - 30px);
-
-        transform:
-            translate(-50%,20px);
-
-        opacity:
-            0;
-
-        padding:
-            11px 16px;
-
-        border:
-            1px solid rgba(255,255,255,.12);
-
-        border-radius:
-            14px;
-
-        background:
-            rgba(7,12,23,.94);
-
-        backdrop-filter:
-            blur(18px);
-
-        box-shadow:
-            0 15px 50px rgba(0,0,0,.4);
-
-        color:
-            white;
-
-        font-size:
-            10px;
-
-        font-weight:
-            800;
-
-        white-space:
-            nowrap;
-
-        pointer-events:
-            none;
-
-        transition:
-            .25s ease;
-
-    }
-
-
-    #toast.show {
-
-        opacity:
-            1;
-
-        transform:
-            translate(-50%,0);
-
-    }
-
-
-    /* =========================================================
-       LOADING
-       ========================================================= */
-
-    #loadingScreen {
-
-        position:
-            fixed;
-
-        inset:
-            0;
-
-        z-index:
-            50000;
-
-        display:
-            none;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        background:
-            #070b16;
-
-    }
-
-
-    .loader {
-
-        text-align:
-            center;
-
-    }
-
-
-    .loader-orb {
-
-        width:
-            72px;
-
-        height:
-            72px;
-
-        margin:
-            0 auto 17px;
-
-        border:
-            3px solid
-            rgba(255,255,255,.08);
-
-        border-top-color:
-            var(--primary);
-
-        border-right-color:
-            var(--cyan);
-
-        border-radius:
-            50%;
-
-        animation:
-            spin 1s linear infinite;
-
-    }
-
-
-    @keyframes spin {
-
-        to {
-
-            transform:
-                rotate(360deg);
-
-        }
-
-    }
-
-
-    .loader-text {
-
-        color:
-            var(--text-soft);
-
-        font-size:
-            11px;
-
-        font-weight:
-            800;
-
-    }
-
-
-    /* =========================================================
-       RESPONSIVE
-       ========================================================= */
-
-    @media (max-width:600px) {
-
-        .hud-resources .resource.xp {
-
-            display:
-                none;
-
-        }
-
-        .profile-name {
-
-            max-width:
-                85px;
-
-            overflow:
-                hidden;
-
-            text-overflow:
-                ellipsis;
-
-        }
-
-        .modal {
-
-            padding:
-                7px;
-
-        }
-
-        .modal-card {
-
-            padding:
-                17px;
-
-        }
-
-        .content-grid {
-
-            grid-template-columns:
-                repeat(
-                    2,
-                    minmax(0,1fr)
-                );
-
-        }
-
-        #mapActions {
-
-            top:
-                157px;
-
-        }
-
-    }
-
-
-    @media (min-width:800px) {
-
-        .modal {
-
-            align-items:
-                center;
-
-        }
-
-        .modal-card {
-
-            border-radius:
-                28px;
-
-            max-height:
-                85vh;
-
-        }
-
-    }
-
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MonsterGO</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#07101d;
+    color:white;
+    overflow:hidden;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    color:white;
+    font-weight:bold;
+}
+
+.screen{
+    position:absolute;
+    inset:0;
+    display:none;
+}
+
+.screen.active{
+    display:block;
+}
+
+/* =========================
+   START SCHERM
+========================= */
+
+#startScreen{
+    background:
+        radial-gradient(circle at 20% 20%,#674cff55,transparent 30%),
+        radial-gradient(circle at 80% 80%,#00e0a855,transparent 30%),
+        linear-gradient(135deg,#050914,#101b30);
+}
+
+.startContainer{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+}
+
+.startContent{
+    max-width:900px;
+    text-align:center;
+}
+
+.logo{
+    font-size:clamp(55px,10vw,110px);
+    font-weight:1000;
+    letter-spacing:-7px;
+    margin-bottom:20px;
+}
+
+.logo span{
+    color:#8068ff;
+}
+
+.subtitle{
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+.description{
+    color:#a9b5c8;
+    font-size:18px;
+    line-height:1.6;
+    max-width:650px;
+    margin:auto;
+}
+
+.startButton{
+    margin-top:35px;
+    padding:20px 35px;
+    border-radius:18px;
+    font-size:20px;
+    background:linear-gradient(135deg,#8068ff,#5334e8);
+    box-shadow:0 15px 50px #5334e866;
+    transition:.2s;
+}
+
+.startButton:hover{
+    transform:translateY(-4px);
+    box-shadow:0 20px 60px #5334e899;
+}
+
+.features{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:40px;
+    flex-wrap:wrap;
+}
+
+.feature{
+    padding:18px;
+    width:180px;
+    border-radius:18px;
+    background:#ffffff0b;
+    border:1px solid #ffffff12;
+}
+
+.featureIcon{
+    font-size:35px;
+    margin-bottom:8px;
+}
+
+.feature small{
+    color:#8f9bb0;
+}
+
+/* =========================
+   GAME
+========================= */
+
+#gameScreen{
+    background:#b5d78f;
+}
+
+#game{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+}
+
+/* TOPBAR */
+
+.topbar{
+    height:70px;
+    flex-shrink:0;
+    background:#0c1424ed;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 15px;
+    z-index:50;
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid #ffffff12;
+}
+
+.topButton{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    background:#ffffff0d;
+    font-size:22px;
+}
+
+.topButton:hover{
+    background:#ffffff18;
+}
+
+.playerInfo{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.xpContainer{
+    width:130px;
+}
+
+.xpText{
+    font-size:11px;
+    color:#a7b3c6;
+    margin-bottom:4px;
+}
+
+.xpBar{
+    width:100%;
+    height:8px;
+    border-radius:20px;
+    background:#ffffff15;
+    overflow:hidden;
+}
+
+.xpFill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#8168ff,#13d7ae);
+}
+
+.avatar{
+    width:44px;
+    height:44px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#8068ff,#16c9a8);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+}
+
+/* MAP */
+
+#mapContainer{
+    position:relative;
+    flex:1;
+    min-height:0;
+    overflow:hidden;
+}
+
+#mapCanvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    cursor:grab;
+}
+
+#mapCanvas.dragging{
+    cursor:grabbing;
+}
+
+.mapControls{
+    position:absolute;
+    top:15px;
+    right:15px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    z-index:10;
+}
+
+.mapButton{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    background:#101a2be8;
+    border:1px solid #ffffff15;
+    font-size:20px;
+}
+
+.mapButton:hover{
+    background:#1c2940;
+}
+
+/* BOTTOM NAV */
+
+.bottomNav{
+    height:80px;
+    flex-shrink:0;
+    background:#0c1424f5;
+    border-top:1px solid #ffffff12;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:50;
+}
+
+.navButton{
+    width:90px;
+    height:65px;
+    background:transparent;
+    border-radius:14px;
+    color:#8290a7;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:4px;
+}
+
+.navButton span{
+    font-size:23px;
+}
+
+.navButton small{
+    font-size:11px;
+}
+
+.navButton.active{
+    background:#ffffff0d;
+    color:white;
+}
+
+/* =========================
+   PANELS
+========================= */
+
+.panel{
+    position:absolute;
+    left:0;
+    right:0;
+    top:70px;
+    bottom:80px;
+    z-index:40;
+    display:none;
+    overflow:auto;
+    padding:25px;
+    background:#080f1d;
+}
+
+.panel.open{
+    display:block;
+}
+
+.panelHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.panelHeader h2{
+    font-size:30px;
+}
+
+.closeButton{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    background:#ffffff0c;
+}
+
+/* MONSTERS */
+
+.monsterGrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:15px;
+}
+
+.monsterCard{
+    padding:18px;
+    background:#111b2c;
+    border:1px solid #ffffff0e;
+    border-radius:20px;
+    text-align:center;
+}
+
+.monsterEmoji{
+    font-size:65px;
+    margin-bottom:10px;
+}
+
+.monsterCard h3{
+    margin-bottom:6px;
+}
+
+.monsterCard p{
+    color:#8d9bb0;
+    font-size:13px;
+}
+
+/* EVENTS */
+
+.eventCard{
+    background:linear-gradient(135deg,#171e3d,#111a2a);
+    border:1px solid #8068ff44;
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:15px;
+}
+
+.eventEmoji{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.eventCard h3{
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.eventCard p{
+    color:#9aa8bc;
+    line-height:1.5;
+    margin-bottom:12px;
+}
+
+.reward{
+    color:#ffd166;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.primaryButton{
+    padding:12px 18px;
+    border-radius:12px;
+    background:#8068ff;
+}
+
+.greenButton{
+    padding:12px 18px;
+    border-radius:12px;
+    background:#15c9a5;
+    color:#061812;
+}
+
+/* FRIENDS */
+
+.friendAdd{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.friendInput{
+    flex:1;
+    padding:14px;
+    border-radius:13px;
+    border:1px solid #ffffff12;
+    background:#111a2a;
+    color:white;
+    outline:none;
+}
+
+.friend{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px;
+    border-radius:15px;
+    background:#111a2a;
+    margin-bottom:10px;
+}
+
+.friendAvatar{
+    width:45px;
+    height:45px;
+    border-radius:13px;
+    background:#263550;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+}
+
+.friendInfo{
+    flex:1;
+}
+
+.friendInfo small{
+    color:#8190a6;
+}
+
+/* =========================
+   ENCOUNTER
+========================= */
+
+#encounter{
+    position:absolute;
+    width:min(420px,90vw);
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    z-index:100;
+    display:none;
+    padding:20px;
+    background:#101a2af5;
+    border:1px solid #ffffff18;
+    border-radius:25px;
+    box-shadow:0 30px 80px #0009;
+    backdrop-filter:blur(20px);
+}
+
+#encounter.open{
+    display:block;
+}
+
+.encounterTop{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.encounterTop h2{
+    font-size:26px;
+}
+
+.encounterMonster{
+    height:200px;
+    margin:15px 0;
+    border-radius:20px;
+    background:radial-gradient(circle,#303b62,#111827);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:120px;
+}
+
+.encounterStats{
+    display:flex;
+    gap:8px;
+    margin-bottom:15px;
+}
+
+.stat{
+    flex:1;
+    text-align:center;
+    padding:10px;
+    background:#ffffff08;
+    border-radius:12px;
+}
+
+.stat small{
+    color:#8491a5;
+}
+
+.catchButton{
+    width:100%;
+    padding:16px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#15d4ac,#079b7f);
+    font-size:17px;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+#adminPanel{
+    z-index:200;
+}
+
+.adminLayout{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:250px 1fr;
+    gap:20px;
+}
+
+.adminMenu{
+    background:#101a2a;
+    padding:12px;
+    border-radius:18px;
+    height:max-content;
+}
+
+.adminTab{
+    width:100%;
+    padding:14px;
+    background:transparent;
+    border-radius:12px;
+    text-align:left;
+    color:#91a0b5;
+    margin-bottom:5px;
+}
+
+.adminTab.active{
+    background:#ffffff0c;
+    color:white;
+}
+
+.adminContent{
+    background:#101a2a;
+    padding:25px;
+    border-radius:18px;
+}
+
+.adminSection{
+    display:none;
+}
+
+.adminSection.active{
+    display:block;
+}
+
+.form{
+    max-width:650px;
+    display:grid;
+    gap:12px;
+}
+
+.form label{
+    color:#98a6ba;
+    font-size:13px;
+}
+
+.form input,
+.form textarea,
+.form select{
+    width:100%;
+    margin-top:6px;
+    padding:13px;
+    border-radius:11px;
+    border:1px solid #ffffff12;
+    background:#09111e;
+    color:white;
+    outline:none;
+}
+
+.form textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+.adminEvent{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:15px;
+    background:#09111e;
+    border-radius:13px;
+    margin-top:10px;
+}
+
+.deleteButton{
+    padding:9px 12px;
+    border-radius:9px;
+    background:#ff5574;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+#toast{
+    position:absolute;
+    left:50%;
+    bottom:100px;
+    transform:translate(-50%,20px);
+    padding:13px 18px;
+    border-radius:14px;
+    background:#0b1424ef;
+    border:1px solid #ffffff16;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:500;
+    white-space:nowrap;
+}
+
+#toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:700px){
+
+    .topbar{
+        height:62px;
+    }
+
+    .panel{
+        top:62px;
+        bottom:70px;
+    }
+
+    .bottomNav{
+        height:70px;
+    }
+
+    .navButton{
+        width:70px;
+    }
+
+    .navButton small{
+        font-size:9px;
+    }
+
+    .adminLayout{
+        grid-template-columns:1fr;
+    }
+
+    .adminMenu{
+        display:flex;
+        overflow-x:auto;
+    }
+
+    .adminTab{
+        white-space:nowrap;
+        width:auto;
+        margin-right:5px;
+    }
+
+    .xpContainer{
+        width:90px;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
-
-<!-- =========================================================
-     APP
-     ========================================================= -->
-
 <div id="app">
 
+<!-- ======================================
+     START SCHERM
+====================================== -->
 
-    <!-- =====================================================
-         START SCREEN
-         ===================================================== -->
+<section id="startScreen" class="screen active">
 
-    <section id="startScreen">
+<div class="startContainer">
 
-        <div class="start-orb one"></div>
+<div class="startContent">
 
-        <div class="start-orb two"></div>
+<div class="logo">
+MONSTER<span>GO</span>
+</div>
 
+<div class="subtitle">
+🌍 Jouw monsteravontuur begint hier
+</div>
 
-        <div class="start-card">
+<p class="description">
+Verken een grote wereldkaart, ontdek wilde monsters,
+vang ze allemaal, speel events met beloningen en voeg
+vrienden toe aan je avontuur.
+</p>
 
-            <div class="start-logo">
-                🐾
-            </div>
+<button id="startAdventure" class="startButton">
+🚀 START AVONTUUR
+</button>
 
+<div class="features">
 
-            <h1 class="start-title">
-                Creaturen <span>World</span>
-            </h1>
+<div class="feature">
+<div class="featureIcon">🗺️</div>
+<b>Open wereld</b>
+<br>
+<small>Verken de kaart</small>
+</div>
 
+<div class="feature">
+<div class="featureIcon">👾</div>
+<b>Monsters</b>
+<br>
+<small>Vang ze allemaal</small>
+</div>
 
-            <p class="start-description">
+<div class="feature">
+<div class="featureIcon">🎉</div>
+<b>Events</b>
+<br>
+<small>Win beloningen</small>
+</div>
 
-                Ontdek een levende wereld,
-                vind mysterieuze Creaturen,
-                voltooi quests en word
-                de beste explorer.
+<div class="feature">
+<div class="featureIcon">👥</div>
+<b>Vrienden</b>
+<br>
+<small>Speel samen</small>
+</div>
 
-            </p>
+</div>
 
+</div>
 
-            <div class="start-features">
+</div>
 
-                <div class="start-feature">
+</section>
 
-                    <div class="start-feature-icon">
-                        🗺️
-                    </div>
 
-                    <div class="start-feature-text">
-                        Explore
-                    </div>
+<!-- ======================================
+     GAME
+====================================== -->
 
-                </div>
+<section id="gameScreen" class="screen">
 
+<div id="game">
 
-                <div class="start-feature">
+<header class="topbar">
 
-                    <div class="start-feature-icon">
-                        🐾
-                    </div>
+<button class="topButton" id="menuButton">
+☰
+</button>
 
-                    <div class="start-feature-text">
-                        Vangen
-                    </div>
+<button class="topButton" id="locationButton">
+📍
+</button>
 
-                </div>
+<strong id="levelText">
+Lv. 1
+</strong>
 
+<div class="playerInfo">
 
-                <div class="start-feature">
+<div class="xpContainer">
 
-                    <div class="start-feature-icon">
-                        🏆
-                    </div>
+<div class="xpText">
+<span id="xpCurrent">0</span> /
+<span id="xpMax">100</span> XP
+</div>
 
-                    <div class="start-feature-text">
-                        Winnen
-                    </div>
+<div class="xpBar">
+<div id="xpFill" class="xpFill"></div>
+</div>
 
-                </div>
+</div>
 
-            </div>
+<div class="avatar">
+🧑‍🚀
+</div>
 
+</div>
 
-            <button
-                id="startButton"
-                class="main-button"
-                type="button"
-            >
+</header>
 
-                START AVONTUUR
 
-            </button>
+<!-- MAP -->
 
-        </div>
+<div id="mapContainer">
 
-    </section>
+<canvas id="mapCanvas"></canvas>
 
+<div class="mapControls">
 
+<button class="mapButton" id="zoomIn">
+＋
+</button>
 
-    <!-- =====================================================
-         LOADING
-         ===================================================== -->
+<button class="mapButton" id="zoomOut">
+−
+</button>
 
-    <section id="loadingScreen">
-
-        <div class="loader">
-
-            <div class="loader-orb"></div>
-
-            <div
-                id="loadingText"
-                class="loader-text"
-            >
-                Wereld laden...
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         GAME WORLD
-         ===================================================== -->
-
-    <main id="gameWorld">
-
-
-        <!-- =================================================
-             MAP
-             ================================================= -->
-
-        <div id="map"></div>
-
-
-        <div
-            id="mapFallback"
-        >
-
-            <div class="map-fallback-card">
-
-                <div class="map-fallback-icon">
-                    🗺️
-                </div>
-
-                <h2>
-                    Kaart laden...
-                </h2>
-
-                <p>
-
-                    De kaartdienst is nog niet
-                    beschikbaar. Controleer je
-                    internetverbinding en probeer
-                    daarna opnieuw.
-
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="map-vignette"></div>
-
-        <div class="map-top-gradient"></div>
-
-        <div class="map-bottom-gradient"></div>
-
-
-
-        <!-- =================================================
-             TOP HUD
-             ================================================= -->
-
-        <header id="topHUD">
-
-
-            <div class="hud-row">
-
-
-                <div class="profile-chip">
-
-                    <div
-                        id="playerAvatar"
-                        class="profile-avatar"
-                    >
-                        🧑
-                    </div>
-
-
-                    <div class="profile-info">
-
-                        <div
-                            id="playerName"
-                            class="profile-name"
-                        >
-                            Explorer
-                        </div>
-
-
-                        <div class="profile-level">
-
-                            LEVEL
-                            <span id="playerLevel">
-                                1
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="hud-resources">
-
-
-                    <div class="resource xp">
-
-                        ⭐
-
-                        <span id="hudXP">
-                            0
-                        </span>
-
-                    </div>
-
-
-                    <div class="resource gold">
-
-                        🪙
-
-                        <span id="hudCoins">
-                            100
-                        </span>
-
-                    </div>
-
-
-                    <div class="resource ball">
-
-                        🎯
-
-                        <span id="hudBalls">
-                            10
-                        </span>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-
-            <div class="xp-container">
-
-
-                <div class="xp-top">
-
-                    <div class="xp-label">
-                        EXPERIENCE
-                    </div>
-
-                    <div class="xp-value">
-
-                        <span id="xpCurrent">
-                            0
-                        </span>
-
-                        /
-
-                        <span id="xpRequired">
-                            250
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="xp-track">
-
-                    <div id="xpFill"></div>
-
-                </div>
-
-            </div>
-
-        </header>
-
-
-
-        <!-- =================================================
-             LOCATION
-             ================================================= -->
-
-        <div id="locationStatus">
-
-            📍 Locatie wordt bepaald...
-
-        </div>
-
-
-
-        <!-- =================================================
-             MAP ACTIONS
-             ================================================= -->
-
-        <div id="mapActions">
-
-
-            <button
-                id="locateButton"
-                class="map-action"
-                type="button"
-                title="Mijn locatie"
-            >
-
-                📍
-
-            </button>
-
-
-            <button
-                id="zoomInButton"
-                class="map-action"
-                type="button"
-            >
-
-                +
-
-            </button>
-
-
-            <button
-                id="zoomOutButton"
-                class="map-action"
-                type="button"
-            >
-
-                −
-
-            </button>
-
-
-            <button
-                id="compassButton"
-                class="map-action"
-                type="button"
-            >
-
-                🧭
-
-            </button>
-
-
-        </div>
-
-
-
-        <!-- =================================================
-             BOTTOM NAVIGATION
-             ================================================= -->
-
-        <nav id="bottomNav">
-
-
-            <button
-                class="nav-button active"
-                data-page="map"
-                type="button"
-            >
-
-                <span class="nav-button-icon">
-                    🗺️
-                </span>
-
-                <span class="nav-button-label">
-                    Kaart
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-button"
-                data-page="dex"
-                type="button"
-            >
-
-                <span class="nav-button-icon">
-                    📖
-                </span>
-
-                <span class="nav-button-label">
-                    Dex
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-button"
-                data-page="bag"
-                type="button"
-            >
-
-                <span class="nav-button-icon">
-                    🎒
-                </span>
-
-                <span class="nav-button-label">
-                    Bag
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-button"
-                data-page="quests"
-                type="button"
-            >
-
-                <span class="nav-button-icon">
-                    🎯
-                </span>
-
-                <span class="nav-button-label">
-                    Quests
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-button"
-                data-page="events"
-                type="button"
-            >
-
-                <span class="nav-button-icon">
-                    🎉
-                </span>
-
-                <span class="nav-button-label">
-                    Events
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-button"
-                data-page="more"
-                type="button"
-            >
-
-                <span class="nav-button-icon">
-                    ☰
-                </span>
-
-                <span class="nav-button-label">
-                    Meer
-                </span>
-
-            </button>
-
-
-        </nav>
-
-    </main>
-
-
-
-    <!-- =====================================================
-         ENCOUNTER MODAL
-         ===================================================== -->
-
-    <section
-        id="encounterModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        Wilde Creature
-                    </div>
-
-                    <div class="modal-subtitle">
-                        Een Creature staat voor je!
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="encounterModal"
-                    type="button"
-                >
-
-                    ×
-
-                </button>
-
-            </div>
-
-
-            <div class="encounter-card">
-
-                <div
-                    id="encounterCreature"
-                    class="encounter-creature"
-                >
-                    🐾
-                </div>
-
-
-                <div
-                    id="encounterName"
-                    class="encounter-name"
-                >
-                    Onbekend
-                </div>
-
-
-                <div
-                    id="encounterType"
-                    class="encounter-type"
-                >
-                    Unknown
-                </div>
-
-
-                <div class="encounter-info">
-
-
-                    <div class="encounter-stat">
-
-                        <div
-                            id="encounterRarity"
-                            class="encounter-stat-value"
-                        >
-                            Common
-                        </div>
-
-                        <div class="encounter-stat-label">
-                            Rarity
-                        </div>
-
-                    </div>
-
-
-                    <div class="encounter-stat">
-
-                        <div
-                            id="encounterXP"
-                            class="encounter-stat-value"
-                        >
-                            25
-                        </div>
-
-                        <div class="encounter-stat-label">
-                            XP
-                        </div>
-
-                    </div>
-
-
-                    <div class="encounter-stat">
-
-                        <div
-                            id="encounterDistance"
-                            class="encounter-stat-value"
-                        >
-                            20m
-                        </div>
-
-                        <div class="encounter-stat-label">
-                            Afstand
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-
-                <button
-                    id="catchButton"
-                    class="button primary full"
-                    type="button"
-                >
-
-                    🎯 CREATURE VANGEN
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         DEX MODAL
-         ===================================================== -->
-
-    <section
-        id="dexModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        📖 Creaturen-Dex
-                    </div>
-
-                    <div
-                        id="dexSubtitle"
-                        class="modal-subtitle"
-                    >
-                        0 / 0 ontdekt
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="dexModal"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div
-                id="dexGrid"
-                class="content-grid"
-            ></div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         INVENTORY MODAL
-         ===================================================== -->
-
-    <section
-        id="bagModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        🎒 Inventory
-                    </div>
-
-                    <div class="modal-subtitle">
-                        Alles wat je bij je hebt
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="bagModal"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div
-                id="inventoryGrid"
-                class="content-grid"
-            ></div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         QUEST MODAL
-         ===================================================== -->
-
-    <section
-        id="questsModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        🎯 Quests
-                    </div>
-
-                    <div class="modal-subtitle">
-                        Voltooi opdrachten en ontvang beloningen
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="questsModal"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div id="questList"></div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         EVENTS MODAL
-         ===================================================== -->
-
-    <section
-        id="eventsModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        🎉 Events
-                    </div>
-
-                    <div class="modal-subtitle">
-                        Tijdelijke avonturen en speciale beloningen
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="eventsModal"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div id="eventList"></div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         MORE MODAL
-         ===================================================== -->
-
-    <section
-        id="moreModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        ☰ Meer
-                    </div>
-
-                    <div class="modal-subtitle">
-                        Jouw Creaturen World
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="moreModal"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div class="content-grid">
-
-
-                <button
-                    class="glass-card"
-                    data-open="friendsModal"
-                    type="button"
-                >
-
-                    <div class="item-icon">
-                        👥
-                    </div>
-
-                    <div class="glass-card-title">
-                        Friends
-                    </div>
-
-                    <div class="glass-card-text">
-                        Voeg vrienden toe en speel samen.
-                    </div>
-
-                </button>
-
-
-                <button
-                    class="glass-card"
-                    data-open="profileModal"
-                    type="button"
-                >
-
-                    <div class="item-icon">
-                        👤
-                    </div>
-
-                    <div class="glass-card-title">
-                        Profiel
-                    </div>
-
-                    <div class="glass-card-text">
-                        Bekijk je voortgang.
-                    </div>
-
-                </button>
-
-
-                <button
-                    class="glass-card"
-                    data-open="shopModal"
-                    type="button"
-                >
-
-                    <div class="item-icon">
-                        🛒
-                    </div>
-
-                    <div class="glass-card-title">
-                        Shop
-                    </div>
-
-                    <div class="glass-card-text">
-                        Koop handige items.
-                    </div>
-
-                </button>
-
-
-                <button
-                    class="glass-card"
-                    data-open="achievementsModal"
-                    type="button"
-                >
-
-                    <div class="item-icon">
-                        🏆
-                    </div>
-
-                    <div class="glass-card-title">
-                        Achievements
-                    </div>
-
-                    <div class="glass-card-text">
-                        Bekijk je prestaties.
-                    </div>
-
-                </button>
-
-
-                <button
-                    class="glass-card"
-                    data-open="settingsModal"
-                    type="button"
-                >
-
-                    <div class="item-icon">
-                        ⚙️
-                    </div>
-
-                    <div class="glass-card-title">
-                        Instellingen
-                    </div>
-
-                    <div class="glass-card-text">
-                        Pas de game aan.
-                    </div>
-
-                </button>
-
-
-                <button
-                    class="glass-card"
-                    data-open="adminLoginModal"
-                    type="button"
-                >
-
-                    <div class="item-icon">
-                        🔐
-                    </div>
-
-                    <div class="glass-card-title">
-                        Admin
-                    </div>
-
-                    <div class="glass-card-text">
-                        Beheer de wereld.
-                    </div>
-
-                </button>
-
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         FRIENDS MODAL
-         ===================================================== -->
-
-    <section
-        id="friendsModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        👥 Friends
-                    </div>
-
-                    <div class="modal-subtitle">
-                        Bouw je eigen explorer-team
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="friendsModal"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label class="form-label">
-                    Friend code
-                </label>
-
-                <input
-                    id="friendCodeInput"
-                    class="form-input"
-                    placeholder="Bijv. CW-48291"
-                >
-
-            </div>
-
-
-            <button
-                id="addFriendButton"
-                class="button primary full"
-                type="button"
-            >
-
-                ➕ VRIEND TOEVOEGEN
-
-            </button>
-
-
-            <div
-                id="friendList"
-                style="margin-top:15px"
-            ></div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         PROFILE MODAL
-         ===================================================== -->
-
-    <section
-        id="profileModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        👤 Profiel
-                    </div>
-
-                    <div class="modal-subtitle">
-                        Jouw explorer-profiel
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="profileModal"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div class="glass-card">
-
-                <div
-                    style="
-                        display:flex;
-                        align-items:center;
-                        gap:14px;
-                    "
-                >
-
-                    <div
-                        class="profile-avatar"
-                        style="
-                            width:65px;
-                            height:65px;
-                            font-size:30px;
-                        "
-                    >
-                        🧑
-                    </div>
-
-
-                    <div>
-
-                        <div
-                            id="profileName"
-                            style="
-                                font-size:17px;
-                                font-weight:900;
-                            "
-                        >
-                            Explorer
-                        </div>
-
-                        <div
-                            style="
-                                margin-top:4px;
-                                color:var(--text-muted);
-                                font-size:9px;
-                            "
-                        >
-
-                            Level
-                            <span id="profileLevel">
-                                1
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div
-                class="admin-stat-grid"
-                style="margin-top:10px"
-            >
-
-                <div class="admin-stat">
-
-                    <div
-                        id="profileCaught"
-                        class="admin-stat-value"
-                    >
-                        0
-                    </div>
-
-                    <div class="admin-stat-label">
-                        Creaturen gevangen
-                    </div>
-
-                </div>
-
-
-                <div class="admin-stat">
-
-                    <div
-                        id="profileCoins"
-                        class="admin-stat-value"
-                    >
-                        100
-                    </div>
-
-                    <div class="admin-stat-label">
-                        Coins
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         SHOP MODAL
-         ===================================================== -->
-
-    <section
-        id="shopModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        🛒 Shop
-                    </div>
-
-                    <div class="modal-subtitle">
-                        Gebruik je coins verstandig
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="shopModal"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div
-                id="shopGrid"
-                class="content-grid"
-            ></div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         ACHIEVEMENTS MODAL
-         ===================================================== -->
-
-    <section
-        id="achievementsModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        🏆 Achievements
-                    </div>
-
-                    <div class="modal-subtitle">
-                        Bewijs dat jij een echte explorer bent
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="achievementsModal"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div
-                id="achievementList"
-            ></div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         SETTINGS MODAL
-         ===================================================== -->
-
-    <section
-        id="settingsModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        ⚙️ Instellingen
-                    </div>
-
-                    <div class="modal-subtitle">
-                        Game instellingen
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="settingsModal"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div class="admin-section">
-
-                <div class="admin-section-title">
-                    Profiel
-                </div>
-
-
-                <div class="form-group">
-
-                    <label class="form-label">
-                        Naam
-                    </label>
-
-                    <input
-                        id="nameInput"
-                        class="form-input"
-                        value="Explorer"
-                    >
-
-                </div>
-
-
-                <button
-                    id="saveNameButton"
-                    class="button primary full"
-                    type="button"
-                >
-
-                    OPSLAAN
-
-                </button>
-
-            </div>
-
-
-            <div class="admin-section">
-
-                <div class="admin-section-title">
-                    Game
-                </div>
-
-
-                <button
-                    id="resetGameButton"
-                    class="button danger full"
-                    type="button"
-                >
-
-                    ⚠️ RESET GAME DATA
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         ADMIN LOGIN
-         ===================================================== -->
-
-    <section
-        id="adminLoginModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        🔐 Admin Login
-                    </div>
-
-                    <div class="modal-subtitle">
-                        Alleen voor beheerders
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="adminLoginModal"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div class="admin-warning">
-
-                ⚠️ Dit is alleen een
-                prototype-beveiliging.
-                Een code die rechtstreeks
-                in frontend JavaScript staat
-                is niet veilig voor een echte
-                online game.
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label class="form-label">
-                    Admin code
-                </label>
-
-                <input
-                    id="adminCodeInput"
-                    class="form-input"
-                    type="password"
-                    placeholder="••••"
-                >
-
-            </div>
-
-
-            <button
-                id="adminLoginButton"
-                class="button primary full"
-                type="button"
-            >
-
-                INLOGGEN
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         ADMIN PANEL
-         ===================================================== -->
-
-    <section
-        id="adminModal"
-        class="modal"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-handle"></div>
-
-
-            <div class="modal-header">
-
-                <div>
-
-                    <div class="modal-title">
-                        🛠️ Admin Panel
-                    </div>
-
-                    <div class="modal-subtitle">
-                        Beheer Creaturen World
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="close-button"
-                    data-close="adminModal"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <!-- ADMIN STATS -->
-
-            <div class="admin-section">
-
-                <div class="admin-section-title">
-                    Wereld statistieken
-                </div>
-
-
-                <div class="admin-stat-grid">
-
-
-                    <div class="admin-stat">
-
-                        <div
-                            id="adminPlayers"
-                            class="admin-stat-value"
-                        >
-                            1
-                        </div>
-
-                        <div class="admin-stat-label">
-                            Lokale spelers
-                        </div>
-
-                    </div>
-
-
-                    <div class="admin-stat">
-
-                        <div
-                            id="adminCreatures"
-                            class="admin-stat-value"
-                        >
-                            0
-                        </div>
-
-                        <div class="admin-stat-label">
-                            Gevangen
-                        </div>
-
-                    </div>
-
-
-                    <div class="admin-stat">
-
-                        <div
-                            id="adminEvents"
-                            class="admin-stat-value"
-                        >
-                            0
-                        </div>
-
-                        <div class="admin-stat-label">
-                            Events
-                        </div>
-
-                    </div>
-
-
-                    <div class="admin-stat">
-
-                        <div
-                            id="adminLevel"
-                            class="admin-stat-value"
-                        >
-                            1
-                        </div>
-
-                        <div class="admin-stat-label">
-                            Player level
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-            <!-- EVENT MAKER -->
-
-            <div class="admin-section">
-
-                <div class="admin-section-title">
-                    🎉 Event maken
-                </div>
-
-
-                <div class="form-group">
-
-                    <label class="form-label">
-                        Event naam
-                    </label>
-
-                    <input
-                        id="eventNameInput"
-                        class="form-input"
-                        placeholder="Bijv. Fire Festival"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label class="form-label">
-                        Beschrijving
-                    </label>
-
-                    <textarea
-                        id="eventDescriptionInput"
-                        class="form-textarea"
-                        placeholder="Wat gebeurt er tijdens dit event?"
-                    ></textarea>
-
-                </div>
-
-
-                <div
-                    class="button-row"
-                >
-
-                    <div class="form-group">
-
-                        <label class="form-label">
-                            XP beloning
-                        </label>
-
-                        <input
-                            id="eventXPInput"
-                            class="form-input"
-                            type="number"
-                            value="250"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label class="form-label">
-                            Coins
-                        </label>
-
-                        <input
-                            id="eventCoinsInput"
-                            class="form-input"
-                            type="number"
-                            value="100"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="button-row"
-                >
-
-                    <button
-                        id="createEventButton"
-                        class="button primary"
-                        type="button"
-                    >
-
-                        ➕ EVENT MAKEN
-
-                    </button>
-
-
-                    <button
-                        id="clearEventsButton"
-                        class="button danger"
-                        type="button"
-                    >
-
-                        WISSEN
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- EVENT LIST -->
-
-            <div class="admin-section">
-
-                <div class="admin-section-title">
-                    📋 Events beheren
-                </div>
-
-
-                <div
-                    id="adminEventList"
-                ></div>
-
-            </div>
-
-
-            <!-- SPAWN CONTROL -->
-
-            <div class="admin-section">
-
-                <div class="admin-section-title">
-                    🐾 Spawn instellingen
-                </div>
-
-
-                <div class="form-group">
-
-                    <label class="form-label">
-                        Creaturen op kaart
-                    </label>
-
-                    <input
-                        id="spawnAmountInput"
-                        class="form-input"
-                        type="number"
-                        value="15"
-                        min="1"
-                        max="100"
-                    >
-
-                </div>
-
-
-                <button
-                    id="respawnButton"
-                    class="button green full"
-                    type="button"
-                >
-
-                    🔄 CREATUREN OPNIEUW SPAWNEN
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         TOAST
-         ===================================================== -->
-
-    <div id="toast"></div>
+<button class="mapButton" id="centerMap">
+⌾
+</button>
 
 </div>
 
 
-<!-- =========================================================
-     JAVASCRIPT — BASIS
-     ========================================================= -->
+<!-- ENCOUNTER -->
+
+<div id="encounter">
+
+<div class="encounterTop">
+
+<div>
+<small id="encounterRarity">
+COMMON
+</small>
+
+<h2 id="encounterName">
+Flamino
+</h2>
+</div>
+
+<button class="closeButton" id="closeEncounter">
+✕
+</button>
+
+</div>
+
+<div class="encounterMonster" id="encounterEmoji">
+🦊
+</div>
+
+<div class="encounterStats">
+
+<div class="stat">
+<b id="encounterPower">
+18
+</b>
+<br>
+<small>Power</small>
+</div>
+
+<div class="stat">
+<b id="encounterType">
+Fire
+</b>
+<br>
+<small>Type</small>
+</div>
+
+<div class="stat">
+<b id="encounterLevel">
+1
+</b>
+<br>
+<small>Level</small>
+</div>
+
+</div>
+
+<button class="catchButton" id="catchButton">
+⚡ VANG MONSTER
+</button>
+
+</div>
+
+
+<div id="toast"></div>
+
+</div>
+
+
+<!-- NAV -->
+
+<nav class="bottomNav">
+
+<button class="navButton active" data-panel="map">
+<span>🗺️</span>
+<small>Kaart</small>
+</button>
+
+<button class="navButton" data-panel="monsters">
+<span>👾</span>
+<small>Monsters</small>
+</button>
+
+<button class="navButton" data-panel="events">
+<span>🎉</span>
+<small>Events</small>
+</button>
+
+<button class="navButton" data-panel="friends">
+<span>👥</span>
+<small>Vrienden</small>
+</button>
+
+<button class="navButton" data-panel="profile">
+<span>👤</span>
+<small>Profiel</small>
+</button>
+
+</nav>
+
+</div>
+
+
+<!-- ======================================
+     MONSTERS PANEL
+====================================== -->
+
+<section id="monstersPanel" class="panel">
+
+<div class="panelHeader">
+
+<h2>
+👾 Mijn Monsters
+</h2>
+
+<button class="closeButton closePanel">
+✕
+</button>
+
+</div>
+
+<div id="monsterGrid" class="monsterGrid">
+</div>
+
+</section>
+
+
+<!-- ======================================
+     EVENTS PANEL
+====================================== -->
+
+<section id="eventsPanel" class="panel">
+
+<div class="panelHeader">
+
+<h2>
+🎉 Events
+</h2>
+
+<button class="closeButton closePanel">
+✕
+</button>
+
+</div>
+
+<div id="eventsList">
+</div>
+
+</section>
+
+
+<!-- ======================================
+     FRIENDS PANEL
+====================================== -->
+
+<section id="friendsPanel" class="panel">
+
+<div class="panelHeader">
+
+<h2>
+👥 Vrienden
+</h2>
+
+<button class="closeButton closePanel">
+✕
+</button>
+
+</div>
+
+<div class="friendAdd">
+
+<input
+id="friendInput"
+class="friendInput"
+placeholder="Spelersnaam..."
+>
+
+<button
+id="addFriendButton"
+class="primaryButton"
+>
+Toevoegen
+</button>
+
+</div>
+
+<div id="friendsList">
+</div>
+
+</section>
+
+
+<!-- ======================================
+     PROFILE PANEL
+====================================== -->
+
+<section id="profilePanel" class="panel">
+
+<div class="panelHeader">
+
+<h2>
+👤 Profiel
+</h2>
+
+<button class="closeButton closePanel">
+✕
+</button>
+
+</div>
+
+<div class="monsterCard" style="max-width:500px;text-align:left">
+
+<div class="monsterEmoji">
+🧑‍🚀
+</div>
+
+<h2>
+Avonturier
+</h2>
+
+<br>
+
+<p id="profileStats">
+Level 1 • 1 monster • 0 events
+</p>
+
+<br>
+
+<button
+id="openAdminButton"
+class="primaryButton"
+>
+⚙️ Adminpaneel
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ======================================
+     ADMIN PANEL
+====================================== -->
+
+<section id="adminPanel" class="panel">
+
+<div class="panelHeader">
+
+<h2>
+⚙️ Admin Control Center
+</h2>
+
+<button
+class="closeButton"
+id="closeAdmin"
+>
+✕
+</button>
+
+</div>
+
+
+<div class="adminLayout">
+
+<aside class="adminMenu">
+
+<button
+class="adminTab active"
+data-admin="createEvent"
+>
+🎉 Event maken
+</button>
+
+<button
+class="adminTab"
+data-admin="manageEvents"
+>
+📋 Events beheren
+</button>
+
+<button
+class="adminTab"
+data-admin="world"
+>
+🌍 Wereld
+</button>
+
+<button
+class="adminTab"
+data-admin="monsterAdmin"
+>
+👾 Monsters
+</button>
+
+</aside>
+
+
+<div class="adminContent">
+
+
+<!-- CREATE EVENT -->
+
+<div
+id="createEvent"
+class="adminSection active"
+>
+
+<h2>
+🎉 Nieuw Event
+</h2>
+
+<br>
+
+<div class="form">
+
+<label>
+Event naam
+
+<input
+id="eventName"
+placeholder="Bijvoorbeeld: Nacht van de Vlam"
+>
+</label>
+
+
+<label>
+Beschrijving
+
+<textarea
+id="eventDescription"
+placeholder="Beschrijf wat er tijdens het event gebeurt..."
+></textarea>
+
+</label>
+
+
+<label>
+Beloning
+
+<input
+id="eventReward"
+placeholder="500 XP + zeldzaam monster"
+>
+</label>
+
+
+<label>
+Duur in minuten
+
+<input
+id="eventDuration"
+type="number"
+value="60"
+min="1"
+>
+</label>
+
+
+<label>
+Emoji
+
+<input
+id="eventEmoji"
+value="🎉"
+maxlength="4"
+>
+</label>
+
+
+<button
+id="createEventButton"
+class="primaryButton"
+>
+🚀 EVENT PUBLICEREN
+</button>
+
+</div>
+
+</div>
+
+
+<!-- MANAGE EVENTS -->
+
+<div
+id="manageEvents"
+class="adminSection"
+>
+
+<h2>
+📋 Events beheren
+</h2>
+
+<div id="adminEventsList">
+</div>
+
+</div>
+
+
+<!-- WORLD -->
+
+<div
+id="world"
+class="adminSection"
+>
+
+<h2>
+🌍 Wereld instellingen
+</h2>
+
+<br>
+
+<div class="form">
+
+<label>
+Monster spawn rate
+
+<input
+id="spawnRate"
+type="range"
+min="1"
+max="100"
+value="35"
+>
+</label>
+
+<button
+id="spawnMonsterButton"
+class="primaryButton"
+>
+👾 Monster spawnen
+</button>
+
+<button
+id="clearMonstersButton"
+class="deleteButton"
+>
+🧹 Monsters verwijderen
+</button>
+
+</div>
+
+</div>
+
+
+<!-- MONSTER ADMIN -->
+
+<div
+id="monsterAdmin"
+class="adminSection"
+>
+
+<h2>
+👾 Monster Catalogus
+</h2>
+
+<br>
+
+<div id="adminMonsterList">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</section>
+
+</div>
+
 
 <script>
 
-"use strict";
-
-
 /* =========================================================
-   GAME CONFIG
-   ========================================================= */
+   MONSTERGO ENGINE
+========================================================= */
 
-const GAME_CONFIG = {
 
-    name:
-        "Creaturen World",
+/* =========================
+   MONSTERS
+========================= */
 
-    version:
-        "1.0.0",
+const MONSTERS = [
 
-    adminCode:
-        "5676",
+{
+id:"flamino",
+name:"Flamino",
+emoji:"🦊",
+type:"Fire",
+power:18,
+rarity:"Common"
+},
 
-    defaultName:
-        "Explorer",
+{
+id:"aquafi",
+name:"Aquafi",
+emoji:"🐬",
+type:"Water",
+power:21,
+rarity:"Common"
+},
 
-    startingCoins:
-        100,
+{
+id:"leaflet",
+name:"Leaflet",
+emoji:"🐸",
+type:"Nature",
+power:17,
+rarity:"Common"
+},
 
-    startingBalls:
-        10,
+{
+id:"voltik",
+name:"Voltik",
+emoji:"⚡",
+type:"Electric",
+power:28,
+rarity:"Rare"
+},
 
-    xpPerLevel:
-        250,
+{
+id:"mossaur",
+name:"Mossaur",
+emoji:"🦕",
+type:"Nature",
+power:32,
+rarity:"Rare"
+},
 
-    defaultSpawnAmount:
-        15,
+{
+id:"noctowl",
+name:"Noctowl",
+emoji:"🦉",
+type:"Shadow",
+power:35,
+rarity:"Rare"
+},
 
-    spawnRadius:
-        800,
+{
+id:"crysteel",
+name:"Crysteel",
+emoji:"🐲",
+type:"Crystal",
+power:49,
+rarity:"Epic"
+},
 
-    catchRadius:
-        130
+{
+id:"solara",
+name:"Solara",
+emoji:"🦄",
+type:"Light",
+power:56,
+rarity:"Epic"
+},
+
+{
+id:"abyssor",
+name:"Abyssor",
+emoji:"🐙",
+type:"Dark",
+power:70,
+rarity:"Legendary"
+},
+
+{
+id:"pyronox",
+name:"Pyronox",
+emoji:"🐉",
+type:"Fire",
+power:85,
+rarity:"Legendary"
+}
+
+];
+
+
+/* =========================
+   DEFAULT STATE
+========================= */
+
+const defaultState = {
+
+started:false,
+
+level:1,
+
+xp:0,
+
+coins:250,
+
+caught:["flamino"],
+
+friends:[],
+
+events:[],
+
+spawnRate:35
 
 };
 
 
-/* =========================================================
-   GAME STATE
-   ========================================================= */
-
-const DEFAULT_STATE = {
-
-    player: {
-
-        name:
-            GAME_CONFIG.defaultName,
-
-        level:
-            1,
-
-        xp:
-            0,
-
-        coins:
-            GAME_CONFIG.startingCoins,
-
-        balls:
-            GAME_CONFIG.startingBalls,
-
-        charms:
-            0
-
-    },
+let state;
 
 
-    location: {
+try{
 
-        lat:
-            null,
+state =
+JSON.parse(
+localStorage.getItem("monstergo-save")
+) || structuredClone(defaultState);
 
-        lng:
-            null,
+}catch{
 
-        accuracy:
-            null,
-
-        hasGPS:
-            false
-
-    },
-
-
-    creatures: {
-
-        caught:
-            [],
-
-        discovered:
-            []
-
-    },
-
-
-    quests: {
-
-        catch:
-            0,
-
-        rare:
-            0,
-
-        shiny:
-            0
-
-    },
-
-
-    friends:
-        [],
-
-
-    events:
-        [],
-
-
-    achievements:
-        [],
-
-
-    settings: {
-
-        sound:
-            true,
-
-        vibration:
-            true,
-
-        autoLocate:
-            true
-
-    }
-
-};
-
-
-let GAME =
-    loadGame();
-
-
-let MAP =
-    null;
-
-
-let PLAYER_MARKER =
-    null;
-
-
-let PLAYER_RANGE =
-    null;
-
-
-let CREATURE_MARKERS =
-    [];
-
-
-let SELECTED_CREATURE =
-    null;
-
-
-let SELECTED_MARKER =
-    null;
-
-
-let ADMIN_LOGGED_IN =
-    false;
-
-
-let GPS_WATCH_ID =
-    null;
-
-
-/* =========================================================
-   DOM HELPERS
-   ========================================================= */
-
-function $(id) {
-
-    return document.getElementById(id);
+state =
+structuredClone(defaultState);
 
 }
 
 
-function $all(selector) {
+/* =========================
+   SAVE
+========================= */
 
-    return document.querySelectorAll(selector);
+function save(){
 
-}
-
-
-/* =========================================================
-   LOCAL STORAGE
-   ========================================================= */
-
-function loadGame() {
-
-    try {
-
-        const saved =
-            localStorage.getItem(
-                "creaturen_world_save"
-            );
-
-
-        if (!saved) {
-
-            return structuredClone(
-                DEFAULT_STATE
-            );
-
-        }
-
-
-        const parsed =
-            JSON.parse(saved);
-
-
-        return deepMerge(
-            structuredClone(DEFAULT_STATE),
-            parsed
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Save kon niet worden geladen:",
-            error
-        );
-
-
-        return structuredClone(
-            DEFAULT_STATE
-        );
-
-    }
+localStorage.setItem(
+"monstergo-save",
+JSON.stringify(state)
+);
 
 }
 
 
-function deepMerge(base, data) {
+/* =========================
+   SELECTORS
+========================= */
 
-    for (
-        const key in data
-    ) {
+const $ = selector =>
+document.querySelector(selector);
 
-        if (
-            data[key] &&
-            typeof data[key] === "object" &&
-            !Array.isArray(data[key])
-        ) {
+const $$ = selector =>
+[...document.querySelectorAll(selector)];
 
-            if (
-                !base[key]
-            ) {
 
-                base[key] = {};
-
-            }
-
-
-            deepMerge(
-                base[key],
-                data[key]
-            );
-
-        } else {
-
-            base[key] =
-                data[key];
-
-        }
-
-    }
-
-
-    return base;
-
-}
-
-
-function saveGame() {
-
-    try {
-
-        localStorage.setItem(
-
-            "creaturen_world_save",
-
-            JSON.stringify(GAME)
-
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Opslaan mislukt:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   XP
-   ========================================================= */
-
-function getRequiredXP() {
-
-    return (
-        GAME.player.level *
-        GAME_CONFIG.xpPerLevel
-    );
-
-}
-
-
-function addXP(amount) {
-
-    amount =
-        Math.max(
-            0,
-            Number(amount) || 0
-        );
-
-
-    GAME.player.xp +=
-        amount;
-
-
-    let levelUps = 0;
-
-
-    while (
-        GAME.player.xp >=
-        getRequiredXP()
-    ) {
-
-        GAME.player.xp -=
-            getRequiredXP();
-
-
-        GAME.player.level++;
-
-
-        levelUps++;
-
-
-        showToast(
-            "🎉 LEVEL UP! Je bent nu level " +
-            GAME.player.level
-        );
-
-    }
-
-
-    if (
-        levelUps > 0
-    ) {
-
-        updateAllUI();
-
-    }
-
-
-    saveGame();
-
-}
-
-
-/* =========================================================
-   UI UPDATE
-   ========================================================= */
-
-function updateAllUI() {
-
-    updateHUD();
-
-    updateProfile();
-
-    updateAdminStats();
-
-}
-
-
-function updateHUD() {
-
-    $("playerName").textContent =
-        GAME.player.name;
-
-
-    $("playerLevel").textContent =
-        GAME.player.level;
-
-
-    $("hudXP").textContent =
-        GAME.player.xp;
-
-
-    $("hudCoins").textContent =
-        GAME.player.coins;
-
-
-    $("hudBalls").textContent =
-        GAME.player.balls;
-
-
-    $("xpCurrent").textContent =
-        GAME.player.xp;
-
-
-    $("xpRequired").textContent =
-        getRequiredXP();
-
-
-    const percentage =
-        Math.min(
-            100,
-            (
-                GAME.player.xp /
-                getRequiredXP()
-            ) * 100
-        );
-
-
-    $("xpFill").style.width =
-        percentage + "%";
-
-}
-
-
-function updateProfile() {
-
-    $("profileName").textContent =
-        GAME.player.name;
-
-
-    $("profileLevel").textContent =
-        GAME.player.level;
-
-
-    $("profileCaught").textContent =
-        GAME.creatures.caught.length;
-
-
-    $("profileCoins").textContent =
-        GAME.player.coins;
-
-}
-
-
-function updateAdminStats() {
-
-    $("adminPlayers").textContent =
-        "1";
-
-
-    $("adminCreatures").textContent =
-        GAME.creatures.caught.length;
-
-
-    $("adminEvents").textContent =
-        GAME.events.length;
-
-
-    $("adminLevel").textContent =
-        GAME.player.level;
-
-}
-
-
-/* =========================================================
+/* =========================
    TOAST
-   ========================================================= */
+========================= */
 
-let toastTimer = null;
+let toastTimer;
 
+function showToast(message){
 
-function showToast(message) {
+const toast = $("#toast");
 
-    const toast =
-        $("toast");
+toast.textContent = message;
 
+toast.classList.add("show");
 
-    toast.textContent =
-        message;
+clearTimeout(toastTimer);
 
+toastTimer = setTimeout(()=>{
 
-    toast.classList.add(
-        "show"
-    );
+toast.classList.remove("show");
 
-
-    clearTimeout(
-        toastTimer
-    );
-
-
-    toastTimer =
-        setTimeout(
-            () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
-            },
-            2600
-        );
+},2300);
 
 }
 
 
-/* =========================================================
-   MODALS
-   ========================================================= */
+/* =========================
+   XP
+========================= */
 
-function openModal(id) {
+function xpNeeded(){
 
-    const modal =
-        $(id);
-
-
-    if (!modal)
-        return;
-
-
-    modal.classList.add(
-        "open"
-    );
+return 100 + ((state.level-1)*60);
 
 }
 
 
-function closeModal(id) {
+function addXP(amount){
 
-    const modal =
-        $(id);
+state.xp += amount;
 
+while(state.xp >= xpNeeded()){
 
-    if (!modal)
-        return;
+state.xp -= xpNeeded();
 
+state.level++;
 
-    modal.classList.remove(
-        "open"
-    );
+showToast(
+"🎉 LEVEL UP! Je bent nu level "+state.level+"!"
+);
+
+}
+
+save();
+
+updateUI();
 
 }
 
 
-/* =========================================================
-   START GAME
-   ========================================================= */
+/* =========================
+   START
+========================= */
 
-function startGame() {
-
-    $("startScreen").style.display =
-        "none";
-
-
-    $("loadingScreen").style.display =
-        "flex";
+$("#startAdventure").addEventListener(
+"click",
+startGame
+);
 
 
-    $("gameWorld").style.display =
-        "block";
+function startGame(){
 
+state.started = true;
 
-    $("loadingText").textContent =
-        "Wereld voorbereiden...";
+save();
 
+$("#startScreen")
+.classList.remove("active");
 
-    setTimeout(
-        initializeGame,
-        250
-    );
+$("#gameScreen")
+.classList.add("active");
 
-}
+resizeCanvas();
 
+generateMonsterSpawns();
 
-/* =========================================================
-   INITIALIZE
-   ========================================================= */
+updateUI();
 
-function initializeGame() {
-
-    updateAllUI();
-
-
-    initializeMap();
-
-
-    initializeNavigation();
-
-
-    initializeButtons();
-
-
-    initializeSettings();
-
-
-    initializeAdmin();
-
-
-    renderInventory();
-
-
-    renderQuests();
-
-
-    renderEvents();
-
-
-    renderFriends();
-
-
-    renderShop();
-
-
-    renderAchievements();
-
-
-    setTimeout(
-        () => {
-
-            $("loadingScreen").style.display =
-                "none";
-
-        },
-        700
-    );
+showToast(
+"🚀 Avontuur gestart!"
+);
 
 }
 
 
-/* =========================================================
-   BUTTON INITIALIZATION
-   ========================================================= */
+/* =========================
+   IF ALREADY STARTED
+========================= */
 
-function initializeButtons() {
+if(state.started){
 
+$("#startScreen")
+.classList.remove("active");
 
-    $("startButton")
-        .addEventListener(
-            "click",
-            startGame
-        );
-
-
-    $("locateButton")
-        .addEventListener(
-            "click",
-            locatePlayer
-        );
-
-
-    $("zoomInButton")
-        .addEventListener(
-            "click",
-            () => {
-
-                if (MAP)
-                    MAP.zoomIn();
-
-            }
-        );
-
-
-    $("zoomOutButton")
-        .addEventListener(
-            "click",
-            () => {
-
-                if (MAP)
-                    MAP.zoomOut();
-
-            }
-        );
-
-
-    $("compassButton")
-        .addEventListener(
-            "click",
-            locatePlayer
-        );
-
-
-    $("addFriendButton")
-        .addEventListener(
-            "click",
-            addFriend
-        );
-
-
-    $("saveNameButton")
-        .addEventListener(
-            "click",
-            savePlayerName
-        );
-
-
-    $("resetGameButton")
-        .addEventListener(
-            "click",
-            resetGame
-        );
-
-
-    $("adminLoginButton")
-        .addEventListener(
-            "click",
-            loginAdmin
-        );
-
-
-    $("createEventButton")
-        .addEventListener(
-            "click",
-            createEvent
-        );
-
-
-    $("clearEventsButton")
-        .addEventListener(
-            "click",
-            clearEvents
-        );
-
-
-    $("respawnButton")
-        .addEventListener(
-            "click",
-            respawnCreatures
-        );
-
-
-    $("catchButton")
-        .addEventListener(
-            "click",
-            catchSelectedCreature
-        );
+$("#gameScreen")
+.classList.add("active");
 
 }
 
 
-/* =========================================================
+/* =========================
+   UI UPDATE
+========================= */
+
+function updateUI(){
+
+$("#levelText").textContent =
+"Lv. "+state.level;
+
+$("#xpCurrent").textContent =
+state.xp;
+
+$("#xpMax").textContent =
+xpNeeded();
+
+$("#xpFill").style.width =
+Math.min(
+100,
+(state.xp/xpNeeded())*100
+)+"%";
+
+
+$("#profileStats").textContent =
+"Level "+state.level+
+" • "+state.caught.length+
+" monsters • "+
+state.events.length+
+" events";
+
+
+renderMonsters();
+
+renderEvents();
+
+renderFriends();
+
+renderAdminEvents();
+
+renderAdminMonsters();
+
+}
+
+
+/* =========================
    NAVIGATION
-   ========================================================= */
+========================= */
 
-function initializeNavigation() {
+const panels = {
 
-    $all(
-        ".nav-button"
-    ).forEach(
-        button => {
+monsters:"#monstersPanel",
 
-            button.addEventListener(
-                "click",
-                () => {
+events:"#eventsPanel",
 
-                    const page =
-                        button.dataset.page;
+friends:"#friendsPanel",
+
+profile:"#profilePanel"
+
+};
 
 
-                    $all(
-                        ".nav-button"
-                    ).forEach(
-                        b =>
-                            b.classList.remove(
-                                "active"
-                            )
-                    );
+$$(".navButton").forEach(button=>{
+
+button.addEventListener("click",()=>{
+
+$$(".navButton").forEach(
+b=>b.classList.remove("active")
+);
+
+button.classList.add("active");
+
+const panel =
+button.dataset.panel;
+
+$$(".panel").forEach(
+p=>p.classList.remove("open")
+);
+
+if(panels[panel]){
+
+$(panels[panel])
+.classList.add("open");
+
+}
+
+});
+
+});
 
 
-                    button.classList.add(
-                        "active"
-                    );
+$$(".closePanel").forEach(button=>{
+
+button.addEventListener("click",()=>{
+
+$$(".panel").forEach(
+p=>p.classList.remove("open")
+);
+
+});
+
+});
 
 
-                    handleNavigation(
-                        page
-                    );
+$("#menuButton").addEventListener(
+"click",
+()=>{
 
-                }
-            );
+$("#profilePanel")
+.classList.add("open");
 
-        }
-    );
+}
+);
+
+
+/* =========================
+   MONSTERS UI
+========================= */
+
+function renderMonsters(){
+
+const container =
+$("#monsterGrid");
+
+container.innerHTML = "";
+
+state.caught.forEach(id=>{
+
+const monster =
+MONSTERS.find(
+m=>m.id===id
+);
+
+if(!monster)return;
+
+const card =
+document.createElement("div");
+
+card.className =
+"monsterCard";
+
+card.innerHTML = `
+
+<div class="monsterEmoji">
+${monster.emoji}
+</div>
+
+<h3>
+${monster.name}
+</h3>
+
+<p>
+${monster.type}
+</p>
+
+<p>
+Power ${monster.power}
+</p>
+
+<p>
+${monster.rarity}
+</p>
+
+`;
+
+container.appendChild(card);
+
+});
 
 }
 
 
-function handleNavigation(page) {
+/* =========================
+   EVENTS
+========================= */
 
-    if (
-        page === "map"
-    ) {
+function renderEvents(){
 
-        return;
+const container =
+$("#eventsList");
 
-    }
+container.innerHTML = "";
 
+if(state.events.length===0){
 
-    if (
-        page === "dex"
-    ) {
+container.innerHTML = `
 
-        renderDex();
+<div class="monsterCard">
 
-        openModal(
-            "dexModal"
-        );
+<div class="monsterEmoji">
+🌙
+</div>
 
-        return;
+<h3>
+Geen actieve events
+</h3>
 
-    }
+<p>
+Er zijn momenteel geen events.
+</p>
 
+</div>
 
-    if (
-        page === "bag"
-    ) {
+`;
 
-        renderInventory();
-
-        openModal(
-            "bagModal"
-        );
-
-        return;
-
-    }
-
-
-    if (
-        page === "quests"
-    ) {
-
-        renderQuests();
-
-        openModal(
-            "questsModal"
-        );
-
-        return;
-
-    }
-
-
-    if (
-        page === "events"
-    ) {
-
-        renderEvents();
-
-        openModal(
-            "eventsModal"
-        );
-
-        return;
-
-    }
-
-
-    if (
-        page === "more"
-    ) {
-
-        openModal(
-            "moreModal"
-        );
-
-        return;
-
-    }
+return;
 
 }
 
 
-/* =========================================================
-   MODAL OPEN/CLOSE EVENTS
-   ========================================================= */
+state.events.forEach(
+(event,index)=>{
 
-$all(
-    "[data-close]"
-).forEach(
-    button => {
+const card =
+document.createElement("div");
 
-        button.addEventListener(
-            "click",
-            () => {
+card.className =
+"eventCard";
 
-                closeModal(
-                    button.dataset.close
-                );
+card.innerHTML = `
 
-            }
-        );
+<div class="eventEmoji">
+${escapeHTML(event.emoji)}
+</div>
 
-    }
-);
+<h3>
+${escapeHTML(event.name)}
+</h3>
 
+<p>
+${escapeHTML(event.description)}
+</p>
 
-$all(
-    "[data-open]"
-).forEach(
-    button => {
+<div class="reward">
+🏆 ${escapeHTML(event.reward)}
+</div>
 
-        button.addEventListener(
-            "click",
-            () => {
+<button
+class="primaryButton"
+data-claim="${index}"
+>
+CLAIM BELONING
+</button>
 
-                const current =
-                    button.closest(
-                        ".modal"
-                    );
+`;
 
+container.appendChild(card);
 
-                if (current) {
-
-                    current.classList.remove(
-                        "open"
-                    );
-
-                }
+});
 
 
-                openModal(
-                    button.dataset.open
-                );
+$$("[data-claim]").forEach(button=>{
 
-            }
-        );
+button.addEventListener("click",()=>{
 
-    }
-);
+const index =
+Number(button.dataset.claim);
 
+claimEvent(index);
 
-$all(
-    ".modal"
-).forEach(
-    modal => {
+});
 
-        modal.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target === modal
-                ) {
-
-                    modal.classList.remove(
-                        "open"
-                    );
-
-                }
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================================================
-   NAME
-   ========================================================= */
-
-function savePlayerName() {
-
-    const input =
-        $("nameInput");
-
-
-    const name =
-        input.value.trim();
-
-
-    if (!name) {
-
-        showToast(
-            "❌ Kies eerst een naam."
-        );
-
-        return;
-
-    }
-
-
-    GAME.player.name =
-        name.slice(
-            0,
-            20
-        );
-
-
-    saveGame();
-
-
-    updateAllUI();
-
-
-    showToast(
-        "✅ Naam opgeslagen!"
-    );
+});
 
 }
 
 
-/* =========================================================
+function claimEvent(index){
+
+const event =
+state.events[index];
+
+if(!event)return;
+
+addXP(50);
+
+state.coins += 100;
+
+save();
+
+buttonClaimed(index);
+
+showToast(
+"🏆 Beloning ontvangen!"
+);
+
+}
+
+
+function buttonClaimed(index){
+
+const buttons =
+$$("[data-claim]");
+
+if(buttons[index]){
+
+buttons[index].textContent =
+"✓ GECLAIMD";
+
+buttons[index].disabled = true;
+
+}
+
+}
+
+
+/* =========================
+   CREATE EVENT
+========================= */
+
+$("#createEventButton")
+.addEventListener(
+"click",
+createEvent
+);
+
+
+function createEvent(){
+
+const name =
+$("#eventName").value.trim();
+
+const description =
+$("#eventDescription").value.trim();
+
+const reward =
+$("#eventReward").value.trim();
+
+const duration =
+Number($("#eventDuration").value);
+
+const emoji =
+$("#eventEmoji").value.trim();
+
+
+if(!name){
+
+showToast(
+"⚠️ Geef het event een naam."
+);
+
+return;
+
+}
+
+
+const event = {
+
+id:Date.now(),
+
+name:name,
+
+description:
+description ||
+"Een speciaal MonsterGO event.",
+
+reward:
+reward ||
+"50 XP + 100 coins",
+
+duration:
+duration || 60,
+
+emoji:
+emoji || "🎉",
+
+created:
+Date.now()
+
+};
+
+
+state.events.unshift(event);
+
+save();
+
+updateUI();
+
+
+$("#eventName").value="";
+
+$("#eventDescription").value="";
+
+$("#eventReward").value="";
+
+$("#eventDuration").value=60;
+
+$("#eventEmoji").value="🎉";
+
+
+showToast(
+"🎉 Event gepubliceerd!"
+);
+
+}
+
+
+/* =========================
+   ADMIN EVENTS
+========================= */
+
+function renderAdminEvents(){
+
+const container =
+$("#adminEventsList");
+
+container.innerHTML="";
+
+
+if(state.events.length===0){
+
+container.innerHTML =
+"<p style='color:#8997aa;margin-top:15px'>Geen events.</p>";
+
+return;
+
+}
+
+
+state.events.forEach(
+(event,index)=>{
+
+const row =
+document.createElement("div");
+
+row.className =
+"adminEvent";
+
+row.innerHTML = `
+
+<div>
+
+<b>
+${escapeHTML(event.emoji)}
+${escapeHTML(event.name)}
+</b>
+
+<br>
+
+<small style="color:#8190a5">
+${escapeHTML(event.reward)}
+</small>
+
+</div>
+
+<button
+class="deleteButton"
+data-delete-event="${index}"
+>
+Verwijderen
+</button>
+
+`;
+
+container.appendChild(row);
+
+});
+
+
+$$("[data-delete-event]")
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+()=>{
+
+const index =
+Number(button.dataset.deleteEvent);
+
+state.events.splice(index,1);
+
+save();
+
+updateUI();
+
+showToast(
+"🗑️ Event verwijderd."
+);
+
+});
+
+});
+
+}
+
+
+/* =========================
    FRIENDS
-   ========================================================= */
-
-function addFriend() {
-
-    const input =
-        $("friendCodeInput");
-
-
-    const code =
-        input.value.trim();
-
-
-    if (!code) {
-
-        showToast(
-            "❌ Vul een friend code in."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        GAME.friends.includes(code)
-    ) {
-
-        showToast(
-            "Deze vriend staat al in je lijst."
-        );
-
-        return;
-
-    }
-
-
-    GAME.friends.push(
-        code
-    );
-
-
-    input.value =
-        "";
-
-
-    saveGame();
-
-
-    renderFriends();
-
-
-    showToast(
-        "👥 Friend toegevoegd!"
-    );
-
-}
-
-
-function renderFriends() {
-
-    const list =
-        $("friendList");
-
-
-    if (
-        GAME.friends.length === 0
-    ) {
-
-        list.innerHTML = `
-
-            <div class="glass-card">
-
-                <div
-                    style="
-                        text-align:center;
-                        font-size:30px;
-                        margin-bottom:8px;
-                    "
-                >
-                    👥
-                </div>
-
-                <div
-                    style="
-                        text-align:center;
-                        font-size:11px;
-                        font-weight:900;
-                    "
-                >
-                    Nog geen vrienden
-                </div>
-
-                <div
-                    style="
-                        text-align:center;
-                        color:var(--text-muted);
-                        font-size:9px;
-                        margin-top:5px;
-                    "
-                >
-                    Voeg hieronder je eerste vriend toe.
-                </div>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    list.innerHTML =
-        GAME.friends
-        .map(
-            (friend,index) => `
-
-                <div class="friend-card">
-
-                    <div class="friend-avatar">
-                        🧑
-                    </div>
-
-                    <div class="friend-info">
-
-                        <div class="friend-name">
-                            Friend ${index + 1}
-                        </div>
-
-                        <div class="friend-status">
-                            ● Friend code: ${escapeHTML(friend)}
-                        </div>
-
-                    </div>
-
-                </div>
-
-            `
-        )
-        .join("");
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-   ========================================================= */
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
-
-
-/* =========================================================
-   RESET
-   ========================================================= */
-
-function resetGame() {
-
-    const confirmed =
-        confirm(
-            "Weet je zeker dat je alle lokale game-data wilt verwijderen?"
-        );
-
-
-    if (!confirmed)
-        return;
-
-
-    localStorage.removeItem(
-        "creaturen_world_save"
-    );
-
-
-    location.reload();
-
-}
-
-
-/* =========================================================
-   SETTINGS
-   ========================================================= */
-
-function initializeSettings() {
-
-    $("nameInput").value =
-        GAME.player.name;
-
-}
-
-
-/* =========================================================
-   ADMIN
-   ========================================================= */
-
-function initializeAdmin() {
-
-    renderAdminEvents();
-
-}
-
-
-function loginAdmin() {
-
-    const code =
-        $("adminCodeInput")
-        .value;
-
-
-    if (
-        code !==
-        GAME_CONFIG.adminCode
-    ) {
-
-        showToast(
-            "❌ Onjuiste admin code."
-        );
-
-        return;
-
-    }
-
-
-    ADMIN_LOGGED_IN =
-        true;
-
-
-    $("adminCodeInput")
-        .value =
-        "";
-
-
-    closeModal(
-        "adminLoginModal"
-    );
-
-
-    renderAdminEvents();
-
-
-    updateAdminStats();
-
-
-    openModal(
-        "adminModal"
-    );
-
-
-    showToast(
-        "🔓 Admin Panel geopend!"
-    );
-
-}
-
-
-function createEvent() {
-
-    if (
-        !ADMIN_LOGGED_IN
-    ) {
-
-        showToast(
-            "❌ Log eerst in als admin."
-        );
-
-        return;
-
-    }
-
-
-    const name =
-        $("eventNameInput")
-        .value
-        .trim();
-
-
-    const description =
-        $("eventDescriptionInput")
-        .value
-        .trim();
-
-
-    const xp =
-        Math.max(
-            0,
-            Number(
-                $("eventXPInput").value
-            ) || 0
-        );
-
-
-    const coins =
-        Math.max(
-            0,
-            Number(
-                $("eventCoinsInput").value
-            ) || 0
-        );
-
-
-    if (!name) {
-
-        showToast(
-            "❌ Geef het event een naam."
-        );
-
-        return;
-
-    }
-
-
-    const event = {
-
-        id:
-            Date.now(),
-
-        name:
-            name,
-
-        description:
-            description ||
-            "Een speciaal Creaturen World event!",
-
-        xp:
-            xp,
-
-        coins:
-            coins,
-
-        start:
-            Date.now(),
-
-        end:
-            Date.now() +
-            (
-                24 *
-                60 *
-                60 *
-                1000
-            ),
-
-        claimed:
-            false
-
-    };
-
-
-    GAME.events.push(
-        event
-    );
-
-
-    saveGame();
-
-
-    $("eventNameInput").value =
-        "";
-
-    $("eventDescriptionInput").value =
-        "";
-
-
-    renderEvents();
-
-    renderAdminEvents();
-
-    updateAdminStats();
-
-
-    showToast(
-        "🎉 Event aangemaakt!"
-    );
-
-}
-
-
-function renderAdminEvents() {
-
-    const list =
-        $("adminEventList");
-
-
-    if (
-        GAME.events.length === 0
-    ) {
-
-        list.innerHTML = `
-
-            <div
-                style="
-                    color:var(--text-muted);
-                    font-size:10px;
-                "
-            >
-                Er zijn nog geen events.
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    list.innerHTML =
-        GAME.events
-        .map(
-            event => `
-
-                <div
-                    class="glass-card"
-                    style="margin-bottom:8px"
-                >
-
-                    <div
-                        style="
-                            display:flex;
-                            justify-content:space-between;
-                            gap:10px;
-                        "
-                    >
-
-                        <div>
-
-                            <div
-                                style="
-                                    font-size:11px;
-                                    font-weight:900;
-                                "
-                            >
-                                🎉 ${escapeHTML(event.name)}
-                            </div>
-
-                            <div
-                                style="
-                                    margin-top:4px;
-                                    color:var(--text-muted);
-                                    font-size:8px;
-                                "
-                            >
-                                ${escapeHTML(event.description)}
-                            </div>
-
-                        </div>
-
-                        <button
-                            class="button danger"
-                            type="button"
-                            onclick="
-                                deleteEvent(${event.id})
-                            "
-                        >
-                            🗑️
-                        </button>
-
-                    </div>
-
-                    <div
-                        style="
-                            margin-top:10px;
-                            color:var(--yellow);
-                            font-size:9px;
-                            font-weight:800;
-                        "
-                    >
-                        🎁 ${event.xp} XP
-                        ·
-                        🪙 ${event.coins}
-                    </div>
-
-                </div>
-
-            `
-        )
-        .join("");
-
-}
-
-
-function deleteEvent(id) {
-
-    GAME.events =
-        GAME.events.filter(
-            event =>
-                event.id !== id
-        );
-
-
-    saveGame();
-
-
-    renderEvents();
-
-    renderAdminEvents();
-
-    updateAdminStats();
-
-
-    showToast(
-        "🗑️ Event verwijderd."
-    );
-
-}
-
-
-function clearEvents() {
-
-    if (
-        GAME.events.length === 0
-    ) {
-
-        return;
-
-    }
-
-
-    const confirmed =
-        confirm(
-            "Alle events verwijderen?"
-        );
-
-
-    if (!confirmed)
-        return;
-
-
-    GAME.events =
-        [];
-
-
-    saveGame();
-
-
-    renderEvents();
-
-    renderAdminEvents();
-
-    updateAdminStats();
-
-
-    showToast(
-        "🗑️ Alle events verwijderd."
-    );
-
-}
-
-
-/* =========================================================
-   EVENT RENDER
-   ========================================================= */
-
-function renderEvents() {
-
-    const list =
-        $("eventList");
-
-
-    const now =
-        Date.now();
-
-
-    const active =
-        GAME.events.filter(
-            event =>
-                event.start <= now &&
-                event.end >= now
-        );
-
-
-    if (
-        active.length === 0
-    ) {
-
-        list.innerHTML = `
-
-            <div class="glass-card">
-
-                <div
-                    style="
-                        text-align:center;
-                        font-size:38px;
-                    "
-                >
-                    🌙
-                </div>
-
-                <div
-                    style="
-                        margin-top:10px;
-                        text-align:center;
-                        font-size:12px;
-                        font-weight:900;
-                    "
-                >
-                    Geen actieve events
-                </div>
-
-                <div
-                    style="
-                        margin-top:6px;
-                        text-align:center;
-                        color:var(--text-muted);
-                        font-size:9px;
-                    "
-                >
-                    Kom later terug voor nieuwe avonturen.
-                </div>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    list.innerHTML =
-        active
-        .map(
-            event => `
-
-                <div class="event-card">
-
-                    <div class="event-title">
-
-                        🎉
-                        ${escapeHTML(event.name)}
-
-                    </div>
-
-                    <div class="event-description">
-
-                        ${escapeHTML(event.description)}
-
-                    </div>
-
-
-                    <div class="event-rewards">
-
-                        <div class="reward-pill">
-                            ⭐ ${event.xp} XP
-                        </div>
-
-                        <div class="reward-pill">
-                            🪙 ${event.coins}
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        class="button primary full"
-                        style="margin-top:12px"
-                        onclick="
-                            claimEvent(${event.id})
-                        "
-                    >
-
-                        🎁 BELONING CLAIMEN
-
-                    </button>
-
-                </div>
-
-            `
-        )
-        .join("");
-
-}
-
-
-/* =========================================================
-   CLAIM EVENT
-   ========================================================= */
-
-function claimEvent(id) {
-
-    const event =
-        GAME.events.find(
-            e =>
-                e.id === id
-        );
-
-
-    if (!event)
-        return;
-
-
-    if (
-        event.claimed
-    ) {
-
-        showToast(
-            "Je hebt deze beloning al geclaimd."
-        );
-
-        return;
-
-    }
-
-
-    event.claimed =
-        true;
-
-
-    GAME.player.coins +=
-        event.coins;
-
-
-    addXP(
-        event.xp
-    );
-
-
-    saveGame();
-
-
-    updateAllUI();
-
-    renderEvents();
-
-
-    showToast(
-        "🎁 Event-beloning ontvangen!"
-    );
-
-}
-
-
-/* =========================================================
-   INVENTORY
-   ========================================================= */
-
-function renderInventory() {
-
-    $("inventoryGrid").innerHTML = `
-
-        <div class="item-card">
-
-            <div class="item-icon">
-                🎯
-            </div>
-
-            <div class="item-name">
-                Creature Ball
-            </div>
-
-            <div class="item-count">
-                ${GAME.player.balls}
-                beschikbaar
-            </div>
-
-        </div>
-
-
-        <div class="item-card">
-
-            <div class="item-icon">
-                ✨
-            </div>
-
-            <div class="item-name">
-                Shiny Charm
-            </div>
-
-            <div class="item-count">
-                ${GAME.player.charms}
-                beschikbaar
-            </div>
-
-        </div>
-
-
-        <div class="item-card">
-
-            <div class="item-icon">
-                🪙
-            </div>
-
-            <div class="item-name">
-                Coins
-            </div>
-
-            <div class="item-count">
-                ${GAME.player.coins}
-                beschikbaar
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   QUESTS
-   ========================================================= */
-
-function renderQuests() {
-
-    const quests = [
-
-        {
-            name:
-                "Vang 5 Creaturen",
-
-            current:
-                Math.min(
-                    GAME.quests.catch,
-                    5
-                ),
-
-            goal:
-                5,
-
-            reward:
-                "50 🪙"
-
-        },
-
-        {
-            name:
-                "Vang 3 zeldzame Creaturen",
-
-            current:
-                Math.min(
-                    GAME.quests.rare,
-                    3
-                ),
-
-            goal:
-                3,
-
-            reward:
-                "100 🪙"
-
-        },
-
-        {
-            name:
-                "Vind een Shiny",
-
-            current:
-                Math.min(
-                    GAME.quests.shiny,
-                    1
-                ),
-
-            goal:
-                1,
-
-            reward:
-                "250 🪙 + 100 XP"
-
-        }
-
-    ];
-
-
-    $("questList").innerHTML =
-        quests
-        .map(
-            quest => {
-
-                const percentage =
-                    Math.min(
-                        100,
-                        (
-                            quest.current /
-                            quest.goal
-                        ) *
-                        100
-                    );
-
-
-                return `
-
-                    <div class="quest-card">
-
-                        <div class="quest-top">
-
-                            <div class="quest-name">
-                                ${quest.name}
-                            </div>
-
-                            <div class="quest-progress">
-                                ${quest.current}/${quest.goal}
-                            </div>
-
-                        </div>
-
-
-                        <div class="progress-track">
-
-                            <div
-                                class="progress-fill"
-                                style="
-                                    width:${percentage}%
-                                "
-                            ></div>
-
-                        </div>
-
-
-                        <div class="quest-reward">
-                            🎁 ${quest.reward}
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-        )
-        .join("");
-
-}
-
-
-/* =========================================================
-   SHOP
-   ========================================================= */
-
-function renderShop() {
-
-    $("shopGrid").innerHTML = `
-
-        <div class="shop-card">
-
-            <div class="shop-icon">
-                🎯
-            </div>
-
-            <div class="shop-name">
-                Creature Ball
-            </div>
-
-            <div class="shop-description">
-                Gebruik deze om wilde Creaturen
-                te vangen.
-            </div>
-
-            <div class="shop-price">
-                🪙 25
-            </div>
-
-            <button
-                class="button primary full"
-                style="margin-top:10px"
-                onclick="buyShopItem('ball',25)"
-            >
-                KOPEN
-            </button>
-
-        </div>
-
-
-        <div class="shop-card">
-
-            <div class="shop-icon">
-                ✨
-            </div>
-
-            <div class="shop-name">
-                Shiny Charm
-            </div>
-
-            <div class="shop-description">
-                Verhoog tijdelijk je kans
-                op speciale Creaturen.
-            </div>
-
-            <div class="shop-price">
-                🪙 250
-            </div>
-
-            <button
-                class="button primary full"
-                style="margin-top:10px"
-                onclick="buyShopItem('charm',250)"
-            >
-                KOPEN
-            </button>
-
-        </div>
-
-    `;
-
-}
-
-
-function buyShopItem(
-    item,
-    price
-) {
-
-    if (
-        GAME.player.coins <
-        price
-    ) {
-
-        showToast(
-            "🪙 Niet genoeg coins."
-        );
-
-        return;
-
-    }
-
-
-    GAME.player.coins -=
-        price;
-
-
-    if (
-        item === "ball"
-    ) {
-
-        GAME.player.balls++;
-
-        showToast(
-            "🎯 Creature Ball gekocht!"
-        );
-
-    }
-
-
-    if (
-        item === "charm"
-    ) {
-
-        GAME.player.charms++;
-
-        showToast(
-            "✨ Shiny Charm gekocht!"
-        );
-
-    }
-
-
-    saveGame();
-
-
-    updateAllUI();
-
-    renderInventory();
-
-}
-
-
-/* =========================================================
-   ACHIEVEMENTS
-   ========================================================= */
-
-function renderAchievements() {
-
-    const achievements = [
-
-        {
-            id:
-                "first",
-
-            name:
-                "Eerste vangst",
-
-            description:
-                "Vang je eerste Creature.",
-
-            icon:
-                "🌱",
-
-            done:
-                GAME.creatures.caught.length >= 1
-
-        },
-
-        {
-            id:
-                "five",
-
-            name:
-                "Creature Collector",
-
-            description:
-                "Vang 5 Creaturen.",
-
-            icon:
-                "🐾",
-
-            done:
-                GAME.creatures.caught.length >= 5
-
-        },
-
-        {
-            id:
-                "ten",
-
-            name:
-                "Expert Explorer",
-
-            description:
-                "Vang 10 Creaturen.",
-
-            icon:
-                "🔥",
-
-            done:
-                GAME.creatures.caught.length >= 10
-
-        },
-
-        {
-            id:
-                "shiny",
-
-            name:
-                "Shiny Hunter",
-
-            description:
-                "Vang een Shiny Creature.",
-
-            icon:
-                "✨",
-
-            done:
-                GAME.quests.shiny >= 1
-
-        }
-
-    ];
-
-
-    achievements.forEach(
-        achievement => {
-
-            if (
-                achievement.done &&
-                !GAME.achievements.includes(
-                    achievement.id
-                )
-            ) {
-
-                GAME.achievements.push(
-                    achievement.id
-                );
-
-                GAME.player.coins +=
-                    50;
-
-            }
-
-        }
-    );
-
-
-    saveGame();
-
-
-    $("achievementList").innerHTML =
-        achievements
-        .map(
-            achievement => {
-
-                const unlocked =
-                    GAME.achievements
-                    .includes(
-                        achievement.id
-                    );
-
-
-                return `
-
-                    <div
-                        class="glass-card"
-                        style="
-                            display:flex;
-                            gap:12px;
-                            align-items:center;
-                            margin-bottom:8px;
-                            opacity:
-                                ${unlocked ? 1 : .45};
-                        "
-                    >
-
-                        <div
-                            style="
-                                width:50px;
-                                height:50px;
-                                display:flex;
-                                align-items:center;
-                                justify-content:center;
-                                border-radius:15px;
-                                background:
-                                    rgba(118,103,255,.1);
-                                font-size:25px;
-                            "
-                        >
-                            ${achievement.icon}
-                        </div>
-
-
-                        <div style="flex:1">
-
-                            <div
-                                style="
-                                    font-size:11px;
-                                    font-weight:900;
-                                "
-                            >
-                                ${achievement.name}
-                            </div>
-
-                            <div
-                                style="
-                                    margin-top:4px;
-                                    color:var(--text-muted);
-                                    font-size:9px;
-                                "
-                            >
-                                ${achievement.description}
-                            </div>
-
-                        </div>
-
-
-                        <div>
-                            ${unlocked ? "✅" : "🔒"}
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-        )
-        .join("");
-
-}
-
-
-/* =========================================================
-   MAP INITIALIZATION
-   ========================================================= */
-
-function initializeMap() {
-
-    if (
-        typeof L === "undefined"
-    ) {
-
-        showMapFallback(
-            "De kaartbibliotheek kon niet worden geladen."
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        MAP =
-            L.map(
-                "map",
-                {
-                    zoomControl:
-                        false,
-
-                    attributionControl:
-                        true,
-
-                    preferCanvas:
-                        true
-                }
-            );
-
-
-        const tileLayer =
-            L.tileLayer(
-
-                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-
-                {
-
-                    maxZoom:
-                        19,
-
-                    minZoom:
-                        3,
-
-                    attribution:
-                        "&copy; OpenStreetMap contributors",
-
-                    crossOrigin:
-                        true
-
-                }
-
-            );
-
-
-        tileLayer.on(
-            "load",
-            () => {
-
-                $("mapFallback").style.display =
-                    "none";
-
-            }
-        );
-
-
-        tileLayer.on(
-            "tileerror",
-            () => {
-
-                console.warn(
-                    "Een kaarttegel kon niet worden geladen."
-                );
-
-            }
-        );
-
-
-        tileLayer.addTo(
-            MAP
-        );
-
-
-        MAP.setView(
-            [
-                50.949,
-                5.770
-            ],
-            15
-        );
-
-
-        initializePlayerMarker();
-
-
-        locatePlayer();
-
-
-        showToast(
-            "🗺️ Kaart geladen!"
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Map initialization error:",
-            error
-        );
-
-
-        showMapFallback(
-            "Er ging iets mis bij het starten van de kaart."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   MAP FALLBACK
-   ========================================================= */
-
-function showMapFallback(message) {
-
-    $("mapFallback").style.display =
-        "flex";
-
-
-    const paragraph =
-        $("mapFallback")
-        .querySelector("p");
-
-
-    if (paragraph) {
-
-        paragraph.textContent =
-            message;
-
-    }
-
-}
-
-
-/* =========================================================
-   PLAYER MARKER
-   ========================================================= */
-
-function initializePlayerMarker() {
-
-    if (!MAP)
-        return;
-
-
-    const icon =
-        L.divIcon({
-
-            className:
-                "player-icon",
-
-            html: `
-
-                <div
-                    class="player-marker-wrapper"
-                >
-
-                    <div
-                        class="player-range"
-                    ></div>
-
-                    <div
-                        class="player-marker"
-                    >
-                        🧑
-                    </div>
-
-                </div>
-
-            `,
-
-            iconSize:
-                [72,72],
-
-            iconAnchor:
-                [36,36]
-
-        });
-
-
-    PLAYER_MARKER =
-        L.marker(
-            MAP.getCenter(),
-            {
-                icon:
-                    icon,
-
-                interactive:
-                    false
-            }
-        )
-        .addTo(
-            MAP
-        );
-
-
-    PLAYER_RANGE =
-        L.circle(
-            MAP.getCenter(),
-            {
-                radius:
-                    GAME_CONFIG.catchRadius,
-
-                color:
-                    "#7667ff",
-
-                weight:
-                    2,
-
-                opacity:
-                    .45,
-
-                fillColor:
-                    "#7667ff",
-
-                fillOpacity:
-                    .04,
-
-                interactive:
-                    false
-            }
-        )
-        .addTo(
-            MAP
-        );
-
-}
-
-
-/* =========================================================
-   GPS
-   ========================================================= */
-
-function locatePlayer() {
-
-    if (!MAP)
-        return;
-
-
-    if (
-        !navigator.geolocation
-    ) {
-
-        setLocationStatus(
-            "⚠️ GPS niet beschikbaar"
-        );
-
-
-        useDemoLocation();
-
-
-        return;
-
-    }
-
-
-    setLocationStatus(
-        "📍 Locatie zoeken..."
-    );
-
-
-    navigator.geolocation.getCurrentPosition(
-
-        position => {
-
-            const lat =
-                position.coords.latitude;
-
-
-            const lng =
-                position.coords.longitude;
-
-
-            const accuracy =
-                position.coords.accuracy;
-
-
-            GAME.location.lat =
-                lat;
-
-
-            GAME.location.lng =
-                lng;
-
-
-            GAME.location.accuracy =
-                accuracy;
-
-
-            GAME.location.hasGPS =
-                true;
-
-
-            const positionLatLng =
-                L.latLng(
-                    lat,
-                    lng
-                );
-
-
-            PLAYER_MARKER
-                .setLatLng(
-                    positionLatLng
-                );
-
-
-            PLAYER_RANGE
-                .setLatLng(
-                    positionLatLng
-                );
-
-
-            MAP.setView(
-                positionLatLng,
-                17,
-                {
-                    animate:
-                        true
-                }
-            );
-
-
-            setLocationStatus(
-                "📍 GPS actief"
-            );
-
-
-            saveGame();
-
-
-            startGPSWatch();
-
-
-        },
-
-        error => {
-
-            console.warn(
-                "GPS error:",
-                error
-            );
-
-
-            setLocationStatus(
-                "📍 Demo-locatie"
-            );
-
-
-            useDemoLocation();
-
-
-        },
-
-        {
-
-            enableHighAccuracy:
-                true,
-
-            timeout:
-                10000,
-
-            maximumAge:
-                5000
-
-        }
-
-    );
-
-}
-
-
-/* =========================================================
-   DEMO LOCATION
-   ========================================================= */
-
-function useDemoLocation() {
-
-    if (!MAP)
-        return;
-
-
-    const center =
-        MAP.getCenter();
-
-
-    GAME.location.lat =
-        center.lat;
-
-
-    GAME.location.lng =
-        center.lng;
-
-
-    GAME.location.hasGPS =
-        false;
-
-
-    PLAYER_MARKER
-        .setLatLng(
-            center
-        );
-
-
-    PLAYER_RANGE
-        .setLatLng(
-            center
-        );
-
-
-    saveGame();
-
-
-}
-
-
-/* =========================================================
-   GPS WATCH
-   ========================================================= */
-
-function startGPSWatch() {
-
-    if (
-        GPS_WATCH_ID !== null
-    )
-        return;
-
-
-    if (
-        !navigator.geolocation
-    )
-        return;
-
-
-    GPS_WATCH_ID =
-        navigator.geolocation.watchPosition(
-
-            position => {
-
-                const lat =
-                    position.coords.latitude;
-
-
-                const lng =
-                    position.coords.longitude;
-
-
-                const accuracy =
-                    position.coords.accuracy;
-
-
-                GAME.location.lat =
-                    lat;
-
-
-                GAME.location.lng =
-                    lng;
-
-
-                GAME.location.accuracy =
-                    accuracy;
-
-
-                GAME.location.hasGPS =
-                    true;
-
-
-                const pos =
-                    L.latLng(
-                        lat,
-                        lng
-                    );
-
-
-                if (
-                    PLAYER_MARKER
-                ) {
-
-                    PLAYER_MARKER
-                        .setLatLng(
-                            pos
-                        );
-
-                }
-
-
-                if (
-                    PLAYER_RANGE
-                ) {
-
-                    PLAYER_RANGE
-                        .setLatLng(
-                            pos
-                        );
-
-                }
-
-
-                setLocationStatus(
-                    "📍 GPS actief · ±" +
-                    Math.round(
-                        accuracy
-                    ) +
-                    "m"
-                );
-
-
-            },
-
-            error => {
-
-                console.warn(
-                    "GPS watch:",
-                    error
-                );
-
-            },
-
-            {
-
-                enableHighAccuracy:
-                    true,
-
-                maximumAge:
-                    3000,
-
-                timeout:
-                    10000
-
-            }
-
-        );
-
-}
-
-
-/* =========================================================
-   LOCATION STATUS
-   ========================================================= */
-
-function setLocationStatus(
-    text
-) {
-
-    $("locationStatus")
-        .textContent =
-        text;
-
-}
-
-
-/* =========================================================
-   CREATURE SPAWN PLACEHOLDER
-   ========================================================= */
-
-function respawnCreatures() {
-
-    if (!MAP) {
-
-        showToast(
-            "🗺️ Kaart is nog niet klaar."
-        );
-
-        return;
-
-    }
-
-
-    clearCreatureMarkers();
-
-
-    const amount =
-        Math.max(
-            1,
-            Math.min(
-                100,
-                Number(
-                    $("spawnAmountInput")
-                    .value
-                ) ||
-                GAME_CONFIG.defaultSpawnAmount
-            )
-        );
-
-
-    /*
-        DE GROTE CREATURE ENGINE KOMT HIER.
-
-        In het volgende deel wordt dit
-        vervangen door de echte Creature
-        database, rarity, types, shiny
-        system, zones, encounter engine,
-        catch animation enzovoort.
-    */
-
-
-    showToast(
-        "🐾 Spawn engine klaar voor Creaturen database."
-    );
-
-}
-
-
-function clearCreatureMarkers() {
-
-    CREATURE_MARKERS
-        .forEach(
-            marker => {
-
-                if (
-                    MAP.hasLayer(
-                        marker
-                    )
-                ) {
-
-                    MAP.removeLayer(
-                        marker
-                    );
-
-                }
-
-            }
-        );
-
-
-    CREATURE_MARKERS =
-        [];
-
-}
-
-
-/* =========================================================
-   DUMMY CREATURE
-   ========================================================= */
-
-function createDemoCreature() {
-
-    if (!MAP)
-        return;
-
-
-    const center =
-        PLAYER_MARKER
-        ? PLAYER_MARKER.getLatLng()
-        : MAP.getCenter();
-
-
-    const point =
-        randomPoint(
-            center,
-            500
-        );
-
-
-    const icon =
-        L.divIcon({
-
-            className:
-                "creature-icon",
-
-            html: `
-
-                <div
-                    class="creature-marker"
-                >
-
-                    <div
-                        class="creature-marker-orb"
-                    >
-                        🐾
-                    </div>
-
-                    <div
-                        class="creature-marker-name"
-                    >
-                        Mystery
-                    </div>
-
-                </div>
-
-            `,
-
-            iconSize:
-                [72,84],
-
-            iconAnchor:
-                [36,42]
-
-        });
-
-
-    const marker =
-        L.marker(
-            point,
-            {
-                icon:
-                    icon
-            }
-        )
-        .addTo(
-            MAP
-        );
-
-
-    marker.on(
-        "click",
-        () => {
-
-            showToast(
-                "🐾 De echte Creature Engine komt in het volgende deel."
-            );
-
-        }
-    );
-
-
-    CREATURE_MARKERS.push(
-        marker
-    );
-
-}
-
-
-/* =========================================================
-   RANDOM MAP POINT
-   ========================================================= */
-
-function randomPoint(
-    center,
-    radiusMeters
-) {
-
-    const radius =
-        radiusMeters /
-        111300;
-
-
-    const u =
-        Math.random();
-
-
-    const v =
-        Math.random();
-
-
-    const w =
-        radius *
-        Math.sqrt(
-            u
-        );
-
-
-    const t =
-        2 *
-        Math.PI *
-        v;
-
-
-    const lat =
-        center.lat +
-        w *
-        Math.cos(
-            t
-        );
-
-
-    const lng =
-        center.lng +
-        (
-            w *
-            Math.sin(t)
-        ) /
-        Math.cos(
-            center.lat *
-            Math.PI /
-            180
-        );
-
-
-    return L.latLng(
-        lat,
-        lng
-    );
-
-}
-
-
-/* =========================================================
-   DEX PLACEHOLDER
-   ========================================================= */
-
-function renderDex() {
-
-    /*
-        De echte grote Creature database
-        wordt straks apart toegevoegd.
-    */
-
-
-    $("dexSubtitle")
-        .textContent =
-        GAME.creatures.caught.length +
-        " Creaturen ontdekt";
-
-
-    $("dexGrid").innerHTML = `
-
-        <div class="glass-card">
-
-            <div
-                style="
-                    text-align:center;
-                    font-size:45px;
-                    margin-bottom:10px;
-                "
-            >
-                🐾
-            </div>
-
-            <div
-                style="
-                    text-align:center;
-                    font-size:11px;
-                    font-weight:900;
-                "
-            >
-                Creature Database
-            </div>
-
-            <div
-                style="
-                    text-align:center;
-                    margin-top:6px;
-                    color:var(--text-muted);
-                    font-size:9px;
-                "
-            >
-                De uitgebreide Creaturen-Dex
-                wordt hier aangesloten.
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   CATCH PLACEHOLDER
-   ========================================================= */
-
-function catchSelectedCreature() {
-
-    if (
-        !SELECTED_CREATURE
-    ) {
-
-        showToast(
-            "Er is geen Creature geselecteerd."
-        );
-
-        return;
-
-    }
-
-
-    /*
-        De echte catch engine komt
-        in het volgende deel.
-    */
-
-}
-
-
-/* =========================================================
-   GAME START CHECK
-   ========================================================= */
-
-updateAllUI();
-
-
-console.log(
-    "Creaturen World geladen — versie " +
-    GAME_CONFIG.version
+========================= */
+
+$("#addFriendButton")
+.addEventListener(
+"click",
+addFriend
 );
 
 
-</script>
+function addFriend(){
+
+const input =
+$("#friendInput");
+
+const name =
+input.value.trim();
 
 
-<!-- =========================================================
-     LEAFLET SCRIPT
-     ========================================================= -->
+if(!name){
 
-<script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-></script>
-
-
-<script>
-
-/*
-    Leaflet wordt na het hoofdscript geladen.
-
-    Als de gebruiker op START drukt voordat
-    Leaflet beschikbaar is, initializeMap()
-    detecteert dit en toont de fallback.
-*/
-
-
-console.log(
-    "Leaflet geladen:",
-    typeof L !== "undefined"
+showToast(
+"⚠️ Vul een naam in."
 );
 
-</script>
+return;
 
+}
+
+
+if(
+state.friends.includes(name)
+){
+
+showToast(
+"Deze speler staat al bij je vrienden."
+);
+
+return;
+
+}
+
+
+state.friends.push(name);
+
+input.value="";
+
+save();
+
+renderFriends();
+
+showToast(
+"👥 Vriend toegevoegd!"
+);
+
+}
+
+
+function renderFriends(){
+
+const container =
+$("#friendsList");
+
+container.innerHTML="";
+
+
+if(state.friends.length===0){
+
+container.innerHTML = `
+
+<div class="monsterCard">
+
+<div class="monsterEmoji">
+👥
+</div>
+
+<h3>
+Nog geen vrienden
+</h3>
+
+<p>
+Voeg spelers toe aan je vriendenlijst.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+state.friends.forEach(
+(friend,index)=>{
+
+const row =
+document.createElement("div");
+
+row.className =
+"friend";
+
+row.innerHTML = `
+
+<div class="friendAvatar">
+🙂
+</div>
+
+<div class="friendInfo">
+
+<b>
+${escapeHTML(friend)}
+</b>
+
+<br>
+
+<small>
+🟢 Online
+</small>
+
+</div>
+
+<button
+class="closeButton"
+data-remove-friend="${index}"
+>
+✕
+</button>
+
+`;
+
+container.appendChild(row);
+
+});
+
+
+$$("[data-remove-friend]")
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+()=>{
+
+const index =
+Number(button.dataset.removeFriend);
+
+state.friends.splice(index,1);
+
+save();
+
+renderFriends();
+
+});
+
+});
+
+}
+
+
+/* =========================
+   ADMIN LOGIN
+========================= */
+
+$("#openAdminButton")
+.addEventListener("click",()=>{
+
+const code =
+prompt("Voer de admin code in:");
+
+if(code==="5676"){
+
+$("#adminPanel")
+.classList.add("open");
+
+showToast(
+"🔓 Adminpaneel geopend."
+);
+
+}else{
+
+if(code!==null){
+
+showToast(
+"❌ Verkeerde admin code."
+);
+
+}
+
+}
+
+});
+
+
+$("#closeAdmin")
+.addEventListener(
+"click",
+()=>{
+
+$("#adminPanel")
+.classList.remove("open");
+
+}
+);
+
+
+/* =========================
+   ADMIN TABS
+========================= */
+
+$$(".adminTab").forEach(tab=>{
+
+tab.addEventListener("click",()=>{
+
+$$(".adminTab").forEach(
+t=>t.classList.remove("active")
+);
+
+tab.classList.add("active");
+
+$$(".adminSection")
+.forEach(
+section =>
+section.classList.remove("active")
+);
+
+const target =
+tab.dataset.admin;
+
+$("#"+target)
+.classList.add("active");
+
+});
+
+});
+
+
+/* =========================
+   ADMIN MONSTERS
+========================= */
+
+function renderAdminMonsters(){
+
+const container =
+$("#adminMonsterList");
+
+container.innerHTML="";
+
+
+MONSTERS.forEach(monster=>{
+
+const row =
+document.createElement("div");
+
+row.className =
+"adminEvent";
+
+row.innerHTML = `
+
+<div>
+
+<b>
+${monster.emoji}
+${monster.name}
+</b>
+
+<br>
+
+<small style="color:#8190a5">
+${monster.type}
+•
+Power ${monster.power}
+•
+${monster.rarity}
+</small>
+
+</div>
+
+<button
+class="primaryButton"
+data-admin-spawn="${monster.id}"
+>
+SPAWN
+</button>
+
+`;
+
+container.appendChild(row);
+
+});
+
+
+$$("[data-admin-spawn]")
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+()=>{
+
+const monster =
+MONSTERS.find(
+m=>m.id===button.dataset.adminSpawn
+);
+
+if(monster){
+
+spawnMonsterAtRandom(monster);
+
+showToast(
+"👾 "+monster.name+" gespawned!"
+);
+
+}
+
+});
+
+});
+
+}
+
+
+/* =========================================================
+   MAP ENGINE
+========================================================= */
+
+const canvas =
+$("#mapCanvas");
+
+const ctx =
+canvas.getContext("2d");
+
+
+let map = {
+
+x:0,
+
+y:0,
+
+zoom:1
+
+};
+
+
+let dragging=false;
+
+let dragStartX=0;
+
+let dragStartY=0;
+
+let mapStartX=0;
+
+let mapStartY=0;
+
+
+/* =========================
+   CANVAS RESIZE
+========================= */
+
+function resizeCanvas(){
+
+const rect =
+canvas.getBoundingClientRect();
+
+const dpr =
+window.devicePixelRatio || 1;
+
+canvas.width =
+rect.width*dpr;
+
+canvas.height =
+rect.height*dpr;
+
+ctx.setTransform(
+dpr,
+0,
+0,
+dpr,
+0,
+0
+);
+
+drawMap();
+
+}
+
+
+window.addEventListener(
+"resize",
+resizeCanvas
+);
+
+
+/* =========================
+   MAP DRAW
+========================= */
+
+function drawMap(){
+
+const width =
+canvas.clientWidth;
+
+const height =
+canvas.clientHeight;
+
+
+if(!width || !height)return;
+
+
+ctx.clearRect(
+0,
+0,
+width,
+height
+);
+
+
+/* GRASS */
+
+ctx.fillStyle =
+"#b8d792";
+
+ctx.fillRect(
+0,
+0,
+width,
+height
+);
+
+
+/* GRID */
+
+const grid =
+80*map.zoom;
+
+for(
+let x=-grid;
+x<width+grid;
+x+=grid
+){
+
+for(
+let y=-grid;
+y<height+grid;
+y+=grid
+){
+
+ctx.fillStyle =
+(
+Math.floor(x/grid)+
+Math.floor(y/grid)
+)%2===0
+?
+"#b9d996"
+:
+"#b2cf8d";
+
+ctx.fillRect(
+x+
+(map.x*width*map.zoom)%grid,
+y+
+(map.y*height*map.zoom)%grid,
+grid+1,
+grid+1
+);
+
+}
+
+}
+
+
+/* RIVER */
+
+ctx.strokeStyle =
+"#6fb8d4";
+
+ctx.lineWidth=45;
+
+ctx.lineCap="round";
+
+ctx.beginPath();
+
+ctx.moveTo(
+-100,
+height*.20
+);
+
+ctx.bezierCurveTo(
+width*.25,
+height*.35,
+width*.45,
+height*.08,
+width*.72,
+height*.35
+);
+
+ctx.bezierCurveTo(
+width*.85,
+height*.48,
+width*.92,
+height*.30,
+width+100,
+height*.45
+);
+
+ctx.stroke();
+
+
+ctx.strokeStyle =
+"#91d3e6";
+
+ctx.lineWidth=31;
+
+ctx.stroke();
+
+
+/* ROADS */
+
+drawRoad(
+-100,
+height*.55,
+width+100,
+height*.48
+);
+
+drawRoad(
+width*.65,
+-100,
+width*.58,
+height+100
+);
+
+
+/* PARKS */
+
+drawPark(
+width*.17,
+height*.27,
+90
+);
+
+drawPark(
+width*.78,
+height*.72,
+100
+);
+
+drawPark(
+width*.38,
+height*.80,
+65
+);
+
+
+/* BUILDINGS */
+
+for(
+let i=0;
+i<30;
+i++
+){
+
+const bx =
+(i*137)%width;
+
+const by =
+(i*83)%height;
+
+ctx.fillStyle =
+"#d8d5c7";
+
+ctx.fillRect(
+bx,
+by,
+45+(i%3)*12,
+32+(i%2)*10
+);
+
+ctx.fillStyle =
+"#9f806b";
+
+ctx.fillRect(
+bx,
+by,
+45+(i%3)*12,
+8
+);
+
+}
+
+
+/* POI */
+
+drawPOI(
+width*.22,
+height*.46,
+"🏪"
+);
+
+drawPOI(
+width*.72,
+height*.30,
+"🏥"
+);
+
+drawPOI(
+width*.48,
+height*.67,
+"🏛️"
+);
+
+drawPOI(
+width*.85,
+height*.58,
+"🌳"
+);
+
+
+/* MONSTERS */
+
+monsterSpawns.forEach(
+spawn=>{
+
+const position =
+worldToScreen(
+spawn.x,
+spawn.y
+);
+
+if(
+position.x>-50 &&
+position.x<width+50 &&
+position.y>-50 &&
+position.y<height+50
+){
+
+ctx.beginPath();
+
+ctx.fillStyle="#ffffffdd";
+
+ctx.arc(
+position.x,
+position.y,
+27,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+ctx.font="30px Arial";
+
+ctx.textAlign="center";
+
+ctx.textBaseline="middle";
+
+ctx.fillText(
+spawn.monster.emoji,
+position.x,
+position.y
+);
+
+ctx.font="11px Arial";
+
+ctx.fillStyle="#172033";
+
+ctx.fillText(
+spawn.monster.name,
+position.x,
+position.y+40
+);
+
+}
+
+});
+
+
+/* PLAYER */
+
+const player =
+worldToScreen(
+.5,
+.55
+);
+
+
+ctx.beginPath();
+
+ctx.fillStyle="#5d7cff33";
+
+ctx.arc(
+player.x,
+player.y,
+38,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+
+ctx.beginPath();
+
+ctx.fillStyle="#5d7cff";
+
+ctx.arc(
+player.x,
+player.y,
+12,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+ctx.strokeStyle="white";
+
+ctx.lineWidth=4;
+
+ctx.stroke();
+
+}
+
+
+/* =========================
+   ROAD
+========================= */
+
+function drawRoad(
+x1,y1,x2,y2
+){
+
+ctx.strokeStyle =
+"#d7c493";
+
+ctx.lineWidth=25;
+
+ctx.beginPath();
+
+ctx.moveTo(
+x1,y1
+);
+
+ctx.lineTo(
+x2,y2
+);
+
+ctx.stroke();
+
+
+ctx.strokeStyle =
+"#ead9a8";
+
+ctx.lineWidth=16;
+
+ctx.beginPath();
+
+ctx.moveTo(
+x1,y1
+);
+
+ctx.lineTo(
+x2,y2
+);
+
+ctx.stroke();
+
+}
+
+
+/* =========================
+   PARK
+========================= */
+
+function drawPark(
+x,
+y,
+radius
+){
+
+ctx.fillStyle =
+"#8fbd70";
+
+ctx.beginPath();
+
+ctx.arc(
+x,
+y,
+radius,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+
+for(
+let i=0;
+i<8;
+i++
+){
+
+ctx.fillStyle =
+"#5d9960";
+
+ctx.beginPath();
+
+ctx.arc(
+x+Math.sin(i)*radius*.6,
+y+Math.cos(i)*radius*.6,
+10,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+}
+
+}
+
+
+/* =========================
+   POI
+========================= */
+
+function drawPOI(
+x,
+y,
+emoji
+){
+
+ctx.beginPath();
+
+ctx.fillStyle="white";
+
+ctx.arc(
+x,
+y,
+23,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+ctx.font="22px Arial";
+
+ctx.textAlign="center";
+
+ctx.textBaseline="middle";
+
+ctx.fillText(
+emoji,
+x,
+y
+);
+
+}
+
+
+/* =========================
+   WORLD COORDINATES
+========================= */
+
+function worldToScreen(
+x,
+y
+){
+
+const width =
+canvas.clientWidth;
+
+const height =
+canvas.clientHeight;
+
+
+return {
+
+x:
+(x-map.x)*
+width*
+map.zoom+
+width/2,
+
+y:
+(y-map.y)*
+height*
+map.zoom+
+height/2
+
+};
+
+}
+
+
+/* =========================
+   MONSTER SPAWNS
+========================= */
+
+let monsterSpawns=[];
+
+
+function randomMonster(){
+
+const random =
+Math.random();
+
+if(random<.55){
+
+return MONSTERS[
+Math.floor(
+Math.random()*3
+)
+];
+
+}
+
+if(random<.82){
+
+return MONSTERS[
+3+
+Math.floor(
+Math.random()*3
+)
+];
+
+}
+
+if(random<.97){
+
+return MONSTERS[
+6+
+Math.floor(
+Math.random()*2
+)
+];
+
+}
+
+return MONSTERS[
+8+
+Math.floor(
+Math.random()*2
+)
+];
+
+}
+
+
+function generateMonsterSpawns(){
+
+monsterSpawns=[];
+
+for(
+let i=0;
+i<10;
+i++
+){
+
+monsterSpawns.push({
+
+x:.10+
+Math.random()*.80,
+
+y:.10+
+Math.random()*.80,
+
+monster:
+randomMonster()
+
+});
+
+}
+
+drawMap();
+
+}
+
+
+function spawnMonsterAtRandom(
+monster
+){
+
+monsterSpawns.push({
+
+x:.10+
+Math.random()*.80,
+
+y:.10+
+Math.random()*.80,
+
+monster:monster
+
+});
+
+drawMap();
+
+}
+
+
+/* =========================
+   MAP DRAG
+========================= */
+
+canvas.addEventListener(
+"pointerdown",
+event=>{
+
+dragging=true;
+
+canvas.classList.add(
+"dragging"
+);
+
+dragStartX =
+event.clientX;
+
+dragStartY =
+event.clientY;
+
+mapStartX =
+map.x;
+
+mapStartY =
+map.y;
+
+canvas.setPointerCapture(
+event.pointerId
+);
+
+});
+
+
+canvas.addEventListener(
+"pointermove",
+event=>{
+
+if(!dragging)return;
+
+const width =
+canvas.clientWidth;
+
+const height =
+canvas.clientHeight;
+
+
+map.x =
+mapStartX-
+(
+event.clientX-dragStartX
+)/
+(
+width*map.zoom
+);
+
+
+map.y =
+mapStartY-
+(
+event.clientY-dragStartY
+)/
+(
+height*map.zoom
+);
+
+
+drawMap();
+
+});
+
+
+canvas.addEventListener(
+"pointerup",
+()=>{
+
+dragging=false;
+
+canvas.classList.remove(
+"dragging"
+);
+
+});
+
+
+/* =========================
+   MAP CLICK
+========================= */
+
+canvas.addEventListener(
+"click",
+event=>{
+
+const rect =
+canvas.getBoundingClientRect();
+
+const clickX =
+event.clientX-
+rect.left;
+
+const clickY =
+event.clientY-
+rect.top;
+
+
+let closest=null;
+
+let closestDistance=55;
+
+
+monsterSpawns.forEach(
+spawn=>{
+
+const position =
+worldToScreen(
+spawn.x,
+spawn.y
+);
+
+const distance =
+Math.hypot(
+position.x-clickX,
+position.y-clickY
+);
+
+if(
+distance<closestDistance
+){
+
+closestDistance=
+distance;
+
+closest=
+spawn;
+
+}
+
+});
+
+
+if(closest){
+
+openEncounter(
+closest.monster,
+closest
+);
+
+}
+
+});
+
+
+/* =========================
+   ZOOM
+========================= */
+
+$("#zoomIn").addEventListener(
+"click",
+()=>{
+
+map.zoom =
+Math.min(
+2.5,
+map.zoom*1.2
+);
+
+drawMap();
+
+});
+
+
+$("#zoomOut").addEventListener(
+"click",
+()=>{
+
+map.zoom =
+Math.max(
+.65,
+map.zoom/1.2
+);
+
+drawMap();
+
+});
+
+
+$("#centerMap").addEventListener(
+"click",
+()=>{
+
+map.x=0;
+
+map.y=0;
+
+map.zoom=1;
+
+drawMap();
+
+showToast(
+"⌾ Kaart gecentreerd"
+);
+
+});
+
+
+/* =========================
+   LOCATION
+========================= */
+
+$("#locationButton")
+.addEventListener(
+"click",
+()=>{
+
+if(!navigator.geolocation){
+
+showToast(
+"📍 Locatie wordt niet ondersteund."
+);
+
+return;
+
+}
+
+
+navigator.geolocation.getCurrentPosition(
+
+()=>{
+
+showToast(
+"📍 Locatie gevonden!"
+);
+
+map.x=0;
+
+map.y=0;
+
+drawMap();
+
+},
+
+()=>{
+
+showToast(
+"⚠️ Locatie kon niet worden opgehaald."
+);
+
+}
+
+);
+
+});
+
+
+/* =========================
+   ENCOUNTER
+========================= */
+
+let currentEncounter=null;
+
+
+function openEncounter(
+monster,
+spawn
+){
+
+currentEncounter={
+monster:monster,
+spawn:spawn
+};
+
+
+$("#encounterName")
+.textContent=
+monster.name;
+
+$("#encounterEmoji")
+.textContent=
+monster.emoji;
+
+$("#encounterType")
+.textContent=
+monster.type;
+
+$("#encounterPower")
+.textContent=
+monster.power;
+
+$("#encounterLevel")
+.textContent=
+state.level;
+
+$("#encounterRarity")
+.textContent=
+monster.rarity.toUpperCase();
+
+
+$("#encounter")
+.classList.add("open");
+
+}
+
+
+$("#closeEncounter")
+.addEventListener(
+"click",
+()=>{
+
+$("#encounter")
+.classList.remove("open");
+
+currentEncounter=null;
+
+});
+
+
+/* =========================
+   CATCH
+========================= */
+
+$("#catchButton")
+.addEventListener(
+"click",
+()=>{
+
+if(!currentEncounter)return;
+
+
+const monster =
+currentEncounter.monster;
+
+let chance;
+
+
+if(
+monster.rarity==="Legendary"
+){
+
+chance=.40;
+
+}else if(
+monster.rarity==="Epic"
+){
+
+chance=.60;
+
+}else if(
+monster.rarity==="Rare"
+){
+
+chance=.78;
+
+}else{
+
+chance=.90;
+
+}
+
+
+if(
+Math.random()<chance
+){
+
+state.caught.push(
+monster.id
+);
+
+const xp =
+monster.rarity==="Legendary"
+?70
+:monster.rarity==="Epic"
+?45
+:monster.rarity==="Rare"
+?30
+:20;
+
+
+addXP(xp);
+
+state.coins +=
+monster.rarity==="Legendary"
+?100
+:25;
+
+
+const index =
+monsterSpawns.indexOf(
+currentEncounter.spawn
+);
+
+if(index!==-1){
+
+monsterSpawns.splice(
+index,
+1
+);
+
+}
+
+
+save();
+
+updateUI();
+
+drawMap();
+
+$("#encounter")
+.classList.remove("open");
+
+showToast(
+"🎉 "+monster.name+
+" gevangen! +"+xp+" XP"
+);
+
+currentEncounter=null;
+
+}else{
+
+showToast(
+"💨 "+monster.name+
+" ontsnapte!"
+);
+
+}
+
+});
+
+
+/* =========================
+   ADMIN WORLD
+========================= */
+
+$("#spawnMonsterButton")
+.addEventListener(
+"click",
+()=>{
+
+const monster =
+randomMonster();
+
+spawnMonsterAtRandom(
+monster
+);
+
+showToast(
+"👾 "+monster.name+
+" gespawned!"
+);
+
+});
+
+
+$("#clearMonstersButton")
+.addEventListener(
+"click",
+()=>{
+
+monsterSpawns=[];
+
+drawMap();
+
+showToast(
+"🧹 Alle monsters verwijderd."
+);
+
+});
+
+
+$("#spawnRate")
+.addEventListener(
+"input",
+event=>{
+
+state.spawnRate =
+Number(event.target.value);
+
+save();
+
+});
+
+
+/* =========================
+   AUTOMATIC SPAWNS
+========================= */
+
+setInterval(
+()=>{
+
+if(!state.started)return;
+
+const chance =
+Math.random()*100;
+
+if(
+chance <
+state.spawnRate/5
+){
+
+spawnMonsterAtRandom(
+randomMonster()
+);
+
+}
+
+},
+3500
+);
+
+
+/* =========================
+   HTML SECURITY
+========================= */
+
+function escapeHTML(
+text
+){
+
+return String(text)
+.replace(
+/[&<>"']/g,
+character=>{
+
+const map={
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+};
+
+return map[character];
+
+});
+
+}
+
+
+/* =========================
+   INITIALISE
+========================= */
+
+window.addEventListener(
+"load",
+()=>{
+
+resizeCanvas();
+
+generateMonsterSpawns();
+
+updateUI();
+
+});
+
+</script>
 
 </body>
-            </html>
+    </html>
